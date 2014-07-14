@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Generator
+Bundle-SymbolicName: ac.soton.eventb.atomicitydecomposition.generator
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: ac.soton.eventb.atomicitydecomposition.generator.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
