@@ -8,7 +8,6 @@ import org.eventb.emf.core.EventBElement;
 import org.eventb.emf.core.machine.Machine;
 
 import ac.soton.eventb.atomicitydecomposition.All;
-import ac.soton.eventb.atomicitydecomposition.Child;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
 import ac.soton.eventb.atomicitydecomposition.Leaf;
 import ac.soton.eventb.atomicitydecomposition.Loop;
@@ -22,45 +21,46 @@ import ac.soton.eventb.emf.diagrams.generator.GenerationDescriptor;
 import ac.soton.eventb.emf.diagrams.generator.IRule;
 import ac.soton.eventb.emf.diagrams.generator.utils.Make;
 
-public class TR_leaf0_nlLeaf_var extends AbstractRule  implements IRule {
+public class TR_leaf2_nrnpLeaf_tInv extends AbstractRule  implements IRule {
 	
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
 		Leaf sourceLeaf = (Leaf) sourceElement;
-		return (!(sourceLeaf.eContainer() instanceof Loop))  &&
-				(sourceLeaf.getDecompose().isEmpty());
+		FlowDiagram parentFlow = Utils.getParentFlow(sourceLeaf);
+		return sourceLeaf.getDecompose().isEmpty() &&
+				!(sourceLeaf.eContainer() instanceof All) && //non All leaf
+				!(sourceLeaf.eContainer() instanceof Some) && //non some leaf
+				!(sourceLeaf.eContainer() instanceof One) && //non one leaf
+				!(sourceLeaf.eContainer() instanceof Par) && //non par leaf
+				!(sourceLeaf.eContainer() instanceof Loop) && //non loop leaf
+				Utils.predecessor(sourceLeaf, parentFlow.getParameters(), parentFlow.isSw()) == null;
 	}
 
 	
 	/**
-	 * Transforms leaf to Initialisation Action
+	 * TR_leaf2, Transform a non-replicator leaf without a predecessor node to a typing invariant
 	 */
 	@Override
 	public List<GenerationDescriptor> fire(EventBElement sourceElement, List<GenerationDescriptor> generatedElements) throws Exception {
 		List<GenerationDescriptor> ret = new ArrayList<GenerationDescriptor>();
 		Leaf sourceLeaf = (Leaf) sourceElement;
 		String name = Strings.ACT_ + sourceLeaf.getName(); 
-		String action = generateAction(sourceLeaf);
+		String predicate = generateInvariant(sourceLeaf);
 			
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 	
-		ret.add(Make.descriptor(Utils.getInitialisationEvent(container), actions, Make.action(name, action), 10));
+		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 10));
 		
 		return ret;
 		
 	}
 	
-	private String generateAction(Leaf l){
-		Child parentChild = Utils.getParentChild(l);
+	private String generateInvariant(Leaf l){
 		FlowDiagram parentFlow = Utils.getParentFlow(l);
-		if(parentFlow.getParameters().isEmpty() && 
-				!(parentChild instanceof All) &&
-				!(parentChild instanceof Some) &&
-				!(parentChild instanceof One) &&
-				!(parentChild instanceof Par))
-			return l.getName() + Strings.B_BEQ + Strings.B_FALSE;
+		if(parentFlow.getParameters().isEmpty())
+			return l.getName() + Strings.B_IN + Strings.B_BOOL;
 		else
-			return l.getName() + Strings.B_BEQ + Strings.B_EMPTYSET;
+			return l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFlow.getParameters());
 			
 	}
 	

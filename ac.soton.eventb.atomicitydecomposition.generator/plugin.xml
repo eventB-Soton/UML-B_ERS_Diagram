@@ -59,6 +59,17 @@
                rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_leaf0_nlLeaf_var"
                source_class="Leaf">
           </rule>
+          <rule
+               name="TR_leaf1_nlLeaf_var"
+               rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_leaf1_nlLeaf_var"
+               source_class="Leaf">
+          </rule>
+          <rule
+               name="TR_leaf2_nrnpLeaf_tInv"
+               rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_leaf2_nrnpLeaf_tInv"
+               source_class="Leaf">
+          </rule>
+              
               
      </generator>
 	</extension>
