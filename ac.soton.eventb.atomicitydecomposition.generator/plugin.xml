@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+	<extension
+      name="EventB Diagrams"
+      point="org.eclipse.ui.menus">
+    <menuContribution
+        	allPopups="true"
+        	locationURI="popup:org.eclipse.ui.popup.any">
+     		<command
+           		  commandId="ac.soton.eventb.atomicitydecomposition.generate"
+           		  icon="icons/UtoBJ.png"
+           		  label="generate"
+         		  style="push">
+		     </command>	
+  		</menuContribution>
+	</extension>
+	
+	<extension
+     	point="org.eclipse.ui.commands">
+  		<command
+       		 description="command.description.generate"
+      	 	 id="ac.soton.eventb.atomicitydecomposition.generate"
+       		 name="command.name.generate">
+ 	    </command>
+  	</extension>
+
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="ac.soton.eventb.atomicitydecomposition.generator.actions.GenerateAction"
+            commandId="ac.soton.eventb.atomicitydecomposition.generate">
+         <enabledWhen>
+            <and>
+               <with
+                     variable="activeEditor">
+                  <instanceof
+                        value="ac.soton.eventb.roseEditor.RoseEditor">
+                  </instanceof>
+               </with>
+            </and>
+         </enabledWhen>
+      </handler>
+     </extension>
+     
+     
+
+     <extension
+         id="ac.soton.eventb.emf.diagrams.generator"
+         point="ac.soton.eventb.emf.diagrams.generator.rule">
+      <generator
+            generatorID="ac.soton.eventb.atomicitydecomposition.generator"
+            name="Atomicity Decomposition Generator"
+            root_source_class="FlowDiagram"
+            sourcePackage="http://soton.ac.uk/models/eventb/atomicitydecomposition">
+          <rule
+               name="TR_leaf0_nlLeaf_var"
+               rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_leaf0_nlLeaf_var"
+               source_class="Leaf">
+          </rule>
+              
+     </generator>
+	</extension>
+
+	
+	
+	
+</plugin>
