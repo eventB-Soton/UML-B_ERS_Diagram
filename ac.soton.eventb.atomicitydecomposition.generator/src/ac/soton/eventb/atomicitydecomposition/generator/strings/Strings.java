@@ -73,6 +73,7 @@ public class Strings {
 	public static String LEAVE_   = "leave_";
 	public static String _TYPE   = "_type";
 	public static String ACT_   = "act_";
+	public static String INV_   = "inv_";
 	
 	// context name
 	public static String _IMPLICIT_CONTEXT   = "_implicitContext";

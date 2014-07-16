@@ -32,9 +32,7 @@ public class TR_leaf1_nlLeaf_var extends AbstractRule implements IRule {
 	public List<GenerationDescriptor> fire(EventBElement sourceElement, List<GenerationDescriptor> generatedElements) throws Exception {
 		List<GenerationDescriptor> ret = new ArrayList<GenerationDescriptor>();
 		Leaf sourceLeaf = (Leaf) sourceElement;
-		
-		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
-	
+		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);	
 		ret.add(Make.descriptor(container, variables, Make.variable(sourceLeaf.getName(), ""), 10));	
 		return ret;
 		

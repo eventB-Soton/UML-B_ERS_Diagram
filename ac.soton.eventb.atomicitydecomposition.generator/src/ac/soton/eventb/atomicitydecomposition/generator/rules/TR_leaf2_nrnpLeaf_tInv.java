@@ -44,7 +44,7 @@ public class TR_leaf2_nrnpLeaf_tInv extends AbstractRule  implements IRule {
 	public List<GenerationDescriptor> fire(EventBElement sourceElement, List<GenerationDescriptor> generatedElements) throws Exception {
 		List<GenerationDescriptor> ret = new ArrayList<GenerationDescriptor>();
 		Leaf sourceLeaf = (Leaf) sourceElement;
-		String name = Strings.ACT_ + sourceLeaf.getName(); 
+		String name = Strings.INV_ + sourceLeaf.getName() + Strings._TYPE; 
 		String predicate = generateInvariant(sourceLeaf);
 			
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
@@ -57,8 +57,10 @@ public class TR_leaf2_nrnpLeaf_tInv extends AbstractRule  implements IRule {
 	
 	private String generateInvariant(Leaf l){
 		FlowDiagram parentFlow = Utils.getParentFlow(l);
+		// SI case
 		if(parentFlow.getParameters().isEmpty())
 			return l.getName() + Strings.B_IN + Strings.B_BOOL;
+		//MI case
 		else
 			return l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFlow.getParameters());
 			
