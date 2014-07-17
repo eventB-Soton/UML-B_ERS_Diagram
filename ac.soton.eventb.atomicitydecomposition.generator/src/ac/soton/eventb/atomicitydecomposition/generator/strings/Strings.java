@@ -40,6 +40,8 @@ public class Strings {
 	public static String B_RPAR   = ")";
 	public static String B_LBRC   = "{";
 	public static String B_RBRC   = "}";
+	public static String B_LSQBRC   = "[";
+	public static String B_RSQBRC   = "]";
 	public static String B_COM   = ", ";
 	public static String B_FORALL   = "\u2200";
 	public static String B_MIDDOT   = "\u00B7";
@@ -54,11 +56,13 @@ public class Strings {
 	public static String B_TFUN   = " \u2192 ";
 	public static String B_PFUN   = " \u2900 ";
 	public static String B_DOM   = "dom";
+	public static String B_RAN   = "ran";
 	public static String B_RANSUB   = " \u2A65 ";
 	public static String B_RANRES   = " \u25B7 ";
 	public static String B_CPROD   = " \u00D7 ";
 	public static String B_PARTITION = " partition";
-
+	public static String B_MAPLET = " \u21A6 ";
+	
 	// generated names & labels
 	public static String _STATES   = "_STATES";
 	public static String _NULL   = "_NULL";
@@ -74,6 +78,7 @@ public class Strings {
 	public static String _TYPE   = "_type";
 	public static String ACT_   = "act_";
 	public static String INV_   = "inv_";
+	public static String _SEQ   = "_seq";
 	
 	// context name
 	public static String _IMPLICIT_CONTEXT   = "_implicitContext";
