@@ -845,5 +845,14 @@ public class Utils {
 			return null;
 
 	}
-
+	
+	public static String getParMaplet(List<TypedParameterExpression> parList){
+		List<String> expression = new ArrayList<String>();
+		for(TypedParameterExpression tp : parList){
+			expression.add(tp.getName());
+		}
+		
+		return toString(expression, Strings.B_MAPLET);
+		
+	}
 }

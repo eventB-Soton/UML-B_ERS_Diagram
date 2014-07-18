@@ -81,6 +81,7 @@ public class Strings {
 	public static String _SEQ   = "_seq";
 	public static String _GLU   = "_glu";
 	public static String GRD_SEQ   = "grd_seq";
+	public static String GRD_SELF   = "grd_self";
 	
 	
 	// context name
