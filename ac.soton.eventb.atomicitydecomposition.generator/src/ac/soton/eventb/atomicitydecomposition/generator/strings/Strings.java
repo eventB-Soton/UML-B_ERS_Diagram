@@ -80,6 +80,8 @@ public class Strings {
 	public static String INV_   = "inv_";
 	public static String _SEQ   = "_seq";
 	public static String _GLU   = "_glu";
+	public static String GRD_SEQ   = "grd_seq";
+	
 	
 	// context name
 	public static String _IMPLICIT_CONTEXT   = "_implicitContext";

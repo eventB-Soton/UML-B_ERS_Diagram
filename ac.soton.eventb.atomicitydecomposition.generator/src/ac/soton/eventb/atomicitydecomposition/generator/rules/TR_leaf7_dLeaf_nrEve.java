@@ -33,7 +33,7 @@ public class TR_leaf7_dLeaf_nrEve extends AbstractRule  implements IRule {
 
 		
 	/**
-	 * TR_leaf6, Transform a dashed leaf to a non-refining event with parameters
+	 * TR_leaf7, Transform a dashed leaf to a non-refining event with parameters
 	 */
 	@Override
 	public List<GenerationDescriptor> fire(EventBElement sourceElement, List<GenerationDescriptor> generatedElements) throws Exception {

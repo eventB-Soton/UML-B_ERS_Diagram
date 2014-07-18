@@ -518,7 +518,7 @@ public class Utils {
 	}
 	
 	public static ArrayList<String> merg_and_inv(ArrayList<ArrayList<String>> invSet){
-		ArrayList<String> firstEle = new ArrayList<String>();
+		//ArrayList<String> firstEle = new ArrayList<String>();
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 		ArrayList<String> mergeResult = new ArrayList<String>();
 
@@ -602,7 +602,7 @@ public class Utils {
 	
 	
 	public static ArrayList<String> merg_or_inv(ArrayList<ArrayList<String>> invSet){
-		ArrayList<String> firstEle = new ArrayList<String>();
+		//ArrayList<String> firstEle = new ArrayList<String>();
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 		ArrayList<String> mergeResult = new ArrayList<String>();
 
@@ -695,5 +695,155 @@ public class Utils {
 			return "NOT SUPPORTED";
 	}
 	
+	public static String build_seq_grd(Child pred, List<TypedParameterExpression> predParList, Leaf l, List<TypedParameterExpression> parList, boolean loop){
+		if(pred instanceof Leaf && ((Leaf) pred).getDecompose().isEmpty())
+			return seq_grd((Leaf) pred, predParList, l, parList);
+		// And
+		else if(pred instanceof And){
+			List<String> expressions =  new ArrayList<String>();
+			for(Child ch : ((And) pred).getAndLink()){
+				expressions.add(build_seq_grd(ch, predParList, l, parList, false));
+			}
+			return Utils.parenthesize(Utils.toString(expressions, Strings.B_AND));
+		}
+		else if(pred instanceof Or){
+			List<String> expressions =  new ArrayList<String>();
+			for(Child ch : ((Or) pred).getOrLink()){
+				expressions.add(build_seq_grd(ch, predParList, l, parList, false));
+			}
+			return Utils.parenthesize(Utils.toString(expressions, Strings.B_OR));
+		}
+		else if(pred instanceof Xor){
+			List<String> expressions =  new ArrayList<String>();
+			for(Child ch : ((Xor) pred).getXorLink()){
+				expressions.add(build_seq_grd(ch, predParList, l, parList, false));
+			}
+			return Utils.parenthesize(Utils.toString(expressions, Strings.B_OR));
+		}
+		else if(pred instanceof All){
+			List<TypedParameterExpression> parSet = new ArrayList<TypedParameterExpression>();
+			parSet.addAll(parList);
+			parSet.add(((All) pred).getNewParameter());
+			return build_seq_grd(((All) pred).getAllLink(), parSet, l, parList, false);
+		}
+		else if(pred instanceof Some){
+			List<TypedParameterExpression> parSet = new ArrayList<TypedParameterExpression>();
+			parSet.addAll(parList);
+			parSet.add(((Some) pred).getNewParameter());
+			return build_seq_grd(((Some) pred).getSomeLink(), parSet, l, parList, false);
+		}
+		else if(pred instanceof One){
+			List<TypedParameterExpression> parSet = new ArrayList<TypedParameterExpression>();
+			parSet.addAll(parList);
+			parSet.add(((One) pred).getNewParameter());
+			return build_seq_grd(((One) pred).getOneLink(), parSet, l, parList, false);
+		}
+		//1*flow
+		else if(pred instanceof Leaf && ((Leaf)pred).getDecompose().size() > 0){
+			List<String> expressions = new ArrayList<String>();
+			for(FlowDiagram flw : ((Leaf)pred).getDecompose()){
+				if(flw.isSw() || loop)
+					expressions.add(build_seq_grd(flw.getRefine().get(flw.getRefine().size() - 1), predParList, l, parList, loop));
+				else{
+					for(Child ch : flw.getRefine())
+						if(ch.isRef()){
+							expressions.add(build_seq_grd(ch, predParList, l, parList, false));
+						}					
+				}	
+			}
+			return toString(expressions, Strings.B_OR);
+		}
+		return null;
+	}
 	
+	public static String seq_grd(Leaf e1, List<TypedParameterExpression> parList1, Leaf e2, List<TypedParameterExpression> parList2){
+		int n = parList1.size();
+		int m = parList2.size();
+
+		if(n == 0)
+			return e1.getName() + Strings.B_EQ + Strings.B_TRUE;
+		else if(n != 0 && m == 0 && allReplicatorPar(e1, 0, n-1).size() == 0)
+			return e1.getName() + Strings.B_NEQ + Strings.B_EMPTYSET;
+		else if(n != 0 && m == 0 && allReplicatorPar(e1, 0, n-1).size() != 0){
+			List<String> expressions = new ArrayList<String>();
+			for(Integer k : allReplicatorPar(e1, 0, n-1))
+				if(parList1.get(k).getInputExpression().isEmpty())
+					expressions.add(getDomainRangeStr(e1.getName(), k, n) + Strings.B_EQ + parList1.get(k).getType());
+				else
+					expressions.add(getDomainRangeStr(e1.getName(), k, n) + Strings.B_EQ + parList1.get(k).getInputExpression());
+			return toString(expressions, Strings.B_AND);
+		}
+		else if(n != 0 && m != 0 && commonPar(e1, e2) == 0 && allReplicatorPar(e1, 0, n-1).size() == 0)
+			return e1.getName() + Strings.B_NEQ + Strings.B_EMPTYSET;
+		else if(n != 0 && m != 0 && commonPar(e1,e2) == 0 && allReplicatorPar(e1, 0, n-1).size() != 0){
+			boolean bool = false;
+
+			for(Integer i : allReplicatorPar(e1, 0, n-1)){
+				if(samePar(parList1.get(i).getType(), parList2) != 0){
+					bool = true;
+					break;
+				}
+			}
+
+			if(!bool){
+				List<String> expressions = new ArrayList<String>();
+				for(Integer k : allReplicatorPar(e1, 0, n-1))
+					if(parList1.get(k).getInputExpression().isEmpty())
+						expressions.add(getDomainRangeStr(e1.getName(), k, n) +  Strings.B_EQ + parList1.get(k).getType());
+					else
+						expressions.add(getDomainRangeStr(e1.getName(), k, n) +  Strings.B_EQ + parList1.get(k).getInputExpression());
+				return toString(expressions, Strings.B_AND);
+			}
+			else{
+				//				List<String> expressions = new ArrayList<String>();
+				//				int i = 0;
+				//				for(Integer l : samePar(allReplicatorPar(e1, 0, n-1), e2)){
+				//					expressions.add( getDomainRangeStr(e2.getName(), l) +  Strings.B_SUBSETEQ + getDomainRangeStr(e1.getName(), allReplicatorPar(e1, 0, n-1).get(i)));
+				//				}
+				//				String str = toString(expressions, Strings.B_AND);
+				//FIXME the first addition would cause an error if implemented as in previous version. get(0).toString() added, but not sure if right
+				return ( parList2.get(samePar(allReplicatorPar(e1, 0, n-1).get(0).toString(), parList2)).getName() + Strings.B_IN + 
+						getDomainRangeStr(e1.getName(), allReplicatorPar(e1, 0, n-1).get(0), n) );
+			}
+		}
+		else if(n != 0 && m != 0 && commonPar(e1, e2) != 0 && allReplicatorPar(e1, 0, n-1).size() == 0){
+			String str = "";
+			if(commonPar(e1, e2) > 0){
+				List<String> expressions = new ArrayList<String>();
+				for(int i = 0 ; i < commonPar(e1, e2) ; i++){
+					expressions.add(parList2.get(i).getName());
+				}
+				str = toString(expressions, Strings.B_MAPLET);
+			}
+			return str + Strings.B_IN + getDomainStr(e1.getName(), commonPar(e1, e2), n);
+		}
+		else if(n != 0 && m != 0 && commonPar(e1, e2) != 0 && allReplicatorPar(e1, commonPar(e1, e2), n-1).size() != 0){
+			int commonPar = commonPar(e1, e2);
+			List<String> expressions = new ArrayList<String>();
+
+			for(Integer j : allReplicatorPar(e1, commonPar, n-1)){
+				String str =  getDomainStr(e1.getName(), j+1, n) +  Strings.B_LSQBRC + Strings.B_LBRC;
+
+				List<String> expressions2 = new ArrayList<String>();
+				for(int i = 0 ; i < j ; i++){
+					expressions2.add(parList1.get(i).getName());
+				}
+				str = str.concat(toString(expressions2, Strings.B_MAPLET));
+
+				if(parList1.get(j).getInputExpression().isEmpty())
+					str = str.concat( Strings.B_RBRC + Strings.B_RSQBRC+ Strings.B_EQ + parList1.get(j).getType());
+				else
+					str = str.concat( Strings.B_RBRC + Strings.B_RSQBRC+ Strings.B_EQ + parList1.get(j).getInputExpression());
+
+				expressions.add(str);
+
+			}
+
+			return toString(expressions, Strings.B_AND);
+		}
+		else
+			return null;
+
+	}
+
 }
