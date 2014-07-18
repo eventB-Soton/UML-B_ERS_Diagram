@@ -49,7 +49,7 @@ public class TR_leaf2_nrnpLeaf_tInv extends AbstractRule  implements IRule {
 			
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 	
-		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 10));
+		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 1));
 		
 		return ret;
 		

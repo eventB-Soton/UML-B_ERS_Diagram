@@ -21,6 +21,7 @@ import ac.soton.eventb.atomicitydecomposition.generator.utils.Utils;
 import ac.soton.eventb.emf.diagrams.generator.AbstractRule;
 import ac.soton.eventb.emf.diagrams.generator.GenerationDescriptor;
 import ac.soton.eventb.emf.diagrams.generator.IRule;
+import ac.soton.eventb.emf.diagrams.generator.utils.Find;
 import ac.soton.eventb.emf.diagrams.generator.utils.Make;
 
 public class TR_leaf4_pLeaf_sInv extends AbstractRule  implements IRule {
@@ -34,6 +35,48 @@ public class TR_leaf4_pLeaf_sInv extends AbstractRule  implements IRule {
 				Utils.predecessor(sourceLeaf, parentFlow.getParameters(), parentFlow.isSw()) != null;
 	}
 
+	//TODO add dependency on previously typed variable
+	@Override
+	public boolean dependenciesOK(EventBElement sourceElement, final List<GenerationDescriptor> generatedElements) throws Exception  {
+		Leaf sourceLeaf = (Leaf) sourceElement;		
+		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
+		
+		
+		FlowDiagram parentFlow = Utils.getParentFlow(sourceLeaf);
+		Child parentChild = Utils.getParentChild(sourceLeaf);
+		
+		List<Object> pred = Utils.predecessor(sourceLeaf, parentFlow.getParameters(), parentFlow.isSw());
+		List<TypedParameterExpression> par = new ArrayList<TypedParameterExpression>();
+		
+		par.addAll(parentFlow.getParameters());
+		
+		if(parentChild instanceof All){
+			par.add( ((All)parentChild).getNewParameter() );
+		}
+		else if(parentChild instanceof Some){
+			par.add( ((Some)parentChild).getNewParameter() );
+		}
+		else if(parentChild instanceof One){
+			par.add( ((One)parentChild).getNewParameter() );
+		}
+		else if(parentChild instanceof Par){
+			par.add( ((Par)parentChild).getNewParameter() );
+		}
+
+		String mustBeTypedBefore = Utils.build_seq_inv((Child)pred.get(0), (List<TypedParameterExpression>)pred.get(1) , sourceLeaf, par).get(2);
+	
+		/**
+		 * FIXME Ordering problems
+		 */
+		System.out.println(mustBeTypedBefore);
+		return true;//Find.generatedElement(generatedElements, container, invariants, Strings.INV_ + mustBeTypedBefore + Strings._SEQ) != null || 
+				//Find.generatedElement(generatedElements, container, invariants, Strings.INV_ + mustBeTypedBefore + Strings._TYPE) != null;
+				
+		
+	}
+
+	
+	
 	
 	/**
 	 * TR_leaf2, Transform a non-replicator leaf without a predecessor node to a typing invariant
@@ -68,10 +111,11 @@ public class TR_leaf4_pLeaf_sInv extends AbstractRule  implements IRule {
 		}
 
 		
+		@SuppressWarnings("unchecked")
 		String predicate = Utils.build_seq_inv_string(Utils.build_seq_inv((Child)pred.get(0), (List<TypedParameterExpression>)pred.get(1) , sourceLeaf, par));
 		
-		
-		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 10));
+		//Must be placed in inverse order so depencies come before
+		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), -10));
 		
 		return ret;
 		

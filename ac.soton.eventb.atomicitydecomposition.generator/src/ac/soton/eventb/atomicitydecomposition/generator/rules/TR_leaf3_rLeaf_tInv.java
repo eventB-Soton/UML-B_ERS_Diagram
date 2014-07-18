@@ -47,8 +47,8 @@ public class TR_leaf3_rLeaf_tInv extends AbstractRule implements IRule {
 		
 		String predicate = generatePredicate(sourceLeaf);
 		
-		
-		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 10));	
+		System.out.println(predicate);
+		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 1));	
 		return ret;
 		
 	}

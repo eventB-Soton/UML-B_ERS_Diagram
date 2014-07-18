@@ -1,11 +1,9 @@
 package ac.soton.eventb.atomicitydecomposition.generator.utils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.swt.events.TypedEvent;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Machine;
 
@@ -22,7 +20,6 @@ import ac.soton.eventb.atomicitydecomposition.Some;
 import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
 import ac.soton.eventb.atomicitydecomposition.Xor;
 import ac.soton.eventb.atomicitydecomposition.generator.strings.Strings;
-import ac.soton.eventb.emf.core.extension.coreextension.Type;
 
 public class Utils {
 	
@@ -360,7 +357,6 @@ public class Utils {
 		//8
 		else if(n != 0 && m != 0 && commonPar(e1, e2) != 0 && allReplicatorPar(e1, 0, n-1).size() == 0){
 			result.add("8");
-			System.out.println(8 + " e2 -> " + e2.getName() + "; e1 -> " + e1.getName() + " ; common ->" + commonPar(e1, e2) );
 			result.add(getDomainStr(e2.getName(), commonPar(e1, e2), m));
 			result.add(getDomainStr(e1.getName(), commonPar(e1, e2), n));
 		}
@@ -439,7 +435,6 @@ public class Utils {
 	
 	public static String getDomainStr(String eveName, Integer index, Integer n){
 		String str = "";
-		System.out.println(eveName);
 		if(n > index){
 			for(int i = 1 ; i < n-index+1 ; i++)
 				str = str.concat(Strings.B_DOM + Strings.B_LPAR);
@@ -448,9 +443,9 @@ public class Utils {
 		
 		if(n > index){
 			for(int i = 1 ; i < n-index+1 ; i++)
-				str = str.concat(Strings.B_LPAR);
+				str = str.concat(Strings.B_RPAR);
 		}
-		System.out.println("->> "+ str);
+		
 		return str;
 		
 	}
@@ -482,10 +477,10 @@ public class Utils {
 			
 			if(n > index){
 				for(int i = 1 ; i < n-index+1 ; i++)
-					str = str.concat(Strings.B_LPAR);
+					str = str.concat(Strings.B_RPAR);
 			}
 			
-			str = str.concat(Strings.B_LPAR);
+			str = str.concat(Strings.B_RPAR);
 			return str;
 		}
 		else 
