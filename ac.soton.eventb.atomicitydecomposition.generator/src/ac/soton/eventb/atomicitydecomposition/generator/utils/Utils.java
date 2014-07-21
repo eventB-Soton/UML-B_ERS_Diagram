@@ -888,7 +888,6 @@ public class Utils {
 		int max = 0;
 		//So to search in the ones in the Event-B model and the generated ones
 		List<Invariant> allInvariants = new ArrayList<Invariant>();
-		allInvariants.addAll(container.getInvariants());
 		for(GenerationDescriptor gd : generatedElements){
 			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
 				allInvariants.add((Invariant)gd.value);
