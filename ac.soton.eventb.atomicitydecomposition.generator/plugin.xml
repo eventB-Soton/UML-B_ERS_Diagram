@@ -109,7 +109,11 @@
                rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_leaf10_rLeaf_dGrd"
                source_class="Leaf">
           </rule>                          
-           
+          <rule
+               name="TR_InputExpression_rLeaf_dGrd"
+               rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_InputExpression_rLeaf_dGrd"
+               source_class="Leaf">
+          </rule>               
      </generator>
 	</extension>
 

@@ -82,6 +82,7 @@ public class Strings {
 	public static String _GLU   = "_glu";
 	public static String GRD_SEQ   = "grd_seq";
 	public static String GRD_SELF   = "grd_self";
+	public static String GRD_INPUTEXPRESSION   = "grd_InputExpression";
 	
 	
 	// context name

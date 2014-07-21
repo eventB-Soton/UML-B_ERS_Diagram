@@ -861,4 +861,27 @@ public class Utils {
 		return toString(expression, Strings.B_MAPLET);
 		
 	}
+
+	//Dana: Check if ancestor is a replicator 
+	public static List<Child> repAncestor(Leaf sourceLeaf) {
+		List<Child> result = new ArrayList<Child>();
+		Child node = sourceLeaf;
+		
+		while(true){
+			if(node.eContainer() instanceof One || node.eContainer() instanceof All || node.eContainer() instanceof Some){
+				result.add((Child) node.eContainer());
+			}
+			FlowDiagram parentFlow = getParentFlow(node);
+			Child parentChild = getParentChild(node);
+			if((parentFlow.isSw() && parentChild == parentFlow.getRefine().get(0)) || 
+					(!parentFlow.isSw() && parentChild.isRef()))
+				if(parentFlow.eContainer() instanceof Machine)
+					break;
+				else
+					node = (Child) parentFlow.eContainer();
+			else
+				break;
+		}
+		return result;
+	}
 }
