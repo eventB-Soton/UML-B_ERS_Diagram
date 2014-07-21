@@ -884,9 +884,9 @@ public class Utils {
 		return result;
 	}
 
-	public static int getInvXorGluIndex(Machine container, List<GenerationDescriptor> generatedElements) {
+	public static int getInvXorGluIndex(List<GenerationDescriptor> generatedElements) {
 		int max = 0;
-		//So to search in the ones in the Event-B model and the generated ones
+		
 		List<Invariant> allInvariants = new ArrayList<Invariant>();
 		for(GenerationDescriptor gd : generatedElements){
 			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
@@ -901,5 +901,150 @@ public class Utils {
 		
 		
 		return max;
+	}
+
+	public static int getInvXorIndex(List<GenerationDescriptor> generatedElements) {
+		int max = 0;
+
+		List<Invariant> allInvariants = new ArrayList<Invariant>();
+		for(GenerationDescriptor gd : generatedElements){
+			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
+				allInvariants.add((Invariant)gd.value);
+		}
+
+		for(Invariant i :allInvariants){
+			int temp;
+			if(i.getName().endsWith(Strings.XOR) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
+				max = temp;
+		}
+		return max;
+	}
+
+	public static String disjunction_of_leaves(Child ch, int parNum) {
+		if((ch instanceof Leaf) && ((Leaf)ch).getDecompose().isEmpty()){
+			if(parNum == 0)
+				return ((Leaf)ch).getName();
+			else
+				return ((Leaf)ch).getName() + Strings.B_NEQ + Strings.B_EMPTYSET;
+						
+		}
+		else if(ch instanceof And){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((And) ch).getAndLink()){
+				expressions.add(disjunction_of_leaves(ich, parNum));
+			}
+			return toString(expressions, Strings.B_OR);
+		}
+		else if(ch instanceof Or){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((Or) ch).getOrLink()){
+				expressions.add(disjunction_of_leaves(ich, parNum));
+			}
+			return toString(expressions, Strings.B_OR);
+		}
+		else if(ch instanceof Xor){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((Xor) ch).getXorLink()){
+				expressions.add(disjunction_of_leaves(ich, parNum));
+			}
+			return toString(expressions, Strings.B_OR);
+		}
+		else if(ch instanceof All)
+			return disjunction_of_leaves(((All) ch).getAllLink(), parNum+1);
+		else if(ch instanceof Some)
+			return disjunction_of_leaves(((Some) ch).getSomeLink(), parNum+1);
+		else if(ch instanceof One)
+			return disjunction_of_leaves(((One) ch).getOneLink(), parNum+1);
+		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
+			List<String> expressions = new ArrayList<String>();
+			for(FlowDiagram flw : ((Leaf)ch).getDecompose()){
+				//strong sequencing flow, select the first child
+				if(flw.isSw())
+					expressions.add(disjunction_of_leaves(flw.getRefine().get(0), parNum));
+				//weak sequencing flow, select the solid child
+				else{
+					for(Child ich : flw.getRefine()){
+						if(ich.isRef()){
+							expressions.add(disjunction_of_leaves(ich, parNum));
+							break;
+						}
+							
+					}
+				}		
+			}
+			
+			return toString(expressions, Strings.B_OR);
+		}
+		return "ERROR: Should have not reached this situation";
+	}
+
+	
+	
+	
+	public static String union_of_leaves(Child ch, int n) {
+		if((ch instanceof Leaf) && ((Leaf)ch).getDecompose().isEmpty()){
+			String str = ""; 
+			if(n > 0){
+				for(int i = 1 ; i <= n ; i++){
+					str = str.concat(Strings.B_DOM + Strings.B_LPAR);
+				}
+				str = str.concat(((Leaf)ch).getName());
+				for(int i = 1 ; i <= n ; i++){
+					str = str.concat(Strings.B_RPAR);
+				}
+				
+			}
+			else
+				str = str.concat(((Leaf)ch).getName());
+		}
+		else if(ch instanceof And){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((And) ch).getAndLink()){
+				expressions.add(disjunction_of_leaves(ich, n));
+			}
+			return toString(expressions, Strings.B_UNION);
+		}
+		else if(ch instanceof Or){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((Or) ch).getOrLink()){
+				expressions.add(disjunction_of_leaves(ich, n));
+			}
+			return toString(expressions, Strings.B_UNION);
+		}
+		else if(ch instanceof Xor){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((Xor) ch).getXorLink()){
+				expressions.add(disjunction_of_leaves(ich, n));
+			}
+			return toString(expressions, Strings.B_UNION);
+		}
+		else if(ch instanceof All)
+			return disjunction_of_leaves(((All) ch).getAllLink(), n+1);
+		else if(ch instanceof Some)
+			return disjunction_of_leaves(((Some) ch).getSomeLink(), n+1);
+		else if(ch instanceof One)
+			return disjunction_of_leaves(((One) ch).getOneLink(), n+1);
+		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
+			List<String> expressions = new ArrayList<String>();
+			for(FlowDiagram flw : ((Leaf)ch).getDecompose()){
+				//strong sequencing flow, select the first child
+				if(flw.isSw())
+					expressions.add(disjunction_of_leaves(flw.getRefine().get(0), n));
+				//weak sequencing flow, select the solid child
+				else{
+					for(Child ich : flw.getRefine()){
+						if(ich.isRef()){
+							expressions.add(disjunction_of_leaves(ich, n));
+							break;
+						}
+							
+					}
+				}		
+			}
+			
+			return toString(expressions, Strings.B_UNION);
+		}
+		return "ERROR: Should have not reached this situation";
+
 	}
 }

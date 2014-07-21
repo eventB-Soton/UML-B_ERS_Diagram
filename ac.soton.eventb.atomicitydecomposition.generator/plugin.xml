@@ -128,7 +128,12 @@
                name="TR_xor1_sXor_gInv"
                rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_xor1_sXor_gInv"
                source_class="Xor">
-          </rule>                                          
+          </rule>
+          <rule
+               name="TR_xor2_sxor_xInv"
+               rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_xor2_sxor_xInv"
+               source_class="Xor">
+          </rule>                                                    
      </generator>
 	</extension>
 

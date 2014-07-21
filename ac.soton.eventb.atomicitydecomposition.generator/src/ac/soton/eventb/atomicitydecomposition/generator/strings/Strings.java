@@ -36,6 +36,7 @@ public class Strings {
 	public static String B_NOT   = " \u00AC ";
 	public static String B_AND   = " \u2227 ";
 	public static String B_OR   = " \u2228 ";
+	public static String B_XOR   = " xor ";
 	public static String B_LPAR   = "(";
 	public static String B_RPAR   = ")";
 	public static String B_LBRC   = "{";
