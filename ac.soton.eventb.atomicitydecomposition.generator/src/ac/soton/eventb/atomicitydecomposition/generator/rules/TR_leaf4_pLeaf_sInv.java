@@ -109,7 +109,6 @@ public class TR_leaf4_pLeaf_sInv extends AbstractRule  implements IRule {
 			par.add( ((Par)parentChild).getNewParameter() );
 		}
 
-		
 		@SuppressWarnings("unchecked")
 		String predicate = Utils.build_seq_inv_string(Utils.build_seq_inv((Child)pred.get(0), (List<TypedParameterExpression>)pred.get(1) , sourceLeaf, par));
 		

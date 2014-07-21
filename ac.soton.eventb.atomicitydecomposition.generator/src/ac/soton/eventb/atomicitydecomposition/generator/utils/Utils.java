@@ -82,7 +82,8 @@ public class Utils {
 		FlowDiagram parent = getParentFlow(ch);
 		List<Child> sibiling = parent.getRefine();
 		int i = sibiling.indexOf(getParentChild(ch));
-		
+		if(ch instanceof Leaf && i > 0)
+			System.out.println(((Leaf)ch).getName() + " " + i + " "  + sibiling.get(i-1) + " " + sw);
 		if(i > 0){
 			Child prev = sibiling.get(i-1);
 			if(!((prev instanceof Loop) || (prev instanceof Par))){
@@ -99,12 +100,16 @@ public class Utils {
 			if(!sw)
 				return null;
 			else{
-				if(isAbstractFlow(parent))
+				if(isAbstractFlow(parent)){
+					if(ch instanceof Leaf )
+						System.out.println(((Leaf)ch).getName() +  "Even though I shouldn't, I am here");
 					return null;
+				}
 				else{
 					if ((parent instanceof All) || (parent instanceof Some) || (parent instanceof One)){
 						ArrayList<TypedParameterExpression> noNewPar = new ArrayList<TypedParameterExpression>();
 						if(parent instanceof All){
+							System.out.println("I am Here");
 							All allParent = (All) parent;
 							for(TypedParameterExpression p : parList){
 								if(!p.equals(allParent.getNewParameter()))
@@ -299,7 +304,7 @@ public class Utils {
 			result.add(e1.getName() + Strings.B_EQ + Strings.B_EMPTYSET);
 		}
 		//4
-		else if(n != 0 && m == 0 && allReplicatorPar(e1, 0, n-1).size() == 0){
+	else if(n != 0 && m == 0 && allReplicatorPar(e1, 0, n-1).size() != 0){
 			result.add("4");
 			System.out.println(4);
 			ArrayList<String> expressions = new ArrayList<String>();
@@ -691,8 +696,9 @@ public class Utils {
 		else if (inv.get(0).equals("7") || inv.get(0).equals("8")){
 			return inv.get(1) + Strings.B_SUBSETEQ + inv.get(2);
 		}
-		else
-			return "NOT SUPPORTED";
+		else{
+			return inv.get(0) + " NOT SUPPORTED";
+		}
 	}
 	
 	public static String build_seq_grd(Child pred, List<TypedParameterExpression> predParList, Leaf l, List<TypedParameterExpression> parList, boolean loop){

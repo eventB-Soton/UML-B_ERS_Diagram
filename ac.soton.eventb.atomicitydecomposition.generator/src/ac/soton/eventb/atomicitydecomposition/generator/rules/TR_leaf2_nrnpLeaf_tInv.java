@@ -46,9 +46,8 @@ public class TR_leaf2_nrnpLeaf_tInv extends AbstractRule  implements IRule {
 		Leaf sourceLeaf = (Leaf) sourceElement;
 		String name = Strings.INV_ + sourceLeaf.getName() + Strings._TYPE; 
 		String predicate = generateInvariant(sourceLeaf);
-			
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
-	
+		
 		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 1));
 		
 		return ret;

@@ -26,11 +26,12 @@ public class TR_leaf3_rLeaf_tInv extends AbstractRule implements IRule {
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
 		Leaf sourceLeaf = (Leaf) sourceElement;
-		return 	(sourceLeaf.getDecompose().isEmpty()) &&
-				(sourceLeaf.eContainer() instanceof All) &&
-				(sourceLeaf.eContainer() instanceof Some) &&
-				(sourceLeaf.eContainer() instanceof One) &&
-				(sourceLeaf.eContainer() instanceof Par);
+		
+		return 	(sourceLeaf.getDecompose().isEmpty()) && (
+				(sourceLeaf.eContainer() instanceof All) ||
+				(sourceLeaf.eContainer() instanceof Some) ||
+				(sourceLeaf.eContainer() instanceof One) ||
+				(sourceLeaf.eContainer() instanceof Par));
 	}
 
 	
@@ -47,7 +48,6 @@ public class TR_leaf3_rLeaf_tInv extends AbstractRule implements IRule {
 		
 		String predicate = generatePredicate(sourceLeaf);
 		
-		System.out.println(predicate);
 		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 1));	
 		return ret;
 		
