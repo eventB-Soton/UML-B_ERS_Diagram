@@ -82,8 +82,7 @@ public class Utils {
 		FlowDiagram parent = getParentFlow(ch);
 		List<Child> sibiling = parent.getRefine();
 		int i = sibiling.indexOf(getParentChild(ch));
-		if(ch instanceof Leaf && i > 0)
-			System.out.println(((Leaf)ch).getName() + " " + i + " "  + sibiling.get(i-1) + " " + sw);
+		
 		if(i > 0){
 			Child prev = sibiling.get(i-1);
 			if(!((prev instanceof Loop) || (prev instanceof Par))){
@@ -101,15 +100,12 @@ public class Utils {
 				return null;
 			else{
 				if(isAbstractFlow(parent)){
-					if(ch instanceof Leaf )
-						System.out.println(((Leaf)ch).getName() +  "Even though I shouldn't, I am here");
 					return null;
 				}
 				else{
 					if ((parent instanceof All) || (parent instanceof Some) || (parent instanceof One)){
 						ArrayList<TypedParameterExpression> noNewPar = new ArrayList<TypedParameterExpression>();
 						if(parent instanceof All){
-							System.out.println("I am Here");
 							All allParent = (All) parent;
 							for(TypedParameterExpression p : parList){
 								if(!p.equals(allParent.getNewParameter()))
