@@ -41,11 +41,22 @@ public class TR_xor2_sxor_xInv extends AbstractRule  implements IRule {
 			
 			}
 		}
-
+		
+		//OR
+		
+//		List<Leaf> nonDecomposedLeafs = new ArrayList<Leaf>();
+//		for(Leaf l : sourceXor.getXorLink()){
+//			if(l.getDecompose().isEmpty())
+//				nonDecomposedLeafs.add(l);
+//		}
+		
+		
+		
 		
 		return (sourceXor.isRef() && //Xor with a solid line
 				//nonLeafs.size() != sourceXor.getXorLink().size()) || //all xor children are leaves, otherwise TR_xor2
 				nonLeafs.size() > 0) || //My suggestion
+				//or nonDecomposedLeafs.size() > 0 ||
 				!sourceXor.isRef();	// xor with a dashed line		
 	}
 	
