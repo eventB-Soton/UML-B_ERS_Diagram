@@ -78,6 +78,9 @@ public class Strings {
 	public static String _TYPE   = "_type";
 	public static String ACT_   = "act_";
 	public static String INV_   = "inv_";
+	public static String INV   = "inv";
+	public static String _XOR   = "_xor";
+	public static String XOR   = "xor";
 	public static String _SEQ   = "_seq";
 	public static String _GLU   = "_glu";
 	public static String GRD_SEQ   = "grd_seq";

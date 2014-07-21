@@ -5,7 +5,9 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eventb.emf.core.machine.Event;
+import org.eventb.emf.core.machine.Invariant;
 import org.eventb.emf.core.machine.Machine;
+import org.eventb.emf.core.machine.MachinePackage;
 
 import ac.soton.eventb.atomicitydecomposition.All;
 import ac.soton.eventb.atomicitydecomposition.And;
@@ -20,6 +22,7 @@ import ac.soton.eventb.atomicitydecomposition.Some;
 import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
 import ac.soton.eventb.atomicitydecomposition.Xor;
 import ac.soton.eventb.atomicitydecomposition.generator.strings.Strings;
+import ac.soton.eventb.emf.diagrams.generator.GenerationDescriptor;
 
 public class Utils {
 	
@@ -879,5 +882,25 @@ public class Utils {
 				break;
 		}
 		return result;
+	}
+
+	public static int getInvXorGluIndex(Machine container, List<GenerationDescriptor> generatedElements) {
+		int max = 0;
+		//So to search in the ones in the Event-B model and the generated ones
+		List<Invariant> allInvariants = new ArrayList<Invariant>();
+		allInvariants.addAll(container.getInvariants());
+		for(GenerationDescriptor gd : generatedElements){
+			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
+				allInvariants.add((Invariant)gd.value);
+		}
+			
+		for(Invariant i :allInvariants){
+			int temp;
+			if(i.getName().endsWith(Strings.XOR+Strings._GLU) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
+				max = temp;
+		}
+		
+		
+		return max;
 	}
 }
