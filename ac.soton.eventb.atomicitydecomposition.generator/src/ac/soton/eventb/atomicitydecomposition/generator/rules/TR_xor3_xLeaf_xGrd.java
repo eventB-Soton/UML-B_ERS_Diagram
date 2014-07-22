@@ -24,9 +24,6 @@ public class TR_xor3_xLeaf_xGrd extends AbstractRule  implements IRule {
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
 		Leaf sourceLeaf = (Leaf) sourceElement;
-		if(sourceLeaf.getName().equals("g"))
-			System.out.println("g ->" + (sourceLeaf.getDecompose().isEmpty() &&
-				!Utils.xorAncestors(sourceLeaf).isEmpty()));
 		return sourceLeaf.getDecompose().isEmpty() &&
 				!Utils.xorAncestors(sourceLeaf).isEmpty();
 						

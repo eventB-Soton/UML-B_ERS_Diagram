@@ -73,17 +73,17 @@ public class TR_leaf3_rLeaf_tInv extends AbstractRule implements IRule {
 				return l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
 						Strings.B_CPROD + ((All)l.eContainer()).getNewParameter().getType();
 			}
-			else if(l.eContainer() instanceof All){
+			else if(l.eContainer() instanceof Some){
 				return l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
-						Strings.B_CPROD + ((All)l.eContainer()).getNewParameter().getType();
+						Strings.B_CPROD + ((Some)l.eContainer()).getNewParameter().getType();
 			}
-			else if(l.eContainer() instanceof All){
+			else if(l.eContainer() instanceof One){
 				return l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
-						Strings.B_CPROD + ((All)l.eContainer()).getNewParameter().getType();
+						Strings.B_CPROD + ((One)l.eContainer()).getNewParameter().getType();
 			}
-			else if(l.eContainer() instanceof All){
+			else if(l.eContainer() instanceof Par){
 				return l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
-						Strings.B_CPROD + ((All)l.eContainer()).getNewParameter().getType();
+						Strings.B_CPROD + ((Par)l.eContainer()).getNewParameter().getType();
 			}
 		return null;
 	}

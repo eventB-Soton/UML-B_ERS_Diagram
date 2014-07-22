@@ -1141,4 +1141,23 @@ public class Utils {
 		}
 		return "ERROR: Should have not reached this situation";
 	}
+
+	public static int getPrevOneGluInvIndex(List<GenerationDescriptor> generatedElements) {
+		int max = 0;
+		
+		List<Invariant> allInvariants = new ArrayList<Invariant>();
+		for(GenerationDescriptor gd : generatedElements){
+			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
+				allInvariants.add((Invariant)gd.value);
+		}
+			
+		for(Invariant i :allInvariants){
+			int temp;
+			if(i.getName().matches(Strings.ONE + Strings._GLU) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
+				max = temp;
+		}
+		
+		
+		return max;
+	}
 }

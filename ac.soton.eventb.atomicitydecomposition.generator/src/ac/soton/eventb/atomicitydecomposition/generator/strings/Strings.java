@@ -82,6 +82,7 @@ public class Strings {
 	public static String INV   = "inv";
 	public static String _XOR   = "_xor";
 	public static String XOR   = "xor";
+	public static String ONE   = "one";
 	public static String _SEQ   = "_seq";
 	public static String _GLU   = "_glu";
 	public static String GRD_SEQ   = "grd_seq";
