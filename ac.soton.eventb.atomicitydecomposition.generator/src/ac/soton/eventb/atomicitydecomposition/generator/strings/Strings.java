@@ -26,6 +26,7 @@ public class Strings {
 
 	// math
 	public static String B_EQ   = " = ";
+	public static String B_LTEQ   = " \u2264 ";
 	public static String B_NEQ   = " \u2260 ";
 	public static String B_BEQ   = " \u2254 ";
 	public static String B_IN   = " \u2208 ";
@@ -57,6 +58,7 @@ public class Strings {
 	public static String B_TFUN   = " \u2192 ";
 	public static String B_PFUN   = " \u2900 ";
 	public static String B_DOM   = "dom";
+	public static String B_CARD   = "card";
 	public static String B_RAN   = "ran";
 	public static String B_RANSUB   = " \u2A65 ";
 	public static String B_RANRES   = " \u25B7 ";
@@ -90,6 +92,8 @@ public class Strings {
 	public static String GRD   = "grd";
 	public static String GRD_INPUTEXPRESSION   = "grd_InputExpression";
 	public static String ACT   = "act";
+	public static String UNDERSC   = "_";
+	public static String _ONE   = "_one";
 	
 	
 	// context name

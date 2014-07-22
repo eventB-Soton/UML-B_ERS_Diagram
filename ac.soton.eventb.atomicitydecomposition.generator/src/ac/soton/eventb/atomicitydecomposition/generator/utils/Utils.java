@@ -291,7 +291,7 @@ public class Utils {
 		else if(n == 0 && m != 0){
 			result.add("2");
 			System.out.println(2);
-			result.add(e2.getName() + Strings.B_EQ + Strings.B_EMPTYSET);
+			result.add(e2.getName() + Strings.B_NEQ + Strings.B_EMPTYSET);
 			result.add(e1.getName() + Strings.B_EQ + Strings.B_TRUE);
 			
 		}
@@ -300,7 +300,7 @@ public class Utils {
 			result.add("3");
 			System.out.println(3);
 			result.add(e2.getName() + Strings.B_EQ + Strings.B_TRUE);
-			result.add(e1.getName() + Strings.B_EQ + Strings.B_EMPTYSET);
+			result.add(e1.getName() + Strings.B_NEQ + Strings.B_EMPTYSET);
 		}
 		//4
 	else if(n != 0 && m == 0 && allReplicatorPar(e1, 0, n-1).size() != 0){
@@ -1154,6 +1154,72 @@ public class Utils {
 		for(Invariant i :allInvariants){
 			int temp;
 			if(i.getName().matches(Strings.ONE + Strings._GLU) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
+				max = temp;
+		}
+		
+		
+		return max;
+	}
+
+	public static List<One> oneAncestors(Leaf l) {
+		List<One> result = new ArrayList<One>();
+		Child node = l;
+		while(true){
+			if(node.eContainer() instanceof One)
+				result.add((One) node.eContainer());
+			FlowDiagram parentFlow = getParentFlow(node);
+			Child parentChild = getParentChild(node);
+			if((parentFlow.isSw() && parentChild.equals(parentFlow.getRefine().get(0))) ||
+					(!parentFlow.isSw() && parentChild.isRef()))
+				if(parentFlow.eContainer() instanceof Machine)
+					break;
+				else
+					node = (Child) parentFlow.eContainer();
+			else
+				break;
+		}
+		return result;
+	}
+
+	public static String getParList(List<TypedParameterExpression> parList) {
+		List<String> parNames = new ArrayList<String>();
+		for(TypedParameterExpression tp : parList)
+			parNames.add(tp.getName());
+			
+		return toString(parNames, Strings.B_COM);
+	}
+
+	public static int getParNumAfterOnePar(Leaf l, One o) {
+		int i = 0;
+		Child node = l;
+		while(true){
+			Child p = getParentChild(node);
+			if(p instanceof One && p.equals(o))
+				break;
+			if((p instanceof All) || (p instanceof Some) || (p instanceof One) || (p instanceof Par)) //Dana: changed to include par
+				i++;
+			
+			FlowDiagram parentFlow = getParentFlow(node);
+			if(parentFlow.eContainer() instanceof Machine)
+				break;
+			else
+				node = (Child) parentFlow.eContainer();
+		}
+		return i;
+	}
+
+	public static int getPrevOneInvIndex(List<GenerationDescriptor> generatedElements) {
+		int max = 0;
+		
+		List<Invariant> allInvariants = new ArrayList<Invariant>();
+		for(GenerationDescriptor gd : generatedElements){
+			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
+				allInvariants.add((Invariant)gd.value);
+		}
+			
+		for(Invariant i :allInvariants){
+			int temp;
+			if(i.getName().endsWith( Strings.UNDERSC + Strings._ONE) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
 				max = temp;
 		}
 		
