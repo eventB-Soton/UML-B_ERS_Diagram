@@ -111,6 +111,7 @@ public class TR_leaf4_pLeaf_sInv extends AbstractRule  implements IRule {
 
 		@SuppressWarnings("unchecked")
 		String predicate = Utils.build_seq_inv_string(Utils.build_seq_inv((Child)pred.get(0), (List<TypedParameterExpression>)pred.get(1) , sourceLeaf, par));
+		System.out.println(predicate);
 		//Must be placed in inverse order so dependencies come before
 		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), -10));
 		
