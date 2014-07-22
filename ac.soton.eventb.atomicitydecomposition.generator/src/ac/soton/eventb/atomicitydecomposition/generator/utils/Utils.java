@@ -1047,4 +1047,98 @@ public class Utils {
 		return "ERROR: Should have not reached this situation";
 
 	}
+
+	public static List<Xor> xorAncestors(Leaf l) {
+		List<Xor> result = new ArrayList<Xor>();
+		Child node = l;
+		while(true){
+			if(node.eContainer() instanceof Xor)
+				result.add((Xor) node.eContainer());
+			FlowDiagram parentFlow = getParentFlow(node);
+			Child parentChild = getParentChild(node);
+			if((parentFlow.isSw() && parentChild.equals(parentFlow.getRefine().get(0))) ||
+					(!parentFlow.isSw() && parentChild.isRef()))
+				if(parentFlow.eContainer() instanceof Machine)
+					break;
+				else
+					node = (Child) parentFlow.eContainer();
+			else
+				break;
+		}
+		return result;
+	}
+
+	public static Child xorAncestorChild(Xor x, Leaf l) {
+		Child node = l;
+		while(true){
+			if(node.eContainer().equals(x))
+				return node;
+			else{
+				FlowDiagram parentFlow = getParentFlow(node);
+				if(parentFlow.eContainer() instanceof Machine)
+					break;
+				else
+					node = (Child) parentFlow.eContainer();
+			}
+		}
+		return null;
+	}
+
+	public static String conjunction_of_leaves(Child ch, int parNum) {
+		if((ch instanceof Leaf) && ((Leaf)ch).getDecompose().isEmpty()){
+			if(parNum == 0)
+				return ((Leaf)ch).getName() + Strings.B_EQ + Strings.B_FALSE;
+			else
+				return ((Leaf)ch).getName() + Strings.B_NEQ + Strings.B_EMPTYSET;
+						
+		}
+		else if(ch instanceof And){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((And) ch).getAndLink()){
+				expressions.add(disjunction_of_leaves(ich, parNum));
+			}
+			return toString(expressions, Strings.B_AND);
+		}
+		else if(ch instanceof Or){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((Or) ch).getOrLink()){
+				expressions.add(disjunction_of_leaves(ich, parNum));
+			}
+			return toString(expressions, Strings.B_AND);
+		}
+		else if(ch instanceof Xor){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((Xor) ch).getXorLink()){
+				expressions.add(disjunction_of_leaves(ich, parNum));
+			}
+			return toString(expressions, Strings.B_AND);
+		}
+		else if(ch instanceof All)
+			return disjunction_of_leaves(((All) ch).getAllLink(), parNum+1);
+		else if(ch instanceof Some)
+			return disjunction_of_leaves(((Some) ch).getSomeLink(), parNum+1);
+		else if(ch instanceof One)
+			return disjunction_of_leaves(((One) ch).getOneLink(), parNum+1);
+		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
+			List<String> expressions = new ArrayList<String>();
+			for(FlowDiagram flw : ((Leaf)ch).getDecompose()){
+				//strong sequencing flow, select the first child
+				if(flw.isSw())
+					expressions.add(conjunction_of_leaves(flw.getRefine().get(0), parNum));
+				//weak sequencing flow, select the solid child
+				else{
+					for(Child ich : flw.getRefine()){
+						if(ich.isRef()){
+							expressions.add(conjunction_of_leaves(ich, parNum));
+							break;
+						}
+							
+					}
+				}		
+			}
+			
+			return toString(expressions,Strings.B_AND);
+		}
+		return "ERROR: Should have not reached this situation";
+	}
 }

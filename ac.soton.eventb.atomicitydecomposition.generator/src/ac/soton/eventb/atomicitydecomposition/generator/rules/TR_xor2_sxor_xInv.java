@@ -89,6 +89,7 @@ public class TR_xor2_sxor_xInv extends AbstractRule  implements IRule {
 			List<String> expressions = new ArrayList<String>();
 			
 			for(Leaf l : x.getXorLink()){ //TODO check if the intended is not actually all the flow diagrams and the leafs
+											//TO do so, needs another situation on disjunction of leaves
 				expressions.add(Utils.disjunction_of_leaves(l, 0));
 			}
 			str = str.concat(Utils.toString(expressions, Strings.B_XOR));
