@@ -94,6 +94,7 @@ public class Strings {
 	public static String ACT   = "act";
 	public static String UNDERSC   = "_";
 	public static String _ONE   = "_one";
+	public static String _REP   = "_rep";
 	
 	
 	// context name

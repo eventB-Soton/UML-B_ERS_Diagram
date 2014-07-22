@@ -153,7 +153,12 @@
                name="TR_one3_oLeaf_oGrd"
                rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_one3_oLeaf_oGrd"
                source_class="Leaf">
-          </rule>                                                                                                          
+          </rule>
+          <rule
+               name="TR_rep_rLeaf_rInv"
+               rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_rep_rLeaf_rInv"
+               source_class="Leaf">
+          </rule>                                                                                                              
      </generator>
 	</extension>
 
