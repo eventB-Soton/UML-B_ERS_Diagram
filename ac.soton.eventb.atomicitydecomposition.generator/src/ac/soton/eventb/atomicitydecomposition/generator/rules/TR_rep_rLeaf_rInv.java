@@ -28,7 +28,7 @@ public class TR_rep_rLeaf_rInv extends AbstractRule  implements IRule {
 		if(!sourceLeaf.getDecompose().isEmpty()) return false;
 		
 		if((sourceLeaf.eContainer() instanceof All)){
-			System.out.println( "---->"+ !((All)sourceLeaf.eContainer()).getNewParameter().getInputExpression().isEmpty());
+			
 			return !((All)sourceLeaf.eContainer()).getNewParameter().getInputExpression().isEmpty();
 		}
 		else if((sourceLeaf.eContainer() instanceof Some))

@@ -95,6 +95,8 @@ public class Strings {
 	public static String UNDERSC   = "_";
 	public static String _ONE   = "_one";
 	public static String _REP   = "_rep";
+	public static String _PAR   = "_par";
+	public static String _LOOP   = "_loop";
 	
 	
 	// context name

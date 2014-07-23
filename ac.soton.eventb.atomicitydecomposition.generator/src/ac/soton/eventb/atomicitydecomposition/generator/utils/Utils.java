@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eventb.emf.core.EventBElement;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Invariant;
 import org.eventb.emf.core.machine.Machine;
@@ -996,6 +997,7 @@ public class Utils {
 			}
 			else
 				str = str.concat(((Leaf)ch).getName());
+			return str;
 		}
 		else if(ch instanceof And){
 			List<String> expressions = new ArrayList<String>();
@@ -1179,6 +1181,7 @@ public class Utils {
 				break;
 		}
 		return result;
+//		return (List<One>) getAncestorsAncestorsOfClass(l, One.class);
 	}
 
 	public static String getParList(List<TypedParameterExpression> parList) {
@@ -1225,5 +1228,52 @@ public class Utils {
 		
 		
 		return max;
+	}
+
+	
+	
+	
+	public static List<? extends EventBElement> getAncestorsAncestorsOfClass(Leaf l, Class<? extends EventBElement> clazz) {
+		List<EventBElement> result = new ArrayList<EventBElement>();
+		Child node = l;
+		
+		while(true){
+			if(clazz.isInstance(node.eContainer()))
+				result.add(clazz.cast(node.eContainer()));
+			FlowDiagram parentFlow = getParentFlow(node);
+			Child parentChild = getParentChild(node);
+			if((parentFlow.isSw() && parentChild.equals(parentFlow.getRefine().get(0))) ||
+					(!parentFlow.isSw() && parentChild.isRef()))
+				if(parentFlow.eContainer() instanceof Machine)
+					break;
+				else
+					node = (Child) parentFlow.eContainer();
+			else
+				break;
+		}
+		return result;
+	}
+
+	//return a set containing the successor child as first item and the number of its parameters as second item
+	// A loop is never placed as the first or the last child of a flow; so always (0 < i < n)
+	public static List<Object> successor(Child ch, Integer parNum) {
+		FlowDiagram parentFlow = getParentFlow(ch);
+		List<Child> sibilings = parentFlow.getRefine();
+		int i = sibilings.indexOf(Utils.getParentChild(ch));
+		int n = sibilings.size();
+		
+		if(i >= n-1)
+			return null;
+		
+		Child next = sibilings.get(i+1);
+		
+		if(!((next instanceof Loop) || (next instanceof Par) )){
+			List<Object> list = new ArrayList<Object>();
+			list.add(next);
+			list.add(parNum);
+			return list;
+		}
+		else
+			return successor(next, parNum);
 	}
 }

@@ -111,15 +111,15 @@ public class TR_xor2_sxor_xInv extends AbstractRule  implements IRule {
 		return str;
 	}
 	
-	private List<EObject> descendants(Xor sourceXor){
-		List<EObject> desc = new ArrayList<EObject>();
-		desc.addAll(sourceXor.getXorLink());
-		for(AbstractExtension abs : sourceXor.getExtensions()){
-			if(abs instanceof FlowDiagram)
-				desc.add(abs);
-		}
-		return desc;
-	}
+//	private List<EObject> descendants(Xor sourceXor){
+//		List<EObject> desc = new ArrayList<EObject>();
+//		desc.addAll(sourceXor.getXorLink());
+//		for(AbstractExtension abs : sourceXor.getExtensions()){
+//			if(abs instanceof FlowDiagram)
+//				desc.add(abs);
+//		}
+//		return desc;
+//	}
 
 }
 	

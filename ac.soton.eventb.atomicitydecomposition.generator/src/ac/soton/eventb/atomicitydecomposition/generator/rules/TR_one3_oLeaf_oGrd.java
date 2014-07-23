@@ -26,7 +26,6 @@ public class TR_one3_oLeaf_oGrd extends AbstractRule  implements IRule {
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
 		Leaf sourceLeaf = (Leaf) sourceElement;
-		System.out.println(sourceLeaf.getName() + " -> " + (sourceLeaf.getDecompose().isEmpty() && !(Utils.oneAncestors(sourceLeaf).isEmpty())));
 		return sourceLeaf.getDecompose().isEmpty() &&
 				!(Utils.oneAncestors(sourceLeaf).isEmpty());
 						
@@ -86,7 +85,6 @@ public class TR_one3_oLeaf_oGrd extends AbstractRule  implements IRule {
 						Strings.B_IN + Utils.getDomainStr(sourceLeaf.getName(), 0, m));
 			else//if (n != 0 && m == 0)
 				predicate = predicate.concat(s + Strings.B_NOTIN + Strings.B_DOM + Utils.parenthesize(sourceLeaf.getName()));
-			System.out.println(equivalent.getName() + ": " + predicate);
 			ret.add(Make.descriptor(equivalent, guards, Make.guard(name, predicate), 10));
 			
 			
