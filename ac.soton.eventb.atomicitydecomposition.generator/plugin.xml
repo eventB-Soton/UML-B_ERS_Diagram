@@ -168,7 +168,22 @@
                name="TR_loop1_lLeaf_lGrd"
                rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_loop1_lLeaf_lGrd"
                source_class="Leaf">
-          </rule>                                                                                                                                  
+          </rule>
+          <rule
+               name="TR_loop2_nlLeaf_lGrd"
+               rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_loop2_nlLeaf_lGrd"
+               source_class="Leaf">
+          </rule> 
+          <rule
+               name="TR_loop3_loop_event"
+               rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_loop3_loop_event"
+               source_class="Loop">
+          </rule>
+          <rule
+               name="TR_weak1_wLeaf_sInv"
+               rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_weak1_wLeaf_sInv"
+               source_class="Leaf">
+          </rule>                                                                                                                                          
      </generator>
 	</extension>
 

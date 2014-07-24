@@ -21,13 +21,16 @@ import ac.soton.eventb.emf.diagrams.generator.IRule;
 import ac.soton.eventb.emf.diagrams.generator.utils.Find;
 import ac.soton.eventb.emf.diagrams.generator.utils.Make;
 
-public class TR_loop1_lLeaf_lGrd extends AbstractRule  implements IRule {
+public class TR_loop2_nlLeaf_lGrd extends AbstractRule  implements IRule {
 	
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
 		Leaf sourceLeaf = (Leaf) sourceElement;
+		FlowDiagram parentFlow = Utils.getParentFlow(sourceLeaf);
+		Child ch = Utils.predecessorLoop(sourceLeaf, parentFlow.isSw());
 		return sourceLeaf.getDecompose().isEmpty() &&
-				!Utils.getAncestorsAncestorsOfClass(sourceLeaf, Loop.class).isEmpty(); 
+				(ch instanceof Loop) &&
+				!((Loop)ch).getLoopLink().getDecompose().isEmpty();
 				
 	}
 	
@@ -41,8 +44,7 @@ public class TR_loop1_lLeaf_lGrd extends AbstractRule  implements IRule {
 	}
 	
 	/**
-	 * TR_loop1, Transform a proper loop leaf to a guard in the quivalent event (ensures that next child has not executed yet)
-	 * TODO this pattern is repeated in other Rules. Could make it more generic exploring Class<T>
+	 * TR_loop2, Transform a proper next leaf after a loop to a guard in the quivalent event (ensures that next child does not execute in the middle of loop execution)
 	 */
 	@Override
 	public List<GenerationDescriptor> fire(EventBElement sourceElement, List<GenerationDescriptor> generatedElements) throws Exception {
@@ -51,26 +53,19 @@ public class TR_loop1_lLeaf_lGrd extends AbstractRule  implements IRule {
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		Event equivalent = (Event) Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName());
 		
-		int index = 0;
-		for(EventBElement ee : Utils.getAncestorsAncestorsOfClass(sourceLeaf, Loop.class)){
-			Loop lo = (Loop)ee;
-			String name = Strings.GRD + index + Strings._LOOP;
-			List<TypedParameterExpression> pars = ((FlowDiagram)lo.eContainer()).getParameters();
-			
-			List<Object> suc = Utils.successor(lo, pars.size());
-			
-			String predicate = "";
-			//SI case
-			if(pars.isEmpty())
-				predicate = Utils.conjunction_of_leaves((Child) suc.get(0), 0);
-			//MI case
-			else
-				predicate = Utils.getParMaplet(pars) + Strings.B_NOTIN + Utils.union_of_leaves((Child) suc.get(0), 0);
-			
-			
-			ret.add(Make.descriptor(equivalent, guards, Make.guard(name, predicate), 5));
-		}
+		int index = Utils.getPrevLoopGrdIndex(equivalent, generatedElements);
+		String name = Strings.GRD + (index+1) + Strings._LOOP;
+		FlowDiagram parentFlow = Utils.getParentFlow(sourceLeaf);
+		Loop lo = (Loop) Utils.predecessorLoop(sourceLeaf, parentFlow.isSw());
+		List<TypedParameterExpression> pars = ((FlowDiagram)lo.eContainer()).getParameters();
 		
+		String predicate = "";
+		if(pars.isEmpty())
+			predicate = Utils.conjunction_of_leaves(lo.getLoopLink(), 0);
+		else
+			predicate = Utils.getParMaplet(pars) + Strings.B_NOTIN + Utils.union_of_leaves(lo.getLoopLink(), 0);
+		
+		ret.add(Make.descriptor(equivalent, guards, Make.guard(name, predicate), 5));
 		return ret;
 	}	
 }

@@ -62,6 +62,7 @@ public class Strings {
 	public static String B_RAN   = "ran";
 	public static String B_RANSUB   = " \u2A65 ";
 	public static String B_RANRES   = " \u25B7 ";
+	public static String B_DOMRES   = " \u2A64 ";
 	public static String B_CPROD   = " \u00D7 ";
 	public static String B_PARTITION = " partition";
 	public static String B_MAPLET = " \u21A6 ";
@@ -97,6 +98,11 @@ public class Strings {
 	public static String _REP   = "_rep";
 	public static String _PAR   = "_par";
 	public static String _LOOP   = "_loop";
+	public static String _RESET   = "_reset";
+	public static String _RESET_LOOP   = "_reset_loop";
+	public static String _INSEQ   = "_inSeq";
+	public static String RESET_LOOP_   = "reset_loop_";
+	public static String GRD_RESET   = "grd_reset";
 	
 	
 	// context name

@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eventb.emf.core.EventBElement;
 import org.eventb.emf.core.machine.Event;
+import org.eventb.emf.core.machine.Guard;
 import org.eventb.emf.core.machine.Invariant;
 import org.eventb.emf.core.machine.Machine;
 import org.eventb.emf.core.machine.MachinePackage;
@@ -1276,4 +1277,124 @@ public class Utils {
 		else
 			return successor(next, parNum);
 	}
+
+	public static Child predecessorLoop(Child ch, boolean sw) {
+		FlowDiagram parent = getParentFlow(ch);
+		List<Child> sibiling = parent.getRefine();
+		int i = sibiling.indexOf(getParentChild(ch));
+		
+		if(i > 0){
+			return sibiling.get(i-1);
+			
+			
+		}
+		else{
+			if(!sw)
+				return null;
+			else{
+				if(isAbstractFlow(parent)){
+					return null;
+				}
+				else{
+					return predecessorLoop((Child) parent.eContainer(), sw);
+				}			
+			}
+		}		
+	}
+
+	public static int getPrevLoopGrdIndex(Event e, List<GenerationDescriptor> generatedElements) {
+		int max = 0;
+		
+		for(GenerationDescriptor gend : generatedElements ){
+			if( gend.parent != null &&  gend.parent.equals(e) && gend.value instanceof Guard){
+				int temp;
+				
+				if( ((Guard)gend.value).getName().matches("loop") && (temp = Integer.parseInt(((Guard)gend.value).getName().split("_")[0].substring(3)) )  > max )
+					max = temp;
+				
+			}
+				
+		}
+		
+		return max;
+	}
+
+	public static int getLoopResetIndex(List<GenerationDescriptor> generatedElements) {
+		int max = 0;
+		for(GenerationDescriptor gend : generatedElements){
+			if(gend.value instanceof Event){
+				Event e = (Event)gend.value;
+				int temp;
+				String[] splitted = e.getName().split("_");
+				if(e.getName().matches("reset_loop") && ((temp = Integer.parseInt(splitted[splitted.length - 1])) > max ) )
+					max = temp;		
+			}
+		}
+		
+		return max;
+	}
+
+	public static List<Leaf> getNonDecomposedLeafDescendants(EventBElement ch){
+		List<Leaf> ret = new ArrayList<Leaf>();
+		if(ch instanceof Leaf){
+			if(((Leaf) ch).getDecompose().isEmpty()){
+				ret.add((Leaf) ch);
+			}
+			else
+				for(FlowDiagram flw : ((Leaf) ch).getDecompose())
+					ret.addAll(getNonDecomposedLeafDescendants(flw));
+		}
+		else if(ch instanceof FlowDiagram){
+			for(Child refine : ((FlowDiagram) ch).getRefine())
+				ret.addAll(getNonDecomposedLeafDescendants(refine));
+		}
+		else if(ch instanceof And){
+			for(Leaf l : ((And) ch).getAndLink())
+				ret.addAll(getNonDecomposedLeafDescendants(l));				
+		}
+		else if(ch instanceof Loop)
+			ret.addAll(getNonDecomposedLeafDescendants(((Loop) ch).getLoopLink()));
+		else if(ch instanceof All)
+			ret.addAll(getNonDecomposedLeafDescendants(((All) ch).getAllLink()));
+		else if(ch instanceof Some)
+			ret.addAll(getNonDecomposedLeafDescendants(((Some) ch).getSomeLink()));
+		else if(ch instanceof Or){
+			for(Leaf l : ((Or) ch).getOrLink())
+				ret.addAll(getNonDecomposedLeafDescendants(l));
+		}
+		else if(ch instanceof Xor){
+			for(Leaf l : ((Xor) ch).getXorLink())
+				ret.addAll(getNonDecomposedLeafDescendants(l));
+		}
+		else if(ch instanceof One)
+			ret.addAll(getNonDecomposedLeafDescendants(((One) ch).getOneLink()));
+		else //if(ch instanceof Par)
+			ret.addAll(getNonDecomposedLeafDescendants(((Par) ch).getParLink()));	
+		
+		return ret;
+	}
+
+	public static Leaf weakAncestor(Leaf sourceLeaf) {
+		
+		Child node = sourceLeaf;
+
+		while(true){
+			FlowDiagram parent = Utils.getParentFlow(node);
+			Child parentChild = Utils.getParentChild(node);
+			if(!parent.isSw() && parentChild.isRef())
+				return (Leaf) parent.eContainer();
+			if(parent.isSw() && parentChild.equals(parent.getRefine().get(0))){//strong seq and first child
+				if(parent.eContainer() instanceof Machine)
+					break;
+				else
+					node = (Child) parent.eContainer();
+					
+			}
+			else
+				return null;
+				
+		}
+		return null;
+	}
+
 }
