@@ -183,7 +183,12 @@
                name="TR_weak1_wLeaf_sInv"
                rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_weak1_wLeaf_sInv"
                source_class="Leaf">
-          </rule>                                                                                                                                          
+          </rule>
+          <rule
+               name="TR_weak2_wLeaf_sGrd"
+               rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_weak2_wLeaf_sGrd"
+               source_class="Leaf">
+          </rule>                                                                                                                                            
      </generator>
 	</extension>
 

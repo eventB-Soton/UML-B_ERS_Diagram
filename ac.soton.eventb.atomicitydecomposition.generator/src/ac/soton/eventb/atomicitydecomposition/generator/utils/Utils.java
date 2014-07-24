@@ -593,8 +593,23 @@ public class Utils {
 
 			}
 			else if(result.get(0).get(0).equals("8") || result.get(0).get(0).equals("9")){
-				//FIXME YET TO BE IMPLEMENTED!!!!!!
-				System.out.println("TAKE CARE, CODE WAS NOT PLANNED TO GET HERE!!");
+				//XXX NEEDS TESTING!
+				List<String> l = null;
+				List<String> l2 = null;
+				
+				for(ArrayList<String> il : result){
+					if(il.get(0).equals("9"))
+						l = il;
+					else if(il.get(0).equals("8"))
+						l2 = il;
+				}
+			
+				
+				String[] split = l.get(2).split(Strings.B_IN);
+				mergeResult.add("9");
+				mergeResult.set(1, l.get(1));
+				mergeResult.set(2, l.get(2) + Strings.B_AND + split[0] + Strings.B_IN + l2.get(2));
+				
 			}
 		}
 		else 
@@ -677,8 +692,22 @@ public class Utils {
 
 			}
 			else if(result.get(0).get(0).equals("8") || result.get(0).get(0).equals("9")){
-				//FIXME YET TO BE IMPLEMENTED!!!!!!
-				System.out.println("TAKE CARE, CODE WAS NOT PLANNED TO GET HERE!!");
+				//XXX TEST THIS!
+				List<String> l = null;
+				List<String> l2 = null;
+				
+				for(ArrayList<String> il : result){
+					if(il.get(0).equals("9"))
+						l = il;
+					else if(il.get(0).equals("8"))
+						l2 = il;
+				}
+			
+				
+				String[] split = l.get(2).split(Strings.B_IN);
+				mergeResult.add("9");
+				mergeResult.set(1, l.get(1));
+				mergeResult.set(2, l.get(2) + Strings.B_OR + split[0] + Strings.B_IN + l2.get(2));
 			}
 		}
 		else 
@@ -1395,6 +1424,106 @@ public class Utils {
 				
 		}
 		return null;
+	}
+
+	public static String build_par_ref_grd(Child ch) {
+		// 3 cases for firstFlow=lastFlow: leaf, one, xor due to single solid line rule
+		//Single leaf
+		if(ch instanceof Leaf && ((Leaf) ch).getDecompose().isEmpty()){
+			return "";
+		}
+		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
+			String str = "";
+			Leaf l = (Leaf) ch;
+			
+			Child firstFlow = l.getDecompose().get(l.getDecompose().size() - 1).getRefine().get(0); //FlowDiag.refine.last().first(); // will get first subflow 
+			Child lastFlow = l.getDecompose().get(l.getDecompose().size() - 1).getRefine().get(l.getDecompose().get(l.getDecompose().size() - 1).getRefine().size() -1); //FlowDiag.refine.last().last(); // will get the last subflow
+			
+			
+			if(firstFlow.equals(lastFlow)){
+				str = str.concat(build_par_ref_grd(firstFlow));
+			}
+			else{
+				String str1 = par_ref_grd(firstFlow);
+				String str2 = par_ref_grd(lastFlow);
+				
+				str = str.concat(Utils.parenthesize(str1 + Strings.B_EQ + str2));
+				
+			}
+			return str;
+		}
+		else if(ch instanceof One){
+			return build_par_ref_grd(((One) ch).getOneLink());
+		}
+		else if(ch instanceof Xor){
+			String str = "";
+			for(Leaf x : ((Xor) ch).getXorLink()){
+				String str2 = build_par_ref_grd(x);
+				if(str.equals("") || str2.equals(""))
+					str = str.concat(str2);
+				else
+					str = str.concat(Strings.B_AND + str2);				
+				
+			}
+			return str;
+		}
+		
+		return null;
+	}
+
+	/*************************dana *********************/
+	public static String par_ref_grd(Child ch) {
+		if(ch instanceof Leaf && ((Leaf) ch).getDecompose().isEmpty()){
+			return ((Leaf) ch).getName();
+		}
+		
+		
+		else if(ch instanceof And){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((And) ch).getAndLink())
+				expressions.add(par_ref_grd(ich));
+			return parenthesize(toString(expressions, Strings.B_INTER));
+		}
+		else if(ch instanceof Or){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((Or) ch).getOrLink())
+				expressions.add(par_ref_grd(ich));
+			return parenthesize(toString(expressions, Strings.B_UNION));
+		}
+		else if(ch instanceof Xor){
+			List<String> expressions = new ArrayList<String>();
+			for(Child ich : ((Xor) ch).getXorLink())
+				expressions.add(par_ref_grd(ich));
+			return parenthesize(toString(expressions, Strings.B_UNION));
+		}
+		else if(ch instanceof All)
+			return Strings.B_DOM + parenthesize(par_ref_grd(((All) ch).getAllLink()));
+		else if(ch instanceof Some)
+			return Strings.B_DOM + parenthesize(par_ref_grd(((Some) ch).getSomeLink()));
+		else if(ch instanceof One)
+			return Strings.B_DOM + parenthesize(par_ref_grd(((One) ch).getOneLink()));
+		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
+			String str = "YET TO BE IMPLEMENTED";
+			//((Leaf)ch).getD
+			return str;
+		}
+			
+		return null;
+	}
+
+	public static int getPrevParGrdIndex(Event equivalent, List<GenerationDescriptor> generatedElements) {
+		int max = 0;
+		for(GenerationDescriptor gend : generatedElements){
+			if(gend.value instanceof Event){
+				Event e = (Event)gend.value;
+				int temp;
+				String[] splitted = e.getName().split("_");
+				if(e.getName().matches("par") && ((temp = Integer.parseInt(splitted[splitted.length - 1])) > max ) )
+					max = temp;		
+			}
+		}
+		
+		return max;
 	}
 
 }
