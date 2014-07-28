@@ -42,23 +42,31 @@ public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
 		
 		String name = sourceLeaf.getName();
 		Event newEvent = (Event) Make.event(name);
-		ret.add(Make.descriptor(container, events, newEvent, -1));
-		
-		if(sourceLeaf.isRef()){
-			ret.add(Make.descriptor(newEvent, refinesNames, ((Leaf)Utils.getParentFlow(sourceLeaf).eContainer()).getName(), 1));
-		}
-		else{
-			ret.add(Make.descriptor(newEvent, refinesNames, sourceLeaf.getName(), 1));
+		newEvent.setGenerated(false);
+		//newEvent.setExtended(true);
+		ret.add(Make.descriptor(container, events, newEvent, -10));
+//		
+//		if(sourceLeaf.isRef()){
+//			ret.add(Make.descriptor(newEvent, refinesNames, ((Leaf)Utils.getParentFlow(sourceLeaf).eContainer()).getName(), -2));
+//		}
+		if(!sourceLeaf.isRef()){
+			ret.add(Make.descriptor(newEvent, refinesNames, sourceLeaf.getName(), -10));
 		}
 		
 		for(TypedParameter tp : Utils.getParentFlow(sourceLeaf).getParameters()){
 			Parameter p = (Parameter) Make.parameter(tp.getName());
-			ret.add(Make.descriptor(newEvent, parameters, p, 1));
+			ret.add(Make.descriptor(newEvent, parameters, p, -10));
+//			String grdName = Strings.TYPEOF_ + tp.getName();
+//			String grdPredicate = tp.getName() + Strings.B_IN + tp.getType();
+//			ret.add(Make.descriptor(newEvent, guards, Make.guard(grdName, grdPredicate), 1));
 		}
 		
 		if(sourceLeaf.eContainer() instanceof One){
 			Parameter p = (Parameter) Make.parameter(((One)sourceLeaf.eContainer()).getNewParameter().getName());
-			ret.add(Make.descriptor(newEvent, parameters, p, 1));
+			ret.add(Make.descriptor(newEvent, parameters, p, -10));
+//			String grdName = Strings.TYPEOF_ + p.getName();
+//			String grdPredicate = p.getName() + Strings.B_IN + ((One)sourceLeaf.eContainer()).getNewParameter().getType();
+//			ret.add(Make.descriptor(newEvent, guards, Make.guard(grdName, grdPredicate), 1));
 		}
 		
 		return ret;

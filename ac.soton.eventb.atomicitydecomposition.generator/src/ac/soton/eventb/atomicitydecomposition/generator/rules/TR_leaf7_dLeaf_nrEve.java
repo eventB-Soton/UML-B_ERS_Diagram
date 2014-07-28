@@ -43,30 +43,48 @@ public class TR_leaf7_dLeaf_nrEve extends AbstractRule  implements IRule {
 		
 		String name = sourceLeaf.getName();
 		Event newEvent = (Event) Make.event(name);
+		newEvent.setGenerated(false);
+		
 		ret.add(Make.descriptor(container, events, newEvent, -1));
 		
 		// parameters
 		for(TypedParameter tp : Utils.getParentFlow(sourceLeaf).getParameters()){
 			Parameter p = (Parameter) Make.parameter(tp.getName());
 			ret.add(Make.descriptor(newEvent, parameters, p, 1));
+//			String grdName = Strings.TYPEOF_ + tp.getName();
+//			String grdPredicate = tp.getName() + Strings.B_IN + tp.getType();
+//			ret.add(Make.descriptor(newEvent, guards, Make.guard(grdName, grdPredicate), 1));
 		}
 		
 		//replicator parameter
 		if(sourceLeaf.eContainer() instanceof All){
 			Parameter p = (Parameter) Make.parameter(((All)sourceLeaf.eContainer()).getNewParameter().getName());
 			ret.add(Make.descriptor(newEvent, parameters, p, 1));
+//			String grdName = Strings.TYPEOF_ + p.getName();
+//			String grdPredicate = p.getName() + Strings.B_IN + ((All)sourceLeaf.eContainer()).getNewParameter().getType();
+//			ret.add(Make.descriptor(newEvent, guards, Make.guard(grdName, grdPredicate), 1));
+			
 		}
 		else if(sourceLeaf.eContainer() instanceof Some){
 			Parameter p = (Parameter) Make.parameter(((Some)sourceLeaf.eContainer()).getNewParameter().getName());
 			ret.add(Make.descriptor(newEvent, parameters, p, 1));
+//			String grdName = Strings.TYPEOF_ + p.getName();
+//			String grdPredicate = p.getName() + Strings.B_IN + ((Some)sourceLeaf.eContainer()).getNewParameter().getType();
+//			ret.add(Make.descriptor(newEvent, guards, Make.guard(grdName, grdPredicate), 1));
 		}
 		else if (sourceLeaf.eContainer() instanceof One){
 			Parameter p = (Parameter) Make.parameter(((One)sourceLeaf.eContainer()).getNewParameter().getName());
 			ret.add(Make.descriptor(newEvent, parameters, p, 1));
+//			String grdName = Strings.TYPEOF_ + p.getName();
+//			String grdPredicate = p.getName() + Strings.B_IN + ((One)sourceLeaf.eContainer()).getNewParameter().getType();
+//			ret.add(Make.descriptor(newEvent, guards, Make.guard(grdName, grdPredicate), 1));
 		}
 		else if(sourceLeaf.eContainer() instanceof Par){
 			Parameter p = (Parameter) Make.parameter(((Par)sourceLeaf.eContainer()).getNewParameter().getName());
 			ret.add(Make.descriptor(newEvent, parameters, p, 1));
+//			String grdName = Strings.TYPEOF_ + p.getName();
+//			String grdPredicate = p.getName() + Strings.B_IN + ((Par)sourceLeaf.eContainer()).getNewParameter().getType();
+//			ret.add(Make.descriptor(newEvent, guards, Make.guard(grdName, grdPredicate), 1));
 		}
 		
 		return ret;

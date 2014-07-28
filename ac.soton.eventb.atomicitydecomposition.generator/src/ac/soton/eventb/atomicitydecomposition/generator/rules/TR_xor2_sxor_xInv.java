@@ -105,7 +105,7 @@ public class TR_xor2_sxor_xInv extends AbstractRule  implements IRule {
 				parts.add(union);
 			}
 			parts.add(0, Utils.parenthesize(Utils.toString(expressions, Strings.B_UNION)));
-			str = str.concat(Utils.toString(parts, Strings.B_COM));
+			str = str.concat(Utils.parenthesize(Utils.toString(parts, Strings.B_COM)));
 			
 		}
 		return str;
