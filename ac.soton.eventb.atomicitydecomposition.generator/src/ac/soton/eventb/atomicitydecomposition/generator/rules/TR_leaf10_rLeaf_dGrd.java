@@ -28,11 +28,11 @@ public class TR_leaf10_rLeaf_dGrd extends AbstractRule  implements IRule {
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
 		Leaf sourceLeaf = (Leaf) sourceElement;
-		return sourceLeaf.getDecompose().isEmpty() &&
-				(sourceLeaf.eContainer() instanceof All) && //non All leaf
-				(sourceLeaf.eContainer() instanceof Some) && //non some leaf
-				(sourceLeaf.eContainer() instanceof One) && //non one leaf
-				(sourceLeaf.eContainer() instanceof Par); //non par leaf
+		return sourceLeaf.getDecompose().isEmpty() && (
+				(sourceLeaf.eContainer() instanceof All) || //non All leaf
+				(sourceLeaf.eContainer() instanceof Some) || //non some leaf
+				(sourceLeaf.eContainer() instanceof One) || //non one leaf
+				(sourceLeaf.eContainer() instanceof Par)); //non par leaf
 	}
 	
 	/**
@@ -56,6 +56,7 @@ public class TR_leaf10_rLeaf_dGrd extends AbstractRule  implements IRule {
 		
 		String name = Strings.GRD_SELF;
 		String predicate = generatePredicate(sourceLeaf);
+		System.out.println(predicate);
 		Guard grd = (Guard) Make.guard(name, predicate);
 		
 		Event eve = (Event) Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName());

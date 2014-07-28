@@ -40,7 +40,7 @@ public class TR_leaf5_sLeaf_gInv extends AbstractRule  implements IRule {
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		String name = Strings.INV_ + sourceLeaf.getName() + Strings._GLU;
 		String predicate = sourceLeaf.getName() + Strings.B_EQ + ((Leaf)sourceLeaf.eContainer().eContainer()).getName();
-		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), -10));
+		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 2));
 		
 		return ret;
 		

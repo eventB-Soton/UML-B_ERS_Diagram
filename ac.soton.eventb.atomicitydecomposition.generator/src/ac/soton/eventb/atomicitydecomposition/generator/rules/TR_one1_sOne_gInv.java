@@ -40,7 +40,7 @@ public class TR_one1_sOne_gInv extends AbstractRule  implements IRule {
 		String name = Strings.INV + (Utils.getPrevOneGluInvIndex(generatedElements) + 1) + Strings.ONE + Strings._GLU;
 		String predicate = generatePredicate(sourceOne);
 		
-		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 10));
+		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 2));
 		
 		return ret;
 	} 

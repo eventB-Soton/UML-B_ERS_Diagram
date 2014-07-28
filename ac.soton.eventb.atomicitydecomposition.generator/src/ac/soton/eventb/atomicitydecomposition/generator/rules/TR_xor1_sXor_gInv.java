@@ -53,7 +53,7 @@ public class TR_xor1_sXor_gInv extends AbstractRule  implements IRule {
 		
 		String predicate = generateInvariant(sourceXor);
 
-		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 10));
+		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 2));
 
 		
 		return ret;
