@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" copyrightText="" modelDirectory="/ac.soton.eventb.atomicitydecomposition/src"
+    modelPluginID="ac.soton.eventb.atomicitydecomposition" modelName="Atomicitydecomposition"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.eventb.emf.core/model/eventbcore.genmodel#//core ../../ac.soton.eventb.emf.core.extension/model/eventbcoreextension.genmodel#//coreextension">
+  <foreignModel>atomicitydecomposition.ecore</foreignModel>
+  <genPackages prefix="Atomicitydecomposition" basePackage="ac.soton.eventb" disposableProviderFactory="true"
+      ecorePackage="atomicitydecomposition.ecore#/">
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//FlowDiagram">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//FlowDiagram/parameters"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//FlowDiagram/refine"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atomicitydecomposition.ecore#//FlowDiagram/sw"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atomicitydecomposition.ecore#//FlowDiagram/copy"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="atomicitydecomposition.ecore#//Child">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atomicitydecomposition.ecore#//Child/ref"/>
+    </genClasses>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//Leaf">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atomicitydecomposition.ecore#//Leaf/name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="atomicitydecomposition.ecore#//Constructor"/>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//And">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//And/andLink"/>
+    </genClasses>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//Loop">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Loop/loopLink"/>
+    </genClasses>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//All">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//All/allLink"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//All/newParameter"/>
+    </genClasses>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//Some">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Some/someLink"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Some/newParameter"/>
+    </genClasses>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//Or">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Or/orLink"/>
+    </genClasses>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//Xor">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Xor/xorLink"/>
+    </genClasses>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//One">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//One/oneLink"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//One/newParameter"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="atomicitydecomposition.ecore#//MultiFlow">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//MultiFlow/decompose"/>
+    </genClasses>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//TypedParameterExpression">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atomicitydecomposition.ecore#//TypedParameterExpression/InputExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//Par">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Par/parLink"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Par/newParameter"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

@@ -1,0 +1,166 @@
+
+public static List<AtomicitydecompositionNodeDescriptor> getFlowDiagram_1000SemanticChildren(
+			View view) {
+		if (!view.isSetElement()) {
+			return Collections.emptyList();
+		}
+		FlowDiagram modelElement = (FlowDiagram) view.getElement();
+		LinkedList<AtomicitydecompositionNodeDescriptor> result = new LinkedList<AtomicitydecompositionNodeDescriptor>();
+		for (Iterator<?> it = modelElement.getRefine().iterator(); it.hasNext();) {
+			Child childElement = (Child) it.next();
+			int visualID = AtomicitydecompositionVisualIDRegistry
+					.getNodeVisualID(view, childElement);
+			if (visualID == LeafEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, visualID));
+				continue;
+			}
+			if (visualID == AndEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, visualID));
+				continue;
+			}
+			if (visualID == LoopEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, visualID));
+				continue;
+			}
+			if (visualID == AllEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, visualID));
+				continue;
+			}
+			if (visualID == SomeEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, visualID));
+				continue;
+			}
+			if (visualID == OrEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, visualID));
+				continue;
+			}
+			if (visualID == XorEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, visualID));
+				continue;
+			}
+			if (visualID == OneEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, visualID));
+				continue;
+			}
+			if (visualID == ParEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, visualID));
+				continue;
+			}
+		}
+		Resource resource = modelElement.eResource();
+		for (Iterator<EObject> it = getPhantomNodesIterator(resource); it
+				.hasNext();) {
+			EObject childElement = it.next();
+			if (childElement == modelElement) {
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == Leaf2EditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, Leaf2EditPart.VISUAL_ID));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == FlowDiagram2EditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, FlowDiagram2EditPart.VISUAL_ID));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == AndEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, AndEditPart.VISUAL_ID));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == LoopEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, LoopEditPart.VISUAL_ID));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == AllEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, AllEditPart.VISUAL_ID));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == SomeEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, SomeEditPart.VISUAL_ID));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == OrEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, OrEditPart.VISUAL_ID));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == XorEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, XorEditPart.VISUAL_ID));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == OneEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, OneEditPart.VISUAL_ID));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == ParEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, ParEditPart.VISUAL_ID));
+				continue;
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		return result;
+	}
+	
+	
+	
+	---------------------------------------------------------------------
+	
+	/**
+	 * @generated false
+	 */
+	private static Collection<AtomicitydecompositionLinkDescriptor> getOutgoingFeatureModelFacetLinks_FlowDiagram_Refine_4014(
+			FlowDiagram source) {
+		if(source == null)
+			return Collections.EMPTY_LIST;
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		for (Iterator<?> destinations = source.getRefine().iterator(); destinations
+				.hasNext();) {
+			Child destination = (Child) destinations.next();
+			if(!destination.isRef())
+				result.add(new AtomicitydecompositionLinkDescriptor(source,
+						destination,
+						AtomicitydecompositionElementTypes.FlowDiagramRefine_4014,
+						FlowDiagramRefineEditPart.VISUAL_ID));
+			else
+				result.add(new AtomicitydecompositionLinkDescriptor(source,
+						destination,
+						AtomicitydecompositionElementTypes.FlowDiagram_4015,
+						FlowDiagram3EditPart.VISUAL_ID));
+		}
+		return result;
+	}
+	
