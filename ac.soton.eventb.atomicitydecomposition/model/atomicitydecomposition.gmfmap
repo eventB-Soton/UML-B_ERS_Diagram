@@ -68,6 +68,10 @@
     <ownedChild>
       <domainMetaElement
           href="atomicitydecomposition.ecore#//All"/>
+      <labelMappings>
+        <diagramLabel
+            href="atomicitydecomposition.gmfgraph#AllLabel"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="atomicitydecomposition.gmftool#//@palette/@tools.0/@tools.0"/>
@@ -81,6 +85,10 @@
     <ownedChild>
       <domainMetaElement
           href="atomicitydecomposition.ecore#//Some"/>
+      <labelMappings>
+        <diagramLabel
+            href="atomicitydecomposition.gmfgraph#SomeLabel"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="atomicitydecomposition.gmftool#//@palette/@tools.0/@tools.7"/>
@@ -94,6 +102,10 @@
     <ownedChild>
       <domainMetaElement
           href="atomicitydecomposition.ecore#//Or"/>
+      <labelMappings>
+        <diagramLabel
+            href="atomicitydecomposition.gmfgraph#OrLabel"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="atomicitydecomposition.gmftool#//@palette/@tools.0/@tools.5"/>
@@ -107,6 +119,10 @@
     <ownedChild>
       <domainMetaElement
           href="atomicitydecomposition.ecore#//Xor"/>
+      <labelMappings>
+        <diagramLabel
+            href="atomicitydecomposition.gmfgraph#XorLabel"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="atomicitydecomposition.gmftool#//@palette/@tools.0/@tools.8"/>
@@ -120,6 +136,10 @@
     <ownedChild>
       <domainMetaElement
           href="atomicitydecomposition.ecore#//One"/>
+      <labelMappings>
+        <diagramLabel
+            href="atomicitydecomposition.gmfgraph#OneLabel"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="atomicitydecomposition.gmftool#//@palette/@tools.0/@tools.4"/>
@@ -133,6 +153,10 @@
     <ownedChild>
       <domainMetaElement
           href="atomicitydecomposition.ecore#//Par"/>
+      <labelMappings>
+        <diagramLabel
+            href="atomicitydecomposition.gmfgraph#ParLabel"/>
+      </labelMappings>
       <tool
           xsi:type="gmftool:CreationTool"
           href="atomicitydecomposition.gmftool#//@palette/@tools.0/@tools.6"/>

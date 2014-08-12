@@ -37,8 +37,14 @@
       <descriptors
           name="AndFigure">
         <actualFigure
-            xsi:type="gmfgraph:RoundedRectangle"
+            xsi:type="gmfgraph:Ellipse"
             name="AndFigure">
+          <minimumSize
+              dx="5"
+              dy="5"/>
+          <preferredSize
+              dx="50"
+              dy="21"/>
           <border
               xsi:type="gmfgraph:MarginBorder">
             <insets
@@ -49,7 +55,7 @@
           </border>
           <children
               xsi:type="gmfgraph:Label"
-              name="AndLabelFigure"
+              name="AndLabelName"
               text="and"/>
         </actualFigure>
         <accessors
@@ -60,6 +66,12 @@
         <actualFigure
             xsi:type="gmfgraph:Ellipse"
             name="LoopFigure">
+          <minimumSize
+              dx="5"
+              dy="5"/>
+          <preferredSize
+              dx="50"
+              dy="21"/>
           <border
               xsi:type="gmfgraph:MarginBorder">
             <insets
@@ -79,8 +91,14 @@
       <descriptors
           name="AllFigure">
         <actualFigure
-            xsi:type="gmfgraph:RoundedRectangle"
+            xsi:type="gmfgraph:Ellipse"
             name="AllFigure">
+          <minimumSize
+              dx="5"
+              dy="5"/>
+          <preferredSize
+              dx="50"
+              dy="21"/>
           <border
               xsi:type="gmfgraph:MarginBorder">
             <insets
@@ -89,13 +107,30 @@
                 bottom="5"
                 right="5"/>
           </border>
+          <children
+              xsi:type="gmfgraph:Label"
+              name="AllLabelName"
+              text="all">
+            <layoutData
+                xsi:type="gmfgraph:GridLayoutData"
+                grabExcessHorizontalSpace="true"
+                grabExcessVerticalSpace="true"/>
+          </children>
         </actualFigure>
+        <accessors
+            figure="/0/@figures.0/@descriptors.3/@actualFigure/@children.0"/>
       </descriptors>
       <descriptors
           name="SomeFigure">
         <actualFigure
-            xsi:type="gmfgraph:RoundedRectangle"
+            xsi:type="gmfgraph:Ellipse"
             name="SomeFigure">
+          <minimumSize
+              dx="5"
+              dy="5"/>
+          <preferredSize
+              dx="50"
+              dy="21"/>
           <border
               xsi:type="gmfgraph:MarginBorder">
             <insets
@@ -104,13 +139,25 @@
                 bottom="5"
                 right="5"/>
           </border>
+          <children
+              xsi:type="gmfgraph:Label"
+              name="SomeLabelName"
+              text="some"/>
         </actualFigure>
+        <accessors
+            figure="/0/@figures.0/@descriptors.4/@actualFigure/@children.0"/>
       </descriptors>
       <descriptors
           name="OrFigure">
         <actualFigure
-            xsi:type="gmfgraph:RoundedRectangle"
+            xsi:type="gmfgraph:Ellipse"
             name="OrFigure">
+          <minimumSize
+              dx="5"
+              dy="5"/>
+          <preferredSize
+              dx="50"
+              dy="21"/>
           <border
               xsi:type="gmfgraph:MarginBorder">
             <insets
@@ -119,13 +166,25 @@
                 bottom="5"
                 right="5"/>
           </border>
+          <children
+              xsi:type="gmfgraph:Label"
+              name="OrLabelName"
+              text="or"/>
         </actualFigure>
+        <accessors
+            figure="/0/@figures.0/@descriptors.5/@actualFigure/@children.0"/>
       </descriptors>
       <descriptors
           name="XorFigure">
         <actualFigure
-            xsi:type="gmfgraph:RoundedRectangle"
+            xsi:type="gmfgraph:Ellipse"
             name="XorFigure">
+          <minimumSize
+              dx="5"
+              dy="5"/>
+          <preferredSize
+              dx="50"
+              dy="21"/>
           <border
               xsi:type="gmfgraph:MarginBorder">
             <insets
@@ -134,13 +193,25 @@
                 bottom="5"
                 right="5"/>
           </border>
+          <children
+              xsi:type="gmfgraph:Label"
+              name="XorLabelName"
+              text="xor"/>
         </actualFigure>
+        <accessors
+            figure="/0/@figures.0/@descriptors.6/@actualFigure/@children.0"/>
       </descriptors>
       <descriptors
           name="OneFigure">
         <actualFigure
-            xsi:type="gmfgraph:RoundedRectangle"
+            xsi:type="gmfgraph:Ellipse"
             name="OneFigure">
+          <minimumSize
+              dx="5"
+              dy="5"/>
+          <preferredSize
+              dx="50"
+              dy="21"/>
           <border
               xsi:type="gmfgraph:MarginBorder">
             <insets
@@ -149,13 +220,25 @@
                 bottom="5"
                 right="5"/>
           </border>
+          <children
+              xsi:type="gmfgraph:Label"
+              name="OneLabelName"
+              text="one"/>
         </actualFigure>
+        <accessors
+            figure="/0/@figures.0/@descriptors.7/@actualFigure/@children.0"/>
       </descriptors>
       <descriptors
           name="ParFigure">
         <actualFigure
-            xsi:type="gmfgraph:RoundedRectangle"
+            xsi:type="gmfgraph:Ellipse"
             name="ParFigure">
+          <minimumSize
+              dx="5"
+              dy="5"/>
+          <preferredSize
+              dx="50"
+              dy="21"/>
           <border
               xsi:type="gmfgraph:MarginBorder">
             <insets
@@ -164,7 +247,13 @@
                 bottom="5"
                 right="5"/>
           </border>
+          <children
+              xsi:type="gmfgraph:Label"
+              name="ParLabelName"
+              text="par"/>
         </actualFigure>
+        <accessors
+            figure="/0/@figures.0/@descriptors.8/@actualFigure/@children.0"/>
       </descriptors>
       <descriptors
           name="FlowDiagramRefineFigure">
@@ -422,14 +511,39 @@
     <connections
         name="LeafDecompose"/>
     <labels
+        name="OrLabel"
+        figure="OrFigure"
+        elementIcon="false"
+        accessor="/0/@figures.0/@descriptors.5/@accessors.0"/>
+    <labels
+        name="OneLabel"
+        figure="OneFigure"
+        elementIcon="false"
+        accessor="/0/@figures.0/@descriptors.7/@accessors.0"/>
+    <labels
         name="AndLabel"
         figure="AndFigure"
         elementIcon="false"
         accessor="/0/@figures.0/@descriptors.1/@accessors.0"/>
     <labels
+        name="ParLabel"
+        figure="ParFigure"
+        elementIcon="false"
+        accessor="/0/@figures.0/@descriptors.8/@accessors.0"/>
+    <labels
         name="LeafLabel"
         figure="LeafFigure"
         accessor="/0/@figures.0/@descriptors.0/@accessors.0"/>
+    <labels
+        name="SomeLabel"
+        figure="SomeFigure"
+        elementIcon="false"
+        accessor="/0/@figures.0/@descriptors.4/@accessors.0"/>
+    <labels
+        name="XorLabel"
+        figure="XorFigure"
+        elementIcon="false"
+        accessor="/0/@figures.0/@descriptors.6/@accessors.0"/>
     <labels
         name="FlowDiagramRefineExternalLabel"
         figure="FlowDiagramRefineExternalLabelFigure"
@@ -483,6 +597,11 @@
         figure="LoopFigure"
         elementIcon="false"
         accessor="/0/@figures.0/@descriptors.2/@accessors.0"/>
+    <labels
+        name="AllLabel"
+        figure="AllFigure"
+        elementIcon="false"
+        accessor="/0/@figures.0/@descriptors.3/@accessors.0"/>
   </gmfgraph:Canvas>
   <gmfgraph:Label
       name="AndLabelFigure"

@@ -164,3 +164,60 @@ public static List<AtomicitydecompositionNodeDescriptor> getFlowDiagram_1000Sema
 		return result;
 	}
 	
+	
+	-----------------------------------------------------------------------
+	Centering Label
+	
+	/**
+	 * Default implementation treats passed figure as content pane.
+	 * Respects layout one may have set for generated figure.
+	 * @param nodeShape instance of generated figure class
+	 * @generated false
+	 */
+	protected IFigure setupContentPane(IFigure nodeShape) {
+		if (nodeShape.getLayoutManager() == null) {
+//			ConstrainedToolbarLayout layout = new ConstrainedToolbarLayout();
+//			layout.setSpacing(5);
+			nodeShape.setLayoutManager(new StackLayout() {
+				public void layout(IFigure figure) {
+					Rectangle r = figure.getClientArea();
+					List children = figure.getChildren(); 
+					IFigure child;
+					Dimension d;
+					for (int i = 0; i < children.size(); i++) {
+						child = (IFigure)children.get(i);
+						d = child.getPreferredSize(r.width, r.height);
+						d.width = Math.min(d.width, r.width);
+						d.height = Math.min(d.height, r.height);
+						Rectangle childRect = new Rectangle(
+								r.x + (r.width - d.width)/2,
+								r.y + (r.height - d.height)/2,
+								d.width,
+								d.height);
+						child.setBounds(childRect);
+					}
+				}
+			});
+		}
+		return nodeShape; // use nodeShape itself as contentPane
+	}
+	 
+	 
+	 THEN
+	 
+	 		/**
+		 * @generated false
+		 */
+		private void createContents() {
+
+			fFigureAllLabelName = new WrappingLabel();
+
+			fFigureAllLabelName.setText("all");
+			
+			fFigureAllLabelName.setAlignment(PositionConstants.CENTER);
+			
+			this.add(fFigureAllLabelName);
+
+		}
+	 
+	
