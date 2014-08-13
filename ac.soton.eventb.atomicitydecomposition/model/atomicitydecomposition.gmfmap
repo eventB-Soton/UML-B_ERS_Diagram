@@ -401,6 +401,19 @@
         xsi:type="ecore:EReference"
         href="atomicitydecomposition.ecore#//FlowDiagram/refine"/>
   </links>
+  <links>
+    <domainMetaElement
+        href="atomicitydecomposition.ecore#//Xor"/>
+    <domainSpecialization
+        body="false"/>
+    <containmentFeature
+        href="atomicitydecomposition.ecore#//FlowDiagram/refine"/>
+    <diagramLink
+        href="atomicitydecomposition.gmfgraph#XorXorLinkIsRef"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="atomicitydecomposition.ecore#//Xor/xorLink"/>
+  </links>
   <diagram>
     <diagramCanvas
         href="atomicitydecomposition.gmfgraph#atomicitydecomposition"/>
