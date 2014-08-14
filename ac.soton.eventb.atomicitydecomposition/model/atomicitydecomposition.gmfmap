@@ -414,6 +414,19 @@
         xsi:type="ecore:EReference"
         href="atomicitydecomposition.ecore#//Xor/xorLink"/>
   </links>
+  <links>
+    <domainMetaElement
+        href="atomicitydecomposition.ecore#//One"/>
+    <domainSpecialization
+        body="false"/>
+    <containmentFeature
+        href="atomicitydecomposition.ecore#//FlowDiagram/refine"/>
+    <diagramLink
+        href="atomicitydecomposition.gmfgraph#OneOneLinkIsRef"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="atomicitydecomposition.ecore#//One/oneLink"/>
+  </links>
   <diagram>
     <diagramCanvas
         href="atomicitydecomposition.gmfgraph#atomicitydecomposition"/>

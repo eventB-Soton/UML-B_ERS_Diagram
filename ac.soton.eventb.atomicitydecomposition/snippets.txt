@@ -220,4 +220,15 @@ public static List<AtomicitydecompositionNodeDescriptor> getFlowDiagram_1000Sema
 
 		}
 	 
+	 
+	 
+	 ----------------------------------------------------------
+	 getting element that a Edit part synchronises
+	 
+	 this.getElementParser();
+	 
+	 ----------------------------------------------------------
+	 Parameter placement done on 
+	 1. LeafNameEditPart.getLabelText
+	 2. LeafName2EditPart.getLabelText
 	

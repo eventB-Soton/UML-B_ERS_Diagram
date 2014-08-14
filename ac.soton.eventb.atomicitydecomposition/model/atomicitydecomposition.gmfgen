@@ -1052,6 +1052,33 @@
             href="atomicitydecomposition.genmodel#//atomicitydecomposition/Xor/xorLink"/>
       </modelFacet>
     </links>
+    <links
+        visualID="4017"
+        editPartClassName="One2EditPart"
+        itemSemanticEditPolicyClassName="One2ItemSemanticEditPolicy"
+        createCommandClassName="One2CreateCommand"
+        reorientCommandClassName="OneReorientCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType
+          xsi:type="gmfgen:SpecializationType"
+          metamodelType="//@diagram/@topLevelNodes.7/@elementType"/>
+      <viewmap
+          xsi:type="gmfgen:FigureViewmap"
+          figureQualifiedClassName="org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx"/>
+      <modelFacet
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.4">
+        <metaClass
+            href="atomicitydecomposition.genmodel#//atomicitydecomposition/One"/>
+        <containmentMetaFeature
+            href="atomicitydecomposition.genmodel#//atomicitydecomposition/FlowDiagram/refine"/>
+        <childMetaFeature
+            href="atomicitydecomposition.genmodel#//atomicitydecomposition/FlowDiagram/refine"/>
+        <targetMetaFeature
+            href="atomicitydecomposition.genmodel#//atomicitydecomposition/One/oneLink"/>
+      </modelFacet>
+    </links>
     <palette>
       <groups
           title="Objects"
@@ -2004,6 +2031,59 @@
         referenceType="out_target"
         groupName="outgoing links"
         groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@links.15"
+        groupName="links"
+        groupIcon="icons/linksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.15"
+        child="//@diagram/@topLevelNodes.0"
+        referenceType="out_target"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.0"
+        child="//@diagram/@links.15"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.15"
+        child="//@diagram/@topLevelNodes.9"
+        referenceType="out_target"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.9"
+        child="//@diagram/@links.15"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.15"
+        child="//@diagram/@topLevelNodes.10"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.10"
+        child="//@diagram/@links.15"
+        referenceType="out_target"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.15"
+        child="//@diagram/@links.13"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.13"
+        child="//@diagram/@links.15"
+        referenceType="out_target"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
   </navigator>
   <diagramUpdater/>
   <propertySheet>
@@ -2036,6 +2116,9 @@
       <expressions
           xsi:type="gmfgen:GenConstraint"
           body="not self.eContainer().oclIsUndefined() and (self.eContainer().oclIsKindOf(And) or self.eContainer().oclIsKindOf(Loop) or self.eContainer().oclIsKindOf(All) or self.eContainer().oclIsKindOf(Some) or self.eContainer().oclIsKindOf(Or) or self.eContainer().oclIsKindOf(Xor) or self.eContainer().oclIsKindOf(One) or self.eContainer().oclIsKindOf(Par) or self.eContainer().oclIsKindOf(FlowDiagram))"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="false"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
           body="false"/>

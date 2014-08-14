@@ -165,4 +165,7 @@
   <linkTraces
       visualID="4016"
       queryText="modelFacet.oclIsKindOf(gmfgen::TypeLinkModelFacet) and (let _eClass_:ecore::EClass = modelFacet.oclAsType(gmfgen::TypeLinkModelFacet).metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'Xor')"/>
+  <linkTraces
+      visualID="4017"
+      queryText="modelFacet.oclIsKindOf(gmfgen::TypeLinkModelFacet) and (let _eClass_:ecore::EClass = modelFacet.oclAsType(gmfgen::TypeLinkModelFacet).metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'One')"/>
 </trace:TraceModel>
