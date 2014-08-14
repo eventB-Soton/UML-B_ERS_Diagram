@@ -42,9 +42,6 @@
           <minimumSize
               dx="5"
               dy="5"/>
-          <preferredSize
-              dx="50"
-              dy="21"/>
           <border
               xsi:type="gmfgraph:MarginBorder">
             <insets
@@ -94,9 +91,6 @@
             xsi:type="gmfgraph:Ellipse"
             name="AllFigure">
           <minimumSize
-              dx="5"
-              dy="5"/>
-          <preferredSize
               dx="50"
               dy="21"/>
           <border
@@ -126,9 +120,6 @@
             xsi:type="gmfgraph:Ellipse"
             name="SomeFigure">
           <minimumSize
-              dx="5"
-              dy="5"/>
-          <preferredSize
               dx="50"
               dy="21"/>
           <border
@@ -207,9 +198,6 @@
             xsi:type="gmfgraph:Ellipse"
             name="OneFigure">
           <minimumSize
-              dx="5"
-              dy="5"/>
-          <preferredSize
               dx="50"
               dy="21"/>
           <border
@@ -234,9 +222,6 @@
             xsi:type="gmfgraph:Ellipse"
             name="ParFigure">
           <minimumSize
-              dx="5"
-              dy="5"/>
-          <preferredSize
               dx="50"
               dy="21"/>
           <border
@@ -260,6 +245,7 @@
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
             name="FlowDiagramRefineFigure"
+            lineWidth="3"
             lineKind="LINE_DASH"/>
       </descriptors>
       <descriptors
@@ -274,6 +260,7 @@
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
             name="AndAndLinkFigure"
+            lineWidth="3"
             lineKind="LINE_DASH"/>
       </descriptors>
       <descriptors
@@ -288,6 +275,7 @@
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
             name="LoopLoopLinkFigure"
+            lineWidth="3"
             lineKind="LINE_DASH"/>
       </descriptors>
       <descriptors
@@ -302,6 +290,7 @@
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
             name="AllAllLinkFigure"
+            lineWidth="3"
             lineKind="LINE_DASH"/>
       </descriptors>
       <descriptors
@@ -330,6 +319,7 @@
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
             name="SomeSomeLinkFigure"
+            lineWidth="3"
             lineKind="LINE_DASH"/>
       </descriptors>
       <descriptors
@@ -358,6 +348,7 @@
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
             name="OrOrLinkFigure"
+            lineWidth="3"
             lineKind="LINE_DASH"/>
       </descriptors>
       <descriptors
@@ -372,6 +363,7 @@
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
             name="XorXorLinkFigure"
+            lineWidth="3"
             lineKind="LINE_DASH"/>
       </descriptors>
       <descriptors
@@ -386,6 +378,7 @@
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
             name="OneOneLinkFigure"
+            lineWidth="3"
             lineKind="LINE_DASH"/>
       </descriptors>
       <descriptors
@@ -414,6 +407,7 @@
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
             name="ParParLinkFigure"
+            lineWidth="3"
             lineKind="LINE_DASH"/>
       </descriptors>
       <descriptors
@@ -436,19 +430,22 @@
           name="FlowDiagramRefineIsRefFigure">
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
-            name="FlowDiagramRefineIsRefFigure"/>
+            name="FlowDiagramRefineIsRefFigure"
+            lineWidth="3"/>
       </descriptors>
       <descriptors
           name="XorXorLinkIsRefFigure">
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
-            name="XorXorLinkIsRef"/>
+            name="XorXorLinkIsRef"
+            lineWidth="3"/>
       </descriptors>
       <descriptors
           name="OneOneLinkIsRefFigure">
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
-            name="OneOneLinkIsRef"/>
+            name="OneOneLinkIsRef"
+            lineWidth="3"/>
       </descriptors>
     </figures>
     <nodes
