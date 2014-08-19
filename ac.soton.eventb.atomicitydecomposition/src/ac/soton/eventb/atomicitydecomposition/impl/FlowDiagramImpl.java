@@ -11,6 +11,7 @@ import ac.soton.eventb.atomicitydecomposition.Child;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
 
 import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
+import ac.soton.eventb.emf.diagrams.Diagram;
 import ac.soton.eventb.emf.core.extension.coreextension.TypedParameter;
 
 import java.util.Collection;
@@ -26,6 +27,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eventb.emf.core.CorePackage;
@@ -130,6 +132,37 @@ public class FlowDiagramImpl extends AbstractExtensionImpl implements FlowDiagra
 	 */
 	protected boolean copy = COPY_EDEFAULT;
 
+	
+	/**
+	 * The default value of the '{@link #getExtensionId() <em>Extension Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtensionId()
+	 * @generated NOT
+	 * @ordered
+	 */
+	protected static final String EXTENSION_ID_EDEFAULT = AtomicitydecompositionPackage.FLOWDIAGRAMS_EXTENSION_ID;
+
+	/**
+	 * The cached value of the '{@link #getExtensionId() <em>Extension Id</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getExtensionId()
+	 * @generated NOT
+	 * @ordered
+	 */
+	protected String extensionId = EXTENSION_ID_EDEFAULT+"."+EcoreUtil.generateUUID();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public String getExtensionId() {
+		return this.extensionId;
+	}
+	
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -396,6 +429,11 @@ public class FlowDiagramImpl extends AbstractExtensionImpl implements FlowDiagra
 				default: return -1;
 			}
 		}
+		if (baseClass == Diagram.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
 		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
 	}
 
@@ -409,6 +447,11 @@ public class FlowDiagramImpl extends AbstractExtensionImpl implements FlowDiagra
 		if (baseClass == EventBNamed.class) {
 			switch (baseFeatureID) {
 				case CorePackage.EVENT_BNAMED__NAME: return AtomicitydecompositionPackage.FLOW_DIAGRAM__NAME;
+				default: return -1;
+			}
+		}
+		if (baseClass == Diagram.class) {
+			switch (baseFeatureID) {
 				default: return -1;
 			}
 		}

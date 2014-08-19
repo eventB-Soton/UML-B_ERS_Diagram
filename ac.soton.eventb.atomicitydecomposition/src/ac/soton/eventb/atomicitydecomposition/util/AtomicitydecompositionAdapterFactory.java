@@ -10,6 +10,7 @@ import ac.soton.eventb.atomicitydecomposition.*;
 
 import ac.soton.eventb.emf.core.extension.coreextension.Type;
 import ac.soton.eventb.emf.core.extension.coreextension.TypedParameter;
+import ac.soton.eventb.emf.diagrams.Diagram;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
 
@@ -153,6 +154,10 @@ public class AtomicitydecompositionAdapterFactory extends AdapterFactoryImpl {
 			@Override
 			public Adapter caseEventBNamed(EventBNamed object) {
 				return createEventBNamedAdapter();
+			}
+			@Override
+			public Adapter caseDiagram(Diagram object) {
+				return createDiagramAdapter();
 			}
 			@Override
 			public Adapter caseEventBCommented(EventBCommented object) {
@@ -447,6 +452,20 @@ public class AtomicitydecompositionAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEventBNamedAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ac.soton.eventb.emf.diagrams.Diagram <em>Diagram</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ac.soton.eventb.emf.diagrams.Diagram
+	 * @generated
+	 */
+	public Adapter createDiagramAdapter() {
 		return null;
 	}
 

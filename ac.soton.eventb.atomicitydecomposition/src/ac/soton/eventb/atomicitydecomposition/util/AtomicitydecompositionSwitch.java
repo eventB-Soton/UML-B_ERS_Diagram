@@ -10,6 +10,7 @@ import ac.soton.eventb.atomicitydecomposition.*;
 
 import ac.soton.eventb.emf.core.extension.coreextension.Type;
 import ac.soton.eventb.emf.core.extension.coreextension.TypedParameter;
+import ac.soton.eventb.emf.diagrams.Diagram;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
@@ -88,6 +89,7 @@ public class AtomicitydecompositionSwitch<T> extends Switch<T> {
 				T result = caseFlowDiagram(flowDiagram);
 				if (result == null) result = caseAbstractExtension(flowDiagram);
 				if (result == null) result = caseEventBNamed(flowDiagram);
+				if (result == null) result = caseDiagram(flowDiagram);
 				if (result == null) result = caseEventBElement(flowDiagram);
 				if (result == null) result = caseEventBObject(flowDiagram);
 				if (result == null) result = defaultCase(theEObject);
@@ -492,6 +494,21 @@ public class AtomicitydecompositionSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEventBNamed(EventBNamed object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Diagram</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Diagram</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseDiagram(Diagram object) {
 		return null;
 	}
 

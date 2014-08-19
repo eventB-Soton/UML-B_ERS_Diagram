@@ -25,6 +25,7 @@ import ac.soton.eventb.atomicitydecomposition.Xor;
 
 import ac.soton.eventb.emf.core.extension.coreextension.CoreextensionPackage;
 
+import ac.soton.eventb.emf.diagrams.DiagramsPackage;
 import org.eclipse.emf.common.util.URI;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -189,6 +190,7 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		isInited = true;
 
 		// Initialize simple dependencies
+		DiagramsPackage.eINSTANCE.eClass();
 		CoreextensionPackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
@@ -614,6 +616,7 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 
 		// Obtain other dependent packages
 		CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
+		DiagramsPackage theDiagramsPackage = (DiagramsPackage)EPackage.Registry.INSTANCE.getEPackage(DiagramsPackage.eNS_URI);
 		CoreextensionPackage theCoreextensionPackage = (CoreextensionPackage)EPackage.Registry.INSTANCE.getEPackage(CoreextensionPackage.eNS_URI);
 		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 
@@ -624,6 +627,7 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		// Add supertypes to classes
 		flowDiagramEClass.getESuperTypes().add(theCorePackage.getAbstractExtension());
 		flowDiagramEClass.getESuperTypes().add(theCorePackage.getEventBNamed());
+		flowDiagramEClass.getESuperTypes().add(theDiagramsPackage.getDiagram());
 		childEClass.getESuperTypes().add(theCorePackage.getEventBElement());
 		leafEClass.getESuperTypes().add(this.getChild());
 		leafEClass.getESuperTypes().add(this.getMultiFlow());
@@ -718,7 +722,7 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		   },
 		   new URI[] {
 			 URI.createURI(CorePackage.eNS_URI).appendFragment("//machine/Machine")
-		   });																							
+		   });																								
 	}
 
 	/**
@@ -733,7 +737,7 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		  (flowDiagramEClass, 
 		   source, 
 		   new String[] {
-		   });																						
+		   });																							
 	}
 
 	/**
@@ -820,6 +824,13 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
+		   });		
+		addAnnotation
+		  (getMultiFlow_Decompose(), 
+		   source, 
+		   new String[] {
+			 "label", "",
+			 "style", "dash"
 		   });			
 		addAnnotation
 		  (getPar_ParLink(), 
@@ -891,7 +902,7 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		   source, 
 		   new String[] {
 			 "label.placement", "none"
-		   });				
+		   });					
 		addAnnotation
 		  (parEClass, 
 		   source, 
@@ -913,7 +924,7 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		   source, 
 		   new String[] {
 			 "label.text", "*"
-		   });																
+		   });																	
 	}
 
 } //AtomicitydecompositionPackageImpl

@@ -31,6 +31,12 @@ import org.eventb.emf.core.CorePackage;
  */
 public interface AtomicitydecompositionPackage extends EPackage {
 	/**
+	 * Statemachines extension ID, assigned to statemachines extensions to Event-B,
+	 * as well as used by transformation to Event-B.
+	 */
+	String FLOWDIAGRAMS_EXTENSION_ID = "ac.soton.eventb.atomicitydecomposition";
+	
+	/**
 	 * The package name.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

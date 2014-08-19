@@ -6,6 +6,7 @@
  */
 package ac.soton.eventb.atomicitydecomposition;
 
+import ac.soton.eventb.emf.diagrams.Diagram;
 import ac.soton.eventb.emf.core.extension.coreextension.TypedParameter;
 
 import org.eclipse.emf.common.util.EList;
@@ -32,7 +33,7 @@ import org.eventb.emf.core.EventBNamed;
  * @model
  * @generated
  */
-public interface FlowDiagram extends AbstractExtension, EventBNamed {
+public interface FlowDiagram extends AbstractExtension, EventBNamed, Diagram {
 	/**
 	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
 	 * The list contents are of type {@link ac.soton.eventb.atomicitydecomposition.TypedParameterExpression}.

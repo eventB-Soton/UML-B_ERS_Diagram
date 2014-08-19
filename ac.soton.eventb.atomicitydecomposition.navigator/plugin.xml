@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+	  
+
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:fr.systerel.explorer.navigator.view">
+         <command
+         	   id="ac.soton.eventb.atomicitydecomposition.navigator"
+               commandId="ac.soton.eventb.atomicitydecomposition.navigator.commands.addFlowDiagram"
+               icon="icons/NewStatemachine.gif"
+               label="Add FlowDiagram"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false">
+                     <instanceof
+                           value="org.eventb.core.IMachineRoot">
+                     </instanceof>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+      		id="ac.soton.eventb.atomicitydecomposition.navigator.commands.addFlowDiagram"
+            defaultHandler="ac.soton.eventb.atomicitydecomposition.navigator.commands.AddFlowDiagramHandler"
+            name="Add FlowDiagram">
+      </command>
+   </extension>
+   <extension
+         point="ac.soton.eventb.emf.core.extension.navigator.adapterFactories">
+      <factory
+            class="ac.soton.eventb.atomicitydecomposition.provider.AtomicitydecompositionItemProviderAdapterFactory"></factory>
+   </extension>
+   <extension
+         point="ac.soton.eventb.emf.diagrams.navigator.diagramProviders">
+      <provider
+            class="ac.soton.eventb.atomicitydecomposition.navigator.providers.ERSDiagramProvider"
+            type="FlowDiagram">
+      </provider>
+   </extension>
+   
+ 
+</plugin>

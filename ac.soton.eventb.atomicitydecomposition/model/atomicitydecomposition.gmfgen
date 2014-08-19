@@ -3,14 +3,17 @@
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel">
+    xmlns:gmfgen="http://www.eclipse.org/gmf/2009/GenModel"
+    diagramFileExtension="ersd">
   <diagram
       visualID="1000"
       editPartClassName="FlowDiagramEditPart"
       itemSemanticEditPolicyClassName="FlowDiagramItemSemanticEditPolicy"
       canonicalEditPolicyClassName="FlowDiagramCanonicalEditPolicy"
       iconProviderPriority="Low"
-      validationProviderPriority="Low">
+      validationProviderPriority="Low"
+      validationEnabled="true"
+      validationDecorators="true">
     <diagramRunTimeClass
         href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Diagram"/>
     <elementType
@@ -499,7 +502,8 @@
             width="10"
             height="10"/>
       </viewmap>
-      <modelFacet>
+      <modelFacet
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.2">
         <metaClass
             href="atomicitydecomposition.genmodel#//atomicitydecomposition/FlowDiagram"/>
       </modelFacet>
@@ -1014,7 +1018,7 @@
           classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class FlowDiagramRefineIsRefFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public FlowDiagramRefineIsRefFigure() {&#xA;&#x9;&#x9;this.setLineWidth(3);&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet"
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.2">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.3">
         <metaClass
             href="atomicitydecomposition.genmodel#//atomicitydecomposition/FlowDiagram"/>
         <containmentMetaFeature
@@ -1043,7 +1047,7 @@
           classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class XorXorLinkIsRefFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public XorXorLinkIsRefFigure() {&#xA;&#x9;&#x9;this.setLineWidth(3);&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet"
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.3">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.4">
         <metaClass
             href="atomicitydecomposition.genmodel#//atomicitydecomposition/Xor"/>
         <containmentMetaFeature
@@ -1072,7 +1076,7 @@
           classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class OneOneLinkIsRefFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public OneOneLinkIsRefFigure() {&#xA;&#x9;&#x9;this.setLineWidth(3);&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
       <modelFacet
           xsi:type="gmfgen:TypeLinkModelFacet"
-          modelElementSelector="//@expressionProviders/@providers.0/@expressions.4">
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.5">
         <metaClass
             href="atomicitydecomposition.genmodel#//atomicitydecomposition/One"/>
         <containmentMetaFeature
@@ -2120,6 +2124,9 @@
       <expressions
           xsi:type="gmfgen:GenConstraint"
           body="not self.eContainer().oclIsUndefined() and (self.eContainer().oclIsKindOf(And) or self.eContainer().oclIsKindOf(Loop) or self.eContainer().oclIsKindOf(All) or self.eContainer().oclIsKindOf(Some) or self.eContainer().oclIsKindOf(Or) or self.eContainer().oclIsKindOf(Xor) or self.eContainer().oclIsKindOf(One) or self.eContainer().oclIsKindOf(Par) or self.eContainer().oclIsKindOf(FlowDiagram))"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="not self.eContainer().oclIsUndefined()"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
           body="false"/>
