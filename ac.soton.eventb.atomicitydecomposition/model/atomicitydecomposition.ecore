@@ -5,6 +5,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="FlowDiagram" eSuperTypes="../../org.eventb.emf.core/model/eventbcore.ecore#//AbstractExtension ../../org.eventb.emf.core/model/eventbcore.ecore#//EventBNamed ../../ac.soton.eventb.emf.diagrams/model/diagrams.ecore#//Diagram">
     <eAnnotations source="org.eventb.emf.core.extendedMetaClasses" references="../../org.eventb.emf.core/model/eventbcore.ecore#//machine/Machine"/>
     <eAnnotations source="gmf.diagram"/>
+    <eOperations name="validate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eParameters name="diagnostic" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDiagnosticChain"/>
+      <eParameters name="context">
+        <eGenericType eClassifier="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EMap">
+          <eTypeArguments/>
+          <eTypeArguments/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parameters" upperBound="-1"
         eType="#//TypedParameterExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refine" lowerBound="1"
@@ -52,6 +61,15 @@
     <eAnnotations source="gmf.label">
       <details key="label.text" value="*"/>
     </eAnnotations>
+    <eOperations name="validate" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean">
+      <eParameters name="diagnostic" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EDiagnosticChain"/>
+      <eParameters name="context">
+        <eGenericType eClassifier="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EMap">
+          <eTypeArguments/>
+          <eTypeArguments/>
+        </eGenericType>
+      </eParameters>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="loopLink" lowerBound="1"
         eType="#//Leaf" containment="true">
       <eAnnotations source="gmf.link">
@@ -145,8 +163,8 @@
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MultiFlow" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="decompose" lowerBound="1"
-        upperBound="-1" eType="#//FlowDiagram" containment="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="decompose" upperBound="-1"
+        eType="#//FlowDiagram" containment="true">
       <eAnnotations source="gmf.link">
         <details key="label" value=""/>
         <details key="style" value="dash"/>

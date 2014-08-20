@@ -6,6 +6,9 @@
  */
 package ac.soton.eventb.atomicitydecomposition;
 
+import java.util.Map;
+import org.eclipse.emf.common.util.DiagnosticChain;
+
 
 /**
  * <!-- begin-user-doc -->
@@ -51,5 +54,13 @@ public interface Loop extends Constructor {
 	 * @generated
 	 */
 	void setLoopLink(Leaf value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	boolean validate(DiagnosticChain diagnostic, Map<?, ?> context);
 
 } // Loop

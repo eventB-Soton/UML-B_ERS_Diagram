@@ -9,14 +9,22 @@ package ac.soton.eventb.atomicitydecomposition.impl;
 import ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionPackage;
 import ac.soton.eventb.atomicitydecomposition.Leaf;
 import ac.soton.eventb.atomicitydecomposition.Loop;
+import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
 
+import ac.soton.eventb.atomicitydecomposition.util.AtomicitydecompositionValidator;
+import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.util.EObjectValidator;
 
 /**
  * <!-- begin-user-doc -->
@@ -102,6 +110,28 @@ public class LoopImpl extends ConstructorImpl implements Loop {
 		}
 		else if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AtomicitydecompositionPackage.LOOP__LOOP_LINK, newLoopLink, newLoopLink));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validate(DiagnosticChain diagnostic, Map<?, ?> context) {
+		if (diagnostic != null) {
+			int position = ((FlowDiagram)this.eContainer()).getRefine().indexOf(this);
+			if(position == 0 || position == ((FlowDiagram)this.eContainer()).getRefine().size() - 1)
+			diagnostic.add
+			(new BasicDiagnostic
+					(Diagnostic.ERROR,
+							AtomicitydecompositionValidator.DIAGNOSTIC_SOURCE,
+							AtomicitydecompositionValidator.LOOP__VALIDATE,
+							"Loops cannot be neither the first or the last child of a FlowDiagram",
+							new Object [] { this }));
+
+			return false;
+		}
+		return true;
 	}
 
 	/**

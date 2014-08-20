@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="ac.soton.eventb.atomicitydecomposition.presentation.AtomicitydecompositionModelWizardID"
+            name="%_UI_AtomicitydecompositionModelWizard_label"
+            class="ac.soton.eventb.atomicitydecomposition.presentation.AtomicitydecompositionModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/AtomicitydecompositionModelFile.gif">
+         <description>%_UI_AtomicitydecompositionModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="ac.soton.eventb.atomicitydecomposition.presentation.AtomicitydecompositionEditorID"
+            name="%_UI_AtomicitydecompositionEditor_label"
+            icon="icons/full/obj16/AtomicitydecompositionModelFile.gif"
+            extensions="atomicitydecomposition"
+            class="ac.soton.eventb.atomicitydecomposition.presentation.AtomicitydecompositionEditor"
+            contributorClass="ac.soton.eventb.atomicitydecomposition.presentation.AtomicitydecompositionActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>

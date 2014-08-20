@@ -12,6 +12,10 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//FlowDiagram/refine"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atomicitydecomposition.ecore#//FlowDiagram/sw"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atomicitydecomposition.ecore#//FlowDiagram/copy"/>
+      <genOperations ecoreOperation="atomicitydecomposition.ecore#//FlowDiagram/validate">
+        <genParameters ecoreParameter="atomicitydecomposition.ecore#//FlowDiagram/validate/diagnostic"/>
+        <genParameters ecoreParameter="atomicitydecomposition.ecore#//FlowDiagram/validate/context"/>
+      </genOperations>
     </genClasses>
     <genClasses image="false" ecoreClass="atomicitydecomposition.ecore#//Child">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute atomicitydecomposition.ecore#//Child/ref"/>
@@ -25,6 +29,10 @@
     </genClasses>
     <genClasses ecoreClass="atomicitydecomposition.ecore#//Loop">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Loop/loopLink"/>
+      <genOperations ecoreOperation="atomicitydecomposition.ecore#//Loop/validate">
+        <genParameters ecoreParameter="atomicitydecomposition.ecore#//Loop/validate/diagnostic"/>
+        <genParameters ecoreParameter="atomicitydecomposition.ecore#//Loop/validate/context"/>
+      </genOperations>
     </genClasses>
     <genClasses ecoreClass="atomicitydecomposition.ecore#//All">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//All/allLink"/>

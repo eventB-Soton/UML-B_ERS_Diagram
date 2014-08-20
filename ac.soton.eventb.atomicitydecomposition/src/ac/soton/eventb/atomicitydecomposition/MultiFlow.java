@@ -38,7 +38,7 @@ public interface MultiFlow extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Decompose</em>' containment reference list.
 	 * @see ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionPackage#getMultiFlow_Decompose()
-	 * @model containment="true" required="true"
+	 * @model containment="true"
 	 *        annotation="gmf.link label='' style='dash'"
 	 * @generated
 	 */

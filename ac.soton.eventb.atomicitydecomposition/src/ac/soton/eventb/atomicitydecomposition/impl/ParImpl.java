@@ -242,5 +242,16 @@ public class ParImpl extends ConstructorImpl implements Par {
 		}
 		return super.eIsSet(featureID);
 	}
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	@Override
+	public void setRef(boolean newRef) {
+		super.setRef(newRef);
+		this.getParLink().setRef(newRef);
+	}
 
 } //ParImpl

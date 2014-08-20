@@ -6,33 +6,46 @@
  */
 package ac.soton.eventb.atomicitydecomposition.impl;
 
+import ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionFactory;
 import ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionPackage;
 import ac.soton.eventb.atomicitydecomposition.Child;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
+import ac.soton.eventb.atomicitydecomposition.Leaf;
 
 import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
+import ac.soton.eventb.atomicitydecomposition.util.AtomicitydecompositionValidator;
 import ac.soton.eventb.emf.diagrams.Diagram;
 import ac.soton.eventb.emf.core.extension.coreextension.TypedParameter;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
+import org.eclipse.emf.common.util.BasicDiagnostic;
+import org.eclipse.emf.common.util.Diagnostic;
+import org.eclipse.emf.common.util.DiagnosticChain;
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectValidator;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eventb.emf.core.CorePackage;
 import org.eventb.emf.core.EventBNamed;
 import org.eventb.emf.core.impl.AbstractExtensionImpl;
+import org.eventb.emf.core.machine.Machine;
 
 /**
  * <!-- begin-user-doc -->
@@ -219,15 +232,44 @@ public class FlowDiagramImpl extends AbstractExtensionImpl implements FlowDiagra
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<TypedParameterExpression> getParameters() {
 		if (parameters == null) {
-			parameters = new EObjectContainmentEList<TypedParameterExpression>(TypedParameterExpression.class, this, AtomicitydecompositionPackage.FLOW_DIAGRAM__PARAMETERS);
+			this.parameters = new EObjectContainmentEList<TypedParameterExpression>(TypedParameterExpression.class, this, AtomicitydecompositionPackage.FLOW_DIAGRAM__PARAMETERS);
+			EObject tmp = this;
+			while(tmp!= null && !(tmp instanceof Machine)){
+				if(tmp instanceof FlowDiagram){
+					for(TypedParameterExpression tp : ((FlowDiagram) tmp).getParameters()){
+//						TypedParameterExpression newTp = AtomicitydecompositionFactory.eINSTANCE.createTypedParameterExpression();
+//						newTp.setName(tp.getName());
+//						newTp.setType(tp.getType());
+//						newTp.setInputExpression(tp.getInputExpression());
+						this.parameters.add(tp);
+					}
+				}
+				tmp = tmp.eContainer();
+			}
 		}
+//		EList<TypedParameterExpression> ret = new EObjectContainmentEList<TypedParameterExpression>(TypedParameterExpression.class, this, AtomicitydecompositionPackage.FLOW_DIAGRAM__PARAMETERS);
+//		
+//		if(this.eContainer() instanceof Leaf){
+//			EObject temp = this.eContainer;
+//			while(!(temp instanceof FlowDiagram));
+//			//ret.addAll(((FlowDiagram)temp).getParameters());
+//			for(TypedParameterExpression tp : ((FlowDiagram)temp).getParameters()){
+//				if(!parameters.contains(tp)){
+//					parameters.add(tp);
+//				}
+//			}
+//		}
+//		//ret.addAll(parameters);
+//		parameters.addAll(ret);
 		return parameters;
+		//return parameters;
 	}
 
+	
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -281,6 +323,36 @@ public class FlowDiagramImpl extends AbstractExtensionImpl implements FlowDiagra
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, AtomicitydecompositionPackage.FLOW_DIAGRAM__COPY, oldCopy, copy));
 	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context) {
+		
+		if (diagnostic != null) {
+			List<Child> refChild = new ArrayList<Child>();
+			for(Child ch : this.getRefine()){
+				if(ch.isRef())
+					refChild.add(ch);
+			}
+			if(refChild.size() > 1){
+				diagnostic.add
+				(new BasicDiagnostic
+						(Diagnostic.ERROR,
+								AtomicitydecompositionValidator.DIAGNOSTIC_SOURCE,
+								AtomicitydecompositionValidator.FLOW_DIAGRAM__VALIDATE,
+								"FlowDiagram can have at most 1 child with a solid line (ref == true)",
+								new Object [] { this }));
+
+				return false;
+			}
+			
+		}
+		return true;
+	}
+
 
 	/**
 	 * <!-- begin-user-doc -->

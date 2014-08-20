@@ -7,6 +7,8 @@
 package ac.soton.eventb.atomicitydecomposition;
 
 import ac.soton.eventb.emf.diagrams.Diagram;
+import java.util.Map;
+import org.eclipse.emf.common.util.DiagnosticChain;
 import ac.soton.eventb.emf.core.extension.coreextension.TypedParameter;
 
 import org.eclipse.emf.common.util.EList;
@@ -120,5 +122,13 @@ public interface FlowDiagram extends AbstractExtension, EventBNamed, Diagram {
 	 * @generated
 	 */
 	void setCopy(boolean value);
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated NOT
+	 */
+	boolean validate(DiagnosticChain diagnostic, Map<Object, Object> context);
 
 } // FlowDiagram
