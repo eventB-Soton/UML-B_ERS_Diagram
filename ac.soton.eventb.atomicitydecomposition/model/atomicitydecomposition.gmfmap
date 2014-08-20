@@ -185,8 +185,6 @@
     <ownedChild>
       <domainMetaElement
           href="atomicitydecomposition.ecore#//FlowDiagram"/>
-      <domainSpecialization
-          body="not self.eContainer().oclIsUndefined()"/>
       <tool
           xsi:type="gmftool:CreationTool"
           href="atomicitydecomposition.gmftool#//@palette/@tools.0/@tools.9"/>
