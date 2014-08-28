@@ -8,6 +8,8 @@ package ac.soton.eventb.atomicitydecomposition.util;
 
 import ac.soton.eventb.atomicitydecomposition.*;
 
+import ac.soton.eventb.emf.core.extension.coreextension.EventBDataElaboration;
+import ac.soton.eventb.emf.core.extension.coreextension.EventBNamedCommentedDataElaborationElement;
 import ac.soton.eventb.emf.core.extension.coreextension.Type;
 import ac.soton.eventb.emf.core.extension.coreextension.TypedParameter;
 import ac.soton.eventb.emf.diagrams.Diagram;
@@ -148,18 +150,6 @@ public class AtomicitydecompositionAdapterFactory extends AdapterFactoryImpl {
 				return createEventBElementAdapter();
 			}
 			@Override
-			public Adapter caseAbstractExtension(AbstractExtension object) {
-				return createAbstractExtensionAdapter();
-			}
-			@Override
-			public Adapter caseEventBNamed(EventBNamed object) {
-				return createEventBNamedAdapter();
-			}
-			@Override
-			public Adapter caseDiagram(Diagram object) {
-				return createDiagramAdapter();
-			}
-			@Override
 			public Adapter caseEventBCommented(EventBCommented object) {
 				return createEventBCommentedAdapter();
 			}
@@ -168,8 +158,28 @@ public class AtomicitydecompositionAdapterFactory extends AdapterFactoryImpl {
 				return createEventBCommentedElementAdapter();
 			}
 			@Override
+			public Adapter caseEventBNamed(EventBNamed object) {
+				return createEventBNamedAdapter();
+			}
+			@Override
 			public Adapter caseEventBNamedCommentedElement(EventBNamedCommentedElement object) {
 				return createEventBNamedCommentedElementAdapter();
+			}
+			@Override
+			public Adapter caseEventBDataElaboration(EventBDataElaboration object) {
+				return createEventBDataElaborationAdapter();
+			}
+			@Override
+			public Adapter caseEventBNamedCommentedDataElaborationElement(EventBNamedCommentedDataElaborationElement object) {
+				return createEventBNamedCommentedDataElaborationElementAdapter();
+			}
+			@Override
+			public Adapter caseDiagram(Diagram object) {
+				return createDiagramAdapter();
+			}
+			@Override
+			public Adapter caseAbstractExtension(AbstractExtension object) {
+				return createAbstractExtensionAdapter();
 			}
 			@Override
 			public Adapter caseParameter(Parameter object) {
@@ -508,6 +518,34 @@ public class AtomicitydecompositionAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createEventBNamedCommentedElementAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ac.soton.eventb.emf.core.extension.coreextension.EventBDataElaboration <em>Event BData Elaboration</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ac.soton.eventb.emf.core.extension.coreextension.EventBDataElaboration
+	 * @generated
+	 */
+	public Adapter createEventBDataElaborationAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ac.soton.eventb.emf.core.extension.coreextension.EventBNamedCommentedDataElaborationElement <em>Event BNamed Commented Data Elaboration Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ac.soton.eventb.emf.core.extension.coreextension.EventBNamedCommentedDataElaborationElement
+	 * @generated
+	 */
+	public Adapter createEventBNamedCommentedDataElaborationElementAdapter() {
 		return null;
 	}
 

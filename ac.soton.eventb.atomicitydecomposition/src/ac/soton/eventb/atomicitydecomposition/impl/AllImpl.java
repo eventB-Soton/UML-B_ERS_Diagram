@@ -244,5 +244,10 @@ public class AllImpl extends ConstructorImpl implements All {
 		}
 		return super.eIsSet(featureID);
 	}
+	
+	@Override
+	public void setRef(boolean newRef){
+		super.setRef(false);
+	}
 
 } //AllImpl

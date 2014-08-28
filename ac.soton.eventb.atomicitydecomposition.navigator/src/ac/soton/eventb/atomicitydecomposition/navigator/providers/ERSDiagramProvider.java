@@ -33,14 +33,13 @@ public class ERSDiagramProvider implements IDiagramProvider {
 	public String getDiagramFileName(EObject element) {
 		if (element instanceof FlowDiagram) {
 			String filename = "";
-			FlowDiagram rootFlowDiagram = (FlowDiagram) element;
+			EObject rootFlowDiagram =  element;
 			
 			// find a root FlowDiagram
-			while (rootFlowDiagram.eContainer() instanceof Child
-					&& rootFlowDiagram.eContainer().eContainer() instanceof FlowDiagram)
-				rootFlowDiagram = (FlowDiagram) rootFlowDiagram.eContainer().eContainer();
+			while (!(rootFlowDiagram.eContainer() instanceof Machine))
+				rootFlowDiagram = rootFlowDiagram.eContainer();
 			//construct filename
-			filename = rootFlowDiagram.getName() + "."+fileExtension;
+			filename = ((FlowDiagram)rootFlowDiagram).getName() + "."+fileExtension;
 			// prefix with machine name
 			EObject root = EcoreUtil.getRootContainer(element);
 			if (root != null && root instanceof Machine)

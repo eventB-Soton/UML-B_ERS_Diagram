@@ -85,7 +85,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__ANNOTATIONS = CorePackage.ABSTRACT_EXTENSION__ANNOTATIONS;
+	int FLOW_DIAGRAM__ANNOTATIONS = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT__ANNOTATIONS;
 
 	/**
 	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
@@ -94,7 +94,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__EXTENSIONS = CorePackage.ABSTRACT_EXTENSION__EXTENSIONS;
+	int FLOW_DIAGRAM__EXTENSIONS = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT__EXTENSIONS;
 
 	/**
 	 * The feature id for the '<em><b>Attributes</b></em>' map.
@@ -103,7 +103,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__ATTRIBUTES = CorePackage.ABSTRACT_EXTENSION__ATTRIBUTES;
+	int FLOW_DIAGRAM__ATTRIBUTES = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT__ATTRIBUTES;
 
 	/**
 	 * The feature id for the '<em><b>Reference</b></em>' attribute.
@@ -112,7 +112,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__REFERENCE = CorePackage.ABSTRACT_EXTENSION__REFERENCE;
+	int FLOW_DIAGRAM__REFERENCE = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT__REFERENCE;
 
 	/**
 	 * The feature id for the '<em><b>Generated</b></em>' attribute.
@@ -121,7 +121,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__GENERATED = CorePackage.ABSTRACT_EXTENSION__GENERATED;
+	int FLOW_DIAGRAM__GENERATED = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT__GENERATED;
 
 	/**
 	 * The feature id for the '<em><b>Local Generated</b></em>' attribute.
@@ -130,7 +130,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__LOCAL_GENERATED = CorePackage.ABSTRACT_EXTENSION__LOCAL_GENERATED;
+	int FLOW_DIAGRAM__LOCAL_GENERATED = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT__LOCAL_GENERATED;
 
 	/**
 	 * The feature id for the '<em><b>Internal Id</b></em>' attribute.
@@ -139,16 +139,16 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__INTERNAL_ID = CorePackage.ABSTRACT_EXTENSION__INTERNAL_ID;
+	int FLOW_DIAGRAM__INTERNAL_ID = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT__INTERNAL_ID;
 
 	/**
-	 * The feature id for the '<em><b>Extension Id</b></em>' attribute.
+	 * The feature id for the '<em><b>Comment</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__EXTENSION_ID = CorePackage.ABSTRACT_EXTENSION__EXTENSION_ID;
+	int FLOW_DIAGRAM__COMMENT = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT__COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -157,7 +157,34 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__NAME = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 0;
+	int FLOW_DIAGRAM__NAME = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Elaborates</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_DIAGRAM__ELABORATES = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT__ELABORATES;
+
+	/**
+	 * The feature id for the '<em><b>Data Kind</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_DIAGRAM__DATA_KIND = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT__DATA_KIND;
+
+	/**
+	 * The feature id for the '<em><b>Extension Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_DIAGRAM__EXTENSION_ID = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Parameters</b></em>' containment reference list.
@@ -166,7 +193,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__PARAMETERS = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 1;
+	int FLOW_DIAGRAM__PARAMETERS = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Refine</b></em>' containment reference list.
@@ -175,7 +202,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__REFINE = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 2;
+	int FLOW_DIAGRAM__REFINE = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Sw</b></em>' attribute.
@@ -184,7 +211,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__SW = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 3;
+	int FLOW_DIAGRAM__SW = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Copy</b></em>' attribute.
@@ -193,7 +220,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM__COPY = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 4;
+	int FLOW_DIAGRAM__COPY = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Flow Diagram</em>' class.
@@ -202,7 +229,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_DIAGRAM_FEATURE_COUNT = CorePackage.ABSTRACT_EXTENSION_FEATURE_COUNT + 5;
+	int FLOW_DIAGRAM_FEATURE_COUNT = CoreextensionPackage.EVENT_BNAMED_COMMENTED_DATA_ELABORATION_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link ac.soton.eventb.atomicitydecomposition.impl.ChildImpl <em>Child</em>}' class.

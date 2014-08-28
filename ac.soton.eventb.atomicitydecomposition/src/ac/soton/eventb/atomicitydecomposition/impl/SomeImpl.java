@@ -245,4 +245,9 @@ public class SomeImpl extends ConstructorImpl implements Some {
 		return super.eIsSet(featureID);
 	}
 
+	
+	@Override
+	public void setRef(boolean newRef){
+		super.setRef(false);
+	}
 } //SomeImpl

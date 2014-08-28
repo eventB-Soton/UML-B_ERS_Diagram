@@ -628,19 +628,19 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
-		DiagramsPackage theDiagramsPackage = (DiagramsPackage)EPackage.Registry.INSTANCE.getEPackage(DiagramsPackage.eNS_URI);
-		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 		CoreextensionPackage theCoreextensionPackage = (CoreextensionPackage)EPackage.Registry.INSTANCE.getEPackage(CoreextensionPackage.eNS_URI);
+		DiagramsPackage theDiagramsPackage = (DiagramsPackage)EPackage.Registry.INSTANCE.getEPackage(DiagramsPackage.eNS_URI);
+		CorePackage theCorePackage = (CorePackage)EPackage.Registry.INSTANCE.getEPackage(CorePackage.eNS_URI);
+		EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
 
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		flowDiagramEClass.getESuperTypes().add(theCorePackage.getAbstractExtension());
-		flowDiagramEClass.getESuperTypes().add(theCorePackage.getEventBNamed());
+		flowDiagramEClass.getESuperTypes().add(theCoreextensionPackage.getEventBNamedCommentedDataElaborationElement());
 		flowDiagramEClass.getESuperTypes().add(theDiagramsPackage.getDiagram());
+		flowDiagramEClass.getESuperTypes().add(theCorePackage.getAbstractExtension());
 		childEClass.getESuperTypes().add(theCorePackage.getEventBElement());
 		leafEClass.getESuperTypes().add(this.getChild());
 		leafEClass.getESuperTypes().add(this.getMultiFlow());

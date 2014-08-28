@@ -10,6 +10,9 @@ import ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionPackage;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
 import ac.soton.eventb.atomicitydecomposition.Leaf;
 import ac.soton.eventb.atomicitydecomposition.MultiFlow;
+import ac.soton.eventb.atomicitydecomposition.One;
+import ac.soton.eventb.atomicitydecomposition.Par;
+import ac.soton.eventb.atomicitydecomposition.Xor;
 
 import java.util.Collection;
 
@@ -253,6 +256,26 @@ public class LeafImpl extends ChildImpl implements Leaf {
 		result.append(name);
 		result.append(')');
 		return result.toString();
+	}
+	
+	/**
+	 * @generated NOT 
+	 */
+	@Override
+	public void setRef(boolean newRef){
+		boolean ref = this.ref;
+		super.setRef(newRef);
+		if(newRef == ref)
+			return;
+		if(this.eContainer() instanceof Xor){
+			((Xor)this.eContainer()).setRef(newRef);
+		}
+		if(this.eContainer() instanceof Par){
+			((Par)this.eContainer()).setRef(newRef);
+		}
+		if(this.eContainer() instanceof One){
+			((One)this.eContainer()).setRef(newRef);
+		}
 	}
 
 } //LeafImpl

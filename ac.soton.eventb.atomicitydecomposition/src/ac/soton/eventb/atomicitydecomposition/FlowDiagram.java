@@ -6,6 +6,7 @@
  */
 package ac.soton.eventb.atomicitydecomposition;
 
+import ac.soton.eventb.emf.core.extension.coreextension.EventBNamedCommentedDataElaborationElement;
 import ac.soton.eventb.emf.diagrams.Diagram;
 import java.util.Map;
 import org.eclipse.emf.common.util.DiagnosticChain;
@@ -35,7 +36,7 @@ import org.eventb.emf.core.EventBNamed;
  * @model
  * @generated
  */
-public interface FlowDiagram extends AbstractExtension, EventBNamed, Diagram {
+public interface FlowDiagram extends EventBNamedCommentedDataElaborationElement, Diagram, AbstractExtension {
 	/**
 	 * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
 	 * The list contents are of type {@link ac.soton.eventb.atomicitydecomposition.TypedParameterExpression}.

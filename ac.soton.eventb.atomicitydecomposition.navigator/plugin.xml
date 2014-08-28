@@ -49,5 +49,28 @@
       </provider>
    </extension>
    
+    <extension
+         point="org.rodinp.core.refinements">
+      <Participant
+            class="ac.soton.eventb.atomicitydecomposition.navigator.refiner.FlowDiagramRefiner"
+            id="FlowDiagramRefiner"
+            refinement-id="org.eventb.core.machineRefinement">
+      </Participant>
+      <Order
+            first-participant-id="org.eventb.core.machineRefiner"
+            second-participant-id="ac.soton.eventb.atomicitydecomposition.navigator.FlowDiagramRefiner">
+      </Order>
+   </extension>
+   
+   
+      
+   <!--extension
+         point="org.rodinp.core.refinements">
+      <Participant
+            class="ac.soton.eventb.atomicitydecomposition.navigator.refiner.FlowDiagramRefiner"
+            id="FlowDiagramRefiner"
+            refinement-id="org.eventb.core.machineRefinement">
+      </Participant>
+   </extension-->
  
 </plugin>

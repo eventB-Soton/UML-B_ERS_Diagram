@@ -8,6 +8,8 @@ package ac.soton.eventb.atomicitydecomposition.util;
 
 import ac.soton.eventb.atomicitydecomposition.*;
 
+import ac.soton.eventb.emf.core.extension.coreextension.EventBDataElaboration;
+import ac.soton.eventb.emf.core.extension.coreextension.EventBNamedCommentedDataElaborationElement;
 import ac.soton.eventb.emf.core.extension.coreextension.Type;
 import ac.soton.eventb.emf.core.extension.coreextension.TypedParameter;
 import ac.soton.eventb.emf.diagrams.Diagram;
@@ -87,10 +89,15 @@ public class AtomicitydecompositionSwitch<T> extends Switch<T> {
 			case AtomicitydecompositionPackage.FLOW_DIAGRAM: {
 				FlowDiagram flowDiagram = (FlowDiagram)theEObject;
 				T result = caseFlowDiagram(flowDiagram);
-				if (result == null) result = caseAbstractExtension(flowDiagram);
-				if (result == null) result = caseEventBNamed(flowDiagram);
+				if (result == null) result = caseEventBNamedCommentedDataElaborationElement(flowDiagram);
 				if (result == null) result = caseDiagram(flowDiagram);
+				if (result == null) result = caseAbstractExtension(flowDiagram);
+				if (result == null) result = caseEventBNamedCommentedElement(flowDiagram);
+				if (result == null) result = caseEventBDataElaboration(flowDiagram);
+				if (result == null) result = caseEventBCommentedElement(flowDiagram);
+				if (result == null) result = caseEventBNamed(flowDiagram);
 				if (result == null) result = caseEventBElement(flowDiagram);
+				if (result == null) result = caseEventBCommented(flowDiagram);
 				if (result == null) result = caseEventBObject(flowDiagram);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
@@ -554,6 +561,36 @@ public class AtomicitydecompositionSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseEventBNamedCommentedElement(EventBNamedCommentedElement object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Event BData Elaboration</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event BData Elaboration</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEventBDataElaboration(EventBDataElaboration object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Event BNamed Commented Data Elaboration Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event BNamed Commented Data Elaboration Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseEventBNamedCommentedDataElaborationElement(EventBNamedCommentedDataElaborationElement object) {
 		return null;
 	}
 

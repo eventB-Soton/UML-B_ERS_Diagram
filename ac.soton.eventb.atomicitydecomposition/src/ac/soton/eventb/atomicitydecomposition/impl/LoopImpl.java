@@ -206,4 +206,9 @@ public class LoopImpl extends ConstructorImpl implements Loop {
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public void setRef(boolean newRef){
+		super.setRef(false);
+	}
+	
 } //LoopImpl

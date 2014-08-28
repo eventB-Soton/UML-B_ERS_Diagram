@@ -7,6 +7,7 @@ import ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionFactory;
 import ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionPackage;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
 
+import ac.soton.eventb.emf.core.extension.coreextension.provider.EventBNamedCommentedDataElaborationElementItemProvider;
 import java.util.Collection;
 import java.util.List;
 
@@ -38,7 +39,7 @@ import org.eventb.emf.core.provider.AbstractExtensionItemProvider;
  * @generated
  */
 public class FlowDiagramItemProvider
-	extends AbstractExtensionItemProvider
+	extends EventBNamedCommentedDataElaborationElementItemProvider
 	implements
 		IEditingDomainItemProvider,
 		IStructuredItemContentProvider,
@@ -66,7 +67,7 @@ public class FlowDiagramItemProvider
 		if (itemPropertyDescriptors == null) {
 			super.getPropertyDescriptors(object);
 
-			addNamePropertyDescriptor(object);
+			addExtensionIdPropertyDescriptor(object);
 			addSwPropertyDescriptor(object);
 			addCopyPropertyDescriptor(object);
 		}
@@ -74,19 +75,19 @@ public class FlowDiagramItemProvider
 	}
 
 	/**
-	 * This adds a property descriptor for the Name feature.
+	 * This adds a property descriptor for the Extension Id feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addNamePropertyDescriptor(Object object) {
+	protected void addExtensionIdPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add
 			(createItemPropertyDescriptor
 				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
 				 getResourceLocator(),
-				 getString("_UI_EventBNamed_name_feature"),
-				 getString("_UI_PropertyDescriptor_description", "_UI_EventBNamed_name_feature", "_UI_EventBNamed_type"),
-				 CorePackage.Literals.EVENT_BNAMED__NAME,
+				 getString("_UI_AbstractExtension_extensionId_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_AbstractExtension_extensionId_feature", "_UI_AbstractExtension_type"),
+				 CorePackage.Literals.ABSTRACT_EXTENSION__EXTENSION_ID,
 				 true,
 				 false,
 				 false,
@@ -207,7 +208,7 @@ public class FlowDiagramItemProvider
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(FlowDiagram.class)) {
-			case AtomicitydecompositionPackage.FLOW_DIAGRAM__NAME:
+			case AtomicitydecompositionPackage.FLOW_DIAGRAM__EXTENSION_ID:
 			case AtomicitydecompositionPackage.FLOW_DIAGRAM__SW:
 			case AtomicitydecompositionPackage.FLOW_DIAGRAM__COPY:
 				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));

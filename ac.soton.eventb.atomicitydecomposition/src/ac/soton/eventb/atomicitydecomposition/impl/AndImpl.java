@@ -151,4 +151,9 @@ public class AndImpl extends ConstructorImpl implements And {
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public void setRef(boolean newRef){
+		super.setRef(false);
+	}
+	
 } //AndImpl

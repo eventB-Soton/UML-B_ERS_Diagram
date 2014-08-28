@@ -151,4 +151,9 @@ public class OrImpl extends ConstructorImpl implements Or {
 		return super.eIsSet(featureID);
 	}
 
+	@Override
+	public void setRef(boolean newRef){
+		super.setRef(false);
+	}
+	
 } //OrImpl
