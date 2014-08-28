@@ -212,6 +212,10 @@
           xsi:type="gmftool:CreationTool"
           title="DecomposeLink"
           description="Creates new Decompose Link"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Create Link"
+          description="Creates a Link between nodes"/>
     </tools>
   </palette>
 </gmftool:ToolRegistry>

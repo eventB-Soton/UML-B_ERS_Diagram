@@ -201,7 +201,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.1"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#AndAndLink"/>
     <linkMetaFeature
@@ -217,7 +217,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.2"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#LoopLoopLink"/>
     <linkMetaFeature
@@ -233,7 +233,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.0"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#AllAllLink"/>
     <linkMetaFeature
@@ -265,7 +265,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.10"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#SomeSomeLink"/>
     <linkMetaFeature
@@ -297,7 +297,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.7"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#OrOrLink"/>
     <linkMetaFeature
@@ -313,7 +313,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.11"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#XorXorLink"/>
     <linkMetaFeature
@@ -329,7 +329,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.6"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#OneOneLink"/>
     <linkMetaFeature
@@ -361,7 +361,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.8"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#ParParLink"/>
     <linkMetaFeature
@@ -381,7 +381,7 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.9"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#FlowDiagramRefine"/>
     <linkMetaFeature

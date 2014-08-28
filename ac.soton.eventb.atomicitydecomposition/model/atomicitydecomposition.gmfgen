@@ -1147,18 +1147,15 @@
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="AllLink"
-            description="Create new AllLink"
-            genLinks="//@diagram/@links.2"/>
+            description="Create new AllLink"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="AndLink"
-            description="Create new AndLink"
-            genLinks="//@diagram/@links.0"/>
+            description="Create new AndLink"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="LoopLink"
-            description="Create new LoopLink"
-            genLinks="//@diagram/@links.1"/>
+            description="Create new LoopLink"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="NewParameter"
@@ -1177,38 +1174,37 @@
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="OneLink"
-            description="Create new OneLink"
-            genLinks="//@diagram/@links.8"/>
+            description="Create new OneLink"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="OrLink"
-            description="Create new OrLink"
-            genLinks="//@diagram/@links.6"/>
+            description="Create new OrLink"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="ParLink"
-            description="Create new ParLink"
-            genLinks="//@diagram/@links.10"/>
+            description="Create new ParLink"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Refine"
-            description="Create new Refine"
-            genLinks="//@diagram/@links.12"/>
+            description="Create new Refine"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="SomeLink"
-            description="Create new SomeLink"
-            genLinks="//@diagram/@links.4"/>
+            description="Create new SomeLink"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="XorLink"
-            description="Create new XorLink"
-            genLinks="//@diagram/@links.7"/>
+            description="Create new XorLink"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="DecomposeLink"
             description="Creates new Decompose Link"
             genLinks="//@diagram/@links.11"/>
+        <entries
+            xsi:type="gmfgen:ToolEntry"
+            title="Create Link"
+            description="Creates a Link between nodes"
+            genLinks="//@diagram/@links.0 //@diagram/@links.1 //@diagram/@links.2 //@diagram/@links.4 //@diagram/@links.6 //@diagram/@links.7 //@diagram/@links.8 //@diagram/@links.10 //@diagram/@links.12"/>
       </groups>
     </palette>
     <preferencePages
