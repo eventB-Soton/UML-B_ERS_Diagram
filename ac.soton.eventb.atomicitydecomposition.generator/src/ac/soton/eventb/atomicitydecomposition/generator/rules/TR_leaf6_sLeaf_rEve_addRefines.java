@@ -21,21 +21,24 @@ public class TR_leaf6_sLeaf_rEve_addRefines extends AbstractRule  implements IRu
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
 		Leaf sourceLeaf = (Leaf) sourceElement;
-		return sourceLeaf.isRef();
+		return sourceLeaf.getDecompose().size() == 0 
+				&& sourceLeaf.isRef() && !Utils.getParentFlow(sourceLeaf).isCopy();// ||
+			//	((sourceLeaf.isRef() == false) && Utils.getParentFlow(sourceLeaf).isCopy());
 				
 	}
 	
 	/**
-	 * The event which will receive the guard has already been generated
+	 * 
 	 */
 	@Override
 	public boolean dependenciesOK(EventBElement sourceElement, final List<GenerationDescriptor> generatedElements) throws Exception  {
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
+		System.out.println("***>" + ((Leaf)sourceElement).getName() + "->" + (Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName()) != null));
 		return Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName()) != null;
 	}
 	
 	/**
-	 *	TR_leaf9, Transform a non-relicator leaf to a disabling guard in the equivalent event
+	 *	Complementary to TR_leaf6. Simply makes the solid line event concrete event refine the abstract one
 	 */
 	@Override
 	public List<GenerationDescriptor> fire(EventBElement sourceElement, List<GenerationDescriptor> generatedElements) throws Exception {

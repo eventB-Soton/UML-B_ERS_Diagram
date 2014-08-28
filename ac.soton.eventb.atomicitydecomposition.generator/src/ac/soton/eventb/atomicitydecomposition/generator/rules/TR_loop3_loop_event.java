@@ -50,8 +50,8 @@ public class TR_loop3_loop_event extends AbstractRule  implements IRule {
 		sourceLoop = (Loop) sourceElement;	
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		parentFlow = Utils.getParentFlow(sourceLoop);
-		int i = Utils.getLoopResetIndex(generatedElements);
-		e = (Event) Make.event(Strings.RESET_LOOP_ + (i+1) );
+		
+		e = (Event) Make.event( Utils.getLoopResetName(sourceLoop, generatedElements));
 		
 		
 		ret.add(Make.descriptor(container, events, e, -10));

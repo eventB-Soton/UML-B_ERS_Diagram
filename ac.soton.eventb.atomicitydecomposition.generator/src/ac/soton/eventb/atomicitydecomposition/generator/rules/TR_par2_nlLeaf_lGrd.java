@@ -62,8 +62,7 @@ public class TR_par2_nlLeaf_lGrd extends AbstractRule  implements IRule {
 		predicate = Utils.build_par_ref_grd(par_child);
 		
 		if(predicate != ""){
-			int i = Utils.getPrevParGrdIndex(equivalent, generatedElements);
-			String name = Strings.GRD + (i+1) + Strings._PAR;
+			String name = Utils.getPrevParGrdName(sourceLeaf, equivalent, generatedElements);
 			ret.add(Make.descriptor(equivalent, guards, Make.guard(name, predicate), 10));
 		}
 		

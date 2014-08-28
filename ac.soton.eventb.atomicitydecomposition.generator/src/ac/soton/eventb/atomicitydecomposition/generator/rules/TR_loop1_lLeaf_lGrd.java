@@ -61,8 +61,12 @@ public class TR_loop1_lLeaf_lGrd extends AbstractRule  implements IRule {
 			
 			String predicate = "";
 			//SI case
-			if(pars.isEmpty())
+			if(pars.isEmpty()){
 				predicate = Utils.conjunction_of_leaves((Child) suc.get(0), 0);
+//				predicate = predicate.replaceAll(Strings.B_AND, Strings.B_EQ + Strings.B_FALSE + Strings.B_AND);
+//				predicate = predicate.concat(Strings.B_EQ + Strings.B_FALSE);
+			}
+				
 			//MI case
 			else
 				predicate = Utils.getParMaplet(pars) + Strings.B_NOTIN + Utils.union_of_leaves((Child) suc.get(0), 0);

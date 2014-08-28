@@ -252,7 +252,7 @@ public class Utils {
 			return build_seq_inv(((One) pred).getOneLink(), parSet, l, parList);
 		}
 		else if(pred instanceof Leaf && !( ((Leaf)pred).getDecompose().isEmpty())){
-			ArrayList<Object> invSet =  new ArrayList<Object>();
+			ArrayList<ArrayList<String>> invSet =  new ArrayList<ArrayList<String>>();
 			for(FlowDiagram flw : ((Leaf)pred).getDecompose())
 				if(flw.isSw())
 					invSet.add(build_seq_inv(flw.getRefine().get(flw.getRefine().size() -1 ), predParList, l, parList));
@@ -266,6 +266,7 @@ public class Utils {
 					invSet.add(build_seq_inv(refTrue, predParList, l, parList));
 				}
 					
+			return merg_or_inv(invSet);
 		}
 		
 		
@@ -388,7 +389,7 @@ public class Utils {
 					expressions.add(parList2.get(i).getName());
 				}
 			}
-			str = str.concat(toString(expressions, Strings.B_MAPLET) + Strings.B_IN + e2.getName());
+			str = str.concat(toString(expressions, Strings.B_MAPLET) + Strings.B_IN + Utils.getDomainStr(e2.getName(), 0, m - commonPar));
 			
 			/***/
 			result.add(str);
@@ -639,8 +640,9 @@ public class Utils {
 				if(invSet.size() > 1){
 					for(int j = i+1 ; i < invSet.size() ; i++){
 						List<String> element = invSet.get(j);
-						if(element.size() >= 3 && element.get(0) == invSet.get(i).get(0)){
+						if(element.size() <= 3 && element.get(0) == invSet.get(i).get(0)){
 							String s = sameMerge.get(2);
+							sameMerge.remove(s);
 							if(element.get(0).equals("7") || element.get(0).equals("8")){
 								s = s.concat(Strings.B_UNION);
 							}
@@ -658,6 +660,7 @@ public class Utils {
 				result.add(sameMerge);
 			}
 		}
+		System.out.println(result.size() + "*********");
 		if(result.size() > 1){
 			if(result.get(0).get(0).equals("3") || result.get(0).get(0).equals("4")){
 				mergeResult.add("3");
@@ -693,6 +696,7 @@ public class Utils {
 			}
 			else if(result.get(0).get(0).equals("8") || result.get(0).get(0).equals("9")){
 				//XXX TEST THIS!
+				System.out.println("IAM HERE");
 				List<String> l = null;
 				List<String> l2 = null;
 				
@@ -915,7 +919,7 @@ public class Utils {
 		return result;
 	}
 
-	public static int getInvXorGluIndex(List<GenerationDescriptor> generatedElements) {
+	public static String getInvXorGluName(Xor sourceXor, List<GenerationDescriptor> generatedElements) {
 		int max = 0;
 		
 		List<Invariant> allInvariants = new ArrayList<Invariant>();
@@ -923,18 +927,18 @@ public class Utils {
 			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
 				allInvariants.add((Invariant)gd.value);
 		}
-			
+	
 		for(Invariant i :allInvariants){
 			int temp;
-			if(i.getName().endsWith(Strings.XOR+Strings._GLU) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
+			if(i.getName().endsWith(Strings.XOR+Strings._GLU +  Utils.getRootFlowDiagramName(sourceXor)) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
 				max = temp;
 		}
 		
 		
-		return max;
+		return Strings.INV + (max + 1) + Strings._XOR + Strings._GLU + Utils.getRootFlowDiagramName(sourceXor);
 	}
 
-	public static int getInvXorIndex(List<GenerationDescriptor> generatedElements) {
+	public static String getInvXorName(Xor sourceXor, List<GenerationDescriptor> generatedElements) {
 		int max = 0;
 
 		List<Invariant> allInvariants = new ArrayList<Invariant>();
@@ -942,13 +946,15 @@ public class Utils {
 			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
 				allInvariants.add((Invariant)gd.value);
 		}
-
+		
 		for(Invariant i :allInvariants){
 			int temp;
-			if(i.getName().endsWith(Strings.XOR) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
+			if(i.getName().endsWith(Strings.XOR + Utils.getRootFlowDiagramName(sourceXor)) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
 				max = temp;
 		}
-		return max;
+		
+		
+		return Strings.INV + (max+1) + Strings._XOR + Utils.getRootFlowDiagramName(sourceXor);
 	}
 
 	public static String disjunction_of_leaves(Child ch, int parNum) {
@@ -1129,21 +1135,22 @@ public class Utils {
 			for(Child ich : ((And) ch).getAndLink()){
 				expressions.add(disjunction_of_leaves(ich, parNum));
 			}
-			return toString(expressions, Strings.B_AND);
+			return toString(expressions, Strings.B_EQ + Strings.B_FALSE + Strings.B_AND) + Strings.B_EQ + Strings.B_FALSE ;
 		}
 		else if(ch instanceof Or){
 			List<String> expressions = new ArrayList<String>();
 			for(Child ich : ((Or) ch).getOrLink()){
 				expressions.add(disjunction_of_leaves(ich, parNum));
 			}
-			return toString(expressions, Strings.B_AND);
+			return toString(expressions, Strings.B_EQ + Strings.B_FALSE + Strings.B_AND) + Strings.B_EQ + Strings.B_FALSE ;
 		}
 		else if(ch instanceof Xor){
 			List<String> expressions = new ArrayList<String>();
 			for(Child ich : ((Xor) ch).getXorLink()){
 				expressions.add(disjunction_of_leaves(ich, parNum));
 			}
-			return toString(expressions, Strings.B_AND);
+			return toString(expressions, Strings.B_EQ + Strings.B_FALSE + Strings.B_AND) + Strings.B_EQ + Strings.B_FALSE ;
+			//return toString(expressions, Strings.B_AND);
 		}
 		else if(ch instanceof All)
 			return disjunction_of_leaves(((All) ch).getAllLink(), parNum+1);
@@ -1174,7 +1181,7 @@ public class Utils {
 		return "ERROR: Should have not reached this situation";
 	}
 
-	public static int getPrevOneGluInvIndex(List<GenerationDescriptor> generatedElements) {
+	public static String getPrevOneGluInvName(EObject sourceElement, List<GenerationDescriptor> generatedElements) {
 		int max = 0;
 		
 		List<Invariant> allInvariants = new ArrayList<Invariant>();
@@ -1182,15 +1189,15 @@ public class Utils {
 			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
 				allInvariants.add((Invariant)gd.value);
 		}
-			
+		
 		for(Invariant i :allInvariants){
 			int temp;
-			if(i.getName().matches(Strings.ONE + Strings._GLU) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
+			if(i.getName().matches(Strings.ONE + Strings._GLU + Utils.getRootFlowDiagramName(sourceElement)) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
 				max = temp;
 		}
 		
 		
-		return max;
+		return Strings.INV + (max + 1) + Strings.ONE + Strings._GLU + Utils.getRootFlowDiagramName(sourceElement);
 	}
 
 	public static List<One> oneAncestors(Leaf l) {
@@ -1241,7 +1248,7 @@ public class Utils {
 		return i;
 	}
 
-	public static int getPrevOneInvIndex(List<GenerationDescriptor> generatedElements) {
+	public static int getPrevOneInvIndex(EObject sourceElement, List<GenerationDescriptor> generatedElements) {
 		int max = 0;
 		
 		List<Invariant> allInvariants = new ArrayList<Invariant>();
@@ -1249,10 +1256,10 @@ public class Utils {
 			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
 				allInvariants.add((Invariant)gd.value);
 		}
-			
+		
 		for(Invariant i :allInvariants){
 			int temp;
-			if(i.getName().endsWith( Strings.UNDERSC + Strings._ONE) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
+			if(i.getName().endsWith( Strings.UNDERSC + Strings._ONE + "_" + Utils.getRootFlowDiagramName(sourceElement)) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
 				max = temp;
 		}
 		
@@ -1331,36 +1338,46 @@ public class Utils {
 		}		
 	}
 
-	public static int getPrevLoopGrdIndex(Event e, List<GenerationDescriptor> generatedElements) {
+	public static String getPrevLoopGrdName(EObject sourceElement, Event e, List<GenerationDescriptor> generatedElements) {
 		int max = 0;
 		
+		List<Guard> allGuards = new ArrayList<Guard>();
 		for(GenerationDescriptor gend : generatedElements ){
 			if( gend.parent != null &&  gend.parent.equals(e) && gend.value instanceof Guard){
-				int temp;
-				
-				if( ((Guard)gend.value).getName().matches("loop") && (temp = Integer.parseInt(((Guard)gend.value).getName().split("_")[0].substring(3)) )  > max )
-					max = temp;
-				
+				allGuards.add((Guard) gend.value);
 			}
-				
 		}
-		
-		return max;
+
+		for(Guard grd : allGuards){
+			int temp;
+			if( grd.getName().matches("loop_" + Utils.getRootFlowDiagramName(sourceElement)) && (temp = Integer.parseInt(grd.getName().split("_")[0].substring(3)) )  > max )
+				max = temp;
+
+		}
+
+		return Strings.GRD + (max+1) + Strings._LOOP + "_" + Utils.getRootFlowDiagramName(sourceElement);
 	}
 
-	public static int getLoopResetIndex(List<GenerationDescriptor> generatedElements) {
+	public static String getLoopResetName(EObject sourceElement ,List<GenerationDescriptor> generatedElements) {
 		int max = 0;
+		List<Event> allEvents = new ArrayList<Event>();
+		//allEvents.addAll(m.getEvents());
 		for(GenerationDescriptor gend : generatedElements){
 			if(gend.value instanceof Event){
-				Event e = (Event)gend.value;
-				int temp;
-				String[] splitted = e.getName().split("_");
-				if(e.getName().matches("reset_loop") && ((temp = Integer.parseInt(splitted[splitted.length - 1])) > max ) )
-					max = temp;		
+				allEvents.add((Event) gend.value);
 			}
 		}
 		
-		return max;
+		for(Event e : allEvents){
+
+			int temp;
+			String[] splitted = e.getName().split("_");
+			if(e.getName().matches(Utils.getRootFlowDiagramName(sourceElement) + "_reset_loop") && ((temp = Integer.parseInt(splitted[splitted.length - 1])) > max ) )
+				max = temp;		
+		}
+
+		
+		return Utils.getRootFlowDiagramName(sourceElement) + "_" + Strings.RESET_LOOP_ + (max+1);
 	}
 
 	public static List<Leaf> getNonDecomposedLeafDescendants(EventBElement ch){
@@ -1503,27 +1520,48 @@ public class Utils {
 		else if(ch instanceof One)
 			return Strings.B_DOM + parenthesize(par_ref_grd(((One) ch).getOneLink()));
 		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
+			//TODO Implement this
 			String str = "YET TO BE IMPLEMENTED";
-			//((Leaf)ch).getD
+//			str = "";
+//			EList<FlowDiagram> flowD = ((Leaf)ch).getDecompose();
+//			List<String>  expressions = new ArrayList<String>();
+//			for(FlowDiagram flw : flowD){
+//				expressions.add(par_ref_grd(flw));
+//			}
+//			str = Utils.toString(expressions, Strings.B_UNION);
 			return str;
 		}
 			
 		return null;
 	}
 
-	public static int getPrevParGrdIndex(Event equivalent, List<GenerationDescriptor> generatedElements) {
+	public static String getPrevParGrdName(EObject sourceElement, Event equivalent, List<GenerationDescriptor> generatedElements) {
 		int max = 0;
+		
+		List<Guard> allGuards = new ArrayList<Guard>();
 		for(GenerationDescriptor gend : generatedElements){
-			if(gend.value instanceof Event){
-				Event e = (Event)gend.value;
-				int temp;
-				String[] splitted = e.getName().split("_");
-				if(e.getName().matches("par") && ((temp = Integer.parseInt(splitted[splitted.length - 1])) > max ) )
-					max = temp;		
+			if(gend.value instanceof Guard && gend.parent != null && gend.parent.equals(equivalent)){
+				allGuards.add((Guard) gend.value);
 			}
 		}
+			
+		for(Guard grd : allGuards){
+				int temp;
+				String[] splitted = grd.getName().split("_");
+				if(grd.getName().matches("par_" + Utils.getRootFlowDiagramName(sourceElement)) && ((temp = Integer.parseInt(splitted[splitted.length - 1])) > max ) )
+					max = temp;		
+			
+		}
 		
-		return max;
+		return Strings.GRD + (max+1) + Strings._PAR + Utils.getRootFlowDiagramName(sourceElement);
+	}
+
+	public static String getRootFlowDiagramName(EObject obj){
+		if(obj instanceof FlowDiagram && 
+				(obj.eContainer() instanceof Machine  || obj.eContainer() == null))
+			return ((FlowDiagram) obj).getName();
+		else
+			return getRootFlowDiagramName(obj.eContainer());
 	}
 
 }

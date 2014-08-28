@@ -56,7 +56,6 @@ public class TR_leaf10_rLeaf_dGrd extends AbstractRule  implements IRule {
 		
 		String name = Strings.GRD_SELF;
 		String predicate = generatePredicate(sourceLeaf);
-		System.out.println(predicate);
 		Guard grd = (Guard) Make.guard(name, predicate);
 		
 		Event eve = (Event) Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName());

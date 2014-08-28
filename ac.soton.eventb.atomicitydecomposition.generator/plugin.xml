@@ -2,47 +2,34 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-	<extension
-      name="EventB Diagrams"
-      point="org.eclipse.ui.menus">
-    <menuContribution
-        	allPopups="true"
-        	locationURI="popup:org.eclipse.ui.popup.any">
-     		<command
-           		  commandId="ac.soton.eventb.atomicitydecomposition.generate"
-           		  icon="icons/UtoBJ.png"
-           		  label="generate"
-         		  style="push">
-		     </command>	
-  		</menuContribution>
-	</extension>
-	
-	<extension
+    <extension
      	point="org.eclipse.ui.commands">
   		<command
        		 description="command.description.generate"
-      	 	 id="ac.soton.eventb.atomicitydecomposition.generate"
+      	 	 id="ac.soton.eventb.atomicitydecomposition.generator.generateEventB"
        		 name="command.name.generate">
  	    </command>
   	</extension>
 
-   <extension
+   <!--extension
          point="org.eclipse.ui.handlers">
       <handler
             class="ac.soton.eventb.atomicitydecomposition.generator.actions.GenerateAction"
-            commandId="ac.soton.eventb.atomicitydecomposition.generate">
+            commandId="ac.soton.eventb.atomicitydecomposition.generator.generateEventB">
          <enabledWhen>
             <and>
                <with
                      variable="activeEditor">
                   <instanceof
-                        value="ac.soton.eventb.roseEditor.RoseEditor">
+                        value="ac.soton.eventb.atomicitydecomposition.diagram.part.AtomicitydecompositionDiagramEditor">
                   </instanceof>
                </with>
             </and>
          </enabledWhen>
       </handler>
-     </extension>
+     </extension-->
+     
+     
      
      
 
@@ -197,7 +184,15 @@
      </generator>
 	</extension>
 
-	
+	<extension
+     	point="ac.soton.eventb.emf.diagrams.validator">
+		<validator
+			editorClass="ac.soton.eventb.atomicitydecomposition.diagram.part.AtomicitydecompositionDiagramEditor"
+			name="ERS validator"
+			validatorClass="ac.soton.eventb.atomicitydecomposition.generator.validator.Validator">
+		</validator>
+	</extension> 
+     
 	
 	
 </plugin>

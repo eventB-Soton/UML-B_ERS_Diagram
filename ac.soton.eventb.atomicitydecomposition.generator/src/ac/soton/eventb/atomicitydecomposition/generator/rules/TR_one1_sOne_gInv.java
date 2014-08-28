@@ -37,7 +37,7 @@ public class TR_one1_sOne_gInv extends AbstractRule  implements IRule {
 		One sourceOne = (One) sourceElement;		
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		
-		String name = Strings.INV + (Utils.getPrevOneGluInvIndex(generatedElements) + 1) + Strings.ONE + Strings._GLU;
+		String name = Utils.getPrevOneGluInvName(sourceOne, generatedElements);
 		String predicate = generatePredicate(sourceOne);
 		
 		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 2));

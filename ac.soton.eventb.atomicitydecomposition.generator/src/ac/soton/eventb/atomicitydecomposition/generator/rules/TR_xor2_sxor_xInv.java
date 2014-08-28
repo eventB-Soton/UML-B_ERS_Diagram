@@ -69,9 +69,9 @@ public class TR_xor2_sxor_xInv extends AbstractRule  implements IRule {
 		Xor sourceXor = (Xor) sourceElement;		
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		
-		int index = Utils.getInvXorIndex(generatedElements);
 		
-		String name = Strings.INV + (index+1) + Strings._XOR;
+		
+		String name = Utils.getInvXorName(sourceXor, generatedElements);
 		String predicate = generateInvariant(sourceXor);
 
 		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 10));

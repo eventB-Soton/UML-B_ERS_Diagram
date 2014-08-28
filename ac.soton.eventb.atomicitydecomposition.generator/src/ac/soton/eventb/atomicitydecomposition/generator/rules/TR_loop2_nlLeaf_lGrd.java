@@ -53,8 +53,8 @@ public class TR_loop2_nlLeaf_lGrd extends AbstractRule  implements IRule {
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		Event equivalent = (Event) Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName());
 		
-		int index = Utils.getPrevLoopGrdIndex(equivalent, generatedElements);
-		String name = Strings.GRD + (index+1) + Strings._LOOP;
+		String name = Utils.getPrevLoopGrdName(sourceLeaf, equivalent, generatedElements);
+		 
 		FlowDiagram parentFlow = Utils.getParentFlow(sourceLeaf);
 		Loop lo = (Loop) Utils.predecessorLoop(sourceLeaf, parentFlow.isSw());
 		List<TypedParameterExpression> pars = ((FlowDiagram)lo.eContainer()).getParameters();

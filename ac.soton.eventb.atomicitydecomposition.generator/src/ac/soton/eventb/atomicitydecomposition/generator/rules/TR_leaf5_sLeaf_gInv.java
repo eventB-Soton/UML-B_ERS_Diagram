@@ -12,6 +12,7 @@ import ac.soton.eventb.atomicitydecomposition.Loop;
 import ac.soton.eventb.atomicitydecomposition.One;
 import ac.soton.eventb.atomicitydecomposition.Xor;
 import ac.soton.eventb.atomicitydecomposition.generator.strings.Strings;
+import ac.soton.eventb.atomicitydecomposition.generator.utils.Utils;
 import ac.soton.eventb.emf.diagrams.generator.AbstractRule;
 import ac.soton.eventb.emf.diagrams.generator.GenerationDescriptor;
 import ac.soton.eventb.emf.diagrams.generator.IRule;
@@ -25,7 +26,8 @@ public class TR_leaf5_sLeaf_gInv extends AbstractRule  implements IRule {
 		return sourceLeaf.isRef() && //leaf with a solid line
 				!(sourceLeaf.eContainer() instanceof Xor) && //not a xor leaf (TR_xor1)
 				!(sourceLeaf.eContainer() instanceof One) && //not an one leaf (TR_one1)
-				!(sourceLeaf.eContainer().eContainer().eContainer() instanceof Loop); //its parent is not a loop 
+				!(sourceLeaf.eContainer().eContainer().eContainer() instanceof Loop) && //its parent is not a loop
+				!Utils.getParentFlow(sourceLeaf).isCopy();  // So it does not try to glue a new variable to one that has disappeared
 				// other constructors come only with dashed lines
 	}
 

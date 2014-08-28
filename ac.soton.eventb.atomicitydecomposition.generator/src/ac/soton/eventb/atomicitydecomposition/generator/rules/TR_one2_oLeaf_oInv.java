@@ -41,11 +41,11 @@ public class TR_one2_oLeaf_oInv extends AbstractRule  implements IRule {
 		Leaf sourceLeaf = (Leaf) sourceElement;		
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		
-		int index = Utils.getPrevOneInvIndex(generatedElements);
+		int index = Utils.getPrevOneInvIndex(sourceLeaf, generatedElements);
 		
 		for(One o : Utils.oneAncestors(sourceLeaf)){
 			index++;
-			String name = Strings.INV + index + Strings.UNDERSC + Strings.ONE;
+			String name = Strings.INV + index + Strings.UNDERSC + Strings.ONE + "_" +Utils.getRootFlowDiagramName(sourceLeaf);
 			
 			int m = Utils.getParNumAfterOnePar(sourceLeaf, o);
 			ArrayList<TypedParameterExpression> par = new ArrayList<TypedParameterExpression>();
