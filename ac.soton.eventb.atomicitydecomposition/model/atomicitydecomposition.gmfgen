@@ -1086,6 +1086,35 @@
             href="atomicitydecomposition.genmodel#//atomicitydecomposition/One/oneLink"/>
       </modelFacet>
     </links>
+    <links
+        visualID="4018"
+        editPartClassName="Par2EditPart"
+        itemSemanticEditPolicyClassName="Par2ItemSemanticEditPolicy"
+        notationViewFactoryClassName="ParViewFactory"
+        createCommandClassName="Par2CreateCommand"
+        reorientCommandClassName="ParReorientCommand">
+      <diagramRunTimeClass
+          href="../../../plugin/org.eclipse.gmf.runtime.notation/model/notation.genmodel#//notation/Edge"/>
+      <elementType
+          xsi:type="gmfgen:SpecializationType"
+          metamodelType="//@diagram/@topLevelNodes.8/@elementType"/>
+      <viewmap
+          xsi:type="gmfgen:InnerClassViewmap"
+          className="ParParLinkIsRefFigure"
+          classBody="&#xA;/**&#xA; * @generated&#xA; */&#xA;public class ParParLinkIsRefFigure extends org.eclipse.gmf.runtime.draw2d.ui.figures.PolylineConnectionEx {&#xA;&#xA;&#xA;&#xA;&#xA;&#x9;/**&#xA;&#x9; * @generated&#xA;&#x9; */&#xA;&#x9;public ParParLinkIsRefFigure() {&#xA;&#x9;&#x9;this.setLineWidth(3);&#xA;&#xA;&#x9;}&#xA;&#xA;&#xA;&#xA;&#xA;}&#xA;&#xA;"/>
+      <modelFacet
+          xsi:type="gmfgen:TypeLinkModelFacet"
+          modelElementSelector="//@expressionProviders/@providers.0/@expressions.5">
+        <metaClass
+            href="atomicitydecomposition.genmodel#//atomicitydecomposition/Par"/>
+        <containmentMetaFeature
+            href="atomicitydecomposition.genmodel#//atomicitydecomposition/FlowDiagram/refine"/>
+        <childMetaFeature
+            href="atomicitydecomposition.genmodel#//atomicitydecomposition/FlowDiagram/refine"/>
+        <targetMetaFeature
+            href="atomicitydecomposition.genmodel#//atomicitydecomposition/Par/parLink"/>
+      </modelFacet>
+    </links>
     <palette>
       <groups
           title="Objects"
@@ -1138,8 +1167,7 @@
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="FlowDiagram"
-            description="Create new FlowDiagram"
-            genNodes="//@diagram/@topLevelNodes.10"/>
+            description="Create new FlowDiagram"/>
       </groups>
       <groups
           title="Connections"
@@ -1169,8 +1197,7 @@
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="NewParameter"
-            description="Create new NewParameter"
-            genLinks="//@diagram/@links.9"/>
+            description="Create new NewParameter"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="OneLink"
@@ -1198,8 +1225,7 @@
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="DecomposeLink"
-            description="Creates new Decompose Link"
-            genLinks="//@diagram/@links.11"/>
+            description="Creates new Decompose Link"/>
         <entries
             xsi:type="gmfgen:ToolEntry"
             title="Create Link"
@@ -2087,6 +2113,59 @@
         referenceType="out_target"
         groupName="outgoing links"
         groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram"
+        child="//@diagram/@links.16"
+        groupName="links"
+        groupIcon="icons/linksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.16"
+        child="//@diagram/@topLevelNodes.0"
+        referenceType="out_target"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.0"
+        child="//@diagram/@links.16"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.16"
+        child="//@diagram/@topLevelNodes.9"
+        referenceType="out_target"
+        groupName="target"
+        groupIcon="icons/linkTargetNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.9"
+        child="//@diagram/@links.16"
+        referenceType="in_source"
+        groupName="incoming links"
+        groupIcon="icons/incomingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.16"
+        child="//@diagram/@topLevelNodes.10"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@topLevelNodes.10"
+        child="//@diagram/@links.16"
+        referenceType="out_target"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.16"
+        child="//@diagram/@links.13"
+        referenceType="in_source"
+        groupName="source"
+        groupIcon="icons/linkSourceNavigatorGroup.gif"/>
+    <childReferences
+        parent="//@diagram/@links.13"
+        child="//@diagram/@links.16"
+        referenceType="out_target"
+        groupName="outgoing links"
+        groupIcon="icons/outgoingLinksNavigatorGroup.gif"/>
   </navigator>
   <diagramUpdater/>
   <propertySheet>
@@ -2119,6 +2198,9 @@
       <expressions
           xsi:type="gmfgen:GenConstraint"
           body="not self.eContainer().oclIsUndefined() and (self.eContainer().oclIsKindOf(And) or self.eContainer().oclIsKindOf(Loop) or self.eContainer().oclIsKindOf(All) or self.eContainer().oclIsKindOf(Some) or self.eContainer().oclIsKindOf(Or) or self.eContainer().oclIsKindOf(Xor) or self.eContainer().oclIsKindOf(One) or self.eContainer().oclIsKindOf(Par) or self.eContainer().oclIsKindOf(FlowDiagram))"/>
+      <expressions
+          xsi:type="gmfgen:GenConstraint"
+          body="false"/>
       <expressions
           xsi:type="gmfgen:GenConstraint"
           body="false"/>

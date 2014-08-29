@@ -233,4 +233,59 @@ public static List<AtomicitydecompositionNodeDescriptor> getFlowDiagram_1000Sema
 	 Parameter placement done on 
 	 1. LeafNameEditPart.getLabelText
 	 2. LeafName2EditPart.getLabelText
-	
+	 
+	 
+	 
+	 
+	 ---------------------------------------------------------
+	 Pallette provider had to be marked as not generated. For some reason, deleting
+	 tools from the gmftool file caused erros on the gmfmap file
+	 
+	 
+	 /**
+	 * Creates "Objects" palette tool group
+	 * @generated NOT
+	 */
+	private PaletteContainer createObjects1Group() {
+		PaletteDrawer paletteContainer = new PaletteDrawer(
+				Messages.Objects1Group_title);
+		paletteContainer.setId("createObjects1Group"); //$NON-NLS-1$
+		paletteContainer.add(createAll1CreationTool());
+		paletteContainer.add(createAnd2CreationTool());
+		paletteContainer.add(createLeaf3CreationTool());
+		paletteContainer.add(createLoop4CreationTool());
+		paletteContainer.add(createOne5CreationTool());
+		paletteContainer.add(createOr6CreationTool());
+		paletteContainer.add(createPar7CreationTool());
+		paletteContainer.add(createSome8CreationTool());
+		paletteContainer.add(createXor9CreationTool());
+//		paletteContainer.add(createFlowDiagram10CreationTool());
+		return paletteContainer;
+	}
+
+	/**
+	 * Creates "Connections" palette tool group
+	 * @generated NOT
+	 */
+	private PaletteContainer createConnections2Group() {
+		PaletteDrawer paletteContainer = new PaletteDrawer(
+				Messages.Connections2Group_title);
+		paletteContainer.setId("createConnections2Group"); //$NON-NLS-1$
+//		paletteContainer.add(createAllLink1CreationTool());
+//		paletteContainer.add(createAndLink2CreationTool());
+//		paletteContainer.add(createLoopLink3CreationTool());
+//		paletteContainer.add(createNewParameter4CreationTool());
+//		paletteContainer.add(createNewParameter5CreationTool());
+//		paletteContainer.add(createNewParameter6CreationTool());
+//		paletteContainer.add(createOneLink7CreationTool());
+//		paletteContainer.add(createOrLink8CreationTool());
+//		paletteContainer.add(createParLink9CreationTool());
+//		paletteContainer.add(createRefine10CreationTool());
+//		paletteContainer.add(createSomeLink11CreationTool());
+//		paletteContainer.add(createXorLink12CreationTool());
+//		paletteContainer.add(createDecomposeLink13CreationTool());
+		paletteContainer.add(createCreateLink14CreationTool());
+		return paletteContainer;
+	}
+	 
+-----------------------------------------------------------------------------

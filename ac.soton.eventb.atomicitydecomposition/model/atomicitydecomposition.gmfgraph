@@ -447,6 +447,13 @@
             name="OneOneLinkIsRef"
             lineWidth="3"/>
       </descriptors>
+      <descriptors
+          name="ParParLinkIsRefFigure">
+        <actualFigure
+            xsi:type="gmfgraph:PolylineConnection"
+            name="ParParLinkIsRef"
+            lineWidth="3"/>
+      </descriptors>
     </figures>
     <nodes
         name="FlowDiagram"
@@ -481,6 +488,9 @@
     <connections
         name="OneOneLinkIsRef"
         figure="OneOneLinkIsRefFigure"/>
+    <connections
+        name="ParParLinkIsRef"
+        figure="ParParLinkIsRefFigure"/>
     <connections
         name="XorXorLinkIsRef"
         figure="XorXorLinkIsRefFigure"/>

@@ -185,9 +185,6 @@
     <ownedChild>
       <domainMetaElement
           href="atomicitydecomposition.ecore#//FlowDiagram"/>
-      <tool
-          xsi:type="gmftool:CreationTool"
-          href="atomicitydecomposition.gmftool#//@palette/@tools.0/@tools.9"/>
       <diagramNode
           href="atomicitydecomposition.gmfgraph#FlowDiagram"/>
     </ownedChild>
@@ -343,9 +340,6 @@
       <diagramLabel
           href="atomicitydecomposition.gmfgraph#OneNewParameterExternalLabel"/>
     </labelMappings>
-    <tool
-        xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.5"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#OneNewParameter"/>
     <linkMetaFeature
@@ -369,9 +363,6 @@
         href="atomicitydecomposition.ecore#//Par/parLink"/>
   </links>
   <links>
-    <tool
-        xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.12"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#LeafDecompose"/>
     <linkMetaFeature
@@ -426,6 +417,19 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="atomicitydecomposition.ecore#//One/oneLink"/>
+  </links>
+  <links>
+    <domainMetaElement
+        href="atomicitydecomposition.ecore#//Par"/>
+    <domainSpecialization
+        body="false"/>
+    <containmentFeature
+        href="atomicitydecomposition.ecore#//FlowDiagram/refine"/>
+    <diagramLink
+        href="atomicitydecomposition.gmfgraph#ParParLinkIsRef"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="atomicitydecomposition.ecore#//Par/parLink"/>
   </links>
   <diagram>
     <diagramCanvas
