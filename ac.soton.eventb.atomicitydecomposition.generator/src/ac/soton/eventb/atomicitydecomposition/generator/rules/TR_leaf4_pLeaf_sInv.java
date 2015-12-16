@@ -21,7 +21,11 @@ import ac.soton.eventb.atomicitydecomposition.generator.utils.Utils;
 import ac.soton.eventb.emf.diagrams.generator.AbstractRule;
 import ac.soton.eventb.emf.diagrams.generator.GenerationDescriptor;
 import ac.soton.eventb.emf.diagrams.generator.IRule;
+import ac.soton.eventb.emf.diagrams.generator.utils.Find;
 import ac.soton.eventb.emf.diagrams.generator.utils.Make;
+
+import org.eventb.emf.core.machine.Invariant; // test
+
 
 public class TR_leaf4_pLeaf_sInv extends AbstractRule  implements IRule {
 	
@@ -70,7 +74,33 @@ public class TR_leaf4_pLeaf_sInv extends AbstractRule  implements IRule {
 //		System.out.println(mustBeTypedBefore);
 		return true;//Find.generatedElement(generatedElements, container, invariants, Strings.INV_ + mustBeTypedBefore + Strings._SEQ) != null || 
 				//Find.generatedElement(generatedElements, container, invariants, Strings.INV_ + mustBeTypedBefore + Strings._TYPE) != null;
+		
+		//----------------------------------------------------------------------------------------
+		//Dana Test
+		/*Leaf sourceLeaf = (Leaf) sourceElement;	
+		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
+		FlowDiagram parentFlow = Utils.getParentFlow(sourceLeaf);
+
+        boolean ret = true;
+		List<Object> pred = Utils.predecessor(sourceLeaf, parentFlow.getParameters(), parentFlow.isSw());
+		for(int i = 0; i < pred.size(); i++){
+			if(pred.get(i) instanceof Leaf){
+			String pred_inv_name = Strings.INV_ + ((Leaf) pred.get(i)).getName() + "_" + parentFlow.getName() + Strings._SEQ;
+			String type_name = Strings.INV_ + ((Leaf) pred.get(i)).getName() + Strings._TYPE;
+			
+				if (Find.generatedElement(generatedElements, container, invariants, type_name) == null){
+					if(Find.generatedElement(generatedElements, container, invariants, pred_inv_name) == null){
+						ret= false;
+						break;
+					}
 				
+				}	
+				
+			}
+		}
+		//String pred_inv_name = Strings.INV_ + pred.getName() + "_" + parentFlow.getName() + Strings._SEQ;
+		return ret;*/
+		//----------------------------------------------------------------------------------------
 		
 	}
 
@@ -86,9 +116,12 @@ public class TR_leaf4_pLeaf_sInv extends AbstractRule  implements IRule {
 		Leaf sourceLeaf = (Leaf) sourceElement;		
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		
-		String name = Strings.INV_ + sourceLeaf.getName() + Strings._SEQ;
+		//String name = Strings.INV_ + sourceLeaf.getName() + Strings._SEQ;
 		
 		FlowDiagram parentFlow = Utils.getParentFlow(sourceLeaf);
+		
+		String name = Strings.INV_ + sourceLeaf.getName() + "_" + parentFlow.getName() + Strings._SEQ;//fixed by dana to allow more than 1 diagram
+		
 		Child parentChild = Utils.getParentChild(sourceLeaf);
 		
 		List<Object> pred = Utils.predecessor(sourceLeaf, parentFlow.getParameters(), parentFlow.isSw());
@@ -112,7 +145,22 @@ public class TR_leaf4_pLeaf_sInv extends AbstractRule  implements IRule {
 		@SuppressWarnings("unchecked")
 		String predicate = Utils.build_seq_inv_string(Utils.build_seq_inv((Child)pred.get(0), (List<TypedParameterExpression>)pred.get(1) , sourceLeaf, par));
 		//Must be placed in inverse order so dependencies come before
+		
+		//----------------------------------------------------
+		//Dana
+		//just test
+		// This has fixed the ordering problem 
+		
+		// This has fixed the ordering but now xor-inv is added before?
+		
+		/*List <Invariant> invs = container.getInvariants();
+		Invariant inv = Make.invariant(name, predicate, "");
+		invs.add(inv);
+		ret.add(Make.descriptor(container, invariants, inv, 2));*/
+		//----------------------------------------------------
 		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 2));
+		
+		
 		
 		return ret;
 		

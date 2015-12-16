@@ -19,7 +19,10 @@ import ac.soton.eventb.emf.core.extension.coreextension.TypedParameter;
 import ac.soton.eventb.emf.diagrams.generator.AbstractRule;
 import ac.soton.eventb.emf.diagrams.generator.GenerationDescriptor;
 import ac.soton.eventb.emf.diagrams.generator.IRule;
+import ac.soton.eventb.emf.diagrams.generator.utils.Find;
 import ac.soton.eventb.emf.diagrams.generator.utils.Make;
+
+
 
 public class TR_leaf7_dLeaf_nrEve extends AbstractRule  implements IRule {
 	
@@ -42,10 +45,23 @@ public class TR_leaf7_dLeaf_nrEve extends AbstractRule  implements IRule {
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		
 		String name = sourceLeaf.getName();
-		Event newEvent = (Event) Make.event(name);
-		newEvent.setGenerated(false);
+		//--------------------------------------------------------------
+		//Dana: Fixed to allow the reuse of already created events
 		
-		ret.add(Make.descriptor(container, events, newEvent, -1));
+	
+		Event newEvent = (Event) Find.named(container.getEvents(), ((Leaf)sourceElement).getName());
+		if (newEvent == null){
+			newEvent = (Event) Make.event(name);
+			
+		}
+	    //---------------------------------------------------
+	    
+		//Event newEvent = (Event) Make.event(name); //this will be commented if we allowreuse of events
+	
+		//newEvent.setGenerated(false);
+
+		ret.add(Make.descriptor(container, events, newEvent, -1, true));
+	   
 		
 		// parameters
 		for(TypedParameter tp : Utils.getParentFlow(sourceLeaf).getParameters()){
@@ -86,7 +102,7 @@ public class TR_leaf7_dLeaf_nrEve extends AbstractRule  implements IRule {
 //			String grdPredicate = p.getName() + Strings.B_IN + ((Par)sourceLeaf.eContainer()).getNewParameter().getType();
 //			ret.add(Make.descriptor(newEvent, guards, Make.guard(grdName, grdPredicate), 1));
 		}
-		
+	
 		return ret;
 	}
 	

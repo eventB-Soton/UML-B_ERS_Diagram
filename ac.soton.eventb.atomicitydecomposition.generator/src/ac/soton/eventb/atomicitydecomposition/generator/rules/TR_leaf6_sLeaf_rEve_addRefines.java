@@ -20,10 +20,11 @@ public class TR_leaf6_sLeaf_rEve_addRefines extends AbstractRule  implements IRu
 	
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
-		Leaf sourceLeaf = (Leaf) sourceElement;
+		/*Leaf sourceLeaf = (Leaf) sourceElement;
 		return sourceLeaf.getDecompose().size() == 0 
 				&& sourceLeaf.isRef() && !Utils.getParentFlow(sourceLeaf).isCopy();// ||
-			//	((sourceLeaf.isRef() == false) && Utils.getParentFlow(sourceLeaf).isCopy());
+			//	((sourceLeaf.isRef() == false) && Utils.getParentFlow(sourceLeaf).isCopy());*/
+		return false; //test
 				
 	}
 	
@@ -35,6 +36,7 @@ public class TR_leaf6_sLeaf_rEve_addRefines extends AbstractRule  implements IRu
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		System.out.println("***>" + ((Leaf)sourceElement).getName() + "->" + (Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName()) != null));
 		return Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName()) != null;
+		//return Find.named(container.getEvents(), ((Leaf)sourceElement).getName()) != null;//Dana
 	}
 	
 	/**
@@ -48,8 +50,9 @@ public class TR_leaf6_sLeaf_rEve_addRefines extends AbstractRule  implements IRu
 		
 		
 		Event eve = (Event) Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName());
-		
+		//Event eve = (Event) Find.named(container.getEvents(), ((Leaf)sourceElement).getName());//Dana
 		ret.add(Make.descriptor(eve, refinesNames, ((Leaf)Utils.getParentFlow(sourceLeaf).eContainer()).getName(), -2));		
+		
 		return ret;
 	}
 

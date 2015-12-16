@@ -9,9 +9,13 @@ import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Guard;
 import org.eventb.emf.core.machine.Machine;
 
+import ac.soton.eventb.atomicitydecomposition.All;
 import ac.soton.eventb.atomicitydecomposition.Child;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
 import ac.soton.eventb.atomicitydecomposition.Leaf;
+import ac.soton.eventb.atomicitydecomposition.One;
+import ac.soton.eventb.atomicitydecomposition.Par;
+import ac.soton.eventb.atomicitydecomposition.Some;
 import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
 import ac.soton.eventb.atomicitydecomposition.generator.strings.Strings;
 import ac.soton.eventb.atomicitydecomposition.generator.utils.Utils;
@@ -39,6 +43,13 @@ public class TR_leaf8_pLeaf_sGrd extends AbstractRule  implements IRule {
 	public boolean dependenciesOK(EventBElement sourceElement, final List<GenerationDescriptor> generatedElements) throws Exception  {
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		return Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName()) != null;
+		//-----------------------------------------------------------------------------------
+		//Dana test
+	  /*  if (Find.named(container.getEvents(), ((Leaf)sourceElement).getName())  != null)
+	    	return true;
+	    else
+	    	return Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName()) != null; */
+		//-----------------------------------------------------------------------------------
 	}
 	
 	/**
@@ -53,10 +64,33 @@ public class TR_leaf8_pLeaf_sGrd extends AbstractRule  implements IRule {
 		
 		List<Object> pred = Utils.predecessor(sourceLeaf, parentFlow.getParameters(), parentFlow.isSw());
 		
-		String name = Strings.GRD_SEQ;
-		@SuppressWarnings("unchecked")
-		String predicate = Utils.build_seq_grd((Child)pred.get(0), (List<TypedParameterExpression>) pred.get(1), sourceLeaf, parentFlow.getParameters(), false);
+		//-------------------------------------------------------------------------------------
+		//Added by Dana 15/10/2015
+		Child parentChild = Utils.getParentChild(sourceLeaf);
+		List<TypedParameterExpression> par = new ArrayList<TypedParameterExpression>();
+        par.addAll(parentFlow.getParameters());
 		
+		if(parentChild instanceof All){
+			par.add( ((All)parentChild).getNewParameter() );
+		}
+		else if(parentChild instanceof Some){
+			par.add( ((Some)parentChild).getNewParameter() );
+		}
+		else if(parentChild instanceof One){
+			par.add( ((One)parentChild).getNewParameter() );
+		}
+		else if(parentChild instanceof Par){
+			par.add( ((Par)parentChild).getNewParameter() );
+		}
+		//-------------------------------------------------------------------------------------
+		
+		//String name = Strings.GRD_SEQ;
+		String name = Strings.GRD_SEQ.concat("_" + parentFlow.getName());// fixed by dana to allow more than 1 diagram
+		
+		@SuppressWarnings("unchecked")
+		//Changed by Dana 
+		//String predicate = Utils.build_seq_grd((Child)pred.get(0), (List<TypedParameterExpression>) pred.get(1), sourceLeaf, parentFlow.getParameters(), false);
+		String predicate = Utils.build_seq_grd((Child)pred.get(0), (List<TypedParameterExpression>) pred.get(1), sourceLeaf, par, false);
 		
 		Guard grd = (Guard) Make.guard(name, predicate);
 		

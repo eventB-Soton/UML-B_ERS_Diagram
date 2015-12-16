@@ -98,36 +98,36 @@ public class TR_InputExpression_rLeaf_dGrd extends AbstractRule  implements IRul
 		else{
 			EObject i = sourceLeaf.eContainer();
 			int j = 0;
-			
-			if(( i instanceof All ) || (i instanceof Some) || (i instanceof One) || (i instanceof Par)){
-				String inputExpression;
-				String newParameterName;
-				if(i instanceof All){
-					inputExpression = ((All) i).getNewParameter().getInputExpression();
-					newParameterName = ((All) i).getNewParameter().getName();
+			while(! (i instanceof Machine)){ // Dana: Fixed the loop was missing
+				if(( i instanceof All ) || (i instanceof Some) || (i instanceof One) || (i instanceof Par)){
+					String inputExpression;
+					String newParameterName;
+					if(i instanceof All){
+						inputExpression = ((All) i).getNewParameter().getInputExpression();
+						newParameterName = ((All) i).getNewParameter().getName();
+					}
+					else if (i instanceof Some){
+						inputExpression = ((Some) i).getNewParameter().getInputExpression();
+						newParameterName = ((Some) i).getNewParameter().getName();
+					}
+					else if(i instanceof One){
+						inputExpression = ((One) i).getNewParameter().getInputExpression();
+						newParameterName = ((One) i).getNewParameter().getName();
+					}
+					else{ //i instanceof Par
+						inputExpression = ((Par) i).getNewParameter().getInputExpression(); 
+						newParameterName = ((Par) i).getNewParameter().getName();
+					}
+					if(!inputExpression.isEmpty()){
+						j++;
+						String predicate = newParameterName + Strings.B_IN + inputExpression;
+						//g.predicate = getParMaplet(getParentFlow(l).parameters) + Strings.B_MAPLET +  l.eContainer().newParameter.name + 
+					       //Strings.B_IN+ l.eContainer().newParameter.InputExpression;
+						ret.add(Make.descriptor(equivalent, guards, Make.guard(name + j, predicate), 1));
+					}		
 				}
-				else if (i instanceof Some){
-					inputExpression = ((Some) i).getNewParameter().getInputExpression();
-					newParameterName = ((Some) i).getNewParameter().getName();
-				}
-				else if(i instanceof One){
-					inputExpression = ((One) i).getNewParameter().getInputExpression();
-					newParameterName = ((One) i).getNewParameter().getName();
-				}
-				else{ //i instanceof Par
-					inputExpression = ((Par) i).getNewParameter().getInputExpression(); 
-					newParameterName = ((Par) i).getNewParameter().getName();
-				}
-				if(!inputExpression.isEmpty()){
-					j++;
-					String predicate = newParameterName + Strings.B_IN + inputExpression;
-					//g.predicate = getParMaplet(getParentFlow(l).parameters) + Strings.B_MAPLET +  l.eContainer().newParameter.name + 
-				       //Strings.B_IN+ l.eContainer().newParameter.InputExpression;
-					ret.add(Make.descriptor(equivalent, guards, Make.guard(name + j, predicate), 1));
-				}		
+				i = i.eContainer();
 			}
-			i = i.eContainer();
-			
 		}
 		
 		return ret;

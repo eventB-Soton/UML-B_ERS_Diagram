@@ -32,6 +32,11 @@ public class TR_leaf3_rLeaf_tInv extends AbstractRule implements IRule {
 				(sourceLeaf.eContainer() instanceof Some) ||
 				(sourceLeaf.eContainer() instanceof One) ||
 				(sourceLeaf.eContainer() instanceof Par));
+		
+		/*//Dana: fixed to add type during refinement
+		 //Do it later will need to add a loop to the tranlsation or may be add a general method for this because used more than once
+		return sourceLeaf.getDecompose().isEmpty() &&
+				!Utils.repAncestor(sourceLeaf).isEmpty();*/
 	}
 
 	
@@ -49,43 +54,50 @@ public class TR_leaf3_rLeaf_tInv extends AbstractRule implements IRule {
 		String predicate = generatePredicate(sourceLeaf);
 		
 		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 1));	
+	
 		return ret;
+		
 		
 	}
 
 
 	private String generatePredicate(Leaf l) {
+		String pred = "";
 		FlowDiagram parentFLow = Utils.getParentFlow(l);
 		// SI case
 		if(parentFLow.getParameters().isEmpty()){
 			if(l.eContainer() instanceof All)
-				return l.getName() + Strings.B_SUBSETEQ + ((All)l.eContainer()).getNewParameter().getType();
+				pred =  l.getName() + Strings.B_SUBSETEQ + ((All)l.eContainer()).getNewParameter().getType();
 			else if(l.eContainer() instanceof Some)
-				return l.getName() + Strings.B_SUBSETEQ + ((Some)l.eContainer()).getNewParameter().getType();
+				pred = l.getName() + Strings.B_SUBSETEQ + ((Some)l.eContainer()).getNewParameter().getType();
 			else if(l.eContainer() instanceof One)
-				return l.getName() + Strings.B_SUBSETEQ + ((One)l.eContainer()).getNewParameter().getType();
+				pred = l.getName() + Strings.B_SUBSETEQ + ((One)l.eContainer()).getNewParameter().getType();
 			else if(l.eContainer() instanceof Par)
-				return l.getName() + Strings.B_SUBSETEQ + ((Par)l.eContainer()).getNewParameter().getType();
+				pred = l.getName() + Strings.B_SUBSETEQ + ((Par)l.eContainer()).getNewParameter().getType();
 		}
 		
-		else
-			if(l.eContainer() instanceof All){
-				return l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
-						Strings.B_CPROD + ((All)l.eContainer()).getNewParameter().getType();
-			}
-			else if(l.eContainer() instanceof Some){
-				return l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
-						Strings.B_CPROD + ((Some)l.eContainer()).getNewParameter().getType();
-			}
-			else if(l.eContainer() instanceof One){
-				return l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
-						Strings.B_CPROD + ((One)l.eContainer()).getNewParameter().getType();
-			}
-			else if(l.eContainer() instanceof Par){
-				return l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
-						Strings.B_CPROD + ((Par)l.eContainer()).getNewParameter().getType();
-			}
-		return null;
+		//Dana fixed the MI case
+		else{
+				if(l.eContainer() instanceof All){
+					pred = l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
+							Strings.B_CPROD + ((All)l.eContainer()).getNewParameter().getType();
+				}
+				else if(l.eContainer() instanceof Some){
+					pred = l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
+							Strings.B_CPROD + ((Some)l.eContainer()).getNewParameter().getType();
+				}
+				else if(l.eContainer() instanceof One){
+					pred = l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
+							Strings.B_CPROD + ((One)l.eContainer()).getNewParameter().getType();
+				}
+				else if(l.eContainer() instanceof Par){
+					pred = l.getName() + Strings.B_SUBSETEQ + Utils.getParTypeCartesian(parentFLow.getParameters()) +
+							Strings.B_CPROD + ((Par)l.eContainer()).getNewParameter().getType();
+				}
+				
+			
+		}
+		return pred;
 	}
 	
 

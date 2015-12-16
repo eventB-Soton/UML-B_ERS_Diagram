@@ -54,7 +54,7 @@ public class TR_loop3_loop_event extends AbstractRule  implements IRule {
 		e = (Event) Make.event( Utils.getLoopResetName(sourceLoop, generatedElements));
 		
 		
-		ret.add(Make.descriptor(container, events, e, -10));
+		ret.add(Make.descriptor(container, events, e, -10, true)); //changed to editable
 		ret.addAll(makePars());
 		ret.add(makeGrd());
 		ret.addAll(makeActions());

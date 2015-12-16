@@ -79,6 +79,7 @@ public class TR_xor1_sXor_gInv extends AbstractRule  implements IRule {
 			str = str.concat(Utils.parenthesize(Utils.toString(expressions, Strings.B_COM)));
 			
 		}
+		//MI case
 		else{
 			str = Strings.B_PARTITION;
 			List<String> expressions = new ArrayList<String>();
@@ -90,7 +91,8 @@ public class TR_xor1_sXor_gInv extends AbstractRule  implements IRule {
 			for(Leaf l : x.getXorLink()){
 				expressions.add(l.getName());
 			}
-			str.concat(Utils.parenthesize(Utils.toString(expressions, Strings.B_COM)));
+			
+			str = str.concat(Utils.parenthesize(Utils.toString(expressions, Strings.B_COM)));// Dana, fixed by adding str=str.concat..
 		}
 		return str;
 	}

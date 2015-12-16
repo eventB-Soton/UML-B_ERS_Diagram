@@ -39,6 +39,8 @@ public class TR_rep_rLeaf_rInv extends AbstractRule  implements IRule {
 			return !((Par)sourceLeaf.eContainer()).getNewParameter().getInputExpression().isEmpty();
 
 		return false;
+		/*if(!Utils.repAncestor(sourceLeaf).isEmpty())
+			return*/
 				
 	}
 

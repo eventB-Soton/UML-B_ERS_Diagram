@@ -35,6 +35,7 @@ import ac.soton.eventb.emf.diagrams.generator.impl.GeneratorFactory;
 import ac.soton.eventb.emf.diagrams.generator.impl.Messages;
 import ac.soton.eventb.roseEditor.RoseEditor;
 
+
 /**
  * Generate action handler.
  * 
@@ -151,4 +152,5 @@ public class GenerateAction extends AbstractHandler {
 		}
 		return null;
 	}
+
 }

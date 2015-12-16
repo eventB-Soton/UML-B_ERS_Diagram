@@ -2,14 +2,6 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-    <extension
-     	point="org.eclipse.ui.commands">
-  		<command
-       		 description="command.description.generate"
-      	 	 id="ac.soton.eventb.atomicitydecomposition.generator.generateEventB"
-       		 name="command.name.generate">
- 	    </command>
-  	</extension>
 
    <!--extension
          point="org.eclipse.ui.handlers">
@@ -191,7 +183,7 @@
 			name="ERS validator"
 			validatorClass="ac.soton.eventb.atomicitydecomposition.generator.validator.Validator">
 		</validator>
-	</extension> 
+	</extension>
      
 	
 	

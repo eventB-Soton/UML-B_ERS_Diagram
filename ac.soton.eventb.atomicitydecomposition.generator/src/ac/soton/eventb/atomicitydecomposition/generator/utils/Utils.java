@@ -254,8 +254,19 @@ public class Utils {
 		else if(pred instanceof Leaf && !( ((Leaf)pred).getDecompose().isEmpty())){
 			ArrayList<ArrayList<String>> invSet =  new ArrayList<ArrayList<String>>();
 			for(FlowDiagram flw : ((Leaf)pred).getDecompose())
-				if(flw.isSw())
-					invSet.add(build_seq_inv(flw.getRefine().get(flw.getRefine().size() -1 ), predParList, l, parList));
+				if(flw.isSw()){
+					invSet.add(build_seq_inv(flw.getRefine().get(flw.getRefine().size() -1 ), predParList, l, parList)); 
+					// what if previous flow has loop or par-rep
+					// now leave the restriction that a loop and par-rep can not be first or last child of flowdiagram
+					/*int index = flw.getRefine().size() -1 ;
+					while(flw.getRefine().get(index) instanceof Par || flw.getRefine().get(index) instanceof Loop){
+						if(index > 0)
+							index--;
+						else
+							flw = predecessor(flw.getRefine().get(index), flw.getParameters(), flw.isSw()).;
+					}*/
+				}
+					
 				else{
 					Child refTrue = null;
 					for(Child ch : flw.getRefine())
@@ -333,7 +344,7 @@ public class Utils {
 			boolean bool = false;
 			// no same par
 			for(Integer i : allReplicatorPar(e1, 0, n-1)){
-				if(samePar(parList1.get(i).getType(), parList2) != 0){
+				if(samePar(parList1.get(i).getType(), parList2) != -1){ //Dana: it was 0 but fixed because indexing now starts from 0
 					bool = true;
 					break;		
 				}
@@ -357,12 +368,26 @@ public class Utils {
 				result.add("7");
 				System.out.println(7);
 				//FIXME the first addition would cause an error if implemented as in previous version. get(0).toString() added, but not sure if right
-				result.add(getDomainRangeStr( e2.getName(), samePar( allReplicatorPar(e1, 0, n-1).get(0).toString(), parList2 ), m));
-				result.add(getDomainRangeStr(e1.getName(), allReplicatorPar(e1, 0, n-1).get(0), n ));
+				/*result.add(getDomainRangeStr( e2.getName(), samePar( allReplicatorPar(e1, 0, n-1).get(0).toString(), parList2 ), m));
+				result.add(getDomainRangeStr(e1.getName(), allReplicatorPar(e1, 0, n-1).get(0), n ));*/
+				 
+				//-----------------------------------------------------------------------------------------------------
+				 //Fixed By Dana
+				Integer allp = allReplicatorPar(e1, 0, n-1).get(0);
+			      String p1Type = parList1.get(allp).getType();
+				  Integer sp = samePar(p1Type, parList2);
+				 
+				  String domRange_e2 = getDomainRangeStr(e2.getName(), sp, m);
+				  result.add(domRange_e2);
+				  String domRange_e1 = getDomainRangeStr(e1.getName(), allp, n);
+				  result.add(domRange_e1);
+				//-----------------------------------------------------------------------------------------------------
+				
 			}
 		}
 		//8
-		else if(n != 0 && m != 0 && commonPar(e1, e2) != 0 && allReplicatorPar(e1, 0, n-1).size() == 0){
+		//else if(n != 0 && m != 0 && commonPar(e1, e2) != 0 && allReplicatorPar(e1, 0, n-1).size() == 0){
+		else if(n != 0 && m != 0 && commonPar(e1, e2) != 0 && allReplicatorPar(e1, commonPar(e1, e2), n-1).size() == 0){//fixed by Dana
 			result.add("8");
 			result.add(getDomainStr(e2.getName(), commonPar(e1, e2), m));
 			result.add(getDomainStr(e1.getName(), commonPar(e1, e2), n));
@@ -433,23 +458,25 @@ public class Utils {
 				counter--;
 			}
 			else if( (node.eContainer() instanceof Some) || (node.eContainer() instanceof One)){
-				counter++;
+				//counter++;
+				counter--; //fixed by Dana
 			}
 			node = node.eContainer();
 		}
 		return ret;
 	}
 	
+	// X, Y, Z
 	public static String getDomainStr(String eveName, Integer index, Integer n){
 		String str = "";
 		if(n > index){
-			for(int i = 1 ; i < n-index+1 ; i++)
+			for(int i = 1 ; i <= n-index ; i++)
 				str = str.concat(Strings.B_DOM + Strings.B_LPAR);
 		}
 		str = str.concat(eveName);
 		
 		if(n > index){
-			for(int i = 1 ; i < n-index+1 ; i++)
+			for(int i = 1 ; i <= n-index ; i++)
 				str = str.concat(Strings.B_RPAR);
 		}
 		
@@ -457,6 +484,7 @@ public class Utils {
 		
 	}
 	
+	// W, K
 	public static String getDomainRangeStr(String eveName, Integer index, Integer n){
 		String str = "";
 		if(index == 0 && n-1 > 1){
@@ -471,19 +499,22 @@ public class Utils {
 			}
 			return str;
 		}
-		//index  > 0
-		else if(n-index > 1){
+		//--index  > 0
+		//else if (n-index > 1)
+		else if(n-index >= 1 && index != 0){ //changed by Dana
 			str = str.concat(Strings.B_RAN + Strings.B_LPAR);
 			
 			
-			if(n > index){
-				for(int i = 1 ; i < n-index+1 ; i++)
+			//if(n > index){
+			if(n-index > 1){ // changed by Dana
+				for(int i = 1 ; i <= n-index ; i++)
 					str = str.concat(Strings.B_DOM + Strings.B_LPAR);
 			}
-			str.concat(eveName);
+			str = str.concat(eveName);
 			
-			if(n > index){
-				for(int i = 1 ; i < n-index+1 ; i++)
+			//if(n > index){
+		    if(n-index > 1){ // changed by Dana
+				for(int i = 1 ; i <= n-index ; i++)
 					str = str.concat(Strings.B_RPAR);
 			}
 			
@@ -518,10 +549,11 @@ public class Utils {
 	public static Integer samePar(String type, List<TypedParameterExpression> parList){
 		for(TypedParameterExpression tp : parList){
 			if(tp.getType().equals(type))
-				return parList.indexOf(tp);
+				return parList.indexOf(tp);// Dana what if the index was 0??
 		}
 		
-		return 0;
+		//return 0;
+		return -1; //Dana: Fixed in case the same parameter has index 0
 	}
 	
 	public static ArrayList<String> merg_and_inv(ArrayList<ArrayList<String>> invSet){
@@ -539,15 +571,20 @@ public class Utils {
 				invSet.get(i).add("false");
 
 				if(invSet.size() > 1){
-					for(int j = i+1 ; i < invSet.size() ; i++){
+					
+					for(int j = i+1 ; j < invSet.size() ; j++){ // fixed by Dana it was i < and i++ 
+						
 						List<String> element = invSet.get(j);
-						if(element.size() >= 3 && element.get(0) == invSet.get(i).get(0)){
+						if(element.size() < 4 && element.get(0) == invSet.get(i).get(0)){ //Dana changed from >= 3 to <4
+					
 							String s = sameMerge.get(2);
+							sameMerge.remove(s); //added by Dana
+							
 							if(element.get(0).equals("7") || element.get(0).equals("8")){
-								s = s.concat(Strings.B_INTER);
+								s = s.concat(Strings.B_INTER); 
 							}
 							else{
-								s = s.concat(Strings.B_AND);
+								s = s.concat(Strings.B_AND); 
 							}
 							s = s.concat(element.get(2));
 							sameMerge.add(s);
@@ -561,6 +598,7 @@ public class Utils {
 			}
 		}
 		if(result.size() > 1){
+			System.out.println("merg_and_inv: (result.size() > 1)");
 			if(result.get(0).get(0).equals("3") || result.get(0).get(0).equals("4")){
 				mergeResult.add("3");
 				mergeResult.add(result.get(0).get(1));
@@ -584,11 +622,14 @@ public class Utils {
 
 				for(ArrayList<String> i : first5or6){
 					mergeResult.set(1, mergeResult.get(1).concat(i.get(1)));
-					mergeResult.set(2, mergeResult.get(2).concat( Strings.B_AND + i.get(2)));
+					mergeResult.set(2, mergeResult.get(2).concat(Strings.B_AND + i.get(2)));
 				}
 				//FIXME Different from old implementation!!! Needs checking
 				for(ArrayList<String> i : first7){
 					mergeResult.set(2, mergeResult.get(2).concat( Strings.B_AND + i.get(2)));
+				//if(!first7.isEmpty())
+					//mergeResult.set(2, )
+					
 				}
 
 
@@ -627,6 +668,7 @@ public class Utils {
 		//ArrayList<String> firstEle = new ArrayList<String>();
 		ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
 		ArrayList<String> mergeResult = new ArrayList<String>();
+		boolean bool = false; 
 
 		for(int i = 0 ; i < invSet.size() ; i++){
 			ArrayList<String> sameMerge = new ArrayList<String>();
@@ -638,18 +680,44 @@ public class Utils {
 				invSet.get(i).add("false");
 
 				if(invSet.size() > 1){
-					for(int j = i+1 ; i < invSet.size() ; i++){
+					for(int j = i+1 ; j < invSet.size() ; j++){ //Fixed by Dana change i to j
 						List<String> element = invSet.get(j);
-						if(element.size() <= 3 && element.get(0) == invSet.get(i).get(0)){
+						if(element.size() < 4 && element.get(0) == invSet.get(i).get(0)){//fixed by dana <4
 							String s = sameMerge.get(2);
 							sameMerge.remove(s);
 							if(element.get(0).equals("7") || element.get(0).equals("8")){
 								s = s.concat(Strings.B_UNION);
+								s = s.concat(element.get(2));
+								
 							}
-							else{
+						//--------------------------------------------------------------------------------------
+							
+							//Trial by Dana
+							//Still needs to handle the case if they are not equal
+							else if(element.get(0).equals("4") || element.get(0).equals("6")|| element.get(0).equals("9")){
+								String str = "";
+								if (s.startsWith(Strings.B_LPAR))
+									str = s.substring(1, s.indexOf(Strings.B_RPAR));
+								else
+									str = s;
+								
+								String[] s1 = str.split("=");
+								String [] s2 = element.get(2).split("=");
+								if(s1[1].trim().equals(s2[1].trim()))
+									s = s1[0].concat(Strings.B_UNION + s2[0].trim() + Strings.B_EQ + s1[1].trim());
+								else
+									bool = true;
+										
+							}
+						
+					   //----------------------------------------------------------------------------------------
+							//else{
+							//Dana
+							else if(element.get(0).equals("1")|| element.get(0).equals("2")|| element.get(0).equals("3")|| element.get(0).equals("5")|| (element.get(0).equals("4") && bool ==true)|| (element.get(0).equals("6") && bool ==true)||(element.get(0).equals("9") && bool ==true)){
 								s = s.concat(Strings.B_OR);
+								s = s.concat(element.get(2));
 							}
-							s = s.concat(element.get(2));
+							//s = s.concat(element.get(2)); //Dana moved in the if else to do trial
 							sameMerge.add(s);
 
 							invSet.get(j).add("false");
@@ -660,7 +728,7 @@ public class Utils {
 				result.add(sameMerge);
 			}
 		}
-		System.out.println(result.size() + "*********");
+		
 		if(result.size() > 1){
 			if(result.get(0).get(0).equals("3") || result.get(0).get(0).equals("4")){
 				mergeResult.add("3");
@@ -751,30 +819,35 @@ public class Utils {
 			for(Child ch : ((Or) pred).getOrLink()){
 				expressions.add(build_seq_grd(ch, predParList, l, parList, false));
 			}
-			return Utils.parenthesize(Utils.toString(expressions, Strings.B_OR));
+			// Changed by Dana
+			//return Utils.parenthesize(Utils.toString(expressions, Strings.B_OR));
+			return Utils.merge_or_grd(expressions);
 		}
 		else if(pred instanceof Xor){
 			List<String> expressions =  new ArrayList<String>();
 			for(Child ch : ((Xor) pred).getXorLink()){
 				expressions.add(build_seq_grd(ch, predParList, l, parList, false));
 			}
-			return Utils.parenthesize(Utils.toString(expressions, Strings.B_OR));
+		   
+			// Changed by Dana
+			//return Utils.parenthesize(Utils.toString(expressions, Strings.B_OR));
+			return Utils.merge_or_grd(expressions);
 		}
 		else if(pred instanceof All){
 			List<TypedParameterExpression> parSet = new ArrayList<TypedParameterExpression>();
-			parSet.addAll(parList);
+			parSet.addAll(predParList); //fixed by Dana, it was parList
 			parSet.add(((All) pred).getNewParameter());
 			return build_seq_grd(((All) pred).getAllLink(), parSet, l, parList, false);
 		}
 		else if(pred instanceof Some){
 			List<TypedParameterExpression> parSet = new ArrayList<TypedParameterExpression>();
-			parSet.addAll(parList);
+			parSet.addAll(predParList);//fixed by Dana, it was parList
 			parSet.add(((Some) pred).getNewParameter());
 			return build_seq_grd(((Some) pred).getSomeLink(), parSet, l, parList, false);
 		}
 		else if(pred instanceof One){
 			List<TypedParameterExpression> parSet = new ArrayList<TypedParameterExpression>();
-			parSet.addAll(parList);
+			parSet.addAll(predParList);//fixed by Dana, it was parList
 			parSet.add(((One) pred).getNewParameter());
 			return build_seq_grd(((One) pred).getOneLink(), parSet, l, parList, false);
 		}
@@ -800,10 +873,13 @@ public class Utils {
 		int n = parList1.size();
 		int m = parList2.size();
 
+		// 1 & 2
 		if(n == 0)
 			return e1.getName() + Strings.B_EQ + Strings.B_TRUE;
+		//3
 		else if(n != 0 && m == 0 && allReplicatorPar(e1, 0, n-1).size() == 0)
 			return e1.getName() + Strings.B_NEQ + Strings.B_EMPTYSET;
+		//4
 		else if(n != 0 && m == 0 && allReplicatorPar(e1, 0, n-1).size() != 0){
 			List<String> expressions = new ArrayList<String>();
 			for(Integer k : allReplicatorPar(e1, 0, n-1))
@@ -813,18 +889,25 @@ public class Utils {
 					expressions.add(getDomainRangeStr(e1.getName(), k, n) + Strings.B_EQ + parList1.get(k).getInputExpression());
 			return toString(expressions, Strings.B_AND);
 		}
+		//5
 		else if(n != 0 && m != 0 && commonPar(e1, e2) == 0 && allReplicatorPar(e1, 0, n-1).size() == 0)
 			return e1.getName() + Strings.B_NEQ + Strings.B_EMPTYSET;
+		//6 & 7
 		else if(n != 0 && m != 0 && commonPar(e1,e2) == 0 && allReplicatorPar(e1, 0, n-1).size() != 0){
 			boolean bool = false;
 
 			for(Integer i : allReplicatorPar(e1, 0, n-1)){
-				if(samePar(parList1.get(i).getType(), parList2) != 0){
+				if(samePar(parList1.get(i).getType(), parList2) != -1){ //Dana: it was 0
 					bool = true;
 					break;
 				}
 			}
-
+            //6
+			
+			//----------------------------------------------------------------------------
+			// Dana, case 7 is not as strong as expected, it should be a combination
+			// of case 6 and 7
+			//----------------------------------------------------------------------------
 			if(!bool){
 				List<String> expressions = new ArrayList<String>();
 				for(Integer k : allReplicatorPar(e1, 0, n-1))
@@ -834,6 +917,7 @@ public class Utils {
 						expressions.add(getDomainRangeStr(e1.getName(), k, n) +  Strings.B_EQ + parList1.get(k).getInputExpression());
 				return toString(expressions, Strings.B_AND);
 			}
+			//7
 			else{
 				//				List<String> expressions = new ArrayList<String>();
 				//				int i = 0;
@@ -842,11 +926,28 @@ public class Utils {
 				//				}
 				//				String str = toString(expressions, Strings.B_AND);
 				//FIXME the first addition would cause an error if implemented as in previous version. get(0).toString() added, but not sure if right
-				return ( parList2.get(samePar(allReplicatorPar(e1, 0, n-1).get(0).toString(), parList2)).getName() + Strings.B_IN + 
-						getDomainRangeStr(e1.getName(), allReplicatorPar(e1, 0, n-1).get(0), n) );
+				
+				//----------------------------------------------------------------------------------
+				 // Fixed by Dana 
+				
+			      Integer allp = allReplicatorPar(e1, 0, n-1).get(0);
+			      String p1Type = parList1.get(allp).getType();
+				  Integer sp = samePar(p1Type, parList2);
+				  String p2 = parList2.get(sp).getName();
+				  String domRange = getDomainRangeStr(e1.getName(), allp, n);
+				  String s = p2 + Strings.B_IN + domRange;
+				  return s;
+				  
+				
+				//----------------------------------------------------------------------------------
+				
+				/*return ( parList2.get(samePar(allReplicatorPar(e1, 0, n-1).get(0).toString(), parList2)).getName() + Strings.B_IN + 
+						getDomainRangeStr(e1.getName(), allReplicatorPar(e1, 0, n-1).get(0), n) );*/
 			}
 		}
-		else if(n != 0 && m != 0 && commonPar(e1, e2) != 0 && allReplicatorPar(e1, 0, n-1).size() == 0){
+		//8
+		//else if(n != 0 && m != 0 && commonPar(e1, e2) != 0 && allReplicatorPar(e1, 0, n-1).size() == 0){
+		else if(n != 0 && m != 0 && commonPar(e1, e2) != 0 && allReplicatorPar(e1, commonPar(e1, e2), n-1).size() == 0){//fixed by Dana
 			String str = "";
 			if(commonPar(e1, e2) > 0){
 				List<String> expressions = new ArrayList<String>();
@@ -857,6 +958,7 @@ public class Utils {
 			}
 			return str + Strings.B_IN + getDomainStr(e1.getName(), commonPar(e1, e2), n);
 		}
+		//9
 		else if(n != 0 && m != 0 && commonPar(e1, e2) != 0 && allReplicatorPar(e1, commonPar(e1, e2), n-1).size() != 0){
 			int commonPar = commonPar(e1, e2);
 			List<String> expressions = new ArrayList<String>();
@@ -902,7 +1004,7 @@ public class Utils {
 		Child node = sourceLeaf;
 		
 		while(true){
-			if(node.eContainer() instanceof One || node.eContainer() instanceof All || node.eContainer() instanceof Some){
+			if(node.eContainer() instanceof One || node.eContainer() instanceof All || node.eContainer() instanceof Some || node.eContainer() instanceof Par){// Dana added Par
 				result.add((Child) node.eContainer());
 			}
 			FlowDiagram parentFlow = getParentFlow(node);
@@ -1038,41 +1140,41 @@ public class Utils {
 		else if(ch instanceof And){
 			List<String> expressions = new ArrayList<String>();
 			for(Child ich : ((And) ch).getAndLink()){
-				expressions.add(disjunction_of_leaves(ich, n));
+				expressions.add(union_of_leaves(ich, n)); // fixed by Dana it was disjunction
 			}
 			return toString(expressions, Strings.B_UNION);
 		}
 		else if(ch instanceof Or){
 			List<String> expressions = new ArrayList<String>();
 			for(Child ich : ((Or) ch).getOrLink()){
-				expressions.add(disjunction_of_leaves(ich, n));
+				expressions.add(union_of_leaves(ich, n));// fixed by Dana it was disjunction
 			}
 			return toString(expressions, Strings.B_UNION);
 		}
 		else if(ch instanceof Xor){
 			List<String> expressions = new ArrayList<String>();
 			for(Child ich : ((Xor) ch).getXorLink()){
-				expressions.add(disjunction_of_leaves(ich, n));
+				expressions.add(union_of_leaves(ich, n));// fixed by Dana it was disjunction
 			}
 			return toString(expressions, Strings.B_UNION);
 		}
 		else if(ch instanceof All)
-			return disjunction_of_leaves(((All) ch).getAllLink(), n+1);
+			return union_of_leaves(((All) ch).getAllLink(), n+1);// fixed by Dana it was disjunction
 		else if(ch instanceof Some)
-			return disjunction_of_leaves(((Some) ch).getSomeLink(), n+1);
+			return union_of_leaves(((Some) ch).getSomeLink(), n+1);// fixed by Dana it was disjunction
 		else if(ch instanceof One)
-			return disjunction_of_leaves(((One) ch).getOneLink(), n+1);
+			return union_of_leaves(((One) ch).getOneLink(), n+1);// fixed by Dana it was disjunction
 		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
 			List<String> expressions = new ArrayList<String>();
 			for(FlowDiagram flw : ((Leaf)ch).getDecompose()){
 				//strong sequencing flow, select the first child
 				if(flw.isSw())
-					expressions.add(disjunction_of_leaves(flw.getRefine().get(0), n));
+					expressions.add(union_of_leaves(flw.getRefine().get(0), n));// fixed by Dana it was disjunction
 				//weak sequencing flow, select the solid child
 				else{
 					for(Child ich : flw.getRefine()){
 						if(ich.isRef()){
-							expressions.add(disjunction_of_leaves(ich, n));
+							expressions.add(union_of_leaves(ich, n));// fixed by Dana it was disjunction
 							break;
 						}
 							
@@ -1121,43 +1223,49 @@ public class Utils {
 		}
 		return null;
 	}
-
+	/**
+	 * The disjunction recursive call was replaced by conjunction
+	 * return toString expressions is fixed to include only the B_AND
+	 * Fixed by Dana
+	 */
 	public static String conjunction_of_leaves(Child ch, int parNum) {
 		if((ch instanceof Leaf) && ((Leaf)ch).getDecompose().isEmpty()){
 			if(parNum == 0)
 				return ((Leaf)ch).getName() + Strings.B_EQ + Strings.B_FALSE;
 			else
-				return ((Leaf)ch).getName() + Strings.B_NEQ + Strings.B_EMPTYSET;
+				return ((Leaf)ch).getName() + Strings.B_EQ + Strings.B_EMPTYSET; //fixed by Dana Changed B_NEQ to B_EQ
 						
 		}
 		else if(ch instanceof And){
 			List<String> expressions = new ArrayList<String>();
 			for(Child ich : ((And) ch).getAndLink()){
-				expressions.add(disjunction_of_leaves(ich, parNum));
+				expressions.add(conjunction_of_leaves(ich, parNum));
 			}
-			return toString(expressions, Strings.B_EQ + Strings.B_FALSE + Strings.B_AND) + Strings.B_EQ + Strings.B_FALSE ;
+			//return toString(expressions, Strings.B_EQ + Strings.B_FALSE + Strings.B_AND) + Strings.B_EQ + Strings.B_FALSE ;
+			return toString(expressions, Strings.B_AND);
 		}
 		else if(ch instanceof Or){
 			List<String> expressions = new ArrayList<String>();
 			for(Child ich : ((Or) ch).getOrLink()){
-				expressions.add(disjunction_of_leaves(ich, parNum));
+				expressions.add(conjunction_of_leaves(ich, parNum));
 			}
-			return toString(expressions, Strings.B_EQ + Strings.B_FALSE + Strings.B_AND) + Strings.B_EQ + Strings.B_FALSE ;
+			//return toString(expressions, Strings.B_EQ + Strings.B_FALSE + Strings.B_AND) + Strings.B_EQ + Strings.B_FALSE ;
+			return toString(expressions, Strings.B_AND);
 		}
 		else if(ch instanceof Xor){
 			List<String> expressions = new ArrayList<String>();
 			for(Child ich : ((Xor) ch).getXorLink()){
-				expressions.add(disjunction_of_leaves(ich, parNum));
+				expressions.add(conjunction_of_leaves(ich, parNum));
 			}
-			return toString(expressions, Strings.B_EQ + Strings.B_FALSE + Strings.B_AND) + Strings.B_EQ + Strings.B_FALSE ;
-			//return toString(expressions, Strings.B_AND);
+			////return toString(expressions, Strings.B_EQ + Strings.B_FALSE + Strings.B_AND) + Strings.B_EQ + Strings.B_FALSE ;
+			return toString(expressions, Strings.B_AND);
 		}
 		else if(ch instanceof All)
-			return disjunction_of_leaves(((All) ch).getAllLink(), parNum+1);
+			return conjunction_of_leaves(((All) ch).getAllLink(), parNum+1);
 		else if(ch instanceof Some)
-			return disjunction_of_leaves(((Some) ch).getSomeLink(), parNum+1);
+			return conjunction_of_leaves(((Some) ch).getSomeLink(), parNum+1);
 		else if(ch instanceof One)
-			return disjunction_of_leaves(((One) ch).getOneLink(), parNum+1);
+			return conjunction_of_leaves(((One) ch).getOneLink(), parNum+1);
 		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
 			List<String> expressions = new ArrayList<String>();
 			for(FlowDiagram flw : ((Leaf)ch).getDecompose()){
@@ -1299,8 +1407,20 @@ public class Utils {
 		int i = sibilings.indexOf(Utils.getParentChild(ch));
 		int n = sibilings.size();
 		
-		if(i >= n-1)
+		
+		// for now leave the restriction that par-rep and loop can not be first or last child of a flowdiagram
+		// if need to remove restriction, uncomment the comments and check build-seq-guard when thepredecessor is a flowdiagram
+		if(i >= n-1) // this is why loop can not be the last child of a loop
 			return null;
+		//---------------------------------------------------------------------------------
+		//Dana test
+		//if(i >= n-1){
+	
+				//return successor((Child)parentFlow.eContainer(), parentFlow.getParameters().size());
+		
+		//}
+		//else{
+	    //--------------------------------------------------------------
 		
 		Child next = sibilings.get(i+1);
 		
@@ -1312,6 +1432,7 @@ public class Utils {
 		}
 		else
 			return successor(next, parNum);
+		//}//dana new else
 	}
 
 	public static Child predecessorLoop(Child ch, boolean sw) {
@@ -1562,6 +1683,46 @@ public class Utils {
 			return ((FlowDiagram) obj).getName();
 		else
 			return getRootFlowDiagramName(obj.eContainer());
+	}
+	
+	//--------------------------------------------------------------------------------
+	// Dana
+	// merge_or_grd merges the or, xor guards in case they contain a common all-rep
+	// using union
+	// then we do a normal or-merge
+	//--------------------------------------------------------------------------------
+	
+	public static String merge_or_grd(List<String> exp){
+		
+	
+		for (int i = 0; i < exp.size(); i++){
+			if (exp.get(i).contains(Strings.B_EQ)){
+				for(int j = i+1; j < exp.size(); j++){
+					
+					if (exp.get(j).contains(Strings.B_EQ)){
+						String s = exp.get(i);
+						if (s.startsWith(Strings.B_LPAR))
+							s = s.substring(1, s.indexOf(Strings.B_RPAR));
+						
+						
+						String[] s1 = s.split(Strings.B_EQ);
+						String [] s2 = exp.get(j).split(Strings.B_EQ);
+						if(s1[1].trim().equals(s2[1].trim())){
+					
+							s = s1[0].concat(Strings.B_UNION + s2[0].trim() + Strings.B_EQ + s1[1].trim());
+						
+							Utils.parenthesize(s);
+							exp.set(i, s);
+							exp.remove(j);
+						}
+							
+				}
+						
+				}
+			}
+		}
+		return Utils.parenthesize(Utils.toString(exp, Strings.B_OR));
+		
 	}
 
 }

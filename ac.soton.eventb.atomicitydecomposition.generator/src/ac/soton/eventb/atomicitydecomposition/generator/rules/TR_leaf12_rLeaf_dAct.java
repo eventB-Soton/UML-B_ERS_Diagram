@@ -55,7 +55,6 @@ public class TR_leaf12_rLeaf_dAct extends AbstractRule  implements IRule {
 		Leaf sourceLeaf = (Leaf) sourceElement;		
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		Event equivalent = (Event) Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName());
-		
 		String name = Strings.ACT;
 		String action = generateAction(sourceLeaf);
 
