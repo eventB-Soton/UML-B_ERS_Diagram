@@ -84,9 +84,9 @@ public class FlowDiagramImpl extends EventBNamedCommentedDataElaborationElementI
 	 * <!-- end-user-doc -->
 	 * @see #getExtensionId()
 	 * @generated
-	 * @ordered NOT
+	 * @ordered
 	 */
-	protected static final String EXTENSION_ID_EDEFAULT = AtomicitydecompositionPackage.FLOWDIAGRAMS_EXTENSION_ID;
+	protected static final String EXTENSION_ID_EDEFAULT = null;
 
 	/**
 	 * The cached value of the '{@link #getExtensionId() <em>Extension Id</em>}' attribute.
@@ -94,9 +94,9 @@ public class FlowDiagramImpl extends EventBNamedCommentedDataElaborationElementI
 	 * <!-- end-user-doc -->
 	 * @see #getExtensionId()
 	 * @generated
-	 * @ordered NOT
+	 * @ordered
 	 */
-	protected String extensionId = EXTENSION_ID_EDEFAULT + "." + EcoreUtil.generateUUID();
+	protected String extensionId = EXTENSION_ID_EDEFAULT;
 
 	/**
 	 * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.

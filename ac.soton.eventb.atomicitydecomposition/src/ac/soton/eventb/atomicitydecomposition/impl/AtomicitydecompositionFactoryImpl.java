@@ -31,7 +31,7 @@ public class AtomicitydecompositionFactoryImpl extends EFactoryImpl implements A
 	 */
 	public static AtomicitydecompositionFactory init() {
 		try {
-			AtomicitydecompositionFactory theAtomicitydecompositionFactory = (AtomicitydecompositionFactory)EPackage.Registry.INSTANCE.getEFactory("http://soton.ac.uk/models/eventb/atomicitydecomposition"); 
+			AtomicitydecompositionFactory theAtomicitydecompositionFactory = (AtomicitydecompositionFactory)EPackage.Registry.INSTANCE.getEFactory(AtomicitydecompositionPackage.eNS_URI);
 			if (theAtomicitydecompositionFactory != null) {
 				return theAtomicitydecompositionFactory;
 			}

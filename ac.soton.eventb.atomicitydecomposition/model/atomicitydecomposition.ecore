@@ -71,7 +71,7 @@
       </eParameters>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="loopLink" lowerBound="1"
-        eType="#//Leaf" containment="true">
+        upperBound="-1" eType="#//Leaf" containment="true">
       <eAnnotations source="gmf.link">
         <details key="label" value=""/>
         <details key="style" value="dash"/>

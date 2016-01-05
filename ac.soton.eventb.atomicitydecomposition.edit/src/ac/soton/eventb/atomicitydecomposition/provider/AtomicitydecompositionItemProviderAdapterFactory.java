@@ -542,8 +542,8 @@ public class AtomicitydecompositionItemProviderAdapterFactory extends Atomicityd
 		 */
 		public Collection<Object> getNewChildDescriptors(Object object, EditingDomain editingDomain) {
 			ArrayList<Object> result = new ArrayList<Object>();
-		   new CreationSwitch(result, editingDomain).doSwitch((EObject)object);
-		   return result;
+			new CreationSwitch(result, editingDomain).doSwitch((EObject)object);
+			return result;
 		}
 
 		/**
@@ -694,8 +694,8 @@ public class AtomicitydecompositionItemProviderAdapterFactory extends Atomicityd
 		 */
 		public Collection<Object> getNewChildDescriptors(Object object, EditingDomain editingDomain) {
 			ArrayList<Object> result = new ArrayList<Object>();
-		   new CreationSwitch(result, editingDomain).doSwitch((EObject)object);
-		   return result;
+			new CreationSwitch(result, editingDomain).doSwitch((EObject)object);
+			return result;
 		}
 
 		/**
@@ -781,8 +781,8 @@ public class AtomicitydecompositionItemProviderAdapterFactory extends Atomicityd
 		 */
 		public Collection<Object> getNewChildDescriptors(Object object, EditingDomain editingDomain) {
 			ArrayList<Object> result = new ArrayList<Object>();
-		   new CreationSwitch(result, editingDomain).doSwitch((EObject)object);
-		   return result;
+			new CreationSwitch(result, editingDomain).doSwitch((EObject)object);
+			return result;
 		}
 
 		/**
@@ -868,8 +868,8 @@ public class AtomicitydecompositionItemProviderAdapterFactory extends Atomicityd
 		 */
 		public Collection<Object> getNewChildDescriptors(Object object, EditingDomain editingDomain) {
 			ArrayList<Object> result = new ArrayList<Object>();
-		   new CreationSwitch(result, editingDomain).doSwitch((EObject)object);
-		   return result;
+			new CreationSwitch(result, editingDomain).doSwitch((EObject)object);
+			return result;
 		}
 
 		/**

@@ -683,7 +683,7 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		initEReference(getAnd_AndLink(), this.getLeaf(), null, "andLink", null, 2, -1, And.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(loopEClass, Loop.class, "Loop", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getLoop_LoopLink(), this.getLeaf(), null, "loopLink", null, 1, 1, Loop.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getLoop_LoopLink(), this.getLeaf(), null, "loopLink", null, 1, -1, Loop.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(loopEClass, theEcorePackage.getEBoolean(), "validate", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, theEcorePackage.getEDiagnosticChain(), "diagnostic", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -745,7 +745,7 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 	 * @generated
 	 */
 	protected void createOrgAnnotations() {
-		String source = "org.eventb.emf.core.extendedMetaClasses";		
+		String source = "org.eventb.emf.core.extendedMetaClasses";	
 		addAnnotation
 		  (flowDiagramEClass, 
 		   source, 
@@ -753,7 +753,7 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		   },
 		   new URI[] {
 			 URI.createURI(CorePackage.eNS_URI).appendFragment("//machine/Machine")
-		   });																								
+		   });
 	}
 
 	/**
@@ -763,12 +763,12 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 	 * @generated
 	 */
 	protected void createGmfAnnotations() {
-		String source = "gmf.diagram";			
+		String source = "gmf.diagram";	
 		addAnnotation
 		  (flowDiagramEClass, 
 		   source, 
 		   new String[] {
-		   });																							
+		   });
 	}
 
 	/**
@@ -778,91 +778,91 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 	 * @generated
 	 */
 	protected void createGmf_1Annotations() {
-		String source = "gmf.link";				
+		String source = "gmf.link";	
 		addAnnotation
 		  (getFlowDiagram_Refine(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });				
+		   });	
 		addAnnotation
 		  (getAnd_AndLink(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });				
+		   });	
 		addAnnotation
 		  (getLoop_LoopLink(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });			
+		   });	
 		addAnnotation
 		  (getAll_AllLink(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });		
+		   });	
 		addAnnotation
 		  (getAll_NewParameter(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });			
+		   });	
 		addAnnotation
 		  (getSome_SomeLink(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });		
+		   });	
 		addAnnotation
 		  (getSome_NewParameter(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });			
+		   });	
 		addAnnotation
 		  (getOr_OrLink(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });			
+		   });	
 		addAnnotation
 		  (getXor_XorLink(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });			
+		   });	
 		addAnnotation
 		  (getOne_OneLink(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });		
+		   });	
 		addAnnotation
 		  (getOne_NewParameter(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });		
+		   });	
 		addAnnotation
 		  (getMultiFlow_Decompose(), 
 		   source, 
 		   new String[] {
 			 "label", "",
 			 "style", "dash"
-		   });			
+		   });	
 		addAnnotation
 		  (getPar_ParLink(), 
 		   source, 
@@ -879,67 +879,67 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 	 * @generated
 	 */
 	protected void createGmf_2Annotations() {
-		String source = "gmf.node";					
+		String source = "gmf.node";	
 		addAnnotation
 		  (leafEClass, 
 		   source, 
 		   new String[] {
 			 "label", "name",
 			 "color", "0,189,15"
-		   });		
+		   });	
 		addAnnotation
 		  (andEClass, 
 		   source, 
 		   new String[] {
 			 "label.text", "AND",
 			 "label.placement", "none"
-		   });			
+		   });	
 		addAnnotation
 		  (loopEClass, 
 		   source, 
 		   new String[] {
 			 "figure", "ellipse",
 			 "label.placement", "none"
-		   });				
+		   });	
 		addAnnotation
 		  (allEClass, 
 		   source, 
 		   new String[] {
 			 "label.text", "ALL",
 			 "label.placement", "none"
-		   });				
+		   });	
 		addAnnotation
 		  (someEClass, 
 		   source, 
 		   new String[] {
 			 "label.text", "SOME",
 			 "label.placement", "none"
-		   });				
+		   });	
 		addAnnotation
 		  (orEClass, 
 		   source, 
 		   new String[] {
 			 "label.placement", "none",
 			 "label.text", "OR"
-		   });			
+		   });	
 		addAnnotation
 		  (xorEClass, 
 		   source, 
 		   new String[] {
 			 "label.placement", "none"
-		   });			
+		   });	
 		addAnnotation
 		  (oneEClass, 
 		   source, 
 		   new String[] {
 			 "label.placement", "none"
-		   });					
+		   });	
 		addAnnotation
 		  (parEClass, 
 		   source, 
 		   new String[] {
 			 "label.placement", "none"
-		   });	
+		   });
 	}
 
 	/**
@@ -949,13 +949,13 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 	 * @generated
 	 */
 	protected void createGmf_3Annotations() {
-		String source = "gmf.label";									
+		String source = "gmf.label";	
 		addAnnotation
 		  (loopEClass, 
 		   source, 
 		   new String[] {
 			 "label.text", "*"
-		   });																	
+		   });
 	}
 
 } //AtomicitydecompositionPackageImpl

@@ -705,7 +705,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	int LOOP__REF = CONSTRUCTOR__REF;
 
 	/**
-	 * The feature id for the '<em><b>Loop Link</b></em>' containment reference.
+	 * The feature id for the '<em><b>Loop Link</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1645,10 +1645,10 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	EClass getLoop();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link ac.soton.eventb.atomicitydecomposition.Loop#getLoopLink <em>Loop Link</em>}'.
+	 * Returns the meta object for the containment reference list '{@link ac.soton.eventb.atomicitydecomposition.Loop#getLoopLink <em>Loop Link</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>Loop Link</em>'.
+	 * @return the meta object for the containment reference list '<em>Loop Link</em>'.
 	 * @see ac.soton.eventb.atomicitydecomposition.Loop#getLoopLink()
 	 * @see #getLoop()
 	 * @generated
@@ -2006,7 +2006,7 @@ public interface AtomicitydecompositionPackage extends EPackage {
 		EClass LOOP = eINSTANCE.getLoop();
 
 		/**
-		 * The meta object literal for the '<em><b>Loop Link</b></em>' containment reference feature.
+		 * The meta object literal for the '<em><b>Loop Link</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
