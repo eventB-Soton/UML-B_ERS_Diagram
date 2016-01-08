@@ -28,14 +28,15 @@ import ac.soton.eventb.emf.diagrams.generator.utils.Make;
 public class TR_loop3_loop_event extends AbstractRule  implements IRule {
 	
 	private FlowDiagram parentFlow;
-	private Event e;
+	//private Event e;
 	private Loop sourceLoop;
+
 	
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
 		Loop sourceLoop = (Loop) sourceElement;
-		
-		return !sourceLoop.getLoopLink().getDecompose().isEmpty();
+		//updated to to cover the multiple children case of loop
+		return !Utils.getLoopRefinedChildren(sourceLoop).isEmpty(); //!sourceLoop.getLoopLink().getDecompose().isEmpty();
 				
 				
 	}
@@ -51,22 +52,35 @@ public class TR_loop3_loop_event extends AbstractRule  implements IRule {
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		parentFlow = Utils.getParentFlow(sourceLoop);
 		
-		e = (Event) Make.event( Utils.getLoopResetName(sourceLoop, generatedElements));
+		/*e = (Event) Make.event( Utils.getLoopResetName(sourceLoop, generatedElements));
 		
 		
 		ret.add(Make.descriptor(container, events, e, -10, true)); //changed to editable
 		ret.addAll(makePars());
 		ret.add(makeGrd());
-		ret.addAll(makeActions());
+		ret.addAll(makeActions());*/
+		
+		//Dana: Updated to include all loop children
+		List <Child> loopLinks = Utils.getLoopRefinedChildren(sourceLoop);
+		for(Child l : loopLinks){
+			
+			Event e = (Event) Make.event( Utils.getLoopResetName(sourceLoop, generatedElements));//may be need to upodate name
+			ret.add(Make.descriptor(container, events, e, -10, true)); //changed to editable
+			ret.addAll(makePars(e));
+			ret.add(makeGrd(e, l));
+			ret.addAll(makeActions(e, l));
+			
+		}
 		
 		
 		return ret;
 	}	
 	
-	
-	private Collection<GenerationDescriptor> makeActions() {
+	//Dana: updated
+	private Collection<GenerationDescriptor> makeActions(Event e, Child loopch) {
 		List<GenerationDescriptor> ret = new ArrayList<GenerationDescriptor>();
-		for(Leaf l : Utils.getNonDecomposedLeafDescendants(sourceLoop)){
+		//for(Leaf l : Utils.getNonDecomposedLeafDescendants(sourceLoop)){
+		for(Leaf l : Utils.getNonDecomposedLeafDescendants(loopch)){
 			FlowDiagram lParentFlow = Utils.getParentFlow(l);
 			Child lParentChild = Utils.getParentChild(l);
 			List<TypedParameterExpression> lpars = lParentFlow.getParameters();
@@ -99,22 +113,22 @@ public class TR_loop3_loop_event extends AbstractRule  implements IRule {
 	}
 
 
-	private GenerationDescriptor makeGrd() {
+	private GenerationDescriptor makeGrd(Event e, Child loopch) {
 		String name = Strings.GRD_RESET;
 		String predicate = "";
 		
 		if(parentFlow.getParameters().isEmpty()){
-			predicate = Utils.build_seq_grd(sourceLoop.getLoopLink(), parentFlow.getParameters(), null, new ArrayList<TypedParameterExpression>(), false);
+			predicate = Utils.build_seq_grd(loopch, parentFlow.getParameters(), null, new ArrayList<TypedParameterExpression>(), false);
 		}
 		else
-			predicate = Utils.build_seq_grd(sourceLoop.getLoopLink(), parentFlow.getParameters(), (Leaf) parentFlow.getRefine().get(parentFlow.getRefine().indexOf(sourceLoop) + 1), parentFlow.getParameters(), true);
+			predicate = Utils.build_seq_grd(loopch, parentFlow.getParameters(), (Leaf) parentFlow.getRefine().get(parentFlow.getRefine().indexOf(sourceLoop) + 1), parentFlow.getParameters(), true);
 		return Make.descriptor(e, guards, Make.guard(name, predicate), 5);
 			
 
 	}
 
 
-	private List<GenerationDescriptor> makePars(){
+	private List<GenerationDescriptor> makePars(Event e){
 		List<GenerationDescriptor> ret = new ArrayList<GenerationDescriptor>();
 		
 		for(TypedParameterExpression tpe : parentFlow.getParameters()){
@@ -123,7 +137,5 @@ public class TR_loop3_loop_event extends AbstractRule  implements IRule {
 		return ret;
 		
 	}
-	
-	
-	
+		
 }
