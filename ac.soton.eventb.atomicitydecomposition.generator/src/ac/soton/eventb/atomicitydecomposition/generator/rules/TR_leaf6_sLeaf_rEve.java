@@ -23,7 +23,7 @@ import ac.soton.eventb.emf.diagrams.generator.IRule;
 import ac.soton.eventb.emf.diagrams.generator.utils.Find;
 import ac.soton.eventb.emf.diagrams.generator.utils.Make;
 
-import org.eventb.emf.core.machine.Action;
+
 
 public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
 	
@@ -55,28 +55,26 @@ public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
 		List<String> refineNames = new ArrayList<String>();
 		
 		//--------------------------------------------------------------
-		 List <Action> a = new ArrayList<Action>();
+	
 	     if(sourceLeaf.isRef()){
 	    	 String parentName = ((Leaf)Utils.getParentFlow(sourceLeaf).eContainer()).getName();
-	    	
-	    	 refineNames.add(parentName);
-	    		
-	    	 newEvent = (Event) Make.event(name, false, Convergence.ORDINARY, refineNames, "");
-	    	 //---------------------------------------------------------------------------------------------
-	    	 // Dana: under testing in case the user decided to translate again after adding some manual  stuff
-	    	// Event dupEvent = (Event) Find.named(container.getEvents(), name);
-	    	// if(dupEvent != null){
-	    		// copyNonGeneratedAttributes(dupEvent, newEvent);
-	    		 //container.getEvents().remove(dupEvent);
-	    	 //}
-	    		 
-	    	 //------------------------------------------------------------------------------------------------
 	    	 Event oldEvent = (Event) Find.named(container.getEvents(), parentName);
-	    	 if(oldEvent != null)
-	    		 copyNonGeneratedAttributes(oldEvent, newEvent);
-	    	 ret.add(Make.descriptor(container, events, newEvent, -10, true));//editable
-	    	 
-	    	 container.getEvents().remove(oldEvent);
+	    	 if(oldEvent != null){
+	    		 refineNames.add(parentName);
+		    	 
+	    	 }
+	    	 //To deal with the case if generateEvent-B is done more than once
+	    	 else{
+	    		 oldEvent =  (Event)Find.named(container.getEvents(), name);
+	    		 if (oldEvent != null)
+	    		  refineNames = oldEvent.getRefinesNames();
+	    	 }
+	    		 
+	    	 newEvent = (Event) Make.event(name, false, Convergence.ORDINARY, refineNames, "");
+    		 if (oldEvent != null)
+	    	  copyNonGeneratedAttributes(oldEvent, newEvent); 
+    		 ret.add(Make.descriptor(container, events, newEvent, -10, true));//editable
+	    	 container.getEvents().remove(oldEvent);   	
 	     }
 	     else{
 	    	 
@@ -90,38 +88,7 @@ public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
 	    	 ret.add(Make.descriptor(container, events, newEvent, -10, true));//editable
 	    	 container.getEvents().remove(oldEvent);
 	     }
-	    	 
-	    	
-	
-		
-		
-	
-		
-	/*	
-		Event newEvent = (Event) Find.named(container.getEvents(), name);//if copied
-		if (newEvent == null){
-			String parentName = ((Leaf)Utils.getParentFlow(sourceLeaf).eContainer()).getName();// if solid name
-			newEvent = (Event) Find.named(container.getEvents(), parentName);
-		 
-			newEvent.setName(name);
-			
-		    
-		
-		}*/
-		// try to find the old event in the machine and delete it 
-	    //---------------------------------------------------
-		//Event newEvent = (Event) Make.event(name);//commented by dana
-		//ret.add(Make.descriptor(container, events, newEvent, -10, true));//editable
-
-//		
-//		if(sourceLeaf.isRef()){
-//			ret.add(Make.descriptor(newEvent, refinesNames, ((Leaf)Utils.getParentFlow(sourceLeaf).eContainer()).getName(), -2));
-//		}
-	/*	if(!sourceLeaf.isRef() || (Utils.getParentFlow(sourceLeaf).isCopy() &&sourceLeaf.getDecompose().isEmpty())){
-			ret.add(Make.descriptor(newEvent, refinesNames, sourceLeaf.getName(), -2));//-10
-		
-		}*/
-		
+	    	 		
 		
 		for(TypedParameter tp : Utils.getParentFlow(sourceLeaf).getParameters()){
 			Parameter p = (Parameter) Make.parameter(tp.getName());
