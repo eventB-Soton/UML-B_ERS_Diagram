@@ -30,7 +30,7 @@ public class TR_loop2_nlLeaf_lGrd extends AbstractRule  implements IRule {
 		Child ch = Utils.predecessorLoop(sourceLeaf, parentFlow.isSw());
 		return sourceLeaf.getDecompose().isEmpty() &&
 				(ch instanceof Loop) &&
-				!((Loop)ch).getLoopLink().getDecompose().isEmpty();
+				!Utils.getLoopRefinedChildren((Loop) ch).isEmpty();//!((Loop)ch).getLoopLink().getDecompose().isEmpty();
 				
 	}
 	
@@ -45,6 +45,7 @@ public class TR_loop2_nlLeaf_lGrd extends AbstractRule  implements IRule {
 	
 	/**
 	 * TR_loop2, Transform a proper next leaf after a loop to a guard in the quivalent event (ensures that next child does not execute in the middle of loop execution)
+	
 	 */
 	@Override
 	public List<GenerationDescriptor> fire(EventBElement sourceElement, List<GenerationDescriptor> generatedElements) throws Exception {
@@ -53,19 +54,38 @@ public class TR_loop2_nlLeaf_lGrd extends AbstractRule  implements IRule {
 		Machine	container = (Machine)EcoreUtil.getRootContainer(sourceElement);
 		Event equivalent = (Event) Find.generatedElement(generatedElements, container, events, ((Leaf)sourceElement).getName());
 		
-		String name = Utils.getPrevLoopGrdName(sourceLeaf, equivalent, generatedElements);
+		String name = "";
 		 
 		FlowDiagram parentFlow = Utils.getParentFlow(sourceLeaf);
 		Loop lo = (Loop) Utils.predecessorLoop(sourceLeaf, parentFlow.isSw());
 		List<TypedParameterExpression> pars = ((FlowDiagram)lo.eContainer()).getParameters();
 		
 		String predicate = "";
-		if(pars.isEmpty())
-			predicate = Utils.conjunction_of_leaves(lo.getLoopLink(), 0);
-		else
-			predicate = Utils.getParMaplet(pars) + Strings.B_NOTIN + Utils.union_of_leaves(lo.getLoopLink(), 0);
+		
+		//Dana: To be done only to the non-leaf child
+		List <Child> loopLinks = Utils.getLoopRefinedChildren(lo);
+		for(Child ch : loopLinks){
+			name  = Utils.getPrevLoopGrdName(sourceLeaf, equivalent, generatedElements); //may be need to update name
+			if(pars.isEmpty()){
+			
+				predicate = Utils.conjunction_of_leaves(ch, 0);
+			}
+			 
+		
+			
+			else{
+			
+					predicate = Utils.getParMaplet(pars) + Strings.B_NOTIN + Utils.union_of_leaves(ch, 0);
+				//predicate = Utils.getParMaplet(pars) + Strings.B_NOTIN + Utils.union_of_leaves(lo.getLoopLink(), 0);
+			
+				
+		}
+			
 		
 		ret.add(Make.descriptor(equivalent, guards, Make.guard(name, predicate), 5));
+	}
 		return ret;
 	}	
+	
+
 }
