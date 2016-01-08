@@ -1519,8 +1519,10 @@ public class Utils {
 			for(Leaf l : ((And) ch).getAndLink())
 				ret.addAll(getNonDecomposedLeafDescendants(l));				
 		}
-		else if(ch instanceof Loop)
-			ret.addAll(getNonDecomposedLeafDescendants(((Loop) ch).getLoopLink()));
+		else if(ch instanceof Loop){
+			for(Leaf l : ((Loop) ch).getLoopLink())
+			ret.addAll(getNonDecomposedLeafDescendants(l));
+		}
 		else if(ch instanceof All)
 			ret.addAll(getNonDecomposedLeafDescendants(((All) ch).getAllLink()));
 		else if(ch instanceof Some)
@@ -1724,5 +1726,16 @@ public class Utils {
 		return Utils.parenthesize(Utils.toString(exp, Strings.B_OR));
 		
 	}
-
+	
+ // new method to get all the refined children of a loop
+  public static List <Child> getLoopRefinedChildren(Loop lo){
+	  List <Child> chList = new ArrayList<Child>();
+	  for(Leaf ch : lo.getLoopLink()){
+			if(!ch.getDecompose().isEmpty()){
+				chList.add(ch);
+			}
+	  }
+	  return chList;
+	  
+  }
 }
