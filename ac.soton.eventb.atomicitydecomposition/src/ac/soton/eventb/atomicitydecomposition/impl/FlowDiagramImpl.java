@@ -86,7 +86,7 @@ public class FlowDiagramImpl extends EventBNamedCommentedDataElaborationElementI
 	 * @generated NOT
 	 * @ordered
 	 */
-	protected static final String EXTENSION_ID_EDEFAULT = AtomicitydecompositionPackage.FLOWDIAGRAMS_EXTENSION_ID;;
+	protected static final String EXTENSION_ID_EDEFAULT = AtomicitydecompositionPackage.FLOWDIAGRAMS_EXTENSION_ID;
 
 	/**
 	 * The cached value of the '{@link #getExtensionId() <em>Extension Id</em>}' attribute.
