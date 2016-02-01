@@ -8,6 +8,7 @@ package ac.soton.eventb.atomicitydecomposition;
 
 import java.util.Map;
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 
 
 /**
@@ -29,31 +30,21 @@ import org.eclipse.emf.common.util.DiagnosticChain;
  */
 public interface Loop extends Constructor {
 	/**
-	 * Returns the value of the '<em><b>Loop Link</b></em>' containment reference.
+	 * Returns the value of the '<em><b>Loop Link</b></em>' containment reference list.
+	 * The list contents are of type {@link ac.soton.eventb.atomicitydecomposition.Leaf}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Loop Link</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Loop Link</em>' containment reference.
-	 * @see #setLoopLink(Leaf)
+	 * @return the value of the '<em>Loop Link</em>' containment reference list.
 	 * @see ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionPackage#getLoop_LoopLink()
 	 * @model containment="true" required="true"
 	 *        annotation="gmf.link label='' style='dash'"
 	 * @generated
 	 */
-	Leaf getLoopLink();
-
-	/**
-	 * Sets the value of the '{@link ac.soton.eventb.atomicitydecomposition.Loop#getLoopLink <em>Loop Link</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Loop Link</em>' containment reference.
-	 * @see #getLoopLink()
-	 * @generated
-	 */
-	void setLoopLink(Leaf value);
+	EList<Leaf> getLoopLink();
 
 	/**
 	 * <!-- begin-user-doc -->

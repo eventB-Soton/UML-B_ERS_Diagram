@@ -49,6 +49,7 @@ import ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionPackage;
 import ac.soton.eventb.atomicitydecomposition.Child;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
 import ac.soton.eventb.atomicitydecomposition.Leaf;
+import ac.soton.eventb.atomicitydecomposition.Loop;
 import ac.soton.eventb.atomicitydecomposition.One;
 import ac.soton.eventb.atomicitydecomposition.Or;
 import ac.soton.eventb.atomicitydecomposition.Some;
@@ -415,6 +416,15 @@ private static FlowDiagram setRefined(FlowDiagram fd) {
 							setRefined(flow);
 						}
 			}
+			else if (child.eClass().getName() == "Loop") {
+				for (Leaf leaf : ((Loop) child).getLoopLink())
+					if (!leaf.getDecompose().isEmpty())
+						for (FlowDiagram flow : leaf.getDecompose()) {
+							flow.setCopy(true);
+							setRefined(flow);
+						}
+			}
+			
 			else if (child.eClass().getName() == "Some") {
 					if (!((Some) child).getSomeLink().getDecompose().isEmpty())
 						for (FlowDiagram flow : ((Some) child).getSomeLink().getDecompose()) {

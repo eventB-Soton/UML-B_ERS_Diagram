@@ -36,13 +36,7 @@ import org.eventb.emf.core.provider.EventBElementItemProvider;
  * @generated
  */
 public class ChildItemProvider
-	extends EventBElementItemProvider
-	implements
-		IEditingDomainItemProvider,
-		IStructuredItemContentProvider,
-		ITreeItemContentProvider,
-		IItemLabelProvider,
-		IItemPropertySource {
+	extends EventBElementItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->

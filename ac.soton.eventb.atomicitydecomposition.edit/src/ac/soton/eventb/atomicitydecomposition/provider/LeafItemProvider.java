@@ -34,13 +34,7 @@ import org.eventb.emf.core.CorePackage;
  * @generated
  */
 public class LeafItemProvider
-	extends ChildItemProvider
-	implements
-		IEditingDomainItemProvider,
-		IStructuredItemContentProvider,
-		ITreeItemContentProvider,
-		IItemLabelProvider,
-		IItemPropertySource {
+	extends ChildItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->

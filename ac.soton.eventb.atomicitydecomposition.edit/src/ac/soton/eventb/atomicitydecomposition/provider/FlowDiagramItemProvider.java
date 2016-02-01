@@ -39,13 +39,7 @@ import org.eventb.emf.core.provider.AbstractExtensionItemProvider;
  * @generated
  */
 public class FlowDiagramItemProvider
-	extends EventBNamedCommentedDataElaborationElementItemProvider
-	implements
-		IEditingDomainItemProvider,
-		IStructuredItemContentProvider,
-		ITreeItemContentProvider,
-		IItemLabelProvider,
-		IItemPropertySource {
+	extends EventBNamedCommentedDataElaborationElementItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->

@@ -12,6 +12,7 @@ import ac.soton.eventb.atomicitydecomposition.Loop;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
 
 import ac.soton.eventb.atomicitydecomposition.util.AtomicitydecompositionValidator;
+import java.util.Collection;
 import java.util.Map;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -19,12 +20,15 @@ import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.BasicDiagnostic;
 import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.DiagnosticChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectValidator;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -41,14 +45,14 @@ import org.eclipse.emf.ecore.util.EObjectValidator;
  */
 public class LoopImpl extends ConstructorImpl implements Loop {
 	/**
-	 * The cached value of the '{@link #getLoopLink() <em>Loop Link</em>}' containment reference.
+	 * The cached value of the '{@link #getLoopLink() <em>Loop Link</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getLoopLink()
 	 * @generated
 	 * @ordered
 	 */
-	protected Leaf loopLink;
+	protected EList<Leaf> loopLink;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -74,42 +78,11 @@ public class LoopImpl extends ConstructorImpl implements Loop {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Leaf getLoopLink() {
+	public EList<Leaf> getLoopLink() {
+		if (loopLink == null) {
+			loopLink = new EObjectContainmentEList<Leaf>(Leaf.class, this, AtomicitydecompositionPackage.LOOP__LOOP_LINK);
+		}
 		return loopLink;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetLoopLink(Leaf newLoopLink, NotificationChain msgs) {
-		Leaf oldLoopLink = loopLink;
-		loopLink = newLoopLink;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AtomicitydecompositionPackage.LOOP__LOOP_LINK, oldLoopLink, newLoopLink);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setLoopLink(Leaf newLoopLink) {
-		if (newLoopLink != loopLink) {
-			NotificationChain msgs = null;
-			if (loopLink != null)
-				msgs = ((InternalEObject)loopLink).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AtomicitydecompositionPackage.LOOP__LOOP_LINK, null, msgs);
-			if (newLoopLink != null)
-				msgs = ((InternalEObject)newLoopLink).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AtomicitydecompositionPackage.LOOP__LOOP_LINK, null, msgs);
-			msgs = basicSetLoopLink(newLoopLink, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AtomicitydecompositionPackage.LOOP__LOOP_LINK, newLoopLink, newLoopLink));
 	}
 
 	/**
@@ -143,7 +116,7 @@ public class LoopImpl extends ConstructorImpl implements Loop {
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 			case AtomicitydecompositionPackage.LOOP__LOOP_LINK:
-				return basicSetLoopLink(null, msgs);
+				return ((InternalEList<?>)getLoopLink()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -167,11 +140,13 @@ public class LoopImpl extends ConstructorImpl implements Loop {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 			case AtomicitydecompositionPackage.LOOP__LOOP_LINK:
-				setLoopLink((Leaf)newValue);
+				getLoopLink().clear();
+				getLoopLink().addAll((Collection<? extends Leaf>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -186,7 +161,7 @@ public class LoopImpl extends ConstructorImpl implements Loop {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 			case AtomicitydecompositionPackage.LOOP__LOOP_LINK:
-				setLoopLink((Leaf)null);
+				getLoopLink().clear();
 				return;
 		}
 		super.eUnset(featureID);
@@ -201,7 +176,7 @@ public class LoopImpl extends ConstructorImpl implements Loop {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 			case AtomicitydecompositionPackage.LOOP__LOOP_LINK:
-				return loopLink != null;
+				return loopLink != null && !loopLink.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -36,13 +36,7 @@ import org.eventb.emf.core.CorePackage;
  * @generated
  */
 public class TypedParameterExpressionItemProvider
-	extends TypedParameterItemProvider
-	implements
-		IEditingDomainItemProvider,
-		IStructuredItemContentProvider,
-		ITreeItemContentProvider,
-		IItemLabelProvider,
-		IItemPropertySource {
+	extends TypedParameterItemProvider {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
