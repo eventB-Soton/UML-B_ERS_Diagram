@@ -72,7 +72,7 @@ public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
 	    		 
 	    	 newEvent = (Event) Make.event(name, false, Convergence.ORDINARY, refineNames, "");
     		 if (oldEvent != null)
-	    	  copyNonGeneratedAttributes(oldEvent, newEvent); 
+	    	  copyNonGeneratedAttributes(oldEvent, newEvent, ret); 
     		 ret.add(Make.descriptor(container, events, newEvent, -10, true));//editable
 	    	 container.getEvents().remove(oldEvent);   	
 	     }
@@ -84,7 +84,7 @@ public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
 	    	
 	    	 Event oldEvent = (Event) Find.named(container.getEvents(), name);
 	    	 if(oldEvent != null)
-	    		 copyNonGeneratedAttributes(oldEvent, newEvent);
+	    		 copyNonGeneratedAttributes(oldEvent, newEvent, ret);
 	    	 ret.add(Make.descriptor(container, events, newEvent, -10, true));//editable
 	    	 container.getEvents().remove(oldEvent);
 	     }
@@ -122,30 +122,37 @@ public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
 	}
 	
     
-	private void copyNonGeneratedAttributes(Event oldEvent, Event newEvent){
+	private void copyNonGeneratedAttributes(Event oldEvent, Event newEvent, List<GenerationDescriptor> ret ){
+		
 		Event e = oldEvent.getRefines().get(0);
 		for(int i = 0; i < e.getActions().size(); i++){
 		
 			if(!e.getActions().get(i).isLocalGenerated())
-				newEvent.getActions().add(e.getActions().get(i));
+				//newEvent.getActions().add(e.getActions().get(i));
+				ret.add(Make.descriptor(newEvent, actions, e.getActions().get(i), -10, true));
+			
+				
 			
 		}
 		for(int i = 0; i < e.getGuards().size(); i++){
 			
 			if(!e.getGuards().get(i).isLocalGenerated())
-				newEvent.getGuards().add(e.getGuards().get(i));
+				//newEvent.getGuards().add(e.getGuards().get(i));
+				ret.add(Make.descriptor(newEvent, guards, e.getGuards().get(i), -10, true)); //Dana fixed previously copying only first one
 			
 		}
 		for(int i = 0; i < e.getParameters().size(); i++){
 			
 			if(!e.getParameters().get(i).isLocalGenerated())
-				newEvent.getParameters().add(e.getParameters().get(i));
+				//newEvent.getParameters().add(e.getParameters().get(i));
+				ret.add(Make.descriptor(newEvent, actions, e.getParameters().get(i), -10, true));
 			
 		}
 		for(int i = 0; i < e.getWitnesses().size(); i++){
 			
 			if(!e.getWitnesses().get(i).isLocalGenerated())
-				newEvent.getWitnesses().add(e.getWitnesses().get(i));
+				//newEvent.getWitnesses().add(e.getWitnesses().get(i));
+			    ret.add(Make.descriptor(newEvent, actions, e.getWitnesses().get(i), -10, true));
 			
 		}
 	}
