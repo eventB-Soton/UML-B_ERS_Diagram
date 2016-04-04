@@ -73,7 +73,7 @@ public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
 	    	 newEvent = (Event) Make.event(name, false, Convergence.ORDINARY, refineNames, "");
     		 if (oldEvent != null)
 	    	  copyNonGeneratedAttributes(oldEvent, newEvent, ret); 
-    		 ret.add(Make.descriptor(container, events, newEvent, -10, true));//editable
+     		 ret.add(Make.descriptor(container, events, newEvent, -10, true));//editable
 	    	 container.getEvents().remove(oldEvent);   	
 	     }
 	     else{
@@ -145,14 +145,14 @@ public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
 			
 			if(!e.getParameters().get(i).isLocalGenerated())
 				//newEvent.getParameters().add(e.getParameters().get(i));
-				ret.add(Make.descriptor(newEvent, actions, e.getParameters().get(i), -10, true));
+				ret.add(Make.descriptor(newEvent, parameters, e.getParameters().get(i), -10, true));
 			
 		}
 		for(int i = 0; i < e.getWitnesses().size(); i++){
 			
 			if(!e.getWitnesses().get(i).isLocalGenerated())
 				//newEvent.getWitnesses().add(e.getWitnesses().get(i));
-			    ret.add(Make.descriptor(newEvent, actions, e.getWitnesses().get(i), -10, true));
+			    ret.add(Make.descriptor(newEvent, witnesses, e.getWitnesses().get(i), -10, true));
 			
 		}
 	}
