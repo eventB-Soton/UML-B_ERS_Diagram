@@ -13,10 +13,8 @@ import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
@@ -121,10 +119,13 @@ public class ParImpl extends ConstructorImpl implements Par {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypedParameterExpression getNewParameter() {
+	@Override
+	public TypedParameterExpression getNewParameter() {// Dana: This is overriden to fix parameter addition for replicators
+		if (newParameter == null) {
+			newParameter = new TypedParameterExpressionImpl();
+		}
 		return newParameter;
 	}
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
