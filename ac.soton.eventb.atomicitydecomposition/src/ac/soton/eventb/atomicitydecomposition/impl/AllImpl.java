@@ -9,17 +9,15 @@ package ac.soton.eventb.atomicitydecomposition.impl;
 import ac.soton.eventb.atomicitydecomposition.All;
 import ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionPackage;
 import ac.soton.eventb.atomicitydecomposition.Leaf;
-
 import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
 import ac.soton.eventb.emf.core.extension.coreextension.TypedParameter;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
-
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -123,7 +121,11 @@ public class AllImpl extends ConstructorImpl implements All {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public TypedParameterExpression getNewParameter() {
+	@Override
+	public TypedParameterExpression getNewParameter() {// Dana: This is overriden to fix parameter addition for replicators
+		if (newParameter == null) {
+			newParameter = new TypedParameterExpressionImpl();
+		}
 		return newParameter;
 	}
 
