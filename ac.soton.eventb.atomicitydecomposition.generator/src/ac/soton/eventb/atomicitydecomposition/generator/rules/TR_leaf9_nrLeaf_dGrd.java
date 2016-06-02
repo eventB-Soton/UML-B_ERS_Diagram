@@ -28,7 +28,7 @@ public class TR_leaf9_nrLeaf_dGrd extends AbstractRule  implements IRule {
 	
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
-		Leaf sourceLeaf = (Leaf) sourceElement;
+ 		Leaf sourceLeaf = (Leaf) sourceElement;
 		return sourceLeaf.getDecompose().isEmpty() &&
 				!(sourceLeaf.eContainer() instanceof All) && //non All leaf
 				!(sourceLeaf.eContainer() instanceof Some) && //non some leaf
