@@ -9,12 +9,12 @@ import org.eventb.emf.core.machine.Convergence;
 import org.eventb.emf.core.machine.Event;
 import org.eventb.emf.core.machine.Machine;
 import org.eventb.emf.core.machine.Parameter;
-
 import ac.soton.eventb.atomicitydecomposition.All;
 import ac.soton.eventb.atomicitydecomposition.Leaf;
 import ac.soton.eventb.atomicitydecomposition.One;
 import ac.soton.eventb.atomicitydecomposition.Par;
 import ac.soton.eventb.atomicitydecomposition.Some;
+import ac.soton.eventb.atomicitydecomposition.Xor;
 import ac.soton.eventb.atomicitydecomposition.generator.utils.Utils;
 import ac.soton.eventb.emf.core.extension.coreextension.TypedParameter;
 import ac.soton.eventb.emf.diagrams.generator.AbstractRule;
@@ -36,8 +36,7 @@ public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
 		return sourceLeaf.getDecompose().isEmpty() &&
 				(sourceLeaf.isRef() || //leaf with a solid line (it can be a xor leaf or an one leaf)
 				(!sourceLeaf.isRef() && Utils.getParentFlow(sourceLeaf).isCopy()));
-				 
-				
+				 			
 	}
 
 		
@@ -63,7 +62,7 @@ public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
 	    		 refineNames.add(parentName);
 		    	 
 	    	 }
-	    	 //To deal with the case if generateEvent-B is done more than once
+	    	 // Dana: To deal with the case if generateEvent-B is done more than once
 	    	 else{
 	    		 oldEvent =  (Event)Find.named(container.getEvents(), name);
 	    		 if (oldEvent != null)
@@ -74,7 +73,16 @@ public class TR_leaf6_sLeaf_rEve extends AbstractRule  implements IRule {
     		 if (oldEvent != null)
 	    	  copyNonGeneratedAttributes(oldEvent, newEvent, ret); 
      		 ret.add(Make.descriptor(container, events, newEvent, -10, true));//editable
-	    	 container.getEvents().remove(oldEvent);   	
+     		
+     		 //Dana: case of refining xor, delete the old event only when the last xor child is handled 
+     		 if(sourceLeaf.eContainer() instanceof Xor){ 
+     			Xor xorParent = (Xor) sourceLeaf.eContainer();
+	    		 if(xorParent.getXorLink().size() == (xorParent.getXorLink().indexOf(sourceLeaf)+1))
+	    			 container.getEvents().remove(oldEvent); 
+     		 }
+     		 else //not xor
+	    	   container.getEvents().remove(oldEvent);   
+	    	  		 
 	     }
 	     else{
 	    	 
