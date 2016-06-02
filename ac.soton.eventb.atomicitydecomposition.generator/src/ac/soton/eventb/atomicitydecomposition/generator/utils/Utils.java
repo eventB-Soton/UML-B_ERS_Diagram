@@ -820,8 +820,10 @@ public class Utils {
 				expressions.add(build_seq_grd(ch, predParList, l, parList, false));
 			}
 			// Changed by Dana
-			//return Utils.parenthesize(Utils.toString(expressions, Strings.B_OR));
-			return Utils.merge_or_grd(expressions);
+			if(predParList.isEmpty())
+				return Utils.parenthesize(Utils.toString(expressions, Strings.B_OR));
+			else
+				return Utils.merge_or_grd(expressions);
 		}
 		else if(pred instanceof Xor){
 			List<String> expressions =  new ArrayList<String>();
@@ -830,8 +832,10 @@ public class Utils {
 			}
 		   
 			// Changed by Dana
-			//return Utils.parenthesize(Utils.toString(expressions, Strings.B_OR));
-			return Utils.merge_or_grd(expressions);
+			if(predParList.isEmpty())
+				return Utils.parenthesize(Utils.toString(expressions, Strings.B_OR));
+			else
+				return Utils.merge_or_grd(expressions);
 		}
 		else if(pred instanceof All){
 			List<TypedParameterExpression> parSet = new ArrayList<TypedParameterExpression>();
