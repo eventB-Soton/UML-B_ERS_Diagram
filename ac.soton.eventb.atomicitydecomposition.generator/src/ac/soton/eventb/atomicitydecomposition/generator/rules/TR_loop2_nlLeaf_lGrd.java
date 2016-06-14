@@ -65,7 +65,10 @@ public class TR_loop2_nlLeaf_lGrd extends AbstractRule  implements IRule {
 		//Dana: To be done only to the non-leaf child
 		List <Child> loopLinks = Utils.getLoopRefinedChildren(lo);
 		for(Child ch : loopLinks){
-			name  = Utils.getPrevLoopGrdName(sourceLeaf, equivalent, generatedElements); //may be need to update name
+			// Dana: fixed the naming of the guard
+		    int index = loopLinks.indexOf(ch)+1;
+			String name1  = Utils.getPrevLoopGrdName(sourceLeaf, equivalent, generatedElements) ; //may be need to update name
+			name = name1 + "_" + index;
 			if(pars.isEmpty()){
 			
 				predicate = Utils.conjunction_of_leaves(ch, 0);

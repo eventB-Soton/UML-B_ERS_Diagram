@@ -33,7 +33,7 @@ public class TR_leaf3_rLeaf_tInv extends AbstractRule implements IRule {
 				(sourceLeaf.eContainer() instanceof One) ||
 				(sourceLeaf.eContainer() instanceof Par));
 		
-		/*//Dana: fixed to add type during refinement
+	/*//Dana: fixed to add type during refinement
 		 //Do it later will need to add a loop to the tranlsation or may be add a general method for this because used more than once
 		return sourceLeaf.getDecompose().isEmpty() &&
 				!Utils.repAncestor(sourceLeaf).isEmpty();*/
@@ -65,6 +65,7 @@ public class TR_leaf3_rLeaf_tInv extends AbstractRule implements IRule {
 		String pred = "";
 		FlowDiagram parentFLow = Utils.getParentFlow(l);
 		// SI case
+	
 		if(parentFLow.getParameters().isEmpty()){
 			if(l.eContainer() instanceof All)
 				pred =  l.getName() + Strings.B_SUBSETEQ + ((All)l.eContainer()).getNewParameter().getType();

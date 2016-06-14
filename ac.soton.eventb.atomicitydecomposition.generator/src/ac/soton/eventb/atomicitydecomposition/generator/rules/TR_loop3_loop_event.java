@@ -63,8 +63,11 @@ public class TR_loop3_loop_event extends AbstractRule  implements IRule {
 		//Dana: Updated to include all loop children
 		List <Child> loopLinks = Utils.getLoopRefinedChildren(sourceLoop);
 		for(Child l : loopLinks){
-			
-			Event e = (Event) Make.event( Utils.getLoopResetName(sourceLoop, generatedElements));//may be need to upodate name
+			// Dana: Fixed the name of the reset event
+			int index = loopLinks.indexOf(l)+1;
+			String name1 = Utils.getLoopResetName(sourceLoop, generatedElements);
+			String name = name1 + "_"+ index;
+			Event e = (Event) Make.event(name);
 			ret.add(Make.descriptor(container, events, e, -10, true)); //changed to editable
 			ret.addAll(makePars(e));
 			ret.add(makeGrd(e, l));
