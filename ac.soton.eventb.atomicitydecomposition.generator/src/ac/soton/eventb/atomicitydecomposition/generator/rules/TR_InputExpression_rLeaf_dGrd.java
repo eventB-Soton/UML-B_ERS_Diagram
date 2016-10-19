@@ -35,7 +35,7 @@ public class TR_InputExpression_rLeaf_dGrd extends AbstractRule  implements IRul
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
 		Leaf sourceLeaf = (Leaf) sourceElement;
 		return sourceLeaf.getDecompose().isEmpty() &&
-				!Utils.repAncestor(sourceLeaf).isEmpty();
+				!Utils.repAncestorFirstChild(sourceLeaf).isEmpty();
 	}
 
 
