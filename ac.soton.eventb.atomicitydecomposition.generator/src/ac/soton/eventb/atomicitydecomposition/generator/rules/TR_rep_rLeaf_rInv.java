@@ -24,7 +24,7 @@ public class TR_rep_rLeaf_rInv extends AbstractRule  implements IRule {
 	
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
-		Leaf sourceLeaf = (Leaf) sourceElement;
+		/*Leaf sourceLeaf = (Leaf) sourceElement;
 		if(!sourceLeaf.getDecompose().isEmpty()) return false;
 		
 		if((sourceLeaf.eContainer() instanceof All)){
@@ -37,10 +37,11 @@ public class TR_rep_rLeaf_rInv extends AbstractRule  implements IRule {
 			return !((One)sourceLeaf.eContainer()).getNewParameter().getInputExpression().isEmpty();
 		else if((sourceLeaf.eContainer() instanceof Par))
 			return !((Par)sourceLeaf.eContainer()).getNewParameter().getInputExpression().isEmpty();
-
-		return false;
-		/*if(!Utils.repAncestor(sourceLeaf).isEmpty())
-			return*/
+         */
+		// Dana: Rule Updated to include non-leaf children
+		Leaf sourceLeaf = (Leaf) sourceElement;
+		return sourceLeaf.getDecompose().isEmpty() &&
+				!Utils.repAncestorFirstChild(sourceLeaf).isEmpty();
 				
 	}
 
@@ -57,61 +58,96 @@ public class TR_rep_rLeaf_rInv extends AbstractRule  implements IRule {
 		String name = Strings.INV_ + sourceLeaf.getName() + Strings._REP;
 		String predicate =  generatePredicate(sourceLeaf);
 		
-		ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 10));
+		if(predicate != "")
+		 ret.add(Make.descriptor(container, invariants, Make.invariant(name, predicate, ""), 10));
 		
 		
 		return ret;
 		
 	}
 
-
+   // Dana: Updated the invariant 22-09-2016
 	private String generatePredicate(Leaf l) {
+		//-------------------------------------------------------
 		List<TypedParameterExpression> par = Utils.getParentFlow(l).getParameters();
+		List<TypedParameterExpression> par2 = new ArrayList<TypedParameterExpression>();;
 		String predicate = "";
-		if(!par.isEmpty()){
-			String parList = Utils.getParList(par);
-			predicate = predicate.concat(Strings.B_FORALL + parList + Strings.B_MIDDOT);
-			
-			int n = 0;
-			for(TypedParameterExpression p : par){
-				n++;
-				if(p.getInputExpression().isEmpty())
-					predicate = predicate.concat(p.getName() + Strings.B_IN + p.getType() + Strings.B_IMPL);
-				else
-					//XXX on original par.sublist(0,n), but what is n my guess?
-					predicate = predicate.concat(p.getName() + Strings.B_IN + p.getInputExpression() + Strings.B_LSQBRC + Strings.B_LBRC +
-							Utils.getParMaplet(par.subList(0, n)) + Strings.B_RBRC + Strings.B_RSQBRC + Strings.B_IMPL);					
-			}
-			predicate = predicate.concat(l.getName() + Strings.B_LSQBRC + Strings.B_LBRC + Utils.getParMaplet(par) + Strings.B_RBRC + Strings.B_RSQBRC +
-					Strings.B_SUBSETEQ);
-			
-
-			
-		}
-		else{
-			predicate = predicate.concat(l.getName() + Strings.B_SUBSETEQ);
-		}
-		
-		
+		TypedParameterExpression lastParam = null;
 		if(l.eContainer() instanceof All){
-			predicate = predicate.concat(((All)l.eContainer()).getNewParameter().getInputExpression());
+			
+			if(!((All)l.eContainer()).getNewParameter().getInputExpression().isEmpty()){
+				lastParam = ((All)l.eContainer()).getNewParameter();
+				par2 = par;
+			}
+				
 		}
 		else if(l.eContainer() instanceof Some){
-			predicate = predicate.concat(((Some)l.eContainer()).getNewParameter().getInputExpression());
+			if(!((Some)l.eContainer()).getNewParameter().getInputExpression().isEmpty()){
+				lastParam = ((Some)l.eContainer()).getNewParameter();
+				par2 = par;
+			}
+				
 		}
 		else if(l.eContainer() instanceof One){
-			predicate = predicate.concat(((One)l.eContainer()).getNewParameter().getInputExpression());
+			if(!((One)l.eContainer()).getNewParameter().getInputExpression().isEmpty()){
+				lastParam = ((One)l.eContainer()).getNewParameter();
+				par2 = par;
+			}
+				
 		}
-		else{ //if(l.eContainer() instanceof Par){
-			predicate = predicate.concat(((Par)l.eContainer()).getNewParameter().getInputExpression());
+		else if(l.eContainer() instanceof Par){ 
+			if(!((Par)l.eContainer()).getNewParameter().getInputExpression().isEmpty()){
+				lastParam = ((Par)l.eContainer()).getNewParameter();
+				par2 = par;
+			}
+				
 		}
+		else{
+			if(!par.get(par.size()-1).getInputExpression().isEmpty()){
+				 lastParam = par.get(par.size()-1);
+				 //par.remove(par.size()-1);	
+				 if (par.size() > 1)
+					  par2 = par.subList(0, par.size()-1);
+			}	       
+		}
+        
+		if(lastParam == null) 
+			return predicate;
+		else{
 		
-		return predicate;
-	}
-	
-	
+			if(!par2.isEmpty()){
+				String parList = Utils.getParList(par2);
+				predicate = predicate.concat(Strings.B_FORALL + parList + Strings.B_MIDDOT);
+				for(TypedParameterExpression p : par2){
+					if(par2.indexOf(p) == par2.size()-1){
+						if(p.getInputExpression().isEmpty())
+							predicate = predicate.concat(p.getName() + Strings.B_IN + p.getType() + Strings.B_IMPL);
+						else
+							predicate = predicate.concat(p.getName() + Strings.B_IN + p.getInputExpression() + Strings.B_IMPL);
+					}
+					else{
+						if(p.getInputExpression().isEmpty())
+							predicate = predicate.concat(p.getName() + Strings.B_IN + p.getType() + Strings.B_AND);
+						else
+							predicate = predicate.concat(p.getName() + Strings.B_IN + p.getInputExpression() + Strings.B_AND);
+					}
+				}
+			}
+			if(par2.size() == 0)
+				predicate = predicate.concat(l.getName() + Strings.B_SUBSETEQ + lastParam.getInputExpression());
+			else if(par2.size() > 1)
+		    	predicate = predicate.concat(l.getName() + Strings.B_LSQBRC + Strings.B_LBRC + Utils.getParMaplet(par2) + Strings.B_RBRC + Strings.B_RSQBRC +
+						Strings.B_SUBSETEQ + lastParam.getInputExpression());
+		    else //if(par2.size() == 1)
+		    	predicate = predicate.concat(l.getName() + Strings.B_LSQBRC + Strings.B_LBRC + par2.get(par2.size()-1).getName() + Strings.B_RBRC + Strings.B_RSQBRC +
+						Strings.B_SUBSETEQ + lastParam.getInputExpression());
+		    return predicate;
+		}
 
-	
-	
+			
+		
+		
+		//--------------------------------------------------------
+	}		
 }
 
