@@ -1002,7 +1002,8 @@ public class Utils {
 		
 	}
 
-	//Dana: Check if ancestor is a replicator 
+	//Dana: Check if ancestor is a replicator, this function will find the first child of sw
+	// and refining child if !sw
 	public static List<Child> repAncestor(Leaf sourceLeaf) {
 		List<Child> result = new ArrayList<Child>();
 		Child node = sourceLeaf;
@@ -1024,7 +1025,27 @@ public class Utils {
 		}
 		return result;
 	}
-
+	//Dana: Check if ancestor is a replicator, this will check the first child whether sw or !sw
+	public static List<Child> repAncestorFirstChild(Leaf sourceLeaf) {
+		List<Child> result = new ArrayList<Child>();
+		Child node = sourceLeaf;
+		
+		while(true){
+			if(node.eContainer() instanceof One || node.eContainer() instanceof All || node.eContainer() instanceof Some || node.eContainer() instanceof Par){// Dana added Par
+				result.add((Child) node.eContainer());
+			}
+			FlowDiagram parentFlow = getParentFlow(node);
+			Child parentChild = getParentChild(node);
+			if(parentChild == parentFlow.getRefine().get(0))
+				if(parentFlow.eContainer() instanceof Machine)
+					break;
+				else
+					node = (Child) parentFlow.eContainer();
+			else
+				break;
+		}
+		return result;
+	}
 	public static String getInvXorGluName(Xor sourceXor, List<GenerationDescriptor> generatedElements) {
 		int max = 0;
 		
@@ -1168,6 +1189,13 @@ public class Utils {
 			return union_of_leaves(((Some) ch).getSomeLink(), n+1);// fixed by Dana it was disjunction
 		else if(ch instanceof One)
 			return union_of_leaves(((One) ch).getOneLink(), n+1);// fixed by Dana it was disjunction
+		else if(ch instanceof Par){ //Dana Newly added to allow par-rep tp be first child
+			List<String> expressions = new ArrayList<String>();
+			expressions.add(union_of_leaves(((Par) ch).getParLink(), n+1));
+		    expressions.add(union_of_leaves((Child)successor(ch, n).get(0), n));
+			
+			return toString(expressions, Strings.B_UNION);
+		}
 		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
 			List<String> expressions = new ArrayList<String>();
 			for(FlowDiagram flw : ((Leaf)ch).getDecompose()){
@@ -1270,6 +1298,14 @@ public class Utils {
 			return conjunction_of_leaves(((Some) ch).getSomeLink(), parNum+1);
 		else if(ch instanceof One)
 			return conjunction_of_leaves(((One) ch).getOneLink(), parNum+1);
+		else if(ch instanceof Par){ //Dana Newly added to allow par-rep tp be first child
+			List<String> expressions = new ArrayList<String>();
+			expressions.add(conjunction_of_leaves(((Par) ch).getParLink(), parNum+1));
+		    expressions.add(conjunction_of_leaves((Child)successor(ch, parNum).get(0), parNum));
+			
+			return toString(expressions, Strings.B_AND);
+		}
+			
 		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
 			List<String> expressions = new ArrayList<String>();
 			for(FlowDiagram flw : ((Leaf)ch).getDecompose()){
@@ -1381,7 +1417,7 @@ public class Utils {
 
 	
 	
-	
+	// Dana: I updated removing the difference between weak seq and strong seq, so we get the first child in both cases
 	public static List<? extends EventBElement> getAncestorsAncestorsOfClass(Leaf l, Class<? extends EventBElement> clazz) {
 		List<EventBElement> result = new ArrayList<EventBElement>();
 		Child node = l;
@@ -1391,8 +1427,9 @@ public class Utils {
 				result.add(clazz.cast(node.eContainer()));
 			FlowDiagram parentFlow = getParentFlow(node);
 			Child parentChild = getParentChild(node);
-			if((parentFlow.isSw() && parentChild.equals(parentFlow.getRefine().get(0))) ||
-					(!parentFlow.isSw() && parentChild.isRef()))
+			//if((parentFlow.isSw() && parentChild.equals(parentFlow.getRefine().get(0))) ||
+				//	(!parentFlow.isSw() && parentChild.isRef()))
+			if(parentChild.equals(parentFlow.getRefine().get(0)))
 				if(parentFlow.eContainer() instanceof Machine)
 					break;
 				else
@@ -1577,22 +1614,31 @@ public class Utils {
 			return "";
 		}
 		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
+	     //Dana: fixed
 			String str = "";
-			Leaf l = (Leaf) ch;
-			
-			Child firstFlow = l.getDecompose().get(l.getDecompose().size() - 1).getRefine().get(0); //FlowDiag.refine.last().first(); // will get first subflow 
-			Child lastFlow = l.getDecompose().get(l.getDecompose().size() - 1).getRefine().get(l.getDecompose().get(l.getDecompose().size() - 1).getRefine().size() -1); //FlowDiag.refine.last().last(); // will get the last subflow
-			
-			
-			if(firstFlow.equals(lastFlow)){
-				str = str.concat(build_par_ref_grd(firstFlow));
-			}
-			else{
-				String str1 = par_ref_grd(firstFlow);
-				String str2 = par_ref_grd(lastFlow);
+			for(FlowDiagram fw: ((Leaf) ch).getDecompose()){
+				Child firstChild = fw.getRefine().get(0); // Fisrt Child of the flow
+				Child lastChild = fw.getRefine().get(fw.getRefine().size()-1); //last child of the flow
 				
-				str = str.concat(Utils.parenthesize(str1 + Strings.B_EQ + str2));
-				
+				if(firstChild == lastChild){
+					String s = build_par_ref_grd(firstChild);
+					
+				if(str.equals("") || s.equals(""))
+					str = str.concat(s);
+				else
+					str = str.concat(Strings.B_AND + s);
+				}
+				else{
+					String str1 = par_ref_grd(firstChild, true);
+					String str2 = par_ref_grd(lastChild, false);
+					
+					String s = (str1 + Strings.B_BEQ + str2);
+					
+					if(str.equals(""))
+						str = str.concat(s);
+					else
+						str = str.concat(Strings.B_AND + s);
+				}
 			}
 			return str;
 		}
@@ -1601,7 +1647,7 @@ public class Utils {
 		}
 		else if(ch instanceof Xor){
 			String str = "";
-			for(Leaf x : ((Xor) ch).getXorLink()){
+			for(Child x : ((Xor) ch).getXorLink()){
 				String str2 = build_par_ref_grd(x);
 				if(str.equals("") || str2.equals(""))
 					str = str.concat(str2);
@@ -1616,47 +1662,71 @@ public class Utils {
 	}
 
 	/*************************dana *********************/
-	public static String par_ref_grd(Child ch) {
+	public static String par_ref_grd(Child ch, Boolean bool) {
+		
+		// case: Leaf
 		if(ch instanceof Leaf && ((Leaf) ch).getDecompose().isEmpty()){
 			return ((Leaf) ch).getName();
 		}
 		
-		
+		//case: and
 		else if(ch instanceof And){
 			List<String> expressions = new ArrayList<String>();
 			for(Child ich : ((And) ch).getAndLink())
-				expressions.add(par_ref_grd(ich));
+				expressions.add(par_ref_grd(ich, bool));
 			return parenthesize(toString(expressions, Strings.B_INTER));
 		}
+		
+		//case: or
 		else if(ch instanceof Or){
 			List<String> expressions = new ArrayList<String>();
 			for(Child ich : ((Or) ch).getOrLink())
-				expressions.add(par_ref_grd(ich));
+				expressions.add(par_ref_grd(ich, bool));
 			return parenthesize(toString(expressions, Strings.B_UNION));
 		}
+		
+		//case: xor
 		else if(ch instanceof Xor){
 			List<String> expressions = new ArrayList<String>();
 			for(Child ich : ((Xor) ch).getXorLink())
-				expressions.add(par_ref_grd(ich));
+				expressions.add(par_ref_grd(ich, bool));
 			return parenthesize(toString(expressions, Strings.B_UNION));
 		}
+		
+		//case: all
 		else if(ch instanceof All)
-			return Strings.B_DOM + parenthesize(par_ref_grd(((All) ch).getAllLink()));
+			return Strings.B_DOM + parenthesize(par_ref_grd(((All) ch).getAllLink(), bool));
+		
+		//casr: some
 		else if(ch instanceof Some)
-			return Strings.B_DOM + parenthesize(par_ref_grd(((Some) ch).getSomeLink()));
+			return Strings.B_DOM + parenthesize(par_ref_grd(((Some) ch).getSomeLink(), bool));
+		
+		//case: one
 		else if(ch instanceof One)
-			return Strings.B_DOM + parenthesize(par_ref_grd(((One) ch).getOneLink()));
+			return Strings.B_DOM + parenthesize(par_ref_grd(((One) ch).getOneLink(), bool));
+		
+		//case: par
+		else if(ch instanceof Par){
+			List<String> expressions = new ArrayList<String>();
+			expressions.add(par_ref_grd(((Par) ch).getParLink(), bool));
+			int parNum = getParentFlow(ch).getParameters().size();
+			Child succ = (Child) successor(ch, parNum).get(0);
+			expressions.add(par_ref_grd(succ, bool));
+			return parenthesize(toString(expressions, Strings.B_UNION));
+			
+		}
+		
+		//case: 1*flow
 		else if(ch instanceof Leaf && ((Leaf)ch).getDecompose().size() > 0){
-			//TODO Implement this
-			String str = "YET TO BE IMPLEMENTED";
-//			str = "";
-//			EList<FlowDiagram> flowD = ((Leaf)ch).getDecompose();
-//			List<String>  expressions = new ArrayList<String>();
-//			for(FlowDiagram flw : flowD){
-//				expressions.add(par_ref_grd(flw));
-//			}
-//			str = Utils.toString(expressions, Strings.B_UNION);
-			return str;
+			//TODO Implement this: Done by Dana
+            List<String> expressions = new ArrayList<String>();
+            for(FlowDiagram fw: ((Leaf) ch).getDecompose()){
+            	if(bool)
+            		expressions.add(par_ref_grd(fw.getRefine().get(0), bool));
+            	else
+            		expressions.add(par_ref_grd(fw.getRefine().get(fw.getRefine().size()-1), bool));
+            }
+            return parenthesize(toString(expressions, Strings.B_UNION));
 		}
 			
 		return null;
@@ -1742,4 +1812,40 @@ public class Utils {
 	  return chList;
 	  
   }
+  
+  //Dana: new method to build invariant in SI case
+  public static String build_succ_SI_inv(Child ch, int parnum){
+	  
+	  //Case: Leaf parnum= 0
+	  if(ch instanceof Leaf && ((Leaf) ch).getDecompose().isEmpty() && parnum == 0)
+		  return ((Leaf) ch).getName().concat(Strings.B_EQ + Strings.B_TRUE);
+	  
+	   //Case: Leaf parnum> 0
+	  else if(ch instanceof Leaf && ((Leaf) ch).getDecompose().isEmpty() && parnum > 0)
+		  return ((Leaf) ch).getName().concat(Strings.B_NEQ + Strings.B_EMPTYSET);
+	  
+	  //Case: one
+	  else if(ch instanceof One)
+		  return build_succ_SI_inv(((One) ch).getOneLink(), parnum +1);
+	  //Case: xor
+	  else if(ch instanceof Xor){
+		  List<String> expressions = new ArrayList<String>();
+		  for(Child x : ((Xor) ch).getXorLink())
+			  expressions.add(build_succ_SI_inv(x, parnum));
+	      return parenthesize(toString(expressions, Strings.B_OR));
+	  }
+	 
+	  //case: 1* flow
+	  else if(ch instanceof Leaf && ((Leaf) ch).getDecompose().size() > 0){
+		  List<String> expressions = new ArrayList<String>();
+		  for(FlowDiagram fw: ((Leaf) ch).getDecompose())
+			  expressions.add(build_succ_SI_inv(fw.getRefine().get(0), parnum));
+		  return parenthesize(toString(expressions, Strings.B_OR));
+		  
+	  }
+	  
+	  return null;
+	  
+  }
+
 }
