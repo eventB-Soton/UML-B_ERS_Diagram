@@ -26,10 +26,9 @@ public class TR_par2_nlLeaf_lGrd extends AbstractRule  implements IRule {
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
 		Leaf sourceLeaf = (Leaf) sourceElement;
 		FlowDiagram parentFlow = Utils.getParentFlow(sourceLeaf);
-		return sourceLeaf.getDecompose().isEmpty() &&
-				(Utils.predecessorLoop(sourceLeaf, parentFlow.isSw()) instanceof Par) &&
-				!((Par)Utils.predecessorLoop(sourceLeaf, parentFlow.isSw())).getParLink().getDecompose().isEmpty();
-				
+		Child ch = Utils.predecessorLoop(sourceLeaf, parentFlow.isSw());
+	    return sourceLeaf.getDecompose().isEmpty() && (ch instanceof Par) && !((Par) ch).getParLink().getDecompose().isEmpty();
+			//return true;	
 	}
 	
 	/**
