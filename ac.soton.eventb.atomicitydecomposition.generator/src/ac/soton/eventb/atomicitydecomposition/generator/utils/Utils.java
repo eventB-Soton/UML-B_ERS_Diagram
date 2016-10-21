@@ -1046,6 +1046,7 @@ public class Utils {
 		}
 		return result;
 	}
+
 	public static String getInvXorGluName(Xor sourceXor, List<GenerationDescriptor> generatedElements) {
 		int max = 0;
 		
@@ -1415,7 +1416,42 @@ public class Utils {
 		return max;
 	}
 
-	
+	public static int getPrevParInvIndex(EObject sourceElement, List<GenerationDescriptor> generatedElements) {
+		int max = 0;
+		
+		List<Invariant> allInvariants = new ArrayList<Invariant>();
+		for(GenerationDescriptor gd : generatedElements){
+			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
+				allInvariants.add((Invariant)gd.value);
+		}
+		
+		for(Invariant i :allInvariants){
+			int temp;
+			if(i.getName().endsWith( Strings.UNDERSC + Strings._PAR+ "_" + Utils.getRootFlowDiagramName(sourceElement)) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
+				max = temp;
+		}
+		
+		
+		return max;
+	}
+	public static int getPrevLoopInvIndex(EObject sourceElement, List<GenerationDescriptor> generatedElements) {
+		int max = 0;
+		
+		List<Invariant> allInvariants = new ArrayList<Invariant>();
+		for(GenerationDescriptor gd : generatedElements){
+			if(gd.feature.equals(MachinePackage.Literals.MACHINE__INVARIANTS))
+				allInvariants.add((Invariant)gd.value);
+		}
+		
+		for(Invariant i :allInvariants){
+			int temp;
+			if(i.getName().endsWith( Strings.UNDERSC + Strings._LOOP+ "_" + Utils.getRootFlowDiagramName(sourceElement)) && max < (temp = Integer.parseInt(i.getName().split("_")[0].substring(3))))
+				max = temp;
+		}
+		
+		
+		return max;
+	}
 	
 	// Dana: I updated removing the difference between weak seq and strong seq, so we get the first child in both cases
 	public static List<? extends EventBElement> getAncestorsAncestorsOfClass(Leaf l, Class<? extends EventBElement> clazz) {
@@ -1632,7 +1668,7 @@ public class Utils {
 					String str1 = par_ref_grd(firstChild, true);
 					String str2 = par_ref_grd(lastChild, false);
 					
-					String s = (str1 + Strings.B_BEQ + str2);
+					String s = (str1 + Strings.B_EQ + str2);
 					
 					if(str.equals(""))
 						str = str.concat(s);
@@ -1708,7 +1744,7 @@ public class Utils {
 		//case: par
 		else if(ch instanceof Par){
 			List<String> expressions = new ArrayList<String>();
-			expressions.add(par_ref_grd(((Par) ch).getParLink(), bool));
+			expressions.add(Strings.B_DOM + parenthesize(par_ref_grd(((Par) ch).getParLink(), bool)));
 			int parNum = getParentFlow(ch).getParameters().size();
 			Child succ = (Child) successor(ch, parNum).get(0);
 			expressions.add(par_ref_grd(succ, bool));
@@ -1847,5 +1883,6 @@ public class Utils {
 	  return null;
 	  
   }
+
 
 }
