@@ -24,20 +24,6 @@ public class TR_rep_rLeaf_rInv extends AbstractRule  implements IRule {
 	
 	@Override
 	public boolean enabled(EventBElement sourceElement) throws Exception  {
-		/*Leaf sourceLeaf = (Leaf) sourceElement;
-		if(!sourceLeaf.getDecompose().isEmpty()) return false;
-		
-		if((sourceLeaf.eContainer() instanceof All)){
-			
-			return !((All)sourceLeaf.eContainer()).getNewParameter().getInputExpression().isEmpty();
-		}
-		else if((sourceLeaf.eContainer() instanceof Some))
-			return !((Some)sourceLeaf.eContainer()).getNewParameter().getInputExpression().isEmpty();
-		else if((sourceLeaf.eContainer() instanceof One))
-			return !((One)sourceLeaf.eContainer()).getNewParameter().getInputExpression().isEmpty();
-		else if((sourceLeaf.eContainer() instanceof Par))
-			return !((Par)sourceLeaf.eContainer()).getNewParameter().getInputExpression().isEmpty();
-         */
 		// Dana: Rule Updated to include non-leaf children
 		Leaf sourceLeaf = (Leaf) sourceElement;
 		return sourceLeaf.getDecompose().isEmpty() &&
@@ -77,28 +63,32 @@ public class TR_rep_rLeaf_rInv extends AbstractRule  implements IRule {
 			
 			if(!((All)l.eContainer()).getNewParameter().getInputExpression().isEmpty()){
 				lastParam = ((All)l.eContainer()).getNewParameter();
-				par2 = par;
+				//par2 = par;
+				par2.addAll(par);
 			}
 				
 		}
 		else if(l.eContainer() instanceof Some){
 			if(!((Some)l.eContainer()).getNewParameter().getInputExpression().isEmpty()){
 				lastParam = ((Some)l.eContainer()).getNewParameter();
-				par2 = par;
+				//par2 = par;
+				par2.addAll(par);
 			}
 				
 		}
 		else if(l.eContainer() instanceof One){
 			if(!((One)l.eContainer()).getNewParameter().getInputExpression().isEmpty()){
 				lastParam = ((One)l.eContainer()).getNewParameter();
-				par2 = par;
+				//par2 = par;
+				par2.addAll(par);
 			}
 				
 		}
 		else if(l.eContainer() instanceof Par){ 
 			if(!((Par)l.eContainer()).getNewParameter().getInputExpression().isEmpty()){
 				lastParam = ((Par)l.eContainer()).getNewParameter();
-				par2 = par;
+				//par2 = par;
+				par2.addAll(par);
 			}
 				
 		}
@@ -107,7 +97,7 @@ public class TR_rep_rLeaf_rInv extends AbstractRule  implements IRule {
 				 lastParam = par.get(par.size()-1);
 				 //par.remove(par.size()-1);	
 				 if (par.size() > 1)
-					  par2 = par.subList(0, par.size()-1);
+					  par2.addAll(par.subList(0, par.size()-1));// par2 = par.subList(0, par.size()-1);
 			}	       
 		}
         
