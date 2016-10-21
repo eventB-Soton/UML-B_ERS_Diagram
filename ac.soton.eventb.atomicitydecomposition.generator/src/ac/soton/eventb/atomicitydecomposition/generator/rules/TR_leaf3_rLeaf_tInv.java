@@ -62,7 +62,8 @@ public class TR_leaf3_rLeaf_tInv extends AbstractRule implements IRule {
 	private String generatePredicate(Leaf l) {
 		String pred = "";
 		FlowDiagram parentFlow = Utils.getParentFlow(l);
-		List<TypedParameterExpression> pars = parentFlow.getParameters();
+		List<TypedParameterExpression> pars = new ArrayList<TypedParameterExpression>();
+		pars.addAll(parentFlow.getParameters());
 		if(l.eContainer() instanceof All)
 			pars.add(((All) l.eContainer()).getNewParameter());
 		else if(l.eContainer() instanceof Some)
