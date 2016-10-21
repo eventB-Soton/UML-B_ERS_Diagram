@@ -172,6 +172,21 @@
                name="TR_leaf6_sLeaf_rEve_addRefines"
                rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_leaf6_sLeaf_rEve_addRefines"
                source_class="Leaf"> 
+          </rule>
+          <rule
+                name="TR_par2_nlLeaf_lGrd"
+                rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_par2_nlLeaf_lGrd"
+                source_class="Leaf">
+          </rule>
+          <rule
+                name="TR_par3_nlLeaf_pInv"
+                rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_par3_nlLeaf_pInv"
+                source_class="Par">
+          </rule>
+          <rule
+                name="TR_loop4_loop_rInv"
+                rule_class="ac.soton.eventb.atomicitydecomposition.generator.rules.TR_loop4_loop_rInv"
+                source_class="Loop">
           </rule>                                                                                                                                            
      </generator>
 	</extension>
@@ -184,6 +199,9 @@
 			validatorClass="ac.soton.eventb.atomicitydecomposition.generator.validator.Validator">
 		</validator>
 	</extension>
+ <extension
+       point="ac.soton.eventb.emf.diagrams.generator.rule">
+ </extension>
      
 	
 	
