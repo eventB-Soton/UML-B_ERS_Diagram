@@ -32,6 +32,9 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram2Edi
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram3EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramRefineEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Leaf2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LeafEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LoopEditPart;
@@ -46,6 +49,9 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OrOrLinkEditPar
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Par2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParParLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeNewParameterEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeSomeLinkEditPart;
@@ -308,6 +314,16 @@ public class AtomicitydecompositionNavigatorContentProvider implements
 							.getType(FlowDiagram2EditPart.VISUAL_ID));
 			result.addAll(createNavigatorItems(connectedViews, parentElement,
 					false));
+			connectedViews = getChildrenByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement,
+					false));
+			connectedViews = getChildrenByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryEditPart.VISUAL_ID));
+			result.addAll(createNavigatorItems(connectedViews, parentElement,
+					false));
 			connectedViews = getDiagramLinksByType(Collections.singleton(sv),
 					AtomicitydecompositionVisualIDRegistry
 							.getType(AndAndLinkEditPart.VISUAL_ID));
@@ -375,6 +391,25 @@ public class AtomicitydecompositionNavigatorContentProvider implements
 			connectedViews = getDiagramLinksByType(Collections.singleton(sv),
 					AtomicitydecompositionVisualIDRegistry
 							.getType(Par2EditPart.VISUAL_ID));
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			connectedViews = getDiagramLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptInterruptNormalLinkEditPart.VISUAL_ID));
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			connectedViews = getDiagramLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptInterruptInterruptingLinkEditPart.VISUAL_ID));
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			connectedViews = getDiagramLinksByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryRetryNormalLinkEditPart.VISUAL_ID));
+			links.addChildren(createNavigatorItems(connectedViews, links, false));
+			connectedViews = getDiagramLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryRetryInterruptingLinkEditPart.VISUAL_ID));
 			links.addChildren(createNavigatorItems(connectedViews, links, false));
 			if (!links.isEmpty()) {
 				result.add(links);
@@ -465,6 +500,29 @@ public class AtomicitydecompositionNavigatorContentProvider implements
 			connectedViews = getIncomingLinksByType(Collections.singleton(sv),
 					AtomicitydecompositionVisualIDRegistry
 							.getType(Par2EditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getIncomingLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptInterruptNormalLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getIncomingLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptInterruptInterruptingLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryRetryNormalLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getIncomingLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryRetryInterruptingLinkEditPart.VISUAL_ID));
 			incominglinks.addChildren(createNavigatorItems(connectedViews,
 					incominglinks, true));
 			if (!incominglinks.isEmpty()) {
@@ -848,6 +906,29 @@ public class AtomicitydecompositionNavigatorContentProvider implements
 							.getType(Par2EditPart.VISUAL_ID));
 			incominglinks.addChildren(createNavigatorItems(connectedViews,
 					incominglinks, true));
+			connectedViews = getIncomingLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptInterruptNormalLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getIncomingLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptInterruptInterruptingLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryRetryNormalLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getIncomingLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryRetryInterruptingLinkEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
 			if (!incominglinks.isEmpty()) {
 				result.add(incominglinks);
 			}
@@ -890,6 +971,87 @@ public class AtomicitydecompositionNavigatorContentProvider implements
 			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
 					AtomicitydecompositionVisualIDRegistry
 							.getType(Par2EditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+					outgoinglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			return result.toArray();
+		}
+
+		case InterruptEditPart.VISUAL_ID: {
+			LinkedList<AtomicitydecompositionAbstractNavigatorItem> result = new LinkedList<AtomicitydecompositionAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			AtomicitydecompositionNavigatorGroup incominglinks = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_Interrupt_2012_incominglinks,
+					"icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			AtomicitydecompositionNavigatorGroup outgoinglinks = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_Interrupt_2012_outgoinglinks,
+					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(FlowDiagramRefineEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(FlowDiagram3EditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getOutgoingLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptInterruptNormalLinkEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+					outgoinglinks, true));
+			connectedViews = getOutgoingLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptInterruptInterruptingLinkEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+					outgoinglinks, true));
+			if (!incominglinks.isEmpty()) {
+				result.add(incominglinks);
+			}
+			if (!outgoinglinks.isEmpty()) {
+				result.add(outgoinglinks);
+			}
+			return result.toArray();
+		}
+
+		case RetryEditPart.VISUAL_ID: {
+			LinkedList<AtomicitydecompositionAbstractNavigatorItem> result = new LinkedList<AtomicitydecompositionAbstractNavigatorItem>();
+			Node sv = (Node) view;
+			AtomicitydecompositionNavigatorGroup incominglinks = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_Retry_2013_incominglinks,
+					"icons/incomingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			AtomicitydecompositionNavigatorGroup outgoinglinks = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_Retry_2013_outgoinglinks,
+					"icons/outgoingLinksNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(FlowDiagramRefineEditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getIncomingLinksByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(FlowDiagram3EditPart.VISUAL_ID));
+			incominglinks.addChildren(createNavigatorItems(connectedViews,
+					incominglinks, true));
+			connectedViews = getOutgoingLinksByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryRetryNormalLinkEditPart.VISUAL_ID));
+			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
+					outgoinglinks, true));
+			connectedViews = getOutgoingLinksByType(
+					Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryRetryInterruptingLinkEditPart.VISUAL_ID));
 			outgoinglinks.addChildren(createNavigatorItems(connectedViews,
 					outgoinglinks, true));
 			if (!incominglinks.isEmpty()) {
@@ -1321,6 +1483,16 @@ public class AtomicitydecompositionNavigatorContentProvider implements
 							.getType(Leaf2EditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target,
 					true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
 			connectedViews = getLinksSourceByType(Collections.singleton(sv),
 					AtomicitydecompositionVisualIDRegistry
 							.getType(FlowDiagram2EditPart.VISUAL_ID));
@@ -1396,6 +1568,16 @@ public class AtomicitydecompositionNavigatorContentProvider implements
 			connectedViews = getLinksTargetByType(Collections.singleton(sv),
 					AtomicitydecompositionVisualIDRegistry
 							.getType(Leaf2EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryEditPart.VISUAL_ID));
 			target.addChildren(createNavigatorItems(connectedViews, target,
 					true));
 			connectedViews = getLinksSourceByType(Collections.singleton(sv),
@@ -1511,6 +1693,142 @@ public class AtomicitydecompositionNavigatorContentProvider implements
 			connectedViews = getLinksSourceByType(Collections.singleton(sv),
 					AtomicitydecompositionVisualIDRegistry
 							.getType(FlowDiagram2EditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source,
+					true));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+
+		case InterruptInterruptNormalLinkEditPart.VISUAL_ID: {
+			LinkedList<AtomicitydecompositionAbstractNavigatorItem> result = new LinkedList<AtomicitydecompositionAbstractNavigatorItem>();
+			Edge sv = (Edge) view;
+			AtomicitydecompositionNavigatorGroup target = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_InterruptInterruptNormalLink_4019_target,
+					"icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			AtomicitydecompositionNavigatorGroup source = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_InterruptInterruptNormalLink_4019_source,
+					"icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(LeafEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(Leaf2EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptEditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source,
+					true));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+
+		case InterruptInterruptInterruptingLinkEditPart.VISUAL_ID: {
+			LinkedList<AtomicitydecompositionAbstractNavigatorItem> result = new LinkedList<AtomicitydecompositionAbstractNavigatorItem>();
+			Edge sv = (Edge) view;
+			AtomicitydecompositionNavigatorGroup target = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_InterruptInterruptInterruptingLink_4020_target,
+					"icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			AtomicitydecompositionNavigatorGroup source = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_InterruptInterruptInterruptingLink_4020_source,
+					"icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(LeafEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(Leaf2EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(InterruptEditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source,
+					true));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+
+		case RetryRetryNormalLinkEditPart.VISUAL_ID: {
+			LinkedList<AtomicitydecompositionAbstractNavigatorItem> result = new LinkedList<AtomicitydecompositionAbstractNavigatorItem>();
+			Edge sv = (Edge) view;
+			AtomicitydecompositionNavigatorGroup target = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_RetryRetryNormalLink_4021_target,
+					"icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			AtomicitydecompositionNavigatorGroup source = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_RetryRetryNormalLink_4021_source,
+					"icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(LeafEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(Leaf2EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryEditPart.VISUAL_ID));
+			source.addChildren(createNavigatorItems(connectedViews, source,
+					true));
+			if (!target.isEmpty()) {
+				result.add(target);
+			}
+			if (!source.isEmpty()) {
+				result.add(source);
+			}
+			return result.toArray();
+		}
+
+		case RetryRetryInterruptingLinkEditPart.VISUAL_ID: {
+			LinkedList<AtomicitydecompositionAbstractNavigatorItem> result = new LinkedList<AtomicitydecompositionAbstractNavigatorItem>();
+			Edge sv = (Edge) view;
+			AtomicitydecompositionNavigatorGroup target = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_RetryRetryInterruptingLink_4022_target,
+					"icons/linkTargetNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			AtomicitydecompositionNavigatorGroup source = new AtomicitydecompositionNavigatorGroup(
+					Messages.NavigatorGroupName_RetryRetryInterruptingLink_4022_source,
+					"icons/linkSourceNavigatorGroup.gif", parentElement); //$NON-NLS-1$
+			Collection<View> connectedViews;
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(LeafEditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
+			connectedViews = getLinksTargetByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(Leaf2EditPart.VISUAL_ID));
+			target.addChildren(createNavigatorItems(connectedViews, target,
+					true));
+			connectedViews = getLinksSourceByType(Collections.singleton(sv),
+					AtomicitydecompositionVisualIDRegistry
+							.getType(RetryEditPart.VISUAL_ID));
 			source.addChildren(createNavigatorItems(connectedViews, source,
 					true));
 			if (!target.isEmpty()) {

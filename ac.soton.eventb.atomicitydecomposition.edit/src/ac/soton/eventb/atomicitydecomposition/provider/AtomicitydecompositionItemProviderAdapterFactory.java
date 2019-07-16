@@ -358,6 +358,52 @@ public class AtomicitydecompositionItemProviderAdapterFactory extends Atomicityd
 	}
 
 	/**
+	 * This keeps track of the one adapter used for all {@link ac.soton.eventb.atomicitydecomposition.Interrupt} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected InterruptItemProvider interruptItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link ac.soton.eventb.atomicitydecomposition.Interrupt}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createInterruptAdapter() {
+		if (interruptItemProvider == null) {
+			interruptItemProvider = new InterruptItemProvider(this);
+		}
+
+		return interruptItemProvider;
+	}
+
+	/**
+	 * This keeps track of the one adapter used for all {@link ac.soton.eventb.atomicitydecomposition.Retry} instances.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected RetryItemProvider retryItemProvider;
+
+	/**
+	 * This creates an adapter for a {@link ac.soton.eventb.atomicitydecomposition.Retry}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Adapter createRetryAdapter() {
+		if (retryItemProvider == null) {
+			retryItemProvider = new RetryItemProvider(this);
+		}
+
+		return retryItemProvider;
+	}
+
+	/**
 	 * This returns the root adapter factory that contains this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -467,6 +513,8 @@ public class AtomicitydecompositionItemProviderAdapterFactory extends Atomicityd
 		if (oneItemProvider != null) oneItemProvider.dispose();
 		if (typedParameterExpressionItemProvider != null) typedParameterExpressionItemProvider.dispose();
 		if (parItemProvider != null) parItemProvider.dispose();
+		if (interruptItemProvider != null) interruptItemProvider.dispose();
+		if (retryItemProvider != null) retryItemProvider.dispose();
 	}
 
 	/**
@@ -672,6 +720,16 @@ public class AtomicitydecompositionItemProviderAdapterFactory extends Atomicityd
 					(createChildParameter
 						(CorePackage.Literals.ANNOTATION__CONTENTS,
 						 AtomicitydecompositionFactory.eINSTANCE.createPar()));
+
+				newChildDescriptors.add
+					(createChildParameter
+						(CorePackage.Literals.ANNOTATION__CONTENTS,
+						 AtomicitydecompositionFactory.eINSTANCE.createInterrupt()));
+
+				newChildDescriptors.add
+					(createChildParameter
+						(CorePackage.Literals.ANNOTATION__CONTENTS,
+						 AtomicitydecompositionFactory.eINSTANCE.createRetry()));
 
 				return null;
 			}

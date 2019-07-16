@@ -1,3 +1,7 @@
 eclipse.preferences.version=1
-gmf_dashboard/graphicalDefinitionModel=platform\:/resource/ac.soton.eventb.atomicitydecomposition/model/ERS.gmfgraph
-gmf_dashboard/mappingModel=platform\:/resource/ac.soton.eventb.atomicitydecomposition/model/ERS.gmfmap
+gmf_dashboard/domainGenerationModel=platform\:/resource/ac.soton.eventb.atomicitydecomposition/model/atomicitydecomposition.genmodel
+gmf_dashboard/domainModel=platform\:/resource/ac.soton.eventb.atomicitydecomposition/model/atomicitydecomposition.ecore
+gmf_dashboard/generationModel=platform\:/resource/ac.soton.eventb.atomicitydecomposition/model/atomicitydecomposition.gmfgen
+gmf_dashboard/graphicalDefinitionModel=platform\:/resource/ac.soton.eventb.atomicitydecomposition/model/atomicitydecomposition.gmfgraph
+gmf_dashboard/mappingModel=platform\:/resource/ac.soton.eventb.atomicitydecomposition/model/atomicitydecomposition.gmfmap
+gmf_dashboard/toolingDefinitionModel=platform\:/resource/ac.soton.eventb.atomicitydecomposition/model/atomicitydecomposition.gmftool

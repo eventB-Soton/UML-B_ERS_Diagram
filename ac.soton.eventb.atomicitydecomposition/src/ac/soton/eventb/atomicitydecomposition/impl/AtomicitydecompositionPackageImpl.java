@@ -13,12 +13,14 @@ import ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionPackage;
 import ac.soton.eventb.atomicitydecomposition.Child;
 import ac.soton.eventb.atomicitydecomposition.Constructor;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
+import ac.soton.eventb.atomicitydecomposition.Interrupt;
 import ac.soton.eventb.atomicitydecomposition.Leaf;
 import ac.soton.eventb.atomicitydecomposition.Loop;
 import ac.soton.eventb.atomicitydecomposition.MultiFlow;
 import ac.soton.eventb.atomicitydecomposition.One;
 import ac.soton.eventb.atomicitydecomposition.Or;
 import ac.soton.eventb.atomicitydecomposition.Par;
+import ac.soton.eventb.atomicitydecomposition.Retry;
 import ac.soton.eventb.atomicitydecomposition.Some;
 import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
 import ac.soton.eventb.atomicitydecomposition.Xor;
@@ -146,6 +148,20 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 	 * @generated
 	 */
 	private EClass parEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass interruptEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass retryEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -532,6 +548,60 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EClass getInterrupt() {
+		return interruptEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInterrupt_InterruptNormalLink() {
+		return (EReference)interruptEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getInterrupt_InterruptInterruptingLink() {
+		return (EReference)interruptEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getRetry() {
+		return retryEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRetry_RetryNormalLink() {
+		return (EReference)retryEClass.getEStructuralFeatures().get(0);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getRetry_RetryInterruptingLink() {
+		return (EReference)retryEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public AtomicitydecompositionFactory getAtomicitydecompositionFactory() {
 		return (AtomicitydecompositionFactory)getEFactoryInstance();
 	}
@@ -602,6 +672,14 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		parEClass = createEClass(PAR);
 		createEReference(parEClass, PAR__PAR_LINK);
 		createEReference(parEClass, PAR__NEW_PARAMETER);
+
+		interruptEClass = createEClass(INTERRUPT);
+		createEReference(interruptEClass, INTERRUPT__INTERRUPT_NORMAL_LINK);
+		createEReference(interruptEClass, INTERRUPT__INTERRUPT_INTERRUPTING_LINK);
+
+		retryEClass = createEClass(RETRY);
+		createEReference(retryEClass, RETRY__RETRY_NORMAL_LINK);
+		createEReference(retryEClass, RETRY__RETRY_INTERRUPTING_LINK);
 	}
 
 	/**
@@ -654,6 +732,8 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		oneEClass.getESuperTypes().add(this.getConstructor());
 		typedParameterExpressionEClass.getESuperTypes().add(theCoreextensionPackage.getTypedParameter());
 		parEClass.getESuperTypes().add(this.getConstructor());
+		interruptEClass.getESuperTypes().add(this.getConstructor());
+		retryEClass.getESuperTypes().add(this.getConstructor());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(flowDiagramEClass, FlowDiagram.class, "FlowDiagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -721,6 +801,14 @@ public class AtomicitydecompositionPackageImpl extends EPackageImpl implements A
 		initEClass(parEClass, Par.class, "Par", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getPar_ParLink(), this.getLeaf(), null, "parLink", null, 1, 1, Par.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPar_NewParameter(), this.getTypedParameterExpression(), null, "newParameter", null, 1, 1, Par.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(interruptEClass, Interrupt.class, "Interrupt", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getInterrupt_InterruptNormalLink(), this.getLeaf(), null, "interruptNormalLink", null, 1, 1, Interrupt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getInterrupt_InterruptInterruptingLink(), this.getLeaf(), null, "interruptInterruptingLink", null, 1, 1, Interrupt.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(retryEClass, Retry.class, "Retry", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRetry_RetryNormalLink(), this.getLeaf(), null, "retryNormalLink", null, 1, 1, Retry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getRetry_RetryInterruptingLink(), this.getLeaf(), null, "retryInterruptingLink", null, 1, 1, Retry.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

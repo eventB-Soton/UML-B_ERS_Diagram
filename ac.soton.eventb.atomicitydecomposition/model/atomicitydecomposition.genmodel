@@ -62,5 +62,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Par/parLink"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Par/newParameter"/>
     </genClasses>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//Interrupt">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Interrupt/interruptNormalLink"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Interrupt/interruptInterruptingLink"/>
+    </genClasses>
+    <genClasses ecoreClass="atomicitydecomposition.ecore#//Retry">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Retry/retryNormalLink"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference atomicitydecomposition.ecore#//Retry/retryInterruptingLink"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

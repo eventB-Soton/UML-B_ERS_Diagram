@@ -43,7 +43,10 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ocl.ecore;visibility:=reexport,
  org.eclipse.gef;visibility:=reexport,
  ac.soton.eventb.emf.diagrams;bundle-version="3.0.0",
- org.eclipse.emf.validation;visibility:=reexport
+ org.eclipse.emf.validation;visibility:=reexport,
+ ac.soton.eventb.emf.diagrams.edit;visibility:=reexport,
+ org.eventb.emf.core.edit;visibility:=reexport,
+ ac.soton.eventb.emf.core.extension.edit;visibility:=reexport
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Import-Package: ac.soton.eventb.emf.core.extension.coreextension.provider,

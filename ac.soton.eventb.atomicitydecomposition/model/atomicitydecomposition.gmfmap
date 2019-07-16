@@ -189,6 +189,41 @@
           href="atomicitydecomposition.gmfgraph#FlowDiagram"/>
     </ownedChild>
   </nodes>
+  <nodes>
+    <containmentFeature
+        href="atomicitydecomposition.ecore#//FlowDiagram/refine"/>
+    <ownedChild>
+      <domainMetaElement
+          href="atomicitydecomposition.ecore#//Interrupt"/>
+      <labelMappings
+          xsi:type="gmfmap:DesignLabelMapping">
+        <diagramLabel
+            href="atomicitydecomposition.gmfgraph#InterruptLabel"/>
+      </labelMappings>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="atomicitydecomposition.gmftool#//@palette/@tools.0/@tools.9"/>
+      <diagramNode
+          href="atomicitydecomposition.gmfgraph#Interrupt"/>
+    </ownedChild>
+  </nodes>
+  <nodes>
+    <containmentFeature
+        href="atomicitydecomposition.ecore#//FlowDiagram/refine"/>
+    <ownedChild>
+      <domainMetaElement
+          href="atomicitydecomposition.ecore#//Retry"/>
+      <labelMappings>
+        <diagramLabel
+            href="atomicitydecomposition.gmfgraph#RetryLabel"/>
+      </labelMappings>
+      <tool
+          xsi:type="gmftool:CreationTool"
+          href="atomicitydecomposition.gmftool#//@palette/@tools.0/@tools.10"/>
+      <diagramNode
+          href="atomicitydecomposition.gmfgraph#Retry"/>
+    </ownedChild>
+  </nodes>
   <links>
     <labelMappings
         xsi:type="gmfmap:DesignLabelMapping"
@@ -198,7 +233,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#AndAndLink"/>
     <linkMetaFeature
@@ -214,7 +249,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#LoopLoopLink"/>
     <linkMetaFeature
@@ -230,7 +265,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#AllAllLink"/>
     <linkMetaFeature
@@ -262,7 +297,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#SomeSomeLink"/>
     <linkMetaFeature
@@ -294,7 +329,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#OrOrLink"/>
     <linkMetaFeature
@@ -310,7 +345,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#XorXorLink"/>
     <linkMetaFeature
@@ -326,7 +361,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#OneOneLink"/>
     <linkMetaFeature
@@ -340,6 +375,9 @@
       <diagramLabel
           href="atomicitydecomposition.gmfgraph#OneNewParameterExternalLabel"/>
     </labelMappings>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.3"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#OneNewParameter"/>
     <linkMetaFeature
@@ -355,7 +393,7 @@
     </labelMappings>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#ParParLink"/>
     <linkMetaFeature
@@ -372,7 +410,7 @@
   <links>
     <tool
         xsi:type="gmftool:CreationTool"
-        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.13"/>
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
     <diagramLink
         href="atomicitydecomposition.gmfgraph#FlowDiagramRefine"/>
     <linkMetaFeature
@@ -430,6 +468,70 @@
     <linkMetaFeature
         xsi:type="ecore:EReference"
         href="atomicitydecomposition.ecore#//Par/parLink"/>
+  </links>
+  <links>
+    <labelMappings
+        xsi:type="gmfmap:DesignLabelMapping"
+        readOnly="true">
+      <diagramLabel
+          href="atomicitydecomposition.gmfgraph#InterruptNormalLinkExternalLabel"/>
+    </labelMappings>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
+    <diagramLink
+        href="atomicitydecomposition.gmfgraph#InterruptNormalLink"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="atomicitydecomposition.ecore#//Interrupt/interruptNormalLink"/>
+  </links>
+  <links>
+    <labelMappings
+        xsi:type="gmfmap:DesignLabelMapping"
+        readOnly="true">
+      <diagramLabel
+          href="atomicitydecomposition.gmfgraph#InterruptInterruptingLinkExternalLabel"/>
+    </labelMappings>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
+    <diagramLink
+        href="atomicitydecomposition.gmfgraph#InterruptInterruptingLink"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="atomicitydecomposition.ecore#//Interrupt/interruptInterruptingLink"/>
+  </links>
+  <links>
+    <labelMappings
+        xsi:type="gmfmap:DesignLabelMapping"
+        readOnly="true">
+      <diagramLabel
+          href="atomicitydecomposition.gmfgraph#RetryNormalLinkExternalLabel"/>
+    </labelMappings>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
+    <diagramLink
+        href="atomicitydecomposition.gmfgraph#RetryNormalLink"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="atomicitydecomposition.ecore#//Retry/retryNormalLink"/>
+  </links>
+  <links>
+    <labelMappings
+        xsi:type="gmfmap:DesignLabelMapping"
+        readOnly="true">
+      <diagramLabel
+          href="atomicitydecomposition.gmfgraph#RetryInterruptingLinkExternalLabel"/>
+    </labelMappings>
+    <tool
+        xsi:type="gmftool:CreationTool"
+        href="atomicitydecomposition.gmftool#//@palette/@tools.1/@tools.15"/>
+    <diagramLink
+        href="atomicitydecomposition.gmfgraph#RetryInterruptingLink"/>
+    <linkMetaFeature
+        xsi:type="ecore:EReference"
+        href="atomicitydecomposition.ecore#//Retry/retryInterruptingLink"/>
   </links>
   <diagram>
     <diagramCanvas

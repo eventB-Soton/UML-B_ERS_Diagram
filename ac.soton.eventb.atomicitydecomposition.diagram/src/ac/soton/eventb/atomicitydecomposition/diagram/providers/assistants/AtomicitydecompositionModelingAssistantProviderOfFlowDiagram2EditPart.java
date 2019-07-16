@@ -11,12 +11,14 @@ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.AllEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.AndEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram2EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Leaf2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LeafEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LoopEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OneEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OrEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.XorEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.providers.AtomicitydecompositionElementTypes;
@@ -100,6 +102,12 @@ public class AtomicitydecompositionModelingAssistantProviderOfFlowDiagram2EditPa
 		if (targetEditPart instanceof Leaf2EditPart) {
 			types.add(AtomicitydecompositionElementTypes.FlowDiagramRefine_4014);
 		}
+		if (targetEditPart instanceof InterruptEditPart) {
+			types.add(AtomicitydecompositionElementTypes.FlowDiagramRefine_4014);
+		}
+		if (targetEditPart instanceof RetryEditPart) {
+			types.add(AtomicitydecompositionElementTypes.FlowDiagramRefine_4014);
+		}
 		if (targetEditPart instanceof LeafEditPart) {
 			types.add(AtomicitydecompositionElementTypes.Xor_4016);
 		}
@@ -150,6 +158,8 @@ public class AtomicitydecompositionModelingAssistantProviderOfFlowDiagram2EditPa
 			types.add(AtomicitydecompositionElementTypes.One_2008);
 			types.add(AtomicitydecompositionElementTypes.Par_2009);
 			types.add(AtomicitydecompositionElementTypes.Leaf_2010);
+			types.add(AtomicitydecompositionElementTypes.Interrupt_2012);
+			types.add(AtomicitydecompositionElementTypes.Retry_2013);
 		} else if (relationshipType == AtomicitydecompositionElementTypes.Xor_4016) {
 			types.add(AtomicitydecompositionElementTypes.Leaf_2001);
 			types.add(AtomicitydecompositionElementTypes.Leaf_2010);

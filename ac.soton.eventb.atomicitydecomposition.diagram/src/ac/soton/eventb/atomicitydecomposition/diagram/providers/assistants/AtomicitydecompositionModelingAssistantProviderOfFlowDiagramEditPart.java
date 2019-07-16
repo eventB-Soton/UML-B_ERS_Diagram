@@ -20,7 +20,7 @@ public class AtomicitydecompositionModelingAssistantProviderOfFlowDiagramEditPar
 	 */
 	@Override
 	public List<IElementType> getTypesForPopupBar(IAdaptable host) {
-		List<IElementType> types = new ArrayList<IElementType>(11);
+		List<IElementType> types = new ArrayList<IElementType>(13);
 		types.add(AtomicitydecompositionElementTypes.Leaf_2001);
 		types.add(AtomicitydecompositionElementTypes.And_2002);
 		types.add(AtomicitydecompositionElementTypes.Loop_2003);
@@ -32,6 +32,8 @@ public class AtomicitydecompositionModelingAssistantProviderOfFlowDiagramEditPar
 		types.add(AtomicitydecompositionElementTypes.Par_2009);
 		types.add(AtomicitydecompositionElementTypes.Leaf_2010);
 		types.add(AtomicitydecompositionElementTypes.FlowDiagram_2011);
+		types.add(AtomicitydecompositionElementTypes.Interrupt_2012);
+		types.add(AtomicitydecompositionElementTypes.Retry_2013);
 		return types;
 	}
 

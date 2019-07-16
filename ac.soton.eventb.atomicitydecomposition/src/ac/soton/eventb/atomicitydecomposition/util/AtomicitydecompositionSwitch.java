@@ -230,6 +230,26 @@ public class AtomicitydecompositionSwitch<T> extends Switch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case AtomicitydecompositionPackage.INTERRUPT: {
+				Interrupt interrupt = (Interrupt)theEObject;
+				T result = caseInterrupt(interrupt);
+				if (result == null) result = caseConstructor(interrupt);
+				if (result == null) result = caseChild(interrupt);
+				if (result == null) result = caseEventBElement(interrupt);
+				if (result == null) result = caseEventBObject(interrupt);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case AtomicitydecompositionPackage.RETRY: {
+				Retry retry = (Retry)theEObject;
+				T result = caseRetry(retry);
+				if (result == null) result = caseConstructor(retry);
+				if (result == null) result = caseChild(retry);
+				if (result == null) result = caseEventBElement(retry);
+				if (result == null) result = caseEventBObject(retry);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -441,6 +461,36 @@ public class AtomicitydecompositionSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T casePar(Par object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Interrupt</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Interrupt</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseInterrupt(Interrupt object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Retry</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Retry</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseRetry(Retry object) {
 		return null;
 	}
 

@@ -343,12 +343,42 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String FlowDiagram10CreationTool_title;
+	public static String Interrupt10CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String FlowDiagram10CreationTool_desc;
+	public static String Interrupt10CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
+	public static String Retry11CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String Retry11CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
+	public static String FlowDiagram12CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String FlowDiagram12CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
+	public static String TypedParameterExpression13CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String TypedParameterExpression13CreationTool_desc;
 
 	/**
 	 * @generated
@@ -473,22 +503,42 @@ public class Messages extends NLS {
 	/**
 	 * @generated
 	 */
-	public static String DecomposeLink13CreationTool_title;
+	public static String NormalLink13CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String DecomposeLink13CreationTool_desc;
+	public static String NormalLink13CreationTool_desc;
 
 	/**
 	 * @generated
 	 */
-	public static String CreateLink14CreationTool_title;
+	public static String InterruptingLink14CreationTool_title;
 
 	/**
 	 * @generated
 	 */
-	public static String CreateLink14CreationTool_desc;
+	public static String InterruptingLink14CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
+	public static String DecomposeLink15CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String DecomposeLink15CreationTool_desc;
+
+	/**
+	 * @generated
+	 */
+	public static String CreateLink16CreationTool_title;
+
+	/**
+	 * @generated
+	 */
+	public static String CreateLink16CreationTool_desc;
 
 	/**
 	 * @generated
@@ -609,6 +659,26 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_FlowDiagram_2011_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Interrupt_2012_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Interrupt_2012_outgoinglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Retry_2013_incominglinks;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_Retry_2013_outgoinglinks;
 
 	/**
 	 * @generated
@@ -769,6 +839,46 @@ public class Messages extends NLS {
 	 * @generated
 	 */
 	public static String NavigatorGroupName_Par_4018_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_InterruptInterruptNormalLink_4019_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_InterruptInterruptNormalLink_4019_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_InterruptInterruptInterruptingLink_4020_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_InterruptInterruptInterruptingLink_4020_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_RetryRetryNormalLink_4021_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_RetryRetryNormalLink_4021_source;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_RetryRetryInterruptingLink_4022_target;
+
+	/**
+	 * @generated
+	 */
+	public static String NavigatorGroupName_RetryRetryInterruptingLink_4022_source;
 
 	/**
 	 * @generated

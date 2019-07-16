@@ -125,6 +125,24 @@ public interface AtomicitydecompositionFactory extends EFactory {
 	Par createPar();
 
 	/**
+	 * Returns a new object of class '<em>Interrupt</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Interrupt</em>'.
+	 * @generated
+	 */
+	Interrupt createInterrupt();
+
+	/**
+	 * Returns a new object of class '<em>Retry</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Retry</em>'.
+	 * @generated
+	 */
+	Retry createRetry();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

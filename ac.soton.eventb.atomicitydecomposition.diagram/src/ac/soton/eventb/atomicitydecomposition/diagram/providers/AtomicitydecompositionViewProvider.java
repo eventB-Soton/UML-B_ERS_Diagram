@@ -54,6 +54,9 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram2Edi
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram3EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramRefineEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Label2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Label3EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Label4EditPart;
@@ -81,12 +84,21 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Par2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParParLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParParLinkExternalLabelEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeNewParameterEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeNewParameterExternalLabelEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeSomeLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeSomeLinkExternalLabelEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel2EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel3EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel4EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel5EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel6EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel7EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel8EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabelEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Xor2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.XorEditPart;
@@ -197,6 +209,8 @@ public class AtomicitydecompositionViewProvider extends AbstractProvider
 				case XorEditPart.VISUAL_ID:
 				case OneEditPart.VISUAL_ID:
 				case ParEditPart.VISUAL_ID:
+				case InterruptEditPart.VISUAL_ID:
+				case RetryEditPart.VISUAL_ID:
 				case Leaf2EditPart.VISUAL_ID:
 				case FlowDiagram2EditPart.VISUAL_ID:
 					if (domainElement == null
@@ -221,7 +235,9 @@ public class AtomicitydecompositionViewProvider extends AbstractProvider
 				|| OneEditPart.VISUAL_ID == visualID
 				|| ParEditPart.VISUAL_ID == visualID
 				|| Leaf2EditPart.VISUAL_ID == visualID
-				|| FlowDiagram2EditPart.VISUAL_ID == visualID;
+				|| FlowDiagram2EditPart.VISUAL_ID == visualID
+				|| InterruptEditPart.VISUAL_ID == visualID
+				|| RetryEditPart.VISUAL_ID == visualID;
 	}
 
 	/**
@@ -313,6 +329,12 @@ public class AtomicitydecompositionViewProvider extends AbstractProvider
 		case FlowDiagram2EditPart.VISUAL_ID:
 			return createFlowDiagram_2011(domainElement, containerView, index,
 					persisted, preferencesHint);
+		case InterruptEditPart.VISUAL_ID:
+			return createInterrupt_2012(domainElement, containerView, index,
+					persisted, preferencesHint);
+		case RetryEditPart.VISUAL_ID:
+			return createRetry_2013(domainElement, containerView, index,
+					persisted, preferencesHint);
 		}
 		// can't happen, provided #provides(CreateNodeViewOperation) is correct
 		return null;
@@ -379,6 +401,18 @@ public class AtomicitydecompositionViewProvider extends AbstractProvider
 		case Par2EditPart.VISUAL_ID:
 			return createPar_4018(getSemanticElement(semanticAdapter),
 					containerView, index, persisted, preferencesHint);
+		case InterruptInterruptNormalLinkEditPart.VISUAL_ID:
+			return createInterruptInterruptNormalLink_4019(containerView,
+					index, persisted, preferencesHint);
+		case InterruptInterruptInterruptingLinkEditPart.VISUAL_ID:
+			return createInterruptInterruptInterruptingLink_4020(containerView,
+					index, persisted, preferencesHint);
+		case RetryRetryNormalLinkEditPart.VISUAL_ID:
+			return createRetryRetryNormalLink_4021(containerView, index,
+					persisted, preferencesHint);
+		case RetryRetryInterruptingLinkEditPart.VISUAL_ID:
+			return createRetryRetryInterruptingLink_4022(containerView, index,
+					persisted, preferencesHint);
 		}
 		// can never happen, provided #provides(CreateEdgeViewOperation) is correct
 		return null;
@@ -883,6 +917,100 @@ public class AtomicitydecompositionViewProvider extends AbstractProvider
 		ViewUtil.setStructuralFeatureValue(node,
 				NotationPackage.eINSTANCE.getFillStyle_FillColor(),
 				FigureUtilities.RGBToInteger(fillRGB));
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createInterrupt_2012(EObject domainElement, View containerView,
+			int index, boolean persisted, PreferencesHint preferencesHint) {
+		Shape node = NotationFactory.eINSTANCE.createShape();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
+		node.setType(AtomicitydecompositionVisualIDRegistry
+				.getType(InterruptEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
+		stampShortcut(containerView, node);
+		// initializeFromPreferences 
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
+				.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
+				prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(node,
+				NotationPackage.eINSTANCE.getLineStyle_LineColor(),
+				FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle nodeFontStyle = (FontStyle) node
+				.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (nodeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore,
+					IPreferenceConstants.PREF_DEFAULT_FONT);
+			nodeFontStyle.setFontName(fontData.getName());
+			nodeFontStyle.setFontHeight(fontData.getHeight());
+			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
+					.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
+					.intValue());
+		}
+		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(
+				prefStore, IPreferenceConstants.PREF_FILL_COLOR);
+		ViewUtil.setStructuralFeatureValue(node,
+				NotationPackage.eINSTANCE.getFillStyle_FillColor(),
+				FigureUtilities.RGBToInteger(fillRGB));
+		Node label5011 = createLabel(node,
+				AtomicitydecompositionVisualIDRegistry
+						.getType(WrappingLabel4EditPart.VISUAL_ID));
+		label5011.getStyles().add(
+				NotationFactory.eINSTANCE.createDescriptionStyle());
+		return node;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Node createRetry_2013(EObject domainElement, View containerView,
+			int index, boolean persisted, PreferencesHint preferencesHint) {
+		Shape node = NotationFactory.eINSTANCE.createShape();
+		node.setLayoutConstraint(NotationFactory.eINSTANCE.createBounds());
+		node.setType(AtomicitydecompositionVisualIDRegistry
+				.getType(RetryEditPart.VISUAL_ID));
+		ViewUtil.insertChildView(containerView, node, index, persisted);
+		node.setElement(domainElement);
+		stampShortcut(containerView, node);
+		// initializeFromPreferences 
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
+				.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
+				prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(node,
+				NotationPackage.eINSTANCE.getLineStyle_LineColor(),
+				FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle nodeFontStyle = (FontStyle) node
+				.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (nodeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore,
+					IPreferenceConstants.PREF_DEFAULT_FONT);
+			nodeFontStyle.setFontName(fontData.getName());
+			nodeFontStyle.setFontHeight(fontData.getHeight());
+			nodeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			nodeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
+					.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			nodeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
+					.intValue());
+		}
+		org.eclipse.swt.graphics.RGB fillRGB = PreferenceConverter.getColor(
+				prefStore, IPreferenceConstants.PREF_FILL_COLOR);
+		ViewUtil.setStructuralFeatureValue(node,
+				NotationPackage.eINSTANCE.getFillStyle_FillColor(),
+				FigureUtilities.RGBToInteger(fillRGB));
+		Node label5012 = createLabel(node,
+				AtomicitydecompositionVisualIDRegistry
+						.getType(WrappingLabel6EditPart.VISUAL_ID));
 		return node;
 	}
 
@@ -1881,6 +2009,255 @@ public class AtomicitydecompositionViewProvider extends AbstractProvider
 					NotationPackage.eINSTANCE.getRoutingStyle_Routing(),
 					routing);
 		}
+		return edge;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Edge createInterruptInterruptNormalLink_4019(View containerView,
+			int index, boolean persisted, PreferencesHint preferencesHint) {
+		Connector edge = NotationFactory.eINSTANCE.createConnector();
+		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
+		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE
+				.createRelativeBendpoints();
+		ArrayList<RelativeBendpoint> points = new ArrayList<RelativeBendpoint>(
+				2);
+		points.add(new RelativeBendpoint());
+		points.add(new RelativeBendpoint());
+		bendpoints.setPoints(points);
+		edge.setBendpoints(bendpoints);
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		edge.setType(AtomicitydecompositionVisualIDRegistry
+				.getType(InterruptInterruptNormalLinkEditPart.VISUAL_ID));
+		edge.setElement(null);
+		// initializePreferences
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
+				.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
+				prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(edge,
+				NotationPackage.eINSTANCE.getLineStyle_LineColor(),
+				FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle edgeFontStyle = (FontStyle) edge
+				.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (edgeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore,
+					IPreferenceConstants.PREF_DEFAULT_FONT);
+			edgeFontStyle.setFontName(fontData.getName());
+			edgeFontStyle.setFontHeight(fontData.getHeight());
+			edgeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			edgeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
+					.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
+					.intValue());
+		}
+		Routing routing = Routing.get(prefStore
+				.getInt(IPreferenceConstants.PREF_LINE_STYLE));
+		if (routing != null) {
+			ViewUtil.setStructuralFeatureValue(edge,
+					NotationPackage.eINSTANCE.getRoutingStyle_Routing(),
+					routing);
+		}
+		Node label6013 = createLabel(edge,
+				AtomicitydecompositionVisualIDRegistry
+						.getType(WrappingLabel3EditPart.VISUAL_ID));
+		label6013.getStyles().add(
+				NotationFactory.eINSTANCE.createDescriptionStyle());
+		label6013.setLayoutConstraint(NotationFactory.eINSTANCE
+				.createLocation());
+		Location location6013 = (Location) label6013.getLayoutConstraint();
+		location6013.setX(0);
+		location6013.setY(40);
+		return edge;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Edge createInterruptInterruptInterruptingLink_4020(
+			View containerView, int index, boolean persisted,
+			PreferencesHint preferencesHint) {
+		Connector edge = NotationFactory.eINSTANCE.createConnector();
+		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
+		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE
+				.createRelativeBendpoints();
+		ArrayList<RelativeBendpoint> points = new ArrayList<RelativeBendpoint>(
+				2);
+		points.add(new RelativeBendpoint());
+		points.add(new RelativeBendpoint());
+		bendpoints.setPoints(points);
+		edge.setBendpoints(bendpoints);
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		edge.setType(AtomicitydecompositionVisualIDRegistry
+				.getType(InterruptInterruptInterruptingLinkEditPart.VISUAL_ID));
+		edge.setElement(null);
+		// initializePreferences
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
+				.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
+				prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(edge,
+				NotationPackage.eINSTANCE.getLineStyle_LineColor(),
+				FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle edgeFontStyle = (FontStyle) edge
+				.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (edgeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore,
+					IPreferenceConstants.PREF_DEFAULT_FONT);
+			edgeFontStyle.setFontName(fontData.getName());
+			edgeFontStyle.setFontHeight(fontData.getHeight());
+			edgeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			edgeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
+					.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
+					.intValue());
+		}
+		Routing routing = Routing.get(prefStore
+				.getInt(IPreferenceConstants.PREF_LINE_STYLE));
+		if (routing != null) {
+			ViewUtil.setStructuralFeatureValue(edge,
+					NotationPackage.eINSTANCE.getRoutingStyle_Routing(),
+					routing);
+		}
+		Node label6014 = createLabel(edge,
+				AtomicitydecompositionVisualIDRegistry
+						.getType(WrappingLabel5EditPart.VISUAL_ID));
+		label6014.getStyles().add(
+				NotationFactory.eINSTANCE.createDescriptionStyle());
+		label6014.setLayoutConstraint(NotationFactory.eINSTANCE
+				.createLocation());
+		Location location6014 = (Location) label6014.getLayoutConstraint();
+		location6014.setX(0);
+		location6014.setY(40);
+		return edge;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Edge createRetryRetryNormalLink_4021(View containerView, int index,
+			boolean persisted, PreferencesHint preferencesHint) {
+		Connector edge = NotationFactory.eINSTANCE.createConnector();
+		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
+		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE
+				.createRelativeBendpoints();
+		ArrayList<RelativeBendpoint> points = new ArrayList<RelativeBendpoint>(
+				2);
+		points.add(new RelativeBendpoint());
+		points.add(new RelativeBendpoint());
+		bendpoints.setPoints(points);
+		edge.setBendpoints(bendpoints);
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		edge.setType(AtomicitydecompositionVisualIDRegistry
+				.getType(RetryRetryNormalLinkEditPart.VISUAL_ID));
+		edge.setElement(null);
+		// initializePreferences
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
+				.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
+				prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(edge,
+				NotationPackage.eINSTANCE.getLineStyle_LineColor(),
+				FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle edgeFontStyle = (FontStyle) edge
+				.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (edgeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore,
+					IPreferenceConstants.PREF_DEFAULT_FONT);
+			edgeFontStyle.setFontName(fontData.getName());
+			edgeFontStyle.setFontHeight(fontData.getHeight());
+			edgeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			edgeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
+					.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
+					.intValue());
+		}
+		Routing routing = Routing.get(prefStore
+				.getInt(IPreferenceConstants.PREF_LINE_STYLE));
+		if (routing != null) {
+			ViewUtil.setStructuralFeatureValue(edge,
+					NotationPackage.eINSTANCE.getRoutingStyle_Routing(),
+					routing);
+		}
+		Node label6015 = createLabel(edge,
+				AtomicitydecompositionVisualIDRegistry
+						.getType(WrappingLabel7EditPart.VISUAL_ID));
+		label6015.getStyles().add(
+				NotationFactory.eINSTANCE.createDescriptionStyle());
+		label6015.setLayoutConstraint(NotationFactory.eINSTANCE
+				.createLocation());
+		Location location6015 = (Location) label6015.getLayoutConstraint();
+		location6015.setX(0);
+		location6015.setY(40);
+		return edge;
+	}
+
+	/**
+	 * @generated
+	 */
+	public Edge createRetryRetryInterruptingLink_4022(View containerView,
+			int index, boolean persisted, PreferencesHint preferencesHint) {
+		Connector edge = NotationFactory.eINSTANCE.createConnector();
+		edge.getStyles().add(NotationFactory.eINSTANCE.createFontStyle());
+		RelativeBendpoints bendpoints = NotationFactory.eINSTANCE
+				.createRelativeBendpoints();
+		ArrayList<RelativeBendpoint> points = new ArrayList<RelativeBendpoint>(
+				2);
+		points.add(new RelativeBendpoint());
+		points.add(new RelativeBendpoint());
+		bendpoints.setPoints(points);
+		edge.setBendpoints(bendpoints);
+		ViewUtil.insertChildView(containerView, edge, index, persisted);
+		edge.setType(AtomicitydecompositionVisualIDRegistry
+				.getType(RetryRetryInterruptingLinkEditPart.VISUAL_ID));
+		edge.setElement(null);
+		// initializePreferences
+		final IPreferenceStore prefStore = (IPreferenceStore) preferencesHint
+				.getPreferenceStore();
+
+		org.eclipse.swt.graphics.RGB lineRGB = PreferenceConverter.getColor(
+				prefStore, IPreferenceConstants.PREF_LINE_COLOR);
+		ViewUtil.setStructuralFeatureValue(edge,
+				NotationPackage.eINSTANCE.getLineStyle_LineColor(),
+				FigureUtilities.RGBToInteger(lineRGB));
+		FontStyle edgeFontStyle = (FontStyle) edge
+				.getStyle(NotationPackage.Literals.FONT_STYLE);
+		if (edgeFontStyle != null) {
+			FontData fontData = PreferenceConverter.getFontData(prefStore,
+					IPreferenceConstants.PREF_DEFAULT_FONT);
+			edgeFontStyle.setFontName(fontData.getName());
+			edgeFontStyle.setFontHeight(fontData.getHeight());
+			edgeFontStyle.setBold((fontData.getStyle() & SWT.BOLD) != 0);
+			edgeFontStyle.setItalic((fontData.getStyle() & SWT.ITALIC) != 0);
+			org.eclipse.swt.graphics.RGB fontRGB = PreferenceConverter
+					.getColor(prefStore, IPreferenceConstants.PREF_FONT_COLOR);
+			edgeFontStyle.setFontColor(FigureUtilities.RGBToInteger(fontRGB)
+					.intValue());
+		}
+		Routing routing = Routing.get(prefStore
+				.getInt(IPreferenceConstants.PREF_LINE_STYLE));
+		if (routing != null) {
+			ViewUtil.setStructuralFeatureValue(edge,
+					NotationPackage.eINSTANCE.getRoutingStyle_Routing(),
+					routing);
+		}
+		Node label6016 = createLabel(edge,
+				AtomicitydecompositionVisualIDRegistry
+						.getType(WrappingLabel8EditPart.VISUAL_ID));
+		label6016.getStyles().add(
+				NotationFactory.eINSTANCE.createDescriptionStyle());
+		label6016.setLayoutConstraint(NotationFactory.eINSTANCE
+				.createLocation());
+		Location location6016 = (Location) label6016.getLayoutConstraint();
+		location6016.setX(0);
+		location6016.setY(40);
 		return edge;
 	}
 

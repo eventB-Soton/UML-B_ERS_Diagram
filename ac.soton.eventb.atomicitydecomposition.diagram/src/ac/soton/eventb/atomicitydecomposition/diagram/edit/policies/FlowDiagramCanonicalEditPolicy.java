@@ -44,6 +44,7 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.AndEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram3EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Leaf2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LeafEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LoopEditPart;
@@ -52,6 +53,7 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OneEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OrEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Par2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Xor2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.XorEditPart;
@@ -125,6 +127,8 @@ public class FlowDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 		case ParEditPart.VISUAL_ID:
 		case Leaf2EditPart.VISUAL_ID:
 		case FlowDiagram2EditPart.VISUAL_ID:
+		case InterruptEditPart.VISUAL_ID:
+		case RetryEditPart.VISUAL_ID:
 			return true;
 		}
 		return false;
@@ -417,6 +421,22 @@ public class FlowDiagramCanonicalEditPolicy extends CanonicalEditPolicy {
 			if (!domain2NotationMap.containsKey(view.getElement())) {
 				result.addAll(AtomicitydecompositionDiagramUpdater
 						.getFlowDiagram_2011ContainedLinks(view));
+			}
+			domain2NotationMap.putView(view.getElement(), view);
+			break;
+		}
+		case InterruptEditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(AtomicitydecompositionDiagramUpdater
+						.getInterrupt_2012ContainedLinks(view));
+			}
+			domain2NotationMap.putView(view.getElement(), view);
+			break;
+		}
+		case RetryEditPart.VISUAL_ID: {
+			if (!domain2NotationMap.containsKey(view.getElement())) {
+				result.addAll(AtomicitydecompositionDiagramUpdater
+						.getRetry_2013ContainedLinks(view));
 			}
 			domain2NotationMap.putView(view.getElement(), view);
 			break;

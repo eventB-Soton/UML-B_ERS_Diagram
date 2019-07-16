@@ -19,6 +19,7 @@ import org.eclipse.ui.navigator.ICommonLabelProvider;
 
 import ac.soton.eventb.atomicitydecomposition.All;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
+import ac.soton.eventb.atomicitydecomposition.Interrupt;
 import ac.soton.eventb.atomicitydecomposition.One;
 import ac.soton.eventb.atomicitydecomposition.Or;
 import ac.soton.eventb.atomicitydecomposition.Par;
@@ -33,6 +34,9 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram2Edi
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram3EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramRefineEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Label2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Label3EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Label4EditPart;
@@ -55,10 +59,14 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OrOrLinkEditPar
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Par2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParParLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeNewParameterEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeSomeLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel2EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel6EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabelEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Xor2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.XorEditPart;
@@ -164,6 +172,12 @@ public class AtomicitydecompositionNavigatorLabelProvider extends LabelProvider
 		case FlowDiagram2EditPart.VISUAL_ID:
 			return getImage(
 					"Navigator?TopLevelNode?http://soton.ac.uk/models/eventb/atomicitydecomposition?FlowDiagram", AtomicitydecompositionElementTypes.FlowDiagram_2011); //$NON-NLS-1$
+		case InterruptEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?TopLevelNode?http://soton.ac.uk/models/eventb/atomicitydecomposition?Interrupt", AtomicitydecompositionElementTypes.Interrupt_2012); //$NON-NLS-1$
+		case RetryEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?TopLevelNode?http://soton.ac.uk/models/eventb/atomicitydecomposition?Retry", AtomicitydecompositionElementTypes.Retry_2013); //$NON-NLS-1$
 		case AndAndLinkEditPart.VISUAL_ID:
 			return getImage(
 					"Navigator?Link?http://soton.ac.uk/models/eventb/atomicitydecomposition?And?andLink", AtomicitydecompositionElementTypes.AndAndLink_4002); //$NON-NLS-1$
@@ -215,6 +229,18 @@ public class AtomicitydecompositionNavigatorLabelProvider extends LabelProvider
 		case Par2EditPart.VISUAL_ID:
 			return getImage(
 					"Navigator?Link?http://soton.ac.uk/models/eventb/atomicitydecomposition?Par", AtomicitydecompositionElementTypes.Par_4018); //$NON-NLS-1$
+		case InterruptInterruptNormalLinkEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?Link?http://soton.ac.uk/models/eventb/atomicitydecomposition?Interrupt?interruptNormalLink", AtomicitydecompositionElementTypes.InterruptInterruptNormalLink_4019); //$NON-NLS-1$
+		case InterruptInterruptInterruptingLinkEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?Link?http://soton.ac.uk/models/eventb/atomicitydecomposition?Interrupt?interruptInterruptingLink", AtomicitydecompositionElementTypes.InterruptInterruptInterruptingLink_4020); //$NON-NLS-1$
+		case RetryRetryNormalLinkEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?Link?http://soton.ac.uk/models/eventb/atomicitydecomposition?Retry?retryNormalLink", AtomicitydecompositionElementTypes.RetryRetryNormalLink_4021); //$NON-NLS-1$
+		case RetryRetryInterruptingLinkEditPart.VISUAL_ID:
+			return getImage(
+					"Navigator?Link?http://soton.ac.uk/models/eventb/atomicitydecomposition?Retry?retryInterruptingLink", AtomicitydecompositionElementTypes.RetryRetryInterruptingLink_4022); //$NON-NLS-1$
 		}
 		return getImage("Navigator?UnknownElement", null); //$NON-NLS-1$
 	}
@@ -293,6 +319,10 @@ public class AtomicitydecompositionNavigatorLabelProvider extends LabelProvider
 			return getLeaf_2010Text(view);
 		case FlowDiagram2EditPart.VISUAL_ID:
 			return getFlowDiagram_2011Text(view);
+		case InterruptEditPart.VISUAL_ID:
+			return getInterrupt_2012Text(view);
+		case RetryEditPart.VISUAL_ID:
+			return getRetry_2013Text(view);
 		case AndAndLinkEditPart.VISUAL_ID:
 			return getAndAndLink_4002Text(view);
 		case LoopLoopLinkEditPart.VISUAL_ID:
@@ -327,6 +357,14 @@ public class AtomicitydecompositionNavigatorLabelProvider extends LabelProvider
 			return getOne_4017Text(view);
 		case Par2EditPart.VISUAL_ID:
 			return getPar_4018Text(view);
+		case InterruptInterruptNormalLinkEditPart.VISUAL_ID:
+			return getInterruptInterruptNormalLink_4019Text(view);
+		case InterruptInterruptInterruptingLinkEditPart.VISUAL_ID:
+			return getInterruptInterruptInterruptingLink_4020Text(view);
+		case RetryRetryNormalLinkEditPart.VISUAL_ID:
+			return getRetryRetryNormalLink_4021Text(view);
+		case RetryRetryInterruptingLinkEditPart.VISUAL_ID:
+			return getRetryRetryInterruptingLink_4022Text(view);
 		}
 		return getUnknownElementText(view);
 	}
@@ -337,7 +375,7 @@ public class AtomicitydecompositionNavigatorLabelProvider extends LabelProvider
 	private String getFlowDiagram_1000Text(View view) {
 		FlowDiagram domainModelElement = (FlowDiagram) view.getElement();
 		if (domainModelElement != null) {
-			return String.valueOf(domainModelElement.isSw());
+			return domainModelElement.getName();
 		} else {
 			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
 					"No domain element for view with visualID = " + 1000); //$NON-NLS-1$
@@ -551,10 +589,49 @@ public class AtomicitydecompositionNavigatorLabelProvider extends LabelProvider
 	private String getFlowDiagram_2011Text(View view) {
 		FlowDiagram domainModelElement = (FlowDiagram) view.getElement();
 		if (domainModelElement != null) {
-			return String.valueOf(domainModelElement.isSw());
+			return domainModelElement.getName();
 		} else {
 			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
 					"No domain element for view with visualID = " + 2011); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getInterrupt_2012Text(View view) {
+		IParser parser = AtomicitydecompositionParserProvider.getParser(
+				AtomicitydecompositionElementTypes.Interrupt_2012,
+				view.getElement() != null ? view.getElement() : view,
+				CommonParserHint.DESCRIPTION);
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(
+					view.getElement() != null ? view.getElement() : view),
+					ParserOptions.NONE.intValue());
+		} else {
+			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 5011); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getRetry_2013Text(View view) {
+		IParser parser = AtomicitydecompositionParserProvider.getParser(
+				AtomicitydecompositionElementTypes.Retry_2013, view
+						.getElement() != null ? view.getElement() : view,
+				AtomicitydecompositionVisualIDRegistry
+						.getType(WrappingLabel6EditPart.VISUAL_ID));
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(
+					view.getElement() != null ? view.getElement() : view),
+					ParserOptions.NONE.intValue());
+		} else {
+			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 5012); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}
@@ -788,7 +865,7 @@ public class AtomicitydecompositionNavigatorLabelProvider extends LabelProvider
 	private String getFlowDiagram_4015Text(View view) {
 		FlowDiagram domainModelElement = (FlowDiagram) view.getElement();
 		if (domainModelElement != null) {
-			return String.valueOf(domainModelElement.isSw());
+			return domainModelElement.getName();
 		} else {
 			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
 					"No domain element for view with visualID = " + 4015); //$NON-NLS-1$
@@ -802,7 +879,7 @@ public class AtomicitydecompositionNavigatorLabelProvider extends LabelProvider
 	private String getXor_4016Text(View view) {
 		Xor domainModelElement = (Xor) view.getElement();
 		if (domainModelElement != null) {
-			return String.valueOf(domainModelElement.isRef());
+			return domainModelElement.getReference();
 		} else {
 			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
 					"No domain element for view with visualID = " + 4016); //$NON-NLS-1$
@@ -816,7 +893,7 @@ public class AtomicitydecompositionNavigatorLabelProvider extends LabelProvider
 	private String getOne_4017Text(View view) {
 		One domainModelElement = (One) view.getElement();
 		if (domainModelElement != null) {
-			return String.valueOf(domainModelElement.isRef());
+			return domainModelElement.getReference();
 		} else {
 			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
 					"No domain element for view with visualID = " + 4017); //$NON-NLS-1$
@@ -830,10 +907,89 @@ public class AtomicitydecompositionNavigatorLabelProvider extends LabelProvider
 	private String getPar_4018Text(View view) {
 		Par domainModelElement = (Par) view.getElement();
 		if (domainModelElement != null) {
-			return String.valueOf(domainModelElement.isRef());
+			return domainModelElement.getReference();
 		} else {
 			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
 					"No domain element for view with visualID = " + 4018); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getInterruptInterruptNormalLink_4019Text(View view) {
+		IParser parser = AtomicitydecompositionParserProvider
+				.getParser(
+						AtomicitydecompositionElementTypes.InterruptInterruptNormalLink_4019,
+						view.getElement() != null ? view.getElement() : view,
+						CommonParserHint.DESCRIPTION);
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(
+					view.getElement() != null ? view.getElement() : view),
+					ParserOptions.NONE.intValue());
+		} else {
+			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 6013); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getInterruptInterruptInterruptingLink_4020Text(View view) {
+		IParser parser = AtomicitydecompositionParserProvider
+				.getParser(
+						AtomicitydecompositionElementTypes.InterruptInterruptInterruptingLink_4020,
+						view.getElement() != null ? view.getElement() : view,
+						CommonParserHint.DESCRIPTION);
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(
+					view.getElement() != null ? view.getElement() : view),
+					ParserOptions.NONE.intValue());
+		} else {
+			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 6014); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getRetryRetryNormalLink_4021Text(View view) {
+		IParser parser = AtomicitydecompositionParserProvider.getParser(
+				AtomicitydecompositionElementTypes.RetryRetryNormalLink_4021,
+				view.getElement() != null ? view.getElement() : view,
+				CommonParserHint.DESCRIPTION);
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(
+					view.getElement() != null ? view.getElement() : view),
+					ParserOptions.NONE.intValue());
+		} else {
+			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 6015); //$NON-NLS-1$
+			return ""; //$NON-NLS-1$
+		}
+	}
+
+	/**
+	 * @generated
+	 */
+	private String getRetryRetryInterruptingLink_4022Text(View view) {
+		IParser parser = AtomicitydecompositionParserProvider
+				.getParser(
+						AtomicitydecompositionElementTypes.RetryRetryInterruptingLink_4022,
+						view.getElement() != null ? view.getElement() : view,
+						CommonParserHint.DESCRIPTION);
+		if (parser != null) {
+			return parser.getPrintString(new EObjectAdapter(
+					view.getElement() != null ? view.getElement() : view),
+					ParserOptions.NONE.intValue());
+		} else {
+			AtomicitydecompositionDiagramEditorPlugin.getInstance().logError(
+					"Parser was not found for label " + 6016); //$NON-NLS-1$
 			return ""; //$NON-NLS-1$
 		}
 	}

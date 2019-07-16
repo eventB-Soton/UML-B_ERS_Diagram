@@ -71,6 +71,8 @@ public class AtomicitydecompositionFactoryImpl extends EFactoryImpl implements A
 			case AtomicitydecompositionPackage.ONE: return createOne();
 			case AtomicitydecompositionPackage.TYPED_PARAMETER_EXPRESSION: return createTypedParameterExpression();
 			case AtomicitydecompositionPackage.PAR: return createPar();
+			case AtomicitydecompositionPackage.INTERRUPT: return createInterrupt();
+			case AtomicitydecompositionPackage.RETRY: return createRetry();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -184,6 +186,26 @@ public class AtomicitydecompositionFactoryImpl extends EFactoryImpl implements A
 	public Par createPar() {
 		ParImpl par = new ParImpl();
 		return par;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Interrupt createInterrupt() {
+		InterruptImpl interrupt = new InterruptImpl();
+		return interrupt;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Retry createRetry() {
+		RetryImpl retry = new RetryImpl();
+		return retry;
 	}
 
 	/**

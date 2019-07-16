@@ -76,6 +76,20 @@
   <nodeTraces
       visualID="2011"
       queryText="let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'FlowDiagram'"/>
+  <nodeTraces
+      visualID="2012"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'Interrupt') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'FlowDiagram') and _containmentMF_.name = 'refine')">
+    <nodeLabelTraces
+        visualID="5011"
+        queryText="true"/>
+  </nodeTraces>
+  <nodeTraces
+      visualID="2013"
+      queryText="(let _eClass_:ecore::EClass = modelFacet.metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'Retry') and (let _containmentMF_:ecore::EStructuralFeature = modelFacet.containmentMetaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _containmentMF_.eContainingClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'FlowDiagram') and _containmentMF_.name = 'refine')">
+    <nodeLabelTraces
+        visualID="5012"
+        queryText="true"/>
+  </nodeTraces>
   <linkTraces
       visualID="4002"
       queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'And') and _feature_.name = 'andLink')">
@@ -171,4 +185,32 @@
   <linkTraces
       visualID="4018"
       queryText="modelFacet.oclIsKindOf(gmfgen::TypeLinkModelFacet) and (let _eClass_:ecore::EClass = modelFacet.oclAsType(gmfgen::TypeLinkModelFacet).metaClass.ecoreClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'Par')"/>
+  <linkTraces
+      visualID="4019"
+      queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'Interrupt') and _feature_.name = 'interruptNormalLink')">
+    <linkLabelTraces
+        visualID="6013"
+        queryText="true"/>
+  </linkTraces>
+  <linkTraces
+      visualID="4020"
+      queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'Interrupt') and _feature_.name = 'interruptInterruptingLink')">
+    <linkLabelTraces
+        visualID="6014"
+        queryText="true"/>
+  </linkTraces>
+  <linkTraces
+      visualID="4021"
+      queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'Retry') and _feature_.name = 'retryNormalLink')">
+    <linkLabelTraces
+        visualID="6015"
+        queryText="true"/>
+  </linkTraces>
+  <linkTraces
+      visualID="4022"
+      queryText="modelFacet.oclIsKindOf(gmfgen::FeatureLinkModelFacet) and (let _feature_:ecore::EStructuralFeature = modelFacet.oclAsType(gmfgen::FeatureLinkModelFacet).metaFeature.ecoreFeature in (let _eClass_:ecore::EClass = _feature_.eContainingClass in _eClass_.ePackage.nsURI = 'http://soton.ac.uk/models/eventb/atomicitydecomposition' and _eClass_.name = 'Retry') and _feature_.name = 'retryInterruptingLink')">
+    <linkLabelTraces
+        visualID="6016"
+        queryText="true"/>
+  </linkTraces>
 </trace:TraceModel>

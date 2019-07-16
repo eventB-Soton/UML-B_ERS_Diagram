@@ -10,12 +10,14 @@ import org.eclipse.gmf.runtime.emf.type.core.requests.DuplicateElementsRequest;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.AllCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.AndCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.FlowDiagramCreateCommand;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.InterruptCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.Leaf2CreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.LeafCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.LoopCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.OneCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.OrCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.ParCreateCommand;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.RetryCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.SomeCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.XorCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.providers.AtomicitydecompositionElementTypes;
@@ -74,6 +76,14 @@ public class FlowDiagramItemSemanticEditPolicy extends
 		if (AtomicitydecompositionElementTypes.FlowDiagram_2011 == req
 				.getElementType()) {
 			return getGEFWrapper(new FlowDiagramCreateCommand(req));
+		}
+		if (AtomicitydecompositionElementTypes.Interrupt_2012 == req
+				.getElementType()) {
+			return getGEFWrapper(new InterruptCreateCommand(req));
+		}
+		if (AtomicitydecompositionElementTypes.Retry_2013 == req
+				.getElementType()) {
+			return getGEFWrapper(new RetryCreateCommand(req));
 		}
 		return super.getCreateCommand(req);
 	}

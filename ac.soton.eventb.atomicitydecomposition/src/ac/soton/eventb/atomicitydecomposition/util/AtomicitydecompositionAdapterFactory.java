@@ -142,6 +142,14 @@ public class AtomicitydecompositionAdapterFactory extends AdapterFactoryImpl {
 				return createParAdapter();
 			}
 			@Override
+			public Adapter caseInterrupt(Interrupt object) {
+				return createInterruptAdapter();
+			}
+			@Override
+			public Adapter caseRetry(Retry object) {
+				return createRetryAdapter();
+			}
+			@Override
 			public Adapter caseEventBObject(EventBObject object) {
 				return createEventBObjectAdapter();
 			}
@@ -406,6 +414,34 @@ public class AtomicitydecompositionAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createParAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ac.soton.eventb.atomicitydecomposition.Interrupt <em>Interrupt</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ac.soton.eventb.atomicitydecomposition.Interrupt
+	 * @generated
+	 */
+	public Adapter createInterruptAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link ac.soton.eventb.atomicitydecomposition.Retry <em>Retry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see ac.soton.eventb.atomicitydecomposition.Retry
+	 * @generated
+	 */
+	public Adapter createRetryAdapter() {
 		return null;
 	}
 

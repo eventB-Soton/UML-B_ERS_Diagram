@@ -12,7 +12,7 @@ public class AtomicitydecompositionNavigatorSorter extends ViewerSorter {
 	/**
 	 * @generated
 	 */
-	private static final int GROUP_CATEGORY = 4020;
+	private static final int GROUP_CATEGORY = 4024;
 
 	/**
 	 * @generated

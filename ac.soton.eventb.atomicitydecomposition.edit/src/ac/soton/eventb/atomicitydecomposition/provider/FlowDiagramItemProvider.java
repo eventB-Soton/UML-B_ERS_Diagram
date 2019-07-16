@@ -280,6 +280,16 @@ public class FlowDiagramItemProvider
 			(createChildParameter
 				(AtomicitydecompositionPackage.Literals.FLOW_DIAGRAM__REFINE,
 				 AtomicitydecompositionFactory.eINSTANCE.createPar()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(AtomicitydecompositionPackage.Literals.FLOW_DIAGRAM__REFINE,
+				 AtomicitydecompositionFactory.eINSTANCE.createInterrupt()));
+
+		newChildDescriptors.add
+			(createChildParameter
+				(AtomicitydecompositionPackage.Literals.FLOW_DIAGRAM__REFINE,
+				 AtomicitydecompositionFactory.eINSTANCE.createRetry()));
 	}
 
 	/**

@@ -1508,6 +1508,226 @@ public interface AtomicitydecompositionPackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link ac.soton.eventb.atomicitydecomposition.impl.InterruptImpl <em>Interrupt</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.eventb.atomicitydecomposition.impl.InterruptImpl
+	 * @see ac.soton.eventb.atomicitydecomposition.impl.AtomicitydecompositionPackageImpl#getInterrupt()
+	 * @generated
+	 */
+	int INTERRUPT = 14;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERRUPT__ANNOTATIONS = CONSTRUCTOR__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERRUPT__EXTENSIONS = CONSTRUCTOR__EXTENSIONS;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERRUPT__ATTRIBUTES = CONSTRUCTOR__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Reference</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERRUPT__REFERENCE = CONSTRUCTOR__REFERENCE;
+
+	/**
+	 * The feature id for the '<em><b>Generated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERRUPT__GENERATED = CONSTRUCTOR__GENERATED;
+
+	/**
+	 * The feature id for the '<em><b>Local Generated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERRUPT__LOCAL_GENERATED = CONSTRUCTOR__LOCAL_GENERATED;
+
+	/**
+	 * The feature id for the '<em><b>Internal Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERRUPT__INTERNAL_ID = CONSTRUCTOR__INTERNAL_ID;
+
+	/**
+	 * The feature id for the '<em><b>Ref</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERRUPT__REF = CONSTRUCTOR__REF;
+
+	/**
+	 * The feature id for the '<em><b>Interrupt Normal Link</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERRUPT__INTERRUPT_NORMAL_LINK = CONSTRUCTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Interrupt Interrupting Link</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERRUPT__INTERRUPT_INTERRUPTING_LINK = CONSTRUCTOR_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Interrupt</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INTERRUPT_FEATURE_COUNT = CONSTRUCTOR_FEATURE_COUNT + 2;
+
+
+	/**
+	 * The meta object id for the '{@link ac.soton.eventb.atomicitydecomposition.impl.RetryImpl <em>Retry</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see ac.soton.eventb.atomicitydecomposition.impl.RetryImpl
+	 * @see ac.soton.eventb.atomicitydecomposition.impl.AtomicitydecompositionPackageImpl#getRetry()
+	 * @generated
+	 */
+	int RETRY = 15;
+
+	/**
+	 * The feature id for the '<em><b>Annotations</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY__ANNOTATIONS = CONSTRUCTOR__ANNOTATIONS;
+
+	/**
+	 * The feature id for the '<em><b>Extensions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY__EXTENSIONS = CONSTRUCTOR__EXTENSIONS;
+
+	/**
+	 * The feature id for the '<em><b>Attributes</b></em>' map.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY__ATTRIBUTES = CONSTRUCTOR__ATTRIBUTES;
+
+	/**
+	 * The feature id for the '<em><b>Reference</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY__REFERENCE = CONSTRUCTOR__REFERENCE;
+
+	/**
+	 * The feature id for the '<em><b>Generated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY__GENERATED = CONSTRUCTOR__GENERATED;
+
+	/**
+	 * The feature id for the '<em><b>Local Generated</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY__LOCAL_GENERATED = CONSTRUCTOR__LOCAL_GENERATED;
+
+	/**
+	 * The feature id for the '<em><b>Internal Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY__INTERNAL_ID = CONSTRUCTOR__INTERNAL_ID;
+
+	/**
+	 * The feature id for the '<em><b>Ref</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY__REF = CONSTRUCTOR__REF;
+
+	/**
+	 * The feature id for the '<em><b>Retry Normal Link</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY__RETRY_NORMAL_LINK = CONSTRUCTOR_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Retry Interrupting Link</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY__RETRY_INTERRUPTING_LINK = CONSTRUCTOR_FEATURE_COUNT + 1;
+
+	/**
+	 * The number of structural features of the '<em>Retry</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RETRY_FEATURE_COUNT = CONSTRUCTOR_FEATURE_COUNT + 2;
+
+
+	/**
 	 * Returns the meta object for class '{@link ac.soton.eventb.atomicitydecomposition.FlowDiagram <em>Flow Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1868,6 +2088,70 @@ public interface AtomicitydecompositionPackage extends EPackage {
 	EReference getPar_NewParameter();
 
 	/**
+	 * Returns the meta object for class '{@link ac.soton.eventb.atomicitydecomposition.Interrupt <em>Interrupt</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Interrupt</em>'.
+	 * @see ac.soton.eventb.atomicitydecomposition.Interrupt
+	 * @generated
+	 */
+	EClass getInterrupt();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link ac.soton.eventb.atomicitydecomposition.Interrupt#getInterruptNormalLink <em>Interrupt Normal Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Interrupt Normal Link</em>'.
+	 * @see ac.soton.eventb.atomicitydecomposition.Interrupt#getInterruptNormalLink()
+	 * @see #getInterrupt()
+	 * @generated
+	 */
+	EReference getInterrupt_InterruptNormalLink();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link ac.soton.eventb.atomicitydecomposition.Interrupt#getInterruptInterruptingLink <em>Interrupt Interrupting Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Interrupt Interrupting Link</em>'.
+	 * @see ac.soton.eventb.atomicitydecomposition.Interrupt#getInterruptInterruptingLink()
+	 * @see #getInterrupt()
+	 * @generated
+	 */
+	EReference getInterrupt_InterruptInterruptingLink();
+
+	/**
+	 * Returns the meta object for class '{@link ac.soton.eventb.atomicitydecomposition.Retry <em>Retry</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Retry</em>'.
+	 * @see ac.soton.eventb.atomicitydecomposition.Retry
+	 * @generated
+	 */
+	EClass getRetry();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link ac.soton.eventb.atomicitydecomposition.Retry#getRetryNormalLink <em>Retry Normal Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Retry Normal Link</em>'.
+	 * @see ac.soton.eventb.atomicitydecomposition.Retry#getRetryNormalLink()
+	 * @see #getRetry()
+	 * @generated
+	 */
+	EReference getRetry_RetryNormalLink();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link ac.soton.eventb.atomicitydecomposition.Retry#getRetryInterruptingLink <em>Retry Interrupting Link</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Retry Interrupting Link</em>'.
+	 * @see ac.soton.eventb.atomicitydecomposition.Retry#getRetryInterruptingLink()
+	 * @see #getRetry()
+	 * @generated
+	 */
+	EReference getRetry_RetryInterruptingLink();
+
+	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2188,6 +2472,58 @@ public interface AtomicitydecompositionPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PAR__NEW_PARAMETER = eINSTANCE.getPar_NewParameter();
+
+		/**
+		 * The meta object literal for the '{@link ac.soton.eventb.atomicitydecomposition.impl.InterruptImpl <em>Interrupt</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.eventb.atomicitydecomposition.impl.InterruptImpl
+		 * @see ac.soton.eventb.atomicitydecomposition.impl.AtomicitydecompositionPackageImpl#getInterrupt()
+		 * @generated
+		 */
+		EClass INTERRUPT = eINSTANCE.getInterrupt();
+
+		/**
+		 * The meta object literal for the '<em><b>Interrupt Normal Link</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERRUPT__INTERRUPT_NORMAL_LINK = eINSTANCE.getInterrupt_InterruptNormalLink();
+
+		/**
+		 * The meta object literal for the '<em><b>Interrupt Interrupting Link</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INTERRUPT__INTERRUPT_INTERRUPTING_LINK = eINSTANCE.getInterrupt_InterruptInterruptingLink();
+
+		/**
+		 * The meta object literal for the '{@link ac.soton.eventb.atomicitydecomposition.impl.RetryImpl <em>Retry</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see ac.soton.eventb.atomicitydecomposition.impl.RetryImpl
+		 * @see ac.soton.eventb.atomicitydecomposition.impl.AtomicitydecompositionPackageImpl#getRetry()
+		 * @generated
+		 */
+		EClass RETRY = eINSTANCE.getRetry();
+
+		/**
+		 * The meta object literal for the '<em><b>Retry Normal Link</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RETRY__RETRY_NORMAL_LINK = eINSTANCE.getRetry_RetryNormalLink();
+
+		/**
+		 * The meta object literal for the '<em><b>Retry Interrupting Link</b></em>' containment reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference RETRY__RETRY_INTERRUPTING_LINK = eINSTANCE.getRetry_RetryInterruptingLink();
 
 	}
 

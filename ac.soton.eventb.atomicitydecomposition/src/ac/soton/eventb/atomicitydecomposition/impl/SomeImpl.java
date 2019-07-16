@@ -118,10 +118,10 @@ public class SomeImpl extends ConstructorImpl implements Some {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
-	public TypedParameterExpression getNewParameter() {// Dana: This is overriden to fix parameter addition for replicators
+	public TypedParameterExpression getNewParameter() {
 		if (newParameter == null) {
 			newParameter = new TypedParameterExpressionImpl();
 		}

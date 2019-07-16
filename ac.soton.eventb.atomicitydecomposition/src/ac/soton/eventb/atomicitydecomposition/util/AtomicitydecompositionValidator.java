@@ -129,6 +129,10 @@ public class AtomicitydecompositionValidator extends EObjectValidator {
 				return validateTypedParameterExpression((TypedParameterExpression)value, diagnostics, context);
 			case AtomicitydecompositionPackage.PAR:
 				return validatePar((Par)value, diagnostics, context);
+			case AtomicitydecompositionPackage.INTERRUPT:
+				return validateInterrupt((Interrupt)value, diagnostics, context);
+			case AtomicitydecompositionPackage.RETRY:
+				return validateRetry((Retry)value, diagnostics, context);
 			default:
 				return true;
 		}
@@ -298,6 +302,24 @@ public class AtomicitydecompositionValidator extends EObjectValidator {
 	 */
 	public boolean validatePar(Par par, DiagnosticChain diagnostics, Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(par, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateInterrupt(Interrupt interrupt, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(interrupt, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateRetry(Retry retry, DiagnosticChain diagnostics, Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(retry, diagnostics, context);
 	}
 
 	/**

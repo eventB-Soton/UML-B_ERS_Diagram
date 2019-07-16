@@ -36,12 +36,14 @@ import ac.soton.eventb.atomicitydecomposition.All;
 import ac.soton.eventb.atomicitydecomposition.And;
 import ac.soton.eventb.atomicitydecomposition.Child;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
+import ac.soton.eventb.atomicitydecomposition.Interrupt;
 import ac.soton.eventb.atomicitydecomposition.Leaf;
 import ac.soton.eventb.atomicitydecomposition.Loop;
 import ac.soton.eventb.atomicitydecomposition.MultiFlow;
 import ac.soton.eventb.atomicitydecomposition.One;
 import ac.soton.eventb.atomicitydecomposition.Or;
 import ac.soton.eventb.atomicitydecomposition.Par;
+import ac.soton.eventb.atomicitydecomposition.Retry;
 import ac.soton.eventb.atomicitydecomposition.Some;
 import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
 import ac.soton.eventb.atomicitydecomposition.Xor;
@@ -579,6 +581,75 @@ public class AtomicitydecompositionBaseItemSemanticEditPolicy extends
 		/**
 		 * @generated
 		 */
+		public boolean canCreateInterruptInterruptNormalLink_4019(
+				Interrupt source, Leaf target) {
+			if (source != null) {
+				if (source.getInterruptNormalLink() != null) {
+					return false;
+				}
+				if (source == target) {
+					return false;
+				}
+			}
+
+			return canExistInterruptInterruptNormalLink_4019(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canCreateInterruptInterruptInterruptingLink_4020(
+				Interrupt source, Leaf target) {
+			if (source != null) {
+				if (source.getInterruptInterruptingLink() != null) {
+					return false;
+				}
+				if (source == target) {
+					return false;
+				}
+			}
+
+			return canExistInterruptInterruptInterruptingLink_4020(source,
+					target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canCreateRetryRetryNormalLink_4021(Retry source,
+				Leaf target) {
+			if (source != null) {
+				if (source.getRetryNormalLink() != null) {
+					return false;
+				}
+				if (source == target) {
+					return false;
+				}
+			}
+
+			return canExistRetryRetryNormalLink_4021(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canCreateRetryRetryInterruptingLink_4022(Retry source,
+				Leaf target) {
+			if (source != null) {
+				if (source.getRetryInterruptingLink() != null) {
+					return false;
+				}
+				if (source == target) {
+					return false;
+				}
+			}
+
+			return canExistRetryRetryInterruptingLink_4022(source, target);
+		}
+
+		/**
+		 * @generated
+		 */
 		public boolean canExistAndAndLink_4002(And source, Leaf target) {
 			return true;
 		}
@@ -700,6 +771,38 @@ public class AtomicitydecompositionBaseItemSemanticEditPolicy extends
 		 * @generated
 		 */
 		public boolean canExistPar_4018(Par linkInstance, FlowDiagram source,
+				Leaf target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canExistInterruptInterruptNormalLink_4019(
+				Interrupt source, Leaf target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canExistInterruptInterruptInterruptingLink_4020(
+				Interrupt source, Leaf target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canExistRetryRetryNormalLink_4021(Retry source,
+				Leaf target) {
+			return true;
+		}
+
+		/**
+		 * @generated
+		 */
+		public boolean canExistRetryRetryInterruptingLink_4022(Retry source,
 				Leaf target) {
 			return true;
 		}

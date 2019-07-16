@@ -190,4 +190,16 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="newParameter" lowerBound="1"
         eType="#//TypedParameterExpression" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Interrupt" eSuperTypes="#//Constructor">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interruptNormalLink" lowerBound="1"
+        eType="#//Leaf" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="interruptInterruptingLink"
+        lowerBound="1" eType="#//Leaf" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Retry" eSuperTypes="#//Constructor">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="retryNormalLink" lowerBound="1"
+        eType="#//Leaf" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="retryInterruptingLink"
+        lowerBound="1" eType="#//Leaf" containment="true"/>
+  </eClassifiers>
 </ecore:EPackage>

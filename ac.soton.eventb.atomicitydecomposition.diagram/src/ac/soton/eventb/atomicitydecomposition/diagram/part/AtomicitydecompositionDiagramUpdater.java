@@ -21,12 +21,14 @@ import ac.soton.eventb.atomicitydecomposition.And;
 import ac.soton.eventb.atomicitydecomposition.AtomicitydecompositionPackage;
 import ac.soton.eventb.atomicitydecomposition.Child;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
+import ac.soton.eventb.atomicitydecomposition.Interrupt;
 import ac.soton.eventb.atomicitydecomposition.Leaf;
 import ac.soton.eventb.atomicitydecomposition.Loop;
 import ac.soton.eventb.atomicitydecomposition.MultiFlow;
 import ac.soton.eventb.atomicitydecomposition.One;
 import ac.soton.eventb.atomicitydecomposition.Or;
 import ac.soton.eventb.atomicitydecomposition.Par;
+import ac.soton.eventb.atomicitydecomposition.Retry;
 import ac.soton.eventb.atomicitydecomposition.Some;
 import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
 import ac.soton.eventb.atomicitydecomposition.Xor;
@@ -39,6 +41,9 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram2Edi
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram3EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramRefineEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Leaf2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LeafEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LoopEditPart;
@@ -53,6 +58,9 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OrOrLinkEditPar
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Par2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParParLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeNewParameterEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeSomeLinkEditPart;
@@ -140,6 +148,17 @@ public class AtomicitydecompositionDiagramUpdater {
 						childElement, visualID));
 				continue;
 			}
+			if (visualID == InterruptEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, visualID));
+				continue;
+			}
+			if (visualID == RetryEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, visualID));
+				continue;
+			}
+
 			alreadyAdded.remove(childElement);
 		}
 		Resource resource = modelElement.eResource();
@@ -224,6 +243,18 @@ public class AtomicitydecompositionDiagramUpdater {
 						childElement, ParEditPart.VISUAL_ID));
 				continue;
 			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == InterruptEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, InterruptEditPart.VISUAL_ID));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry.getNodeVisualID(view,
+					childElement) == RetryEditPart.VISUAL_ID) {
+				result.add(new AtomicitydecompositionNodeDescriptor(
+						childElement, RetryEditPart.VISUAL_ID));
+				continue;
+			}
 			alreadyAdded.remove(childElement);
 		}
 		return result;
@@ -277,6 +308,10 @@ public class AtomicitydecompositionDiagramUpdater {
 			return getLeaf_2010ContainedLinks(view);
 		case FlowDiagram2EditPart.VISUAL_ID:
 			return getFlowDiagram_2011ContainedLinks(view);
+		case InterruptEditPart.VISUAL_ID:
+			return getInterrupt_2012ContainedLinks(view);
+		case RetryEditPart.VISUAL_ID:
+			return getRetry_2013ContainedLinks(view);
 		case FlowDiagram3EditPart.VISUAL_ID:
 			return getFlowDiagram_4015ContainedLinks(view);
 		case Xor2EditPart.VISUAL_ID:
@@ -317,6 +352,10 @@ public class AtomicitydecompositionDiagramUpdater {
 			return getLeaf_2010IncomingLinks(view);
 		case FlowDiagram2EditPart.VISUAL_ID:
 			return getFlowDiagram_2011IncomingLinks(view);
+		case InterruptEditPart.VISUAL_ID:
+			return getInterrupt_2012IncomingLinks(view);
+		case RetryEditPart.VISUAL_ID:
+			return getRetry_2013IncomingLinks(view);
 		case FlowDiagram3EditPart.VISUAL_ID:
 			return getFlowDiagram_4015IncomingLinks(view);
 		case Xor2EditPart.VISUAL_ID:
@@ -357,6 +396,10 @@ public class AtomicitydecompositionDiagramUpdater {
 			return getLeaf_2010OutgoingLinks(view);
 		case FlowDiagram2EditPart.VISUAL_ID:
 			return getFlowDiagram_2011OutgoingLinks(view);
+		case InterruptEditPart.VISUAL_ID:
+			return getInterrupt_2012OutgoingLinks(view);
+		case RetryEditPart.VISUAL_ID:
+			return getRetry_2013OutgoingLinks(view);
 		case FlowDiagram3EditPart.VISUAL_ID:
 			return getFlowDiagram_4015OutgoingLinks(view);
 		case Xor2EditPart.VISUAL_ID:
@@ -515,6 +558,30 @@ public class AtomicitydecompositionDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	public static List<AtomicitydecompositionLinkDescriptor> getInterrupt_2012ContainedLinks(
+			View view) {
+		Interrupt modelElement = (Interrupt) view.getElement();
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		result.addAll(getOutgoingFeatureModelFacetLinks_Interrupt_InterruptNormalLink_4019(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Interrupt_InterruptInterruptingLink_4020(modelElement));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<AtomicitydecompositionLinkDescriptor> getRetry_2013ContainedLinks(
+			View view) {
+		Retry modelElement = (Retry) view.getElement();
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		result.addAll(getOutgoingFeatureModelFacetLinks_Retry_RetryNormalLink_4021(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Retry_RetryInterruptingLink_4022(modelElement));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
 	public static List<AtomicitydecompositionLinkDescriptor> getFlowDiagram_4015ContainedLinks(
 			View view) {
 		FlowDiagram modelElement = (FlowDiagram) view.getElement();
@@ -595,6 +662,14 @@ public class AtomicitydecompositionDiagramUpdater {
 				crossReferences));
 		result.addAll(getIncomingTypeModelFacetLinks_Par_4018(modelElement,
 				crossReferences));
+		result.addAll(getIncomingFeatureModelFacetLinks_Interrupt_InterruptNormalLink_4019(
+				modelElement, crossReferences));
+		result.addAll(getIncomingFeatureModelFacetLinks_Interrupt_InterruptInterruptingLink_4020(
+				modelElement, crossReferences));
+		result.addAll(getIncomingFeatureModelFacetLinks_Retry_RetryNormalLink_4021(
+				modelElement, crossReferences));
+		result.addAll(getIncomingFeatureModelFacetLinks_Retry_RetryInterruptingLink_4022(
+				modelElement, crossReferences));
 		return result;
 	}
 
@@ -761,6 +836,14 @@ public class AtomicitydecompositionDiagramUpdater {
 				crossReferences));
 		result.addAll(getIncomingTypeModelFacetLinks_Par_4018(modelElement,
 				crossReferences));
+		result.addAll(getIncomingFeatureModelFacetLinks_Interrupt_InterruptNormalLink_4019(
+				modelElement, crossReferences));
+		result.addAll(getIncomingFeatureModelFacetLinks_Interrupt_InterruptInterruptingLink_4020(
+				modelElement, crossReferences));
+		result.addAll(getIncomingFeatureModelFacetLinks_Retry_RetryNormalLink_4021(
+				modelElement, crossReferences));
+		result.addAll(getIncomingFeatureModelFacetLinks_Retry_RetryInterruptingLink_4022(
+				modelElement, crossReferences));
 		return result;
 	}
 
@@ -774,6 +857,38 @@ public class AtomicitydecompositionDiagramUpdater {
 				.find(view.eResource().getResourceSet().getResources());
 		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
 		result.addAll(getIncomingFeatureModelFacetLinks_MultiFlow_Decompose_4013(
+				modelElement, crossReferences));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<AtomicitydecompositionLinkDescriptor> getInterrupt_2012IncomingLinks(
+			View view) {
+		Interrupt modelElement = (Interrupt) view.getElement();
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer
+				.find(view.eResource().getResourceSet().getResources());
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		result.addAll(getIncomingFeatureModelFacetLinks_FlowDiagram_Refine_4014(
+				modelElement, crossReferences));
+		result.addAll(getIncomingTypeModelFacetLinks_FlowDiagram_4015(
+				modelElement, crossReferences));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<AtomicitydecompositionLinkDescriptor> getRetry_2013IncomingLinks(
+			View view) {
+		Retry modelElement = (Retry) view.getElement();
+		Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences = EcoreUtil.CrossReferencer
+				.find(view.eResource().getResourceSet().getResources());
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		result.addAll(getIncomingFeatureModelFacetLinks_FlowDiagram_Refine_4014(
+				modelElement, crossReferences));
+		result.addAll(getIncomingTypeModelFacetLinks_FlowDiagram_4015(
 				modelElement, crossReferences));
 		return result;
 	}
@@ -966,6 +1081,30 @@ public class AtomicitydecompositionDiagramUpdater {
 		result.addAll(getContainedTypeModelFacetLinks_Xor_4016(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_One_4017(modelElement));
 		result.addAll(getContainedTypeModelFacetLinks_Par_4018(modelElement));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<AtomicitydecompositionLinkDescriptor> getInterrupt_2012OutgoingLinks(
+			View view) {
+		Interrupt modelElement = (Interrupt) view.getElement();
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		result.addAll(getOutgoingFeatureModelFacetLinks_Interrupt_InterruptNormalLink_4019(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Interrupt_InterruptInterruptingLink_4020(modelElement));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	public static List<AtomicitydecompositionLinkDescriptor> getRetry_2013OutgoingLinks(
+			View view) {
+		Retry modelElement = (Retry) view.getElement();
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		result.addAll(getOutgoingFeatureModelFacetLinks_Retry_RetryNormalLink_4021(modelElement));
+		result.addAll(getOutgoingFeatureModelFacetLinks_Retry_RetryInterruptingLink_4022(modelElement));
 		return result;
 	}
 
@@ -1479,6 +1618,94 @@ public class AtomicitydecompositionDiagramUpdater {
 	/**
 	 * @generated
 	 */
+	private static Collection<AtomicitydecompositionLinkDescriptor> getIncomingFeatureModelFacetLinks_Interrupt_InterruptNormalLink_4019(
+			Leaf target,
+			Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		Collection<EStructuralFeature.Setting> settings = crossReferences
+				.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
+			if (setting.getEStructuralFeature() == AtomicitydecompositionPackage.eINSTANCE
+					.getInterrupt_InterruptNormalLink()) {
+				result.add(new AtomicitydecompositionLinkDescriptor(
+						setting.getEObject(),
+						target,
+						AtomicitydecompositionElementTypes.InterruptInterruptNormalLink_4019,
+						InterruptInterruptNormalLinkEditPart.VISUAL_ID));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection<AtomicitydecompositionLinkDescriptor> getIncomingFeatureModelFacetLinks_Interrupt_InterruptInterruptingLink_4020(
+			Leaf target,
+			Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		Collection<EStructuralFeature.Setting> settings = crossReferences
+				.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
+			if (setting.getEStructuralFeature() == AtomicitydecompositionPackage.eINSTANCE
+					.getInterrupt_InterruptInterruptingLink()) {
+				result.add(new AtomicitydecompositionLinkDescriptor(
+						setting.getEObject(),
+						target,
+						AtomicitydecompositionElementTypes.InterruptInterruptInterruptingLink_4020,
+						InterruptInterruptInterruptingLinkEditPart.VISUAL_ID));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection<AtomicitydecompositionLinkDescriptor> getIncomingFeatureModelFacetLinks_Retry_RetryNormalLink_4021(
+			Leaf target,
+			Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		Collection<EStructuralFeature.Setting> settings = crossReferences
+				.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
+			if (setting.getEStructuralFeature() == AtomicitydecompositionPackage.eINSTANCE
+					.getRetry_RetryNormalLink()) {
+				result.add(new AtomicitydecompositionLinkDescriptor(
+						setting.getEObject(),
+						target,
+						AtomicitydecompositionElementTypes.RetryRetryNormalLink_4021,
+						RetryRetryNormalLinkEditPart.VISUAL_ID));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection<AtomicitydecompositionLinkDescriptor> getIncomingFeatureModelFacetLinks_Retry_RetryInterruptingLink_4022(
+			Leaf target,
+			Map<EObject, Collection<EStructuralFeature.Setting>> crossReferences) {
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		Collection<EStructuralFeature.Setting> settings = crossReferences
+				.get(target);
+		for (EStructuralFeature.Setting setting : settings) {
+			if (setting.getEStructuralFeature() == AtomicitydecompositionPackage.eINSTANCE
+					.getRetry_RetryInterruptingLink()) {
+				result.add(new AtomicitydecompositionLinkDescriptor(
+						setting.getEObject(),
+						target,
+						AtomicitydecompositionElementTypes.RetryRetryInterruptingLink_4022,
+						RetryRetryInterruptingLinkEditPart.VISUAL_ID));
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
 	private static Collection<AtomicitydecompositionLinkDescriptor> getOutgoingFeatureModelFacetLinks_And_AndLink_4002(
 			And source) {
 		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
@@ -1721,6 +1948,77 @@ public class AtomicitydecompositionDiagramUpdater {
 						AtomicitydecompositionElementTypes.FlowDiagram_4015,
 						FlowDiagram3EditPart.VISUAL_ID));
 		}
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection<AtomicitydecompositionLinkDescriptor> getOutgoingFeatureModelFacetLinks_Interrupt_InterruptNormalLink_4019(
+			Interrupt source) {
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		Leaf destination = source.getInterruptNormalLink();
+		if (destination == null) {
+			return result;
+		}
+		result.add(new AtomicitydecompositionLinkDescriptor(
+				source,
+				destination,
+				AtomicitydecompositionElementTypes.InterruptInterruptNormalLink_4019,
+				InterruptInterruptNormalLinkEditPart.VISUAL_ID));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection<AtomicitydecompositionLinkDescriptor> getOutgoingFeatureModelFacetLinks_Interrupt_InterruptInterruptingLink_4020(
+			Interrupt source) {
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		Leaf destination = source.getInterruptInterruptingLink();
+		if (destination == null) {
+			return result;
+		}
+		result.add(new AtomicitydecompositionLinkDescriptor(
+				source,
+				destination,
+				AtomicitydecompositionElementTypes.InterruptInterruptInterruptingLink_4020,
+				InterruptInterruptInterruptingLinkEditPart.VISUAL_ID));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection<AtomicitydecompositionLinkDescriptor> getOutgoingFeatureModelFacetLinks_Retry_RetryNormalLink_4021(
+			Retry source) {
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		Leaf destination = source.getRetryNormalLink();
+		if (destination == null) {
+			return result;
+		}
+		result.add(new AtomicitydecompositionLinkDescriptor(source,
+				destination,
+				AtomicitydecompositionElementTypes.RetryRetryNormalLink_4021,
+				RetryRetryNormalLinkEditPart.VISUAL_ID));
+		return result;
+	}
+
+	/**
+	 * @generated
+	 */
+	private static Collection<AtomicitydecompositionLinkDescriptor> getOutgoingFeatureModelFacetLinks_Retry_RetryInterruptingLink_4022(
+			Retry source) {
+		LinkedList<AtomicitydecompositionLinkDescriptor> result = new LinkedList<AtomicitydecompositionLinkDescriptor>();
+		Leaf destination = source.getRetryInterruptingLink();
+		if (destination == null) {
+			return result;
+		}
+		result.add(new AtomicitydecompositionLinkDescriptor(
+				source,
+				destination,
+				AtomicitydecompositionElementTypes.RetryRetryInterruptingLink_4022,
+				RetryRetryInterruptingLinkEditPart.VISUAL_ID));
 		return result;
 	}
 

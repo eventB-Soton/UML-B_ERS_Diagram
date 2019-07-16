@@ -24,6 +24,9 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram2Edi
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram3EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramRefineEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Leaf2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LeafEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LoopEditPart;
@@ -38,6 +41,9 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OrOrLinkEditPar
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Par2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParParLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeNewParameterEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeSomeLinkEditPart;
@@ -125,6 +131,16 @@ public class AtomicitydecompositionElementTypes {
 	/**
 	 * @generated
 	 */
+	public static final IElementType Interrupt_2012 = getElementType("ac.soton.eventb.atomicitydecomposition.diagram.Interrupt_2012"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType Retry_2013 = getElementType("ac.soton.eventb.atomicitydecomposition.diagram.Retry_2013"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
 	public static final IElementType AndAndLink_4002 = getElementType("ac.soton.eventb.atomicitydecomposition.diagram.AndAndLink_4002"); //$NON-NLS-1$
 	/**
 	 * @generated
@@ -193,6 +209,26 @@ public class AtomicitydecompositionElementTypes {
 	 * @generated
 	 */
 	public static final IElementType Par_4018 = getElementType("ac.soton.eventb.atomicitydecomposition.diagram.Par_4018"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType InterruptInterruptNormalLink_4019 = getElementType("ac.soton.eventb.atomicitydecomposition.diagram.InterruptInterruptNormalLink_4019"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType InterruptInterruptInterruptingLink_4020 = getElementType("ac.soton.eventb.atomicitydecomposition.diagram.InterruptInterruptInterruptingLink_4020"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType RetryRetryNormalLink_4021 = getElementType("ac.soton.eventb.atomicitydecomposition.diagram.RetryRetryNormalLink_4021"); //$NON-NLS-1$
+
+	/**
+	 * @generated
+	 */
+	public static final IElementType RetryRetryInterruptingLink_4022 = getElementType("ac.soton.eventb.atomicitydecomposition.diagram.RetryRetryInterruptingLink_4022"); //$NON-NLS-1$
 
 	/**
 	 * @generated
@@ -268,6 +304,12 @@ public class AtomicitydecompositionElementTypes {
 			elements.put(FlowDiagram_2011,
 					AtomicitydecompositionPackage.eINSTANCE.getFlowDiagram());
 
+			elements.put(Interrupt_2012,
+					AtomicitydecompositionPackage.eINSTANCE.getInterrupt());
+
+			elements.put(Retry_2013,
+					AtomicitydecompositionPackage.eINSTANCE.getRetry());
+
 			elements.put(AndAndLink_4002,
 					AtomicitydecompositionPackage.eINSTANCE.getAnd_AndLink());
 
@@ -323,6 +365,22 @@ public class AtomicitydecompositionElementTypes {
 
 			elements.put(Par_4018,
 					AtomicitydecompositionPackage.eINSTANCE.getPar());
+
+			elements.put(InterruptInterruptNormalLink_4019,
+					AtomicitydecompositionPackage.eINSTANCE
+							.getInterrupt_InterruptNormalLink());
+
+			elements.put(InterruptInterruptInterruptingLink_4020,
+					AtomicitydecompositionPackage.eINSTANCE
+							.getInterrupt_InterruptInterruptingLink());
+
+			elements.put(RetryRetryNormalLink_4021,
+					AtomicitydecompositionPackage.eINSTANCE
+							.getRetry_RetryNormalLink());
+
+			elements.put(RetryRetryInterruptingLink_4022,
+					AtomicitydecompositionPackage.eINSTANCE
+							.getRetry_RetryInterruptingLink());
 		}
 		return (ENamedElement) elements.get(type);
 	}
@@ -352,6 +410,8 @@ public class AtomicitydecompositionElementTypes {
 			KNOWN_ELEMENT_TYPES.add(Par_2009);
 			KNOWN_ELEMENT_TYPES.add(Leaf_2010);
 			KNOWN_ELEMENT_TYPES.add(FlowDiagram_2011);
+			KNOWN_ELEMENT_TYPES.add(Interrupt_2012);
+			KNOWN_ELEMENT_TYPES.add(Retry_2013);
 			KNOWN_ELEMENT_TYPES.add(AndAndLink_4002);
 			KNOWN_ELEMENT_TYPES.add(LoopLoopLink_4003);
 			KNOWN_ELEMENT_TYPES.add(AllAllLink_4004);
@@ -369,6 +429,10 @@ public class AtomicitydecompositionElementTypes {
 			KNOWN_ELEMENT_TYPES.add(Xor_4016);
 			KNOWN_ELEMENT_TYPES.add(One_4017);
 			KNOWN_ELEMENT_TYPES.add(Par_4018);
+			KNOWN_ELEMENT_TYPES.add(InterruptInterruptNormalLink_4019);
+			KNOWN_ELEMENT_TYPES.add(InterruptInterruptInterruptingLink_4020);
+			KNOWN_ELEMENT_TYPES.add(RetryRetryNormalLink_4021);
+			KNOWN_ELEMENT_TYPES.add(RetryRetryInterruptingLink_4022);
 		}
 		return KNOWN_ELEMENT_TYPES.contains(elementType);
 	}
@@ -402,6 +466,10 @@ public class AtomicitydecompositionElementTypes {
 			return Leaf_2010;
 		case FlowDiagram2EditPart.VISUAL_ID:
 			return FlowDiagram_2011;
+		case InterruptEditPart.VISUAL_ID:
+			return Interrupt_2012;
+		case RetryEditPart.VISUAL_ID:
+			return Retry_2013;
 		case AndAndLinkEditPart.VISUAL_ID:
 			return AndAndLink_4002;
 		case LoopLoopLinkEditPart.VISUAL_ID:
@@ -436,6 +504,14 @@ public class AtomicitydecompositionElementTypes {
 			return One_4017;
 		case Par2EditPart.VISUAL_ID:
 			return Par_4018;
+		case InterruptInterruptNormalLinkEditPart.VISUAL_ID:
+			return InterruptInterruptNormalLink_4019;
+		case InterruptInterruptInterruptingLinkEditPart.VISUAL_ID:
+			return InterruptInterruptInterruptingLink_4020;
+		case RetryRetryNormalLinkEditPart.VISUAL_ID:
+			return RetryRetryNormalLink_4021;
+		case RetryRetryInterruptingLinkEditPart.VISUAL_ID:
+			return RetryRetryInterruptingLink_4022;
 		}
 		return null;
 	}

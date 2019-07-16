@@ -166,13 +166,11 @@
    </extension>
 
    <extension point="org.eclipse.ui.views.properties.tabbed.propertyContributor" id="prop-contrib">
-      <?gmfgen generated="true"?>
+      <?gmfgen generated="false"?>
       <propertyContributor
             contributorId="ac.soton.eventb.atomicitydecomposition.diagram"
             labelProvider="ac.soton.eventb.atomicitydecomposition.diagram.sheet.AtomicitydecompositionSheetLabelProvider">
-         <propertyCategory
-               category="custom_domain">
-         </propertyCategory>
+         <propertyCategory category="custom_domain"/> 
          <propertyCategory category="domain"/>
          <propertyCategory category="visual"/>
          <propertyCategory category="extra"/>
@@ -236,8 +234,8 @@
       <viewProvider class="ac.soton.eventb.atomicitydecomposition.diagram.providers.AtomicitydecompositionViewProvider">
          <Priority name="Lowest"/>
          <context viewClass="org.eclipse.gmf.runtime.notation.Diagram" semanticHints="Atomicitydecomposition"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"/>
-         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Node" semanticHints="2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"/>
+         <context viewClass="org.eclipse.gmf.runtime.notation.Edge" semanticHints="4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020,4021,4022"/>
       </viewProvider>
    </extension>
 
@@ -249,13 +247,13 @@
             <method name="getType()" value="Atomicitydecomposition"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-nodes">
-            <method name="getType()" value="2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011"/>
+            <method name="getType()" value="2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Edge" id="generated-links">
-            <method name="getType()" value="4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018"/>
+            <method name="getType()" value="4002,4003,4004,4005,4006,4007,4008,4009,4010,4011,4012,4013,4014,4015,4016,4017,4018,4019,4020,4021,4022"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-labels">
-            <method name="getType()" value="5001,5002,5004,5005,5006,5007,5008,5009,5010,5003"/>
+            <method name="getType()" value="5001,5002,5004,5005,5006,5007,5008,5009,5010,5003,5011,5012"/>
          </object>
          <object class="org.eclipse.gmf.runtime.notation.Node" id="generated-compartments">
             <method name="getType()" value=""/>
@@ -325,6 +323,16 @@
          <Priority name="Lowest"/>
          <object class="ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram2EditPart" id="FlowDiagram_2011"/>
          <context elements="FlowDiagram_2011"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.eventb.atomicitydecomposition.diagram.providers.assistants.AtomicitydecompositionModelingAssistantProviderOfInterruptEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptEditPart" id="Interrupt_2012"/>
+         <context elements="Interrupt_2012"/>
+      </modelingAssistantProvider>
+            <modelingAssistantProvider class="ac.soton.eventb.atomicitydecomposition.diagram.providers.assistants.AtomicitydecompositionModelingAssistantProviderOfRetryEditPart">
+         <Priority name="Lowest"/>
+         <object class="ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryEditPart" id="Retry_2013"/>
+         <context elements="Retry_2013"/>
       </modelingAssistantProvider>
       
    </extension>
@@ -462,6 +470,26 @@
             <specializes id="ac.soton.eventb.atomicitydecomposition.diagram.FlowDiagram_1000"/>
             <param name="semanticHint" value="2011"/>
          </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://soton.ac.uk/models/eventb/atomicitydecomposition">
+         <metamodelType
+               id="ac.soton.eventb.atomicitydecomposition.diagram.Interrupt_2012"
+               name="%metatype.name.Interrupt_2012"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Interrupt"
+               edithelper="ac.soton.eventb.atomicitydecomposition.diagram.edit.helpers.InterruptEditHelper">
+            <param name="semanticHint" value="2012"/>
+         </metamodelType>
+      </metamodel>
+      <metamodel nsURI="http://soton.ac.uk/models/eventb/atomicitydecomposition">
+         <metamodelType
+               id="ac.soton.eventb.atomicitydecomposition.diagram.Retry_2013"
+               name="%metatype.name.Retry_2013"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType"
+               eclass="Retry"
+               edithelper="ac.soton.eventb.atomicitydecomposition.diagram.edit.helpers.RetryEditHelper">
+            <param name="semanticHint" value="2013"/>
+         </metamodelType>
       </metamodel>
       <metamodel nsURI="http://soton.ac.uk/models/eventb/atomicitydecomposition">
          <specializationType
@@ -616,6 +644,42 @@
             <param name="semanticHint" value="4018"/>
          </specializationType>
       </metamodel>
+      <metamodel nsURI="http://soton.ac.uk/models/eventb/atomicitydecomposition">
+         <specializationType
+               id="ac.soton.eventb.atomicitydecomposition.diagram.InterruptInterruptNormalLink_4019"
+               name="%metatype.name.InterruptInterruptNormalLink_4019"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4019"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://soton.ac.uk/models/eventb/atomicitydecomposition">
+         <specializationType
+               id="ac.soton.eventb.atomicitydecomposition.diagram.InterruptInterruptInterruptingLink_4020"
+               name="%metatype.name.InterruptInterruptInterruptingLink_4020"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4020"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://soton.ac.uk/models/eventb/atomicitydecomposition">
+         <specializationType
+               id="ac.soton.eventb.atomicitydecomposition.diagram.RetryRetryNormalLink_4021"
+               name="%metatype.name.RetryRetryNormalLink_4021"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4021"/>
+         </specializationType>
+      </metamodel>
+      <metamodel nsURI="http://soton.ac.uk/models/eventb/atomicitydecomposition">
+         <specializationType
+               id="ac.soton.eventb.atomicitydecomposition.diagram.RetryRetryInterruptingLink_4022"
+               name="%metatype.name.RetryRetryInterruptingLink_4022"
+               kind="org.eclipse.gmf.runtime.emf.type.core.IHintedType">
+            <specializes id="org.eclipse.gmf.runtime.emf.type.core.null"/>
+            <param name="semanticHint" value="4022"/>
+         </specializationType>
+      </metamodel>
    </extension>
 
    <extension point="org.eclipse.gmf.runtime.emf.type.core.elementTypeBindings" id="element-types-bindings">
@@ -640,6 +704,8 @@
          <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.Par_2009"/>
          <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.Leaf_2010"/>
          <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.FlowDiagram_2011"/>
+         <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.Interrupt_2012"/>
+         <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.Retry_2013"/>
          <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.AndAndLink_4002"/>
          <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.LoopLoopLink_4003"/>
          <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.AllAllLink_4004"/>
@@ -657,6 +723,10 @@
          <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.Xor_4016"/>
          <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.One_4017"/>
          <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.Par_4018"/>
+         <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.InterruptInterruptNormalLink_4019"/>
+         <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.InterruptInterruptInterruptingLink_4020"/>
+         <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.RetryRetryNormalLink_4021"/>
+         <elementType ref="ac.soton.eventb.atomicitydecomposition.diagram.RetryRetryInterruptingLink_4022"/>
          <advice ref="org.eclipse.gmf.runtime.diagram.core.advice.notationDepdendents"/>
       </binding>
    </extension>

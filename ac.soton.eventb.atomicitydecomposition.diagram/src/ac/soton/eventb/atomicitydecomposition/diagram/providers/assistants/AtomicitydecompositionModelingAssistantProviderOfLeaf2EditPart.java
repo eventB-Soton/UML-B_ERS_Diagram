@@ -11,12 +11,14 @@ import org.eclipse.gmf.runtime.emf.type.core.IElementType;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.AllEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.AndEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram2EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Leaf2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LeafEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LoopEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OneEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OrEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.XorEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.providers.AtomicitydecompositionElementTypes;
@@ -101,6 +103,12 @@ public class AtomicitydecompositionModelingAssistantProviderOfLeaf2EditPart
 		if (targetEditPart instanceof Leaf2EditPart) {
 			types.add(AtomicitydecompositionElementTypes.FlowDiagram_4015);
 		}
+		if (targetEditPart instanceof InterruptEditPart) {
+			types.add(AtomicitydecompositionElementTypes.FlowDiagram_4015);
+		}
+		if (targetEditPart instanceof RetryEditPart) {
+			types.add(AtomicitydecompositionElementTypes.FlowDiagram_4015);
+		}
 		return types;
 	}
 
@@ -135,6 +143,8 @@ public class AtomicitydecompositionModelingAssistantProviderOfLeaf2EditPart
 			types.add(AtomicitydecompositionElementTypes.One_2008);
 			types.add(AtomicitydecompositionElementTypes.Par_2009);
 			types.add(AtomicitydecompositionElementTypes.Leaf_2010);
+			types.add(AtomicitydecompositionElementTypes.Interrupt_2012);
+			types.add(AtomicitydecompositionElementTypes.Retry_2013);
 		}
 		return types;
 	}
@@ -153,7 +163,7 @@ public class AtomicitydecompositionModelingAssistantProviderOfLeaf2EditPart
 	 * @generated
 	 */
 	public List<IElementType> doGetRelTypesOnTarget(Leaf2EditPart target) {
-		List<IElementType> types = new ArrayList<IElementType>(13);
+		List<IElementType> types = new ArrayList<IElementType>(17);
 		types.add(AtomicitydecompositionElementTypes.AndAndLink_4002);
 		types.add(AtomicitydecompositionElementTypes.LoopLoopLink_4003);
 		types.add(AtomicitydecompositionElementTypes.AllAllLink_4004);
@@ -167,6 +177,10 @@ public class AtomicitydecompositionModelingAssistantProviderOfLeaf2EditPart
 		types.add(AtomicitydecompositionElementTypes.Xor_4016);
 		types.add(AtomicitydecompositionElementTypes.One_4017);
 		types.add(AtomicitydecompositionElementTypes.Par_4018);
+		types.add(AtomicitydecompositionElementTypes.InterruptInterruptNormalLink_4019);
+		types.add(AtomicitydecompositionElementTypes.InterruptInterruptInterruptingLink_4020);
+		types.add(AtomicitydecompositionElementTypes.RetryRetryNormalLink_4021);
+		types.add(AtomicitydecompositionElementTypes.RetryRetryInterruptingLink_4022);
 		return types;
 	}
 
@@ -215,6 +229,14 @@ public class AtomicitydecompositionModelingAssistantProviderOfLeaf2EditPart
 			types.add(AtomicitydecompositionElementTypes.FlowDiagram_2011);
 		} else if (relationshipType == AtomicitydecompositionElementTypes.Par_4018) {
 			types.add(AtomicitydecompositionElementTypes.FlowDiagram_2011);
+		} else if (relationshipType == AtomicitydecompositionElementTypes.InterruptInterruptNormalLink_4019) {
+			types.add(AtomicitydecompositionElementTypes.Interrupt_2012);
+		} else if (relationshipType == AtomicitydecompositionElementTypes.InterruptInterruptInterruptingLink_4020) {
+			types.add(AtomicitydecompositionElementTypes.Interrupt_2012);
+		} else if (relationshipType == AtomicitydecompositionElementTypes.RetryRetryNormalLink_4021) {
+			types.add(AtomicitydecompositionElementTypes.Retry_2013);
+		} else if (relationshipType == AtomicitydecompositionElementTypes.RetryRetryInterruptingLink_4022) {
+			types.add(AtomicitydecompositionElementTypes.Retry_2013);
 		}
 		return types;
 	}

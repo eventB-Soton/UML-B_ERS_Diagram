@@ -241,6 +241,62 @@
             figure="/0/@figures.0/@descriptors.8/@actualFigure/@children.0"/>
       </descriptors>
       <descriptors
+          name="InterruptFigure">
+        <actualFigure
+            xsi:type="gmfgraph:Ellipse"
+            name="InterruptFigure">
+          <maximumSize
+              dx="5"
+              dy="5"/>
+          <preferredSize
+              dx="50"
+              dy="21"/>
+          <border
+              xsi:type="gmfgraph:MarginBorder">
+            <insets
+                top="5"
+                left="5"
+                bottom="5"
+                right="5"/>
+          </border>
+          <children
+              xsi:type="gmfgraph:Label"
+              name="InterruptLabelName"
+              text="X"/>
+        </actualFigure>
+        <accessors
+            accessor="getFigureInterruptLabelName"
+            figure="/0/@figures.0/@descriptors.9/@actualFigure/@children.0"/>
+      </descriptors>
+      <descriptors
+          name="RetryFigure">
+        <actualFigure
+            xsi:type="gmfgraph:Ellipse"
+            name="RetryFigure">
+          <minimumSize
+              dx="5"
+              dy="5"/>
+          <preferredSize
+              dx="50"
+              dy="21"/>
+          <border
+              xsi:type="gmfgraph:MarginBorder">
+            <insets
+                top="5"
+                left="5"
+                bottom="5"
+                right="5"/>
+          </border>
+          <children
+              xsi:type="gmfgraph:Label"
+              name="RetryLabelName"
+              text="X*"/>
+        </actualFigure>
+        <accessors
+            accessor="getFigureRetryLabelName"
+            figure="/0/@figures.0/@descriptors.10/@actualFigure/@children.0"/>
+      </descriptors>
+      <descriptors
           name="FlowDiagramRefineFigure">
         <actualFigure
             xsi:type="gmfgraph:PolylineConnection"
@@ -454,6 +510,62 @@
             name="ParParLinkIsRef"
             lineWidth="3"/>
       </descriptors>
+      <descriptors
+          name="InterruptNormalLinkFigure">
+        <actualFigure
+            xsi:type="gmfgraph:PolylineConnection"
+            name="InterruptNormalLink"
+            lineWidth="3"
+            lineKind="LINE_DASH"/>
+      </descriptors>
+      <descriptors
+          name="InterruptInterruptingLinkFigure">
+        <actualFigure
+            xsi:type="gmfgraph:PolylineConnection"
+            name="InterruptInterruptingLink"
+            lineWidth="3"
+            lineKind="LINE_DASH"/>
+      </descriptors>
+      <descriptors
+          name="InterruptInterruptingLinkExternalLabelFigure">
+        <actualFigure
+            xsi:type="gmfgraph:Label"
+            name="InterruptInterruptingLinkExternalLabel"/>
+      </descriptors>
+      <descriptors
+          name="InterruptNormalLinkExternalLabelFigure">
+        <actualFigure
+            xsi:type="gmfgraph:Label"
+            name="InterruptNormalLinkExternalLabel"/>
+      </descriptors>
+      <descriptors
+          name="RetryNormalLinkFigure">
+        <actualFigure
+            xsi:type="gmfgraph:PolylineConnection"
+            name="RetryNormalLinkFigure"
+            lineWidth="3"
+            lineKind="LINE_DASH"/>
+      </descriptors>
+      <descriptors
+          name="RetryNormalLinkExternalLabelFigure">
+        <actualFigure
+            xsi:type="gmfgraph:Label"
+            name="RetryNormalLinkExternalLabel"/>
+      </descriptors>
+      <descriptors
+          name="RetryInterruptingLinkFigure">
+        <actualFigure
+            xsi:type="gmfgraph:PolylineConnection"
+            name="RetryInterruptingLinkFigure"
+            lineWidth="3"
+            lineKind="LINE_DASH"/>
+      </descriptors>
+      <descriptors
+          name="RetryInterruptingLinkExternalLabelfigure">
+        <actualFigure
+            xsi:type="gmfgraph:Label"
+            name="RetryInterruptingLinkExternalLabel"/>
+      </descriptors>
     </figures>
     <nodes
         name="FlowDiagram"
@@ -485,6 +597,12 @@
     <nodes
         name="Par"
         figure="ParFigure"/>
+    <nodes
+        name="Interrupt"
+        figure="InterruptFigure"/>
+    <nodes
+        name="Retry"
+        figure="RetryFigure"/>
     <connections
         name="OneOneLinkIsRef"
         figure="OneOneLinkIsRefFigure"/>
@@ -535,6 +653,18 @@
         figure="ParParLinkFigure"/>
     <connections
         name="LeafDecompose"/>
+    <connections
+        name="InterruptNormalLink"
+        figure="InterruptNormalLinkFigure"/>
+    <connections
+        name="InterruptInterruptingLink"
+        figure="InterruptInterruptingLinkFigure"/>
+    <connections
+        name="RetryNormalLink"
+        figure="RetryNormalLinkFigure"/>
+    <connections
+        name="RetryInterruptingLink"
+        figure="RetryInterruptingLinkFigure"/>
     <labels
         name="OrLabel"
         figure="OrFigure"
@@ -627,6 +757,32 @@
         figure="AllFigure"
         elementIcon="false"
         accessor="/0/@figures.0/@descriptors.3/@accessors.0"/>
+    <labels
+        name="InterruptLabel"
+        figure="InterruptFigure"
+        elementIcon="false"
+        accessor="/0/@figures.0/@descriptors.9/@accessors.0"/>
+    <labels
+        name="InterruptNormalLinkExternalLabel"
+        figure="InterruptNormalLinkExternalLabelFigure"
+        elementIcon="false"/>
+    <labels
+        name="InterruptInterruptingLinkExternalLabel"
+        figure="InterruptInterruptingLinkExternalLabelFigure"
+        elementIcon="false"/>
+    <labels
+        name="RetryLabel"
+        figure="RetryFigure"
+        elementIcon="false"
+        accessor="/0/@figures.0/@descriptors.10/@accessors.0"/>
+    <labels
+        name="RetryNormalLinkExternalLabel"
+        figure="RetryNormalLinkExternalLabelFigure"
+        elementIcon="false"/>
+    <labels
+        name="RetryInterruptingLinkExternalLabel"
+        figure="RetryInterruptingLinkExternalLabelfigure"
+        elementIcon="false"/>
   </gmfgraph:Canvas>
   <gmfgraph:Label
       name="AndLabelFigure"

@@ -88,6 +88,18 @@ public class AtomicitydecompositionEditPartFactory implements EditPartFactory {
 			case FlowDiagram2EditPart.VISUAL_ID:
 				return new FlowDiagram2EditPart(view);
 
+			case InterruptEditPart.VISUAL_ID:
+				return new InterruptEditPart(view);
+
+			case WrappingLabel4EditPart.VISUAL_ID:
+				return new WrappingLabel4EditPart(view);
+
+			case RetryEditPart.VISUAL_ID:
+				return new RetryEditPart(view);
+
+			case WrappingLabel6EditPart.VISUAL_ID:
+				return new WrappingLabel6EditPart(view);
+
 			case AndAndLinkEditPart.VISUAL_ID:
 				return new AndAndLinkEditPart(view);
 
@@ -171,6 +183,30 @@ public class AtomicitydecompositionEditPartFactory implements EditPartFactory {
 
 			case Par2EditPart.VISUAL_ID:
 				return new Par2EditPart(view);
+
+			case InterruptInterruptNormalLinkEditPart.VISUAL_ID:
+				return new InterruptInterruptNormalLinkEditPart(view);
+
+			case WrappingLabel3EditPart.VISUAL_ID:
+				return new WrappingLabel3EditPart(view);
+
+			case InterruptInterruptInterruptingLinkEditPart.VISUAL_ID:
+				return new InterruptInterruptInterruptingLinkEditPart(view);
+
+			case WrappingLabel5EditPart.VISUAL_ID:
+				return new WrappingLabel5EditPart(view);
+
+			case RetryRetryNormalLinkEditPart.VISUAL_ID:
+				return new RetryRetryNormalLinkEditPart(view);
+
+			case WrappingLabel7EditPart.VISUAL_ID:
+				return new WrappingLabel7EditPart(view);
+
+			case RetryRetryInterruptingLinkEditPart.VISUAL_ID:
+				return new RetryRetryInterruptingLinkEditPart(view);
+
+			case WrappingLabel8EditPart.VISUAL_ID:
+				return new WrappingLabel8EditPart(view);
 
 			}
 		}

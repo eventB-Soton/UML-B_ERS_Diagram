@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ASCII"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <gmftool:ToolRegistry
     xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI"
@@ -93,8 +93,35 @@
       </tools>
       <tools
           xsi:type="gmftool:CreationTool"
+          title="Interrupt"
+          description="Create new Interrupt">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="Retry"
+          description="Create new Retry">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
           title="FlowDiagram"
           description="Create new FlowDiagram"/>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="TypedParameterExpression"
+          description="Create new TypedParameterExpression">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
     </tools>
     <tools
         xsi:type="gmftool:ToolGroup"
@@ -203,6 +230,24 @@
           xsi:type="gmftool:CreationTool"
           title="XorLink"
           description="Create new XorLink">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="NormalLink"
+          description="Create new NormalLink">
+        <smallIcon
+            xsi:type="gmftool:DefaultImage"/>
+        <largeIcon
+            xsi:type="gmftool:DefaultImage"/>
+      </tools>
+      <tools
+          xsi:type="gmftool:CreationTool"
+          title="InterruptingLink"
+          description="Create new InterruptingLink">
         <smallIcon
             xsi:type="gmftool:DefaultImage"/>
         <largeIcon

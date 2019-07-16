@@ -30,6 +30,10 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.FlowDiagram2
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.FlowDiagramRefineCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.FlowDiagramRefineReorientCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.FlowDiagramReorientCommand;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.InterruptInterruptInterruptingLinkCreateCommand;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.InterruptInterruptInterruptingLinkReorientCommand;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.InterruptInterruptNormalLinkCreateCommand;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.InterruptInterruptNormalLinkReorientCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.LoopLoopLinkCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.LoopLoopLinkReorientCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.MultiFlowDecomposeCreateCommand;
@@ -44,6 +48,10 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.Par2CreateCo
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.ParParLinkCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.ParParLinkReorientCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.ParReorientCommand;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.RetryRetryInterruptingLinkCreateCommand;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.RetryRetryInterruptingLinkReorientCommand;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.RetryRetryNormalLinkCreateCommand;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.RetryRetryNormalLinkReorientCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.SomeSomeLinkCreateCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.SomeSomeLinkReorientCommand;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.commands.Xor2CreateCommand;
@@ -54,6 +62,8 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.AllAllLinkEditP
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.AndAndLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram3EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramRefineEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.LoopLoopLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.MultiFlowDecomposeEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.One2EditPart;
@@ -61,6 +71,8 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OneOneLinkEditP
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.OrOrLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Par2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParParLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeSomeLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Xor2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.XorXorLinkEditPart;
@@ -267,6 +279,94 @@ public class Leaf2ItemSemanticEditPolicy extends
 				continue;
 			}
 			if (AtomicitydecompositionVisualIDRegistry
+					.getVisualID(incomingLink) == InterruptInterruptNormalLinkEditPart.VISUAL_ID) {
+				DestroyReferenceRequest r = new DestroyReferenceRequest(
+						incomingLink.getSource().getElement(), null,
+						incomingLink.getTarget().getElement(), false);
+				cmd.add(new DestroyReferenceCommand(r) {
+					protected CommandResult doExecuteWithResult(
+							IProgressMonitor progressMonitor, IAdaptable info)
+							throws ExecutionException {
+						EObject referencedObject = getReferencedObject();
+						Resource resource = referencedObject.eResource();
+						CommandResult result = super.doExecuteWithResult(
+								progressMonitor, info);
+						if (resource != null) {
+							resource.getContents().add(referencedObject);
+						}
+						return result;
+					}
+				});
+				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry
+					.getVisualID(incomingLink) == InterruptInterruptInterruptingLinkEditPart.VISUAL_ID) {
+				DestroyReferenceRequest r = new DestroyReferenceRequest(
+						incomingLink.getSource().getElement(), null,
+						incomingLink.getTarget().getElement(), false);
+				cmd.add(new DestroyReferenceCommand(r) {
+					protected CommandResult doExecuteWithResult(
+							IProgressMonitor progressMonitor, IAdaptable info)
+							throws ExecutionException {
+						EObject referencedObject = getReferencedObject();
+						Resource resource = referencedObject.eResource();
+						CommandResult result = super.doExecuteWithResult(
+								progressMonitor, info);
+						if (resource != null) {
+							resource.getContents().add(referencedObject);
+						}
+						return result;
+					}
+				});
+				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry
+					.getVisualID(incomingLink) == RetryRetryNormalLinkEditPart.VISUAL_ID) {
+				DestroyReferenceRequest r = new DestroyReferenceRequest(
+						incomingLink.getSource().getElement(), null,
+						incomingLink.getTarget().getElement(), false);
+				cmd.add(new DestroyReferenceCommand(r) {
+					protected CommandResult doExecuteWithResult(
+							IProgressMonitor progressMonitor, IAdaptable info)
+							throws ExecutionException {
+						EObject referencedObject = getReferencedObject();
+						Resource resource = referencedObject.eResource();
+						CommandResult result = super.doExecuteWithResult(
+								progressMonitor, info);
+						if (resource != null) {
+							resource.getContents().add(referencedObject);
+						}
+						return result;
+					}
+				});
+				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry
+					.getVisualID(incomingLink) == RetryRetryInterruptingLinkEditPart.VISUAL_ID) {
+				DestroyReferenceRequest r = new DestroyReferenceRequest(
+						incomingLink.getSource().getElement(), null,
+						incomingLink.getTarget().getElement(), false);
+				cmd.add(new DestroyReferenceCommand(r) {
+					protected CommandResult doExecuteWithResult(
+							IProgressMonitor progressMonitor, IAdaptable info)
+							throws ExecutionException {
+						EObject referencedObject = getReferencedObject();
+						Resource resource = referencedObject.eResource();
+						CommandResult result = super.doExecuteWithResult(
+								progressMonitor, info);
+						if (resource != null) {
+							resource.getContents().add(referencedObject);
+						}
+						return result;
+					}
+				});
+				cmd.add(new DeleteCommand(getEditingDomain(), incomingLink));
+				continue;
+			}
+			if (AtomicitydecompositionVisualIDRegistry
 					.getVisualID(incomingLink) == FlowDiagramRefineEditPart.VISUAL_ID) {
 				DestroyReferenceRequest r = new DestroyReferenceRequest(
 						incomingLink.getSource().getElement(), null,
@@ -430,6 +530,22 @@ public class Leaf2ItemSemanticEditPolicy extends
 		if (AtomicitydecompositionElementTypes.Par_4018 == req.getElementType()) {
 			return null;
 		}
+		if (AtomicitydecompositionElementTypes.InterruptInterruptNormalLink_4019 == req
+				.getElementType()) {
+			return null;
+		}
+		if (AtomicitydecompositionElementTypes.InterruptInterruptInterruptingLink_4020 == req
+				.getElementType()) {
+			return null;
+		}
+		if (AtomicitydecompositionElementTypes.RetryRetryNormalLink_4021 == req
+				.getElementType()) {
+			return null;
+		}
+		if (AtomicitydecompositionElementTypes.RetryRetryInterruptingLink_4022 == req
+				.getElementType()) {
+			return null;
+		}
 		return null;
 	}
 
@@ -504,6 +620,26 @@ public class Leaf2ItemSemanticEditPolicy extends
 			return getGEFWrapper(new Par2CreateCommand(req, req.getSource(),
 					req.getTarget()));
 		}
+		if (AtomicitydecompositionElementTypes.InterruptInterruptNormalLink_4019 == req
+				.getElementType()) {
+			return getGEFWrapper(new InterruptInterruptNormalLinkCreateCommand(
+					req, req.getSource(), req.getTarget()));
+		}
+		if (AtomicitydecompositionElementTypes.InterruptInterruptInterruptingLink_4020 == req
+				.getElementType()) {
+			return getGEFWrapper(new InterruptInterruptInterruptingLinkCreateCommand(
+					req, req.getSource(), req.getTarget()));
+		}
+		if (AtomicitydecompositionElementTypes.RetryRetryNormalLink_4021 == req
+				.getElementType()) {
+			return getGEFWrapper(new RetryRetryNormalLinkCreateCommand(req,
+					req.getSource(), req.getTarget()));
+		}
+		if (AtomicitydecompositionElementTypes.RetryRetryInterruptingLink_4022 == req
+				.getElementType()) {
+			return getGEFWrapper(new RetryRetryInterruptingLinkCreateCommand(
+					req, req.getSource(), req.getTarget()));
+		}
 		return null;
 	}
 
@@ -557,6 +693,17 @@ public class Leaf2ItemSemanticEditPolicy extends
 			return getGEFWrapper(new MultiFlowDecomposeReorientCommand(req));
 		case FlowDiagramRefineEditPart.VISUAL_ID:
 			return getGEFWrapper(new FlowDiagramRefineReorientCommand(req));
+		case InterruptInterruptNormalLinkEditPart.VISUAL_ID:
+			return getGEFWrapper(new InterruptInterruptNormalLinkReorientCommand(
+					req));
+		case InterruptInterruptInterruptingLinkEditPart.VISUAL_ID:
+			return getGEFWrapper(new InterruptInterruptInterruptingLinkReorientCommand(
+					req));
+		case RetryRetryNormalLinkEditPart.VISUAL_ID:
+			return getGEFWrapper(new RetryRetryNormalLinkReorientCommand(req));
+		case RetryRetryInterruptingLinkEditPart.VISUAL_ID:
+			return getGEFWrapper(new RetryRetryInterruptingLinkReorientCommand(
+					req));
 		}
 		return super.getReorientReferenceRelationshipCommand(req);
 	}

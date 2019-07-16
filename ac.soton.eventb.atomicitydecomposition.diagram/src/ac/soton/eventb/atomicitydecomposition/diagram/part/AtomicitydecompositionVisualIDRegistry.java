@@ -24,6 +24,9 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.AndEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagram3EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.FlowDiagramEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.InterruptInterruptNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Label2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Label3EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Label4EditPart;
@@ -50,12 +53,21 @@ import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Par2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParParLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.ParParLinkExternalLabelEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryInterruptingLinkEditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.RetryRetryNormalLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeNewParameterEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeNewParameterExternalLabelEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeSomeLinkEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.SomeSomeLinkExternalLabelEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel2EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel3EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel4EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel5EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel6EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel7EditPart;
+import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabel8EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.WrappingLabelEditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.Xor2EditPart;
 import ac.soton.eventb.atomicitydecomposition.diagram.edit.parts.XorEditPart;
@@ -218,6 +230,14 @@ public class AtomicitydecompositionVisualIDRegistry {
 					.isSuperTypeOf(domainElement.eClass())) {
 				return FlowDiagram2EditPart.VISUAL_ID;
 			}
+			if (AtomicitydecompositionPackage.eINSTANCE.getInterrupt()
+					.isSuperTypeOf(domainElement.eClass())) {
+				return InterruptEditPart.VISUAL_ID;
+			}
+			if (AtomicitydecompositionPackage.eINSTANCE.getRetry()
+					.isSuperTypeOf(domainElement.eClass())) {
+				return RetryEditPart.VISUAL_ID;
+			}
 			break;
 		}
 		return -1;
@@ -278,6 +298,12 @@ public class AtomicitydecompositionVisualIDRegistry {
 			if (FlowDiagram2EditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
+			if (InterruptEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			if (RetryEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
 			break;
 		case LeafEditPart.VISUAL_ID:
 			if (LeafNameEditPart.VISUAL_ID == nodeVisualID) {
@@ -326,6 +352,16 @@ public class AtomicitydecompositionVisualIDRegistry {
 			break;
 		case Leaf2EditPart.VISUAL_ID:
 			if (LeafName2EditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case InterruptEditPart.VISUAL_ID:
+			if (WrappingLabel4EditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case RetryEditPart.VISUAL_ID:
+			if (WrappingLabel6EditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -381,6 +417,26 @@ public class AtomicitydecompositionVisualIDRegistry {
 			break;
 		case ParParLinkEditPart.VISUAL_ID:
 			if (ParParLinkExternalLabelEditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case InterruptInterruptNormalLinkEditPart.VISUAL_ID:
+			if (WrappingLabel3EditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case InterruptInterruptInterruptingLinkEditPart.VISUAL_ID:
+			if (WrappingLabel5EditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case RetryRetryNormalLinkEditPart.VISUAL_ID:
+			if (WrappingLabel7EditPart.VISUAL_ID == nodeVisualID) {
+				return true;
+			}
+			break;
+		case RetryRetryInterruptingLinkEditPart.VISUAL_ID:
+			if (WrappingLabel8EditPart.VISUAL_ID == nodeVisualID) {
 				return true;
 			}
 			break;
@@ -526,6 +582,8 @@ public class AtomicitydecompositionVisualIDRegistry {
 		case ParEditPart.VISUAL_ID:
 		case Leaf2EditPart.VISUAL_ID:
 		case FlowDiagram2EditPart.VISUAL_ID:
+		case InterruptEditPart.VISUAL_ID:
+		case RetryEditPart.VISUAL_ID:
 			return true;
 		default:
 			break;
