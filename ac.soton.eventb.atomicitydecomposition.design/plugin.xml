@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+  <extension point="org.eclipse.sirius.componentization">
+    <component class="ac.soton.eventb.atomicity.design.Activator"
+               id="ac.soton.eventb.atomicity.design"
+	       name="atomicity">
+    </component>
+  </extension>
+  <extension
+        point="org.eclipse.sirius.diagram.ui.layoutProvider">
+     <layoutProvider
+           priority="highest"
+           providerClass="ac.soton.eventb.atomicity.design.layout.CustomLayoutProvider">
+     </layoutProvider>
+  </extension>
+</plugin>
