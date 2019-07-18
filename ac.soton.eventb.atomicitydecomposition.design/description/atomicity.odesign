@@ -283,21 +283,29 @@
                         </subModelOperations>
                       </subModelOperations>
                     </subModelOperations>
-                    <subModelOperations xsi:type="tool_1:Let" variableName="parentConstructor" valueExpression="aql: (if (instance.eContainer().eContainer().oclIsKindOf(atomicitydecomposition::Constructor)) then instance.eContainer().eContainer() else null endif).oclAsType(atomicitydecomposition::Constructor)">
-                      <subModelOperations xsi:type="tool_1:Let" variableName="parentConstructorParameter" valueExpression="aql:parentConstructor.getParameterFromConstructor()">
-                        <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:instance">
-                          <subModelOperations xsi:type="tool_1:CreateInstance" typeName="atomicitydecomposition::TypedParameterExpression" referenceName="parameters" variableName="constructorParameterCopy">
-                            <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="constructorParameterCopy">
-                              <subModelOperations xsi:type="tool_1:SetValue" featureName="annotations" valueExpression="aql:parentConstructorParameter.annotations"/>
-                              <subModelOperations xsi:type="tool_1:SetValue" featureName="extensions" valueExpression="aql:parentConstructorParameter.extensions"/>
-                              <subModelOperations xsi:type="tool_1:SetValue" featureName="attributes" valueExpression="aql:parentConstructorParameter.attributes"/>
-                              <subModelOperations xsi:type="tool_1:SetValue" featureName="generated" valueExpression="aql:parentConstructorParameter.generated"/>
-                              <subModelOperations xsi:type="tool_1:SetValue" featureName="localGenerated" valueExpression="aql:parentConstructorParameter.localGenerated"/>
-                              <subModelOperations xsi:type="tool_1:SetValue" featureName="internalId" valueExpression="aql:parentConstructorParameter.internalId"/>
-                              <subModelOperations xsi:type="tool_1:SetValue" featureName="comment" valueExpression="aql:parentConstructorParameter.comment"/>
-                              <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:parentConstructorParameter.name"/>
-                              <subModelOperations xsi:type="tool_1:SetValue" featureName="type" valueExpression="aql:parentConstructorParameter.type"/>
-                              <subModelOperations xsi:type="tool_1:SetValue" featureName="InputExpression" valueExpression="aql:parentConstructorParameter.InputExpression"/>
+                    <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:instance.eContainer() &lt;> null">
+                      <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:instance.eContainer().eContainer() &lt;> null">
+                        <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:instance.eContainer().eContainer().oclIsKindOf(atomicitydecomposition::Constructor)">
+                          <subModelOperations xsi:type="tool_1:Let" variableName="parentConstructor" valueExpression="aql:instance.eContainer().eContainer().oclAsType(atomicitydecomposition::Constructor)">
+                            <subModelOperations xsi:type="tool_1:Let" variableName="parentConstructorParameter" valueExpression="aql:parentConstructor.getParameterFromConstructor()">
+                              <subModelOperations xsi:type="tool_1:If" conditionExpression="aql:parentConstructorParameter &lt;> null">
+                                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:instance">
+                                  <subModelOperations xsi:type="tool_1:CreateInstance" typeName="atomicitydecomposition::TypedParameterExpression" referenceName="parameters" variableName="constructorParameterCopy">
+                                    <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="constructorParameterCopy">
+                                      <subModelOperations xsi:type="tool_1:SetValue" featureName="annotations" valueExpression="aql:parentConstructorParameter.annotations"/>
+                                      <subModelOperations xsi:type="tool_1:SetValue" featureName="extensions" valueExpression="aql:parentConstructorParameter.extensions"/>
+                                      <subModelOperations xsi:type="tool_1:SetValue" featureName="attributes" valueExpression="aql:parentConstructorParameter.attributes"/>
+                                      <subModelOperations xsi:type="tool_1:SetValue" featureName="generated" valueExpression="aql:parentConstructorParameter.generated"/>
+                                      <subModelOperations xsi:type="tool_1:SetValue" featureName="localGenerated" valueExpression="aql:parentConstructorParameter.localGenerated"/>
+                                      <subModelOperations xsi:type="tool_1:SetValue" featureName="internalId" valueExpression="aql:parentConstructorParameter.internalId"/>
+                                      <subModelOperations xsi:type="tool_1:SetValue" featureName="comment" valueExpression="aql:parentConstructorParameter.comment"/>
+                                      <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:parentConstructorParameter.name"/>
+                                      <subModelOperations xsi:type="tool_1:SetValue" featureName="type" valueExpression="aql:parentConstructorParameter.type"/>
+                                      <subModelOperations xsi:type="tool_1:SetValue" featureName="InputExpression" valueExpression="aql:parentConstructorParameter.InputExpression"/>
+                                    </subModelOperations>
+                                  </subModelOperations>
+                                </subModelOperations>
+                              </subModelOperations>
                             </subModelOperations>
                           </subModelOperations>
                         </subModelOperations>
