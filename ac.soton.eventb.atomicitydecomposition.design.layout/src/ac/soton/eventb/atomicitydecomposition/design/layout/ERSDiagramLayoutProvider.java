@@ -35,7 +35,7 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 	/**
 	 * Vertical spacing (in levels) left free to display the root of the tree
 	 */
-	protected static final Float INITIAL_ROOT_SPACING = (float) 1.5;
+	protected static final Float INITIAL_ROOT_SPACING = (float) 2;
 	 
 	@Override
 	public boolean provides(IOperation operation) {
@@ -116,32 +116,33 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 					return level;
 				}
 			}
-						
-			private void positionTree(EObject obj){
+			
+			/**
+			 * Positions the Diagram as a Tree, starting from its root
+			 * @param obj root of the tree
+			 */
+			private void positionTree(EObject root){
 				Float offset = (float)30;
-				for(EObject eobj : obj.eContents()){
-					if(object2node.get(eobj) == null) {
+				for(EObject content : root.eContents()){
+					if(object2node.get(content) == null) {
 						continue;
 					}
-					System.out.println("eobj : "+eobj);
-					offset = positionSubtree(eobj, offset, INITIAL_ROOT_SPACING);
-					System.out.println("new offset : "+offset);
+					offset = positionSubtree(content, offset, INITIAL_ROOT_SPACING);
 				}
 			}
 			
 			
-			private Float positionSubtree(EObject obj, Float Xoffset, Float level){
-				System.out.println("positionning : "+obj);
-				ILayoutNode ln = object2node.get(obj);
+			private Float positionSubtree(EObject branchRoot, Float Xoffset, Float level){
+				ILayoutNode ln = object2node.get(branchRoot);
 				
 				Float initialXOffset = Xoffset;
 				
-				if(obj instanceof Leaf && obj.eContainer() instanceof FlowDiagram &&
-						!(obj.eContainer().equals(topLevelElement))) {
+				if(branchRoot instanceof Leaf && branchRoot.eContainer() instanceof FlowDiagram &&
+						!(branchRoot.eContainer().equals(topLevelElement))) {
 					level += 1;
 				}
 				
-				for(EObject eobj : obj.eContents()){
+				for(EObject eobj : branchRoot.eContents()){
 					if(eobj instanceof TypedParameterExpression || object2node.get(eobj) == null) {
 						continue;
 					}
@@ -149,21 +150,21 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 				}
 				
 				Bounds bounds = (Bounds)ln.getNode().getLayoutConstraint();
-				if(obj.eContents().size() == 0 || (obj.eContents().size() == 1 && obj.eContents().size() == 0)) {
+				if(branchRoot.eContents().size() == 0 || (branchRoot.eContents().size() == 1 && branchRoot.eContents().size() == 0)) {
 					bounds.setX( (int) Math.round(initialXOffset)) ;
 				} else {
-					bounds.setX(  (int) (Math.round(initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(obj).getWidth()/2)) > initialXOffset ? (int) Math.round(initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(obj).getWidth()/2)) : initialXOffset) ) ;
+					bounds.setX(  (int) (Math.round(initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(branchRoot).getWidth()/2)) > initialXOffset ? (int) Math.round(initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(branchRoot).getWidth()/2)) : initialXOffset) ) ;
 				}
 
 				bounds.setY( (int) Math.round(level * spaceY));
 				ln.getNode().setLayoutConstraint(bounds);
 
-				if(obj.eContents().size() == 0  || Math.round(initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(obj).getWidth()/2)) < initialXOffset ) {
-					return initialXOffset + object2node.get(obj).getWidth() + spaceX;
+				if(branchRoot.eContents().size() == 0  || Math.round(initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(branchRoot).getWidth()/2)) < initialXOffset ) {
+					return initialXOffset + object2node.get(branchRoot).getWidth() + spaceX;
 				}
 				
-				Float abstractEnd = initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(obj).getWidth()/2) 
-						+ object2node.get(obj).getWidth() + spaceX;
+				Float abstractEnd = initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(branchRoot).getWidth()/2) 
+						+ object2node.get(branchRoot).getWidth() + spaceX;
 				Float subtreeEnd = Xoffset;
 				
 				return abstractEnd > subtreeEnd ? abstractEnd : subtreeEnd;
