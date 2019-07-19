@@ -96,7 +96,7 @@ public class Services {
      * @return List containing the linked elements to the given constructor. <br>
      *         This list can be empty, but will never be null.
      */
-    public List<Leaf> getLinkedLeavesFromConstructor(Constructor constructor) {
+    public static List<Leaf> getLinkedLeavesFromConstructor(Constructor constructor) {
     	ArrayList<Leaf> leaves = new ArrayList<Leaf>();
 		if(constructor instanceof And) {
 			addAllIfNotNull(leaves, ((And) constructor).getAndLink());
@@ -163,7 +163,7 @@ public class Services {
      * @param leaves list of leaves
      * @param link link to add to the list if not null
      */
-    private void addIfNotNull(ArrayList<Leaf> leaves, Leaf link) {
+    private static void addIfNotNull(ArrayList<Leaf> leaves, Leaf link) {
     	if(link != null) {
     		leaves.add(link);
     	}//else do nothing
@@ -176,7 +176,7 @@ public class Services {
      * @param leaves list of leaves
      * @param links links to add to the list if not null
      */
-    private void addAllIfNotNull(ArrayList<Leaf> leaves, EList<Leaf> links) {
+    private static void addAllIfNotNull(ArrayList<Leaf> leaves, EList<Leaf> links) {
     	if(links != null) {
     		leaves.addAll(links);
     	}//else do nothing

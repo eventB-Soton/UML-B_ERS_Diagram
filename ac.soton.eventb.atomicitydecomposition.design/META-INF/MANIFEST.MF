@@ -18,7 +18,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.gmf.runtime.notation.edit,
  org.eclipse.gmf.runtime.diagram.ui;bundle-version="1.8.0",
  org.eclipse.sirius.properties;bundle-version="6.0.2",
- org.eclipse.sirius.ui.properties;bundle-version="6.0.2"
+ org.eclipse.sirius.ui.properties;bundle-version="6.0.2",
+ org.eclipse.emf.ecore
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: %providerName
