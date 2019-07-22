@@ -686,13 +686,6 @@
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='red']"/>
           </style>
         </nodeMappings>
-        <nodeMappings name="ActivityNode" semanticCandidatesExpression="service:getLeavesToRenderInActivityDiagram()" documentation="Represents a Leaf as an Activity in an Activity diagram" domainClass="atomicitydecomposition::Leaf">
-          <style xsi:type="style:SquareDescription" showIcon="false" labelPosition="node" resizeKind="NSEW" width="15" height="6">
-            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
-          </style>
-        </nodeMappings>
         <nodeMappings name="DecisionNode" semanticCandidatesExpression="service:getElementsWithDecisionNodeRepresentation()" documentation="Represents a Xor Node as a Decision Node&#xD;&#xA;Counterpart of the Merge Node.&#xD;&#xA;&#xD;&#xA;ie : Yes one Xor element is thus represented as TWO Nodes : One DecisionNode, and one MergeNode" domainClass="atomicitydecomposition::Constructor">
           <style xsi:type="style:LozengeNodeDescription" borderSizeComputationExpression="2" showIcon="false" labelExpression="[''/]" hideLabelByDefault="true" sizeComputationExpression="4" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='blue']"/>
@@ -735,7 +728,7 @@
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
           </style>
         </nodeMappings>
-        <edgeMappings name="InitialEdge" documentation="Link between the initial state (root FlowDiagram) and the first activity (left-most Leaf / Child)" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='InitialNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ActivityNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='DecisionNode']" targetFinderExpression="aql:self.refine->asOrderedSet()->first()">
+        <edgeMappings name="InitialEdge" documentation="Link between the initial state (root FlowDiagram) and the first activity (left-most Leaf / Child)" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='InitialNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='DecisionNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ForkNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='LoopStartNode']" targetFinderExpression="aql:self.refine->asOrderedSet()->first()">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -743,7 +736,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="SequenceEdge" documentation="Allows for simple sequence links to be drawn" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ActivityNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='JoinNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='LoopDecisionNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='MergeNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ActivityNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='DecisionNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ForkNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='LoopStartNode']" targetFinderExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) or self.eContainer().oclIsKindOf(atomicitydecomposition::Loop)) then self.getFollowingChild() else null endif">
+        <edgeMappings name="SequenceEdge" documentation="Allows for simple sequence links to be drawn" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='JoinNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='LoopDecisionNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='MergeNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='DecisionNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ForkNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='LoopStartNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode']" targetFinderExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) or self.eContainer().oclIsKindOf(atomicitydecomposition::Loop)) then self.getFollowingChild() else null endif">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -751,7 +744,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="DecisionBranchingEdge" documentation="Branching edges from a Decision Node (Xor) to an Activity (Leaf)" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='DecisionNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ActivityNode']" targetFinderExpression="service:getLinkedLeavesFromConstructor()">
+        <edgeMappings name="DecisionBranchingEdge" documentation="Branching edges from a Decision Node (Xor) to an Activity (Leaf)" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='DecisionNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode']" targetFinderExpression="service:getLinkedLeavesFromConstructor()">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -759,7 +752,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="DecisionMergeEdge" documentation="Link between" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ActivityNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='MergeNode']" targetFinderExpression="aql:self.eContainer()">
+        <edgeMappings name="DecisionMergeEdge" documentation="Link between" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='MergeNode']" targetFinderExpression="aql:self.eContainer()">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -767,7 +760,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="FinalEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='MergeNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ActivityNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='JoinNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='FinalNode']" targetFinderExpression="aql: if (self.eContainer().refine->asOrderedSet()->last() == self) then self.eContainer() else null endif">
+        <edgeMappings name="FinalEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='MergeNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='JoinNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='FinalNode']" targetFinderExpression="aql: if (self.eContainer().refine->asOrderedSet()->last() == self) then self.eContainer() else null endif">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -775,7 +768,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="ForkEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ForkNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ActivityNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='DecisionNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ForkNode']" targetFinderExpression="service:getLinkedLeavesFromConstructor()">
+        <edgeMappings name="ForkEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ForkNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='DecisionNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ForkNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode']" targetFinderExpression="service:getLinkedLeavesFromConstructor()">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -783,7 +776,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="JoinEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ActivityNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='JoinNode']" targetFinderExpression="aql:self.eContainer()">
+        <edgeMappings name="JoinEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='JoinNode']" targetFinderExpression="aql:self.eContainer()">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -799,7 +792,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="LoopBodyEndEdge" documentation="This Edge represents the loop itself, it is the arrow going from the last event in the loop body, do the loop's &quot;LoopStartNode&quot;" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ActivityNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='LoopStartNode']" targetFinderExpression="aql: if self.eContainer().oclIsKindOf(atomicitydecomposition::Loop) and self.eContainer().oclAsType(atomicitydecomposition::Loop).loopLink->asSequence()->last() = self then self.eContainer() else null endif">
+        <edgeMappings name="LoopBodyEndEdge" documentation="This Edge represents the loop itself, it is the arrow going from the last event in the loop body, do the loop's &quot;LoopStartNode&quot;" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='LoopStartNode']" targetFinderExpression="aql: if self.eContainer().oclIsKindOf(atomicitydecomposition::Loop) and self.eContainer().oclAsType(atomicitydecomposition::Loop).loopLink->asSequence()->last() = self then self.eContainer() else null endif">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -807,7 +800,7 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <edgeMappings name="LoopStartBranchEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='LoopDecisionNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ActivityNode']" targetFinderExpression="aql:self.loopLink->first()">
+        <edgeMappings name="LoopStartBranchEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='LoopDecisionNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode']" targetFinderExpression="aql:self.loopLink->first()">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
@@ -815,6 +808,22 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
+        <containerMappings name="ActivityNode" semanticCandidatesExpression="service:getLeavesToRenderInActivityDiagram()" domainClass="atomicitydecomposition::Leaf">
+          <subContainerMappings name="DecomposeSubNode" semanticCandidatesExpression="aql:self.decompose" domainClass="atomicitydecomposition::FlowDiagram" reusedNodeMappings="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='DecisionNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='ForkNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='JoinNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='LoopDecisionNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='LoopStartNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='MergeNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='FinalNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@nodeMappings[name='InitialNode']" reusedContainerMappings="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@containerMappings[name='ActivityNode']/@subContainerMappings[name='DecomposeSubNode']">
+            <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" showIcon="false">
+              <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+              <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+            </style>
+          </subContainerMappings>
+          <style xsi:type="style:FlatContainerStyleDescription" borderSizeComputationExpression="1" showIcon="false">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+            <foregroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_green']"/>
+          </style>
+        </containerMappings>
       </defaultLayer>
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="ac.soton.eventb.atomicity.design.Services"/>
