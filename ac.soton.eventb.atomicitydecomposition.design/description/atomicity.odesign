@@ -3,7 +3,6 @@
   <ownedViewpoints name="ERSDiagram" modelFileExtension="bum">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ERS Diagram" domainClass="atomicitydecomposition::FlowDiagram" enablePopupBars="true">
       <metamodel href="http://soton.ac.uk/models/eventb/atomicitydecomposition#/"/>
-      <layout xsi:type="description_1:CompositeLayout"/>
       <defaultLayer name="Default">
         <nodeMappings name="LeafNode" labelDirectEdit="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@toolSections.0/@ownedTools[name='DirectEditLeafName']" semanticCandidatesExpression="service:getFlowDiagramAndChildrenNodes()" domainClass="atomicitydecomposition::Leaf">
           <style xsi:type="style:SquareDescription" labelExpression="aql: self.getLeafLabelWithParameters(self.eContainer(), self.eContainer().eContainer())" labelPosition="node" resizeKind="NSEW" width="15" height="6">
@@ -670,6 +669,7 @@
       </defaultLayer>
     </ownedRepresentations>
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ERS Activity Diagram View" domainClass="atomicitydecomposition::FlowDiagram" enablePopupBars="true">
+      <metamodel href="http://soton.ac.uk/models/eventb/atomicitydecomposition#/"/>
       <layout xsi:type="description_1:CompositeLayout"/>
       <defaultLayer name="Default">
         <nodeMappings name="InitialNode" semanticCandidatesExpression="var:self" domainClass="atomicitydecomposition::FlowDiagram">
