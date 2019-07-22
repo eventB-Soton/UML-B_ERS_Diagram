@@ -86,14 +86,14 @@
           </conditionnalStyles>
         </nodeMappings>
         <edgeMappings name="refinesEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='SubFlowNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LeafNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='AllNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='AndNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LoopNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='OneNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='OrNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='ParNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='SomeNode'] //@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='XorNode']" targetFinderExpression="feature:refine">
-          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2">
+          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:view.targetNode.oclAsType(diagram::DDiagramElement).target.oclAsType(atomicitydecomposition::Child).ref">
-            <style targetArrow="NoDecoration" sizeComputationExpression="2">
+            <style targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
               <centerLabelStyleDescription>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -102,14 +102,14 @@
           </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="andLinkEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='AndNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LeafNode']" targetFinderExpression="feature:andLink">
-          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2">
+          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:view.targetNode.oclAsType(diagram::DDiagramElement).target.oclAsType(atomicitydecomposition::Child).ref">
-            <style targetArrow="NoDecoration" sizeComputationExpression="2">
+            <style targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
               <centerLabelStyleDescription>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -118,14 +118,14 @@
           </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="loopLinkEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LoopNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LeafNode']" targetFinderExpression="feature:loopLink">
-          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2">
+          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:view.targetNode.oclAsType(diagram::DDiagramElement).target.oclAsType(atomicitydecomposition::Child).ref">
-            <style targetArrow="NoDecoration" sizeComputationExpression="2">
+            <style targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
               <centerLabelStyleDescription>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -134,14 +134,14 @@
           </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="allLinkEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='AllNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LeafNode']" targetFinderExpression="feature:allLink">
-          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2">
+          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:view.targetNode.oclAsType(diagram::DDiagramElement).target.oclAsType(atomicitydecomposition::Child).ref">
-            <style targetArrow="NoDecoration" sizeComputationExpression="2">
+            <style targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
               <centerLabelStyleDescription>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -150,14 +150,14 @@
           </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="someLinkEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='SomeNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LeafNode']" targetFinderExpression="feature:someLink">
-          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2">
+          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:view.targetNode.oclAsType(diagram::DDiagramElement).target.oclAsType(atomicitydecomposition::Child).ref">
-            <style targetArrow="NoDecoration" sizeComputationExpression="2">
+            <style targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
               <centerLabelStyleDescription>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -166,14 +166,14 @@
           </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="orLinkEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='OrNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LeafNode']" targetFinderExpression="feature:orLink">
-          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2">
+          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:view.targetNode.oclAsType(diagram::DDiagramElement).target.oclAsType(atomicitydecomposition::Child).ref">
-            <style targetArrow="NoDecoration" sizeComputationExpression="2">
+            <style targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
               <centerLabelStyleDescription>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -182,14 +182,14 @@
           </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="parLinkEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='ParNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LeafNode']" targetFinderExpression="feature:parLink">
-          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2">
+          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:view.targetNode.oclAsType(diagram::DDiagramElement).target.oclAsType(atomicitydecomposition::Child).ref">
-            <style targetArrow="NoDecoration" sizeComputationExpression="2">
+            <style targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
               <centerLabelStyleDescription>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -198,14 +198,14 @@
           </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="xorLinkEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='XorNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LeafNode']" targetFinderExpression="feature:xorLink">
-          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2">
+          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:view.targetNode.oclAsType(diagram::DDiagramElement).target.oclAsType(atomicitydecomposition::Child).ref">
-            <style targetArrow="NoDecoration" sizeComputationExpression="2">
+            <style targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
               <centerLabelStyleDescription>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -214,14 +214,14 @@
           </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="oneLinkEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='OneNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LeafNode']" targetFinderExpression="feature:oneLink">
-          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2">
+          <style lineStyle="dash" targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             </centerLabelStyleDescription>
           </style>
           <conditionnalStyles predicateExpression="aql:view.targetNode.oclAsType(diagram::DDiagramElement).target.oclAsType(atomicitydecomposition::Child).ref">
-            <style targetArrow="NoDecoration" sizeComputationExpression="2">
+            <style targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
               <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
               <centerLabelStyleDescription>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
@@ -230,7 +230,7 @@
           </conditionnalStyles>
         </edgeMappings>
         <edgeMappings name="decomposesEdge" sourceMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='LeafNode']" targetMapping="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Diagram']/@defaultLayer/@nodeMappings[name='SubFlowNode']" targetFinderExpression="feature:decompose">
-          <style targetArrow="NoDecoration" sizeComputationExpression="2">
+          <style targetArrow="NoDecoration" sizeComputationExpression="2" foldingStyle="SOURCE">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
