@@ -36,6 +36,11 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 	 * Vertical spacing (in levels) left free to display the root of the tree
 	 */
 	protected static final Float INITIAL_ROOT_SPACING = (float) 2;
+
+	/**
+	 * Space left free to the left of the diagram, in pixels
+	 */
+	protected static final float HORIZONTAL_SPACNG = 30;
 	 
 	@Override
 	public boolean provides(IOperation operation) {
@@ -75,6 +80,7 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 			private int spaceY = 80;
 			
 			public void run() {
+				ILayoutNode topLNode = null;
 				object2node = new HashMap<EObject, ILayoutNode>();
 				//object2offset = new HashMap<EObject, Float>();
 				int topLevel = -1;
@@ -93,11 +99,19 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 							if(level < topLevel || topLevel == -1){
 								topLevel = level;
 								topLevelElement = semanticElement;
+								topLNode = lnode;
 							}
 						}
 					}//else we ignore the node				
 				}
-				positionTree(topLevelElement);
+				Float finalOffset = positionTree(topLevelElement);
+
+				if(topLNode != null) {
+					//Finally after the whole tree has been positioned, we reposition the root of the tree, so that it is centered
+					Bounds bounds = (Bounds)topLNode.getNode().getLayoutConstraint();
+					bounds.setX((int) Math.round(finalOffset/2));
+					topLNode.getNode().setLayoutConstraint(bounds);
+				}
 			}
 			
 			/**
@@ -120,15 +134,17 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 			/**
 			 * Positions the Diagram as a Tree, starting from its root
 			 * @param obj root of the tree
+			 * @return the final offset
 			 */
-			private void positionTree(EObject root){
-				Float offset = (float)30;
+			private Float positionTree(EObject root){
+				Float offset = (float) HORIZONTAL_SPACNG; //Horizontal spacing left of the 1st element
 				for(EObject content : root.eContents()){
 					if(object2node.get(content) == null) {
 						continue;
 					}
 					offset = positionSubtree(content, offset, INITIAL_ROOT_SPACING);
 				}
+				return offset; //we return the offset of the last element which will be used to center the root of the tree
 			}
 			
 			
