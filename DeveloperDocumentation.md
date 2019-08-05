@@ -100,6 +100,7 @@ You can use AQL queries in all "Yellow Fields".
 ie : any field that is interpreted.
 
 Example :
+
 ![An image displaying an example of AQL expression use](/docImages/aqlCallExample.PNG)
 
 ### Services
@@ -129,6 +130,7 @@ Example :
 `ac.soton.eventb.atomicity.design.Services`
 
 The linked Services of a Specification File can then be viewed in the editor :
+
 ![An image displaying Services in the Editor](/docImages/linkedServices.PNG)
 
 Then all you have to do is to write the Service that you want to provide as a method in
@@ -158,6 +160,7 @@ It will do the following :
  `serviceCall(QUERY_RESULT, param2, param3, param4)`
 
 A concrete use of this combination of Query can be found in the Creation Constructor -> Leaf link code :
+
 ![An image displaying an example of AQL/Service combined use](/docImages/exampleCombinedAQLServices.PNG)
 
 ### Expressions Context
@@ -165,7 +168,9 @@ All Expressions are evaluated based on a context.
 The context of an expression depends on where you have written this expression.
 
 **Context for Nodes**
+
 For example, in the "ERS Diagram" Diagram Specification, its DomainClass is FlowDiagram (see image below).
+
 ![An image displaying ERS Diagram Specification DomainClass](/docImages/ERSDomainClass.PNG)
 
 This has the effect that all Nodes that are specified in the "ERS Diagram" Diagram  specification use FlowDiagram as their context.
@@ -173,6 +178,7 @@ More specifically, they use the displayed FlowDiagram as `self`.
 
 So, an expression like this one :
 ![An image displaying a Node Expression](/docImages/expressionContext1.PNG)
+
 is executed using a FlowDiagram as self.
 So in the end this expression is similar to the pseudo code :
 
@@ -181,9 +187,12 @@ So in the end this expression is similar to the pseudo code :
     return result
 
 **Context for Edges**
+
 Expression written for Edges use their source element as context.
 For example, in a loopLinkEdge, who has a source element of type LoopNode, the following expression is evaluated :
+
 ![An image displaying an Edge Expression](/docImages/edgeContext.PNG)
+
 In the end this expression is similar to the Java code :
 
     public Leaf evaluateExpression(Loop self){
