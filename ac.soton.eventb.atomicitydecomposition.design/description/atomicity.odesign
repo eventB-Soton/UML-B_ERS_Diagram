@@ -393,6 +393,9 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="atomicitydecomposition::And" referenceName="refine"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:instance">
+                  <subModelOperations xsi:type="tool_1:Let" variableName="dummyForUUIDSettingWorkaround" valueExpression="aql:EcoreUtil.getID(instance)"/>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -402,6 +405,9 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="atomicitydecomposition::Loop" referenceName="refine"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:instance">
+                  <subModelOperations xsi:type="tool_1:Let" variableName="dummyForUUIDSettingWorkaround" valueExpression="aql:EcoreUtil.getID(instance)"/>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -477,6 +483,9 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="atomicitydecomposition::Or" referenceName="refine"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:instance">
+                  <subModelOperations xsi:type="tool_1:Let" variableName="dummyForUUIDSettingWorkaround" valueExpression="aql:EcoreUtil.getID(instance)"/>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -618,6 +627,9 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="atomicitydecomposition::Xor" referenceName="refine"/>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:instance">
+                  <subModelOperations xsi:type="tool_1:Let" variableName="dummyForUUIDSettingWorkaround" valueExpression="aql:EcoreUtil.getID(instance)"/>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
