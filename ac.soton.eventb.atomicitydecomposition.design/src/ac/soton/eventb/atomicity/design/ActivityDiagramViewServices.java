@@ -19,6 +19,24 @@ import ac.soton.eventb.atomicitydecomposition.Xor;
 
 public class ActivityDiagramViewServices {
 
+	/**
+	 * HashMap that contains the visibility properties of ActivityNode > DecomposeSubNode Nodes <br> <br>
+	 * 
+	 * The entries of this map are as follows : 
+	 * <ul>
+	 * <li> <b> Key :</b> id of the FlowDiagram whose property is stored by this entry 
+	 *     (more specifically extensionID, as the internal ID does not seems to be always set 
+	 *      by the persistence Layer when an instance of FlowDiagram is created) </li>
+	 * <li> <b> Value : </b> Value of the display property, true if the ActivityNode > DecomposeSubNode 
+	 *      that represents the FlowDiagram must be displayed, false otherwise </li>
+	 * </ul>
+	 * 
+	 * Note that, currently, this map is shared among various views of a single model. <br>
+	 * That implies that if you show refinements of a specific Leaf, 
+	 * these refinements will be shown on all views that contains that Leaf. <br>
+	 * If that is an issue for you, this could be worked around by making 
+	 * the key a couple which would contain the id of the diagram's view (idOfDiagramView, idOfFlowDiagram) for example.
+	 */
 	private static HashMap<String, Boolean> mapofSubDiagramVisibilityProperty = new HashMap<String, Boolean>();
 
 	/**
@@ -28,7 +46,8 @@ public class ActivityDiagramViewServices {
 	 * 		<li> It is a direct Child of the FlowDiagram </li>
 	 * 		<li> It is a child of a Xor node who is a direct Child of the FlowDiagram </li>
 	 * 		<li> It is a child of a And node who is a direct Child of the FlowDiagram </li>
-	 * 		//TODO complete this list when other parts of Activity Diagrams will be rendered
+	 * 		<li> It is a child of a Or node who is a direct Child of the FlowDiagram </li>
+	 *		<li> It is a child of a Loop node who is a direct Child of the FlowDiagram </li>
 	 * </ul>
 	 *
 	 * @param rootElement FlowDiagram for which we want the list of Leaves to render
@@ -189,7 +208,10 @@ public class ActivityDiagramViewServices {
 		return elementsWithDecisionNodeRepresentation;
 	}
 	
-	
+	/**
+	 * Precondition used to check if ActivityNode > DecomposeSubNode elements must be shown
+	 * This is done simply by accessing the content of the mapofSubDiagramVisibilityProperty Map.
+	 */
 	public Boolean isSubDiagramToShow(FlowDiagram subDiagram) {
 		if(mapofSubDiagramVisibilityProperty.containsKey(subDiagram.getExtensionId())) {
 			//if the diagram is known, get its registered visibilityProperty
