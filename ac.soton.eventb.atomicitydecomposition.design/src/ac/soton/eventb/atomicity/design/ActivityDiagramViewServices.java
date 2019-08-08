@@ -1,11 +1,31 @@
 package ac.soton.eventb.atomicity.design;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.eclipse.core.commands.Command;
+import org.eclipse.emf.common.command.CommandStack;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.gmf.runtime.diagram.ui.actions.ActionIds;
+import org.eclipse.gmf.runtime.diagram.ui.editparts.DiagramEditPart;
+import org.eclipse.gmf.runtime.diagram.ui.parts.DiagramEditor;
+import org.eclipse.gmf.runtime.diagram.ui.requests.ArrangeRequest;
+import org.eclipse.sirius.business.api.dialect.command.RefreshRepresentationsCommand;
+import org.eclipse.sirius.business.api.session.Session;
+import org.eclipse.sirius.business.api.session.SessionManager;
+import org.eclipse.sirius.viewpoint.DRepresentation;
+import org.eclipse.sirius.viewpoint.DRepresentationDescriptor;
+import org.eclipse.sirius.viewpoint.DView;
+import org.eclipse.sirius.viewpoint.SiriusPlugin;
+import org.eclipse.sirius.viewpoint.description.RepresentationDescription;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.PlatformUI;
+import org.eventb.emf.core.EventBElement;
+
 import ac.soton.eventb.atomicitydecomposition.And;
 import ac.soton.eventb.atomicitydecomposition.Child;
 import ac.soton.eventb.atomicitydecomposition.Constructor;
@@ -208,7 +228,7 @@ public class ActivityDiagramViewServices {
 	 * Precondition used to check if ActivityNode > DecomposeSubNode elements must be shown
 	 * This is done simply by accessing the content of the mapofSubDiagramVisibilityProperty Map.
 	 */
-	public Boolean getDisplayLeafDecompositionsProperty(Leaf leaf) {
+	public Boolean getDisplayLeafDecompositionsProperty(EventBElement leaf) {
 		if(mapofLeafDecompositionVisibilityProperty.containsKey(leaf.getInternalId())) {
 			//if the diagram is known, get its registered visibilityProperty
 			return mapofLeafDecompositionVisibilityProperty.get(leaf.getInternalId());
@@ -228,6 +248,35 @@ public class ActivityDiagramViewServices {
 	public void setSubDiagramVisibility(Leaf leaf, Boolean value) {
 		//register the value with subDiagram as the key
 		mapofLeafDecompositionVisibilityProperty.put(leaf.getInternalId(), value);
+	}
+	
+	/**
+	 * Service that calls Sirius's "arrange-all" feature
+	 */
+	public void relayoutDiagram(EObject unused) {
+		try {
+			// trigger 'Arrange All' on the whole diagram
+			DiagramEditPart diagramEditPart = null;
+			IEditorPart editor = PlatformUI.getWorkbench()
+					.getActiveWorkbenchWindow().getActivePage()
+					.getActiveEditor();
+
+			if (editor instanceof DiagramEditor) {
+				DiagramEditor diagramEditor = (DiagramEditor) editor;
+				diagramEditPart = diagramEditor.getDiagramEditPart();
+			}
+
+			ArrangeRequest arrangeRequest = new ArrangeRequest(ActionIds.ACTION_ARRANGE_ALL);
+			List<Object> partsToArrange = new ArrayList<Object>();
+			//add the diagram to elements to rearrange
+			partsToArrange.add(diagramEditPart);
+			//add the diagram to elements to rearrange
+			partsToArrange.add(diagramEditPart);
+			arrangeRequest.setPartsToArrange(partsToArrange);
+			diagramEditPart.performRequest(arrangeRequest);
+		} catch (Exception e) {
+			SiriusPlugin.getDefault().error("Error while arrange elements", e);
+		}
 	}
 
 	/**
