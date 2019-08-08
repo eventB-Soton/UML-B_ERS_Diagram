@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eventb.emf.core.AbstractExtension;
-
 import ac.soton.eventb.atomicitydecomposition.And;
 import ac.soton.eventb.atomicitydecomposition.Child;
 import ac.soton.eventb.atomicitydecomposition.Constructor;
@@ -24,20 +22,18 @@ public class ActivityDiagramViewServices {
 	 * 
 	 * The entries of this map are as follows : 
 	 * <ul>
-	 * <li> <b> Key :</b> id of the FlowDiagram whose property is stored by this entry 
-	 *     (more specifically extensionID, as the internal ID does not seems to be always set 
-	 *      by the persistence Layer when an instance of FlowDiagram is created) </li>
+	 * <li> <b> Key :</b> id of the Leaf whose decomposition's visibility property is stored by this entry </li>
 	 * <li> <b> Value : </b> Value of the display property, true if the ActivityNode > DecomposeSubNode 
-	 *      that represents the FlowDiagram must be displayed, false otherwise </li>
+	 *      that represents the FlowDiagrams that decompose the Leaf must be displayed, false otherwise </li>
 	 * </ul>
 	 * 
 	 * Note that, currently, this map is shared among various views of a single model. <br>
-	 * That implies that if you show refinements of a specific Leaf, 
-	 * these refinements will be shown on all views that contains that Leaf. <br>
+	 * That implies that if you show decompositions of a specific Leaf, 
+	 * these decompositions will be shown on all views that contains that Leaf. <br>
 	 * If that is an issue for you, this could be worked around by making 
-	 * the key a couple which would contain the id of the diagram's view (idOfDiagramView, idOfFlowDiagram) for example.
+	 * the key a couple which would contain the id of the diagram's view (idOfDiagramView, idOfLeaf) for example.
 	 */
-	private static HashMap<String, Boolean> mapofSubDiagramVisibilityProperty = new HashMap<String, Boolean>();
+	private static HashMap<String, Boolean> mapofLeafDecompositionVisibilityProperty = new HashMap<String, Boolean>();
 
 	/**
 	 * Returns the list of Leaves to render in the activity diagram representing the given FlowDiagram.
@@ -212,28 +208,28 @@ public class ActivityDiagramViewServices {
 	 * Precondition used to check if ActivityNode > DecomposeSubNode elements must be shown
 	 * This is done simply by accessing the content of the mapofSubDiagramVisibilityProperty Map.
 	 */
-	public Boolean isSubDiagramToShow(FlowDiagram subDiagram) {
-		if(mapofSubDiagramVisibilityProperty.containsKey(subDiagram.getExtensionId())) {
+	public Boolean getDisplayLeafDecompositionsProperty(Leaf leaf) {
+		if(mapofLeafDecompositionVisibilityProperty.containsKey(leaf.getInternalId())) {
 			//if the diagram is known, get its registered visibilityProperty
-			return mapofSubDiagramVisibilityProperty.get(subDiagram.getExtensionId());
+			return mapofLeafDecompositionVisibilityProperty.get(leaf.getInternalId());
 		} else {
 			//if the subDiagram is not yet known
 			//register it in the map with the value false
-			mapofSubDiagramVisibilityProperty.put(subDiagram.getExtensionId(), false);
+			mapofLeafDecompositionVisibilityProperty.put(leaf.getInternalId(), false);
 			return false;
 		}
 	}
 	
 	/**
-	 * Sets the visibility property of subDiagram into value
-	 * @param subDiagram 
-	 * @param value
+	 * Sets the leaf decomposition's visibility property into value
+	 * @param leaf leaf for which we want to set the visibility of its decompositions (sub-flowDiagrams)
+	 * @param value value to which the property must be set
 	 */
-	public void setSubDiagramVisibility(FlowDiagram subDiagram, Boolean value) {
+	public void setSubDiagramVisibility(Leaf leaf, Boolean value) {
 		//register the value with subDiagram as the key
-		mapofSubDiagramVisibilityProperty.put(((AbstractExtension) subDiagram).getExtensionId(), value);
+		mapofLeafDecompositionVisibilityProperty.put(leaf.getInternalId(), value);
 	}
-	
+
 	/**
 	 * Checks if a leaf has a non-empty decompose reference set.
 	 * @param leaf a leaf
