@@ -1,10 +1,12 @@
 package ac.soton.eventb.atomicity.design;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eventb.emf.core.AbstractExtension;
 
 import ac.soton.eventb.atomicitydecomposition.And;
 import ac.soton.eventb.atomicitydecomposition.Child;
@@ -17,6 +19,7 @@ import ac.soton.eventb.atomicitydecomposition.Xor;
 
 public class ActivityDiagramViewServices {
 
+	private static HashMap<String, Boolean> mapofSubDiagramVisibilityProperty = new HashMap<String, Boolean>();
 
 	/**
 	 * Returns the list of Leaves to render in the activity diagram representing the given FlowDiagram.
@@ -184,5 +187,37 @@ public class ActivityDiagramViewServices {
 			}//else no op
 		}
 		return elementsWithDecisionNodeRepresentation;
+	}
+	
+	
+	public Boolean isSubDiagramToShow(FlowDiagram subDiagram) {
+		if(mapofSubDiagramVisibilityProperty.containsKey(subDiagram.getExtensionId())) {
+			//if the diagram is known, get its registered visibilityProperty
+			return mapofSubDiagramVisibilityProperty.get(subDiagram.getExtensionId());
+		} else {
+			//if the subDiagram is not yet known
+			//register it in the map with the value false
+			mapofSubDiagramVisibilityProperty.put(subDiagram.getExtensionId(), false);
+			return false;
+		}
+	}
+	
+	/**
+	 * Sets the visibility property of subDiagram into value
+	 * @param subDiagram 
+	 * @param value
+	 */
+	public void setSubDiagramVisibility(FlowDiagram subDiagram, Boolean value) {
+		//register the value with subDiagram as the key
+		mapofSubDiagramVisibilityProperty.put(((AbstractExtension) subDiagram).getExtensionId(), value);
+	}
+	
+	/**
+	 * Checks if a leaf has a non-empty decompose reference set.
+	 * @param leaf a leaf
+	 * @return ! leaf.getDecompose().isEmpty()
+	 */
+	public Boolean hasDecompose(Leaf leaf) {
+		return ! leaf.getDecompose().isEmpty();
 	}
 }
