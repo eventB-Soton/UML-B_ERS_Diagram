@@ -1002,6 +1002,39 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
+          <ownedTools xsi:type="tool_1:OperationAction" documentation="preconditions means : &quot;check that currently selected element is the root of the diagram&quot;" name="Show Decomposition up to a certain level" precondition="aql:self.oclIsKindOf(atomicitydecomposition::FlowDiagram) ">
+            <view name="views"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+                <subModelOperations xsi:type="tool_1:Let" variableName="maxLevelOfDecomposition" valueExpression="aql:self.getMaxLevelOfDecomposition()">
+                  <subModelOperations xsi:type="tool_1:Let" variableName="fieldValue" valueExpression="maxLevelOfDecomposition"/>
+                  <subModelOperations xsi:type="properties:DialogModelOperation" titleExpression="Decomposition Level Wanted Selector">
+                    <buttons labelExpression="Cancel" closeDialogOnClick="true" rollbackChangesOnClose="true">
+                      <initialOperation/>
+                    </buttons>
+                    <buttons labelExpression="OK" default="true" closeDialogOnClick="true">
+                      <initialOperation>
+                        <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+                          <subModelOperations xsi:type="tool_1:Let" variableName="callReturn" valueExpression="aql:self.showDecompositionUpToLevel(fieldValue)"/>
+                          <subModelOperations xsi:type="tool_1:Let" variableName="callReturn2" valueExpression="service:relayoutDiagram()"/>
+                        </firstModelOperations>
+                      </initialOperation>
+                    </buttons>
+                    <page name="Default Page" labelExpression="Select the level of decomposition that you want to display" semanticCandidateExpression="var:self" groups="//@ownedViewpoints[name='ERSDiagram']/@ownedRepresentations[name='ERS%20Activity%20Diagram%20View']/@defaultLayer/@toolSections.1/@ownedTools[name='Show%20Decomposition%20up%20to%20a%20certain%20level']/@initialOperation/@firstModelOperations/@subModelOperations.0/@subModelOperations.1/@groups.0"/>
+                    <groups name="Default Group" labelExpression="Decomposition Level" domainClass="atomicitydecomposition::FlowDiagram" semanticCandidateExpression="var:self">
+                      <controls xsi:type="properties:SelectDescription" name="Decomposition Level Wanted Select" labelExpression="Decomposition Level Wanted" helpExpression="The level of decomposition that you want to be shown in the current Activity View Diagram" isEnabledExpression="aql:true" valueExpression="var:fieldValue" candidatesExpression="service:getRange(maxLevelOfDecomposition)" candidateDisplayExpression="aql:(candidate).toString()">
+                        <initialOperation>
+                          <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+                            <subModelOperations xsi:type="tool_1:Let" variableName="fieldValue" valueExpression="var:newValue"/>
+                          </firstModelOperations>
+                        </initialOperation>
+                      </controls>
+                    </groups>
+                  </subModelOperations>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
         </toolSections>
       </defaultLayer>
     </ownedRepresentations>

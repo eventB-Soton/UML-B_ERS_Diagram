@@ -287,4 +287,135 @@ public class ActivityDiagramViewServices {
 	public Boolean hasDecompose(Leaf leaf) {
 		return ! leaf.getDecompose().isEmpty();
 	}
+	
+	/**
+	 * Service that displays all decomposition up to a certain level of refinement
+	 * @param root root of the diagram
+	 * @param maxLevelToDisplay maximum level of refinement to display
+	 */
+	public void showDecompositionUpToLevel(FlowDiagram root, Integer maxLevelToDisplay) {
+		int startingLevel = 0;
+		showDecompositionUpToLevel(root, maxLevelToDisplay, startingLevel);
+	}
+	
+	private void showDecompositionUpToLevel(FlowDiagram root, Integer maxLevelToDisplay, Integer startingLevel) {
+		EList<Child> children = root.getRefine();
+		for(Child refinement : children) {
+			if(refinement instanceof Leaf) {
+				//Leaf : we set the visibility property for it and its children Leaves
+    			setVisibilityForLeaf((Leaf) refinement, maxLevelToDisplay, 0);
+    		} else if(refinement instanceof Constructor){
+    			//And, Or, ... Node : we retrieve its linked Leaf(s) and set their visibility
+    			List<Leaf> constructorLinks = Services.getLinkedLeavesFromConstructor((Constructor) refinement);
+    			for(Leaf leaf : constructorLinks) {
+    				setVisibilityForLeaf(leaf, maxLevelToDisplay, 0);
+    			}
+    		} else {
+    			//this case should not happen considering the model structure 
+    			//(a Child is either a Leaf or a Constructor)
+    			//TODO : see how to log properly
+    			System.err.println("WARNING : unknown instance type in showDecompositionUpToLevel()."
+    					+ "Ignoring that instance. Unrecognized Instance Type : "+refinement.getClass());
+    		}
+		}
+	}
+	
+	private void setVisibilityForLeaf(Leaf refinement, Integer levelToDisplay, Integer currentLevel) {
+		System.out.println(refinement.getName()+" currentLevel = "+currentLevel+" , branch limit : "+levelToDisplay);
+		if(currentLevel < levelToDisplay) {
+			System.out.println(refinement.getName()+" set to true");
+			setSubDiagramVisibility(refinement, true);
+			//continue on sub diagram, if there is one
+			for(FlowDiagram subRoot : refinement.getDecompose()) {
+				showDecompositionUpToLevel(subRoot, levelToDisplay -1, currentLevel);
+			}
+		} else {
+			System.out.println(refinement.getName()+" set to false");
+			setSubDiagramVisibility(refinement, false);
+		}
+	}
+
+	public Integer getMaxLevelOfDecomposition(EObject rootDiagram) {
+		System.out.println("rootDiagram :"+rootDiagram);
+		if(rootDiagram instanceof FlowDiagram) {
+			return getRefinementLevel((FlowDiagram) rootDiagram);
+		}
+		return -1;
+	}
+	
+	private Integer getRefinementLevel(FlowDiagram diagram) {
+		int level = 0;
+		//Compute the tree size by computing each branch size
+		//(The size of a branch is increased by one each time we encounter a FlowDiagram)
+		EList<Child> children = diagram.getRefine();
+		for(Child refinement : children) {
+			int branchSize = 0;
+			if(refinement instanceof Leaf) {
+    			branchSize = getBranchSize(refinement);
+    		} else if(refinement instanceof Constructor){
+    			//And, Or, ... Node : we retrieve its linked Leaf(s) and compute the branch size for each of them
+    			List<Leaf> constructorLinks = Services.getLinkedLeavesFromConstructor((Constructor) refinement);
+    			//the size of the branch of a Constructor is the size of its longest child branch
+    			for(Leaf leaf : constructorLinks) {
+    				branchSize = Math.max(branchSize, getBranchSize(leaf));
+    			}
+    		} else {
+    			//this case should not happen considering the model structure 
+    			//(a Child is either a Leaf or a Constructor)
+    			//TODO : see how to log properly
+    			System.err.println("WARNING : unknown instance type in getRefinementLevel()."
+    					+ "Ignoring that instance. Unrecognized Instance Type : "+refinement.getClass());
+    		}
+			level = Math.max(level, branchSize);
+		}
+		return level;
+	}
+	
+	private int getBranchSize(Child refinement) {
+		int branchSize = 0;
+		//Leaf : Might know sub-FlowDiagrams via its decompose attribute
+		EList<FlowDiagram> subDiagrams = ((Leaf) refinement).getDecompose();
+		//we compute the maximum branch size for each of these subDiagrams
+		for(FlowDiagram subDiagram : subDiagrams) {
+			branchSize = Math.max(branchSize, getRefinementLevel(subDiagram) +1);
+		}
+		return branchSize;
+	}
+
+	/**
+	 * Returns a List containing numbers going from 0 to maxValue
+	 * @param maxValue maximum value of the range
+	 * @return List containing numbers going from 0 to maxValue
+	 */
+	public List<Integer> getRange(EObject unused, Integer maxValue){
+		System.out.println("called : "+maxValue);
+		LinkedList<Integer> range = new LinkedList<>();
+		int i = 0;
+		while(i <= maxValue) {
+			range.add(i);
+			i++;
+		}
+		System.out.println(range);
+		return range;
+	}
+	
+	/**
+	 * Returns a List containing numbers going from 0 to maxValue
+	 * @param maxValue maximum value of the range
+	 * @return List containing numbers going from 0 to maxValue
+	 */
+	public List<Integer> getRange(Integer maxValue){
+		System.out.println("called 2 : "+maxValue);
+		LinkedList<Integer> range = new LinkedList<>();
+		int i = 0;
+		while(i <= maxValue) {
+			range.add(i);
+			i++;
+		}
+		System.out.println(range);
+		return range;
+	}
+	
+	
+	
 }
