@@ -109,6 +109,7 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 				if(topLNode != null) {
 					//Finally after the whole tree has been positioned, we reposition the root of the tree, so that it is centered
 					Bounds bounds = (Bounds)topLNode.getNode().getLayoutConstraint();
+					bounds.setY(0);
 					bounds.setX((int) Math.round(finalOffset/2));
 					topLNode.getNode().setLayoutConstraint(bounds);
 				}
