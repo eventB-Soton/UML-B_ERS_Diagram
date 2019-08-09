@@ -244,7 +244,7 @@
             <initialOperation>
               <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
                 <subModelOperations xsi:type="tool_1:CreateInstance" typeName="atomicitydecomposition::Leaf" referenceName="refine">
-                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:'New Refinement '+container.refine->size()"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="name" valueExpression="aql:'New Event '+container.refine->size()"/>
                   <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:instance">
                     <subModelOperations xsi:type="tool_1:Let" variableName="dummyForUUIDSettingWorkaround" valueExpression="aql:EcoreUtil.getID(instance)"/>
                   </subModelOperations>
@@ -683,7 +683,7 @@
           </ownedTools>
         </toolSections>
       </defaultLayer>
-      <toolSection name="Open Activity View">
+      <toolSection name="Open Diagrams Tools">
         <ownedTools xsi:type="tool_1:OperationAction" name="Open Activity View" precondition="aql:self.oclIsKindOf(atomicitydecomposition::FlowDiagram) ">
           <view name="views"/>
           <initialOperation>

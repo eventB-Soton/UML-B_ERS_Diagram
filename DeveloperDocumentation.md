@@ -1,10 +1,10 @@
 
 
-# Developer documentation
+# Developer documentation - Quick Reference
 
 This is the developer documentation for the Sirius-based ERS Diagram Editor, and the ERS Activity Diagram View.
 Use it if you need to maintain / update the said diagram editor tool.
-
+This file contains general tips and concepts related to Sirius.
 
 # Preparing your Eclipse Environment
 To contribute to the ERS Diagram Editor, I recommend that you configure your environment as follows :
@@ -19,7 +19,7 @@ On your "Main development Platform", **import the following plug-ins projects** 
  -  ac.soton.eventb.atomicitydecomposition.navigator
  -  ac.soton.eventb.atomicitydecomposition.persistence
 
-Then **create a new Run Configuration** based on your target platform (Rodin platform with needed plugins installed). You should probably name it with something significant like "Sirius Test Platform".
+Then **create a new Run Configuration** based on your target platform (Rodin platform with needed plugins installed). You should probably name it with something significant like "ERS Diagrams Test Platform".
 Make sure that the previously imported plug-ins are loaded into your Run Configuration, **then run it.**
 
 In the run configuration that you've just run, **load the Sirius description project** :
@@ -229,3 +229,8 @@ Here you can find a few links that proved to be useful during the development of
 
  - [Sirius Best Practices](https://www.obeodesigner.com/resource/guidelines/EclipseSirius_BestPractices_EN.pdf) : Contains a few useful tips to design a user friendly/maintainable tool
  - [AQL documentation](https://www.eclipse.org/acceleo/documentation/aql.html) : Will be useful if you need to write or understand complex AQL instructions.
+
+## Sirius built-in help
+In case you need more in-depth information about Sirius, I recommend to use the Sirius help contents.
+Those are accessible directly from your Eclipse Platform, via Help > Help Contents > Sirius.
+More specifically, the "Sirius Specifier Manual" will come in handy.

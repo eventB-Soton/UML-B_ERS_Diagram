@@ -398,7 +398,7 @@ public class Services {
      
      
      /**
-      * Adds target to the list of refined elements of the givent diagram
+      * Adds target to the list of refined elements of the given diagram
       * @param diagram FlowDiagram in which we want to add target as a refine element
       * @param target element to add
       * @return new state of the diagram's refine list
