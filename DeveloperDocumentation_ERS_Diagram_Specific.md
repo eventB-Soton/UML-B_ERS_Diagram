@@ -74,6 +74,7 @@ If you want to modify this diagram layout, you will have to write your own Layou
 
 # Specification of the ERS Diagram
 ![The Specification of the ERS Diagram](/docImages/ERSDiagSpec.PNG)
+
 The ERS Diagram provides only one layer, where all elements are displayed.
 
 The diagram specification then declares different kind of Nodes and Edges to display the elements of the ERS-model.
@@ -192,6 +193,7 @@ This tool is a simple call to Sirius built-in Navigation tool.
 
 # Specification of the Activity View Diagram
 ![The Specification of the AVD](/docImages/ActivityDiagramSpec.PNG)
+
 The ERS Activity View Diagram provides only one layer, where all elements are displayed.
 
 
@@ -199,6 +201,7 @@ The ERS Activity View Diagram provides only one layer, where all elements are di
 ### Hide all Leaf Decompositions
 
 ![Image of the Hide all Leaf Decompositions](/docImages/HideAllLeafDecompositions.png)
+
 This filter allows an user to hide all DecomposeSubNode.
 This filter has a stronger seniority than the "Show Decomposition up to a certain level" tool.
 i.e. : if this filter is activated, no decompositions will be shown, no matter what.
