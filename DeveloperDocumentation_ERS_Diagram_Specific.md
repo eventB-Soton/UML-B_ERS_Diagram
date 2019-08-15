@@ -73,6 +73,7 @@ If you want to modify this diagram layout, you will have to write your own Layou
 
 
 # Specification of the ERS Diagram
+![The Specification of the ERS Diagram](/docImages/ERSDiagSpec.PNG)
 The ERS Diagram provides only one layer, where all elements are displayed.
 
 The diagram specification then declares different kind of Nodes and Edges to display the elements of the ERS-model.
@@ -143,6 +144,8 @@ This creation tool also calls `EcoreUtil.getID(instance)`in order to make sure t
 This tool allows to directly edit the name of a Leaf.
 
 ### Add Refinement Operation
+![Image of the Add Refinement operation](/docImages/AddRefinement.png)
+
 This operation allows an user to right click on a Leaf and choose "Add Refinement" to create a new FlowDiagram as decomposition of the clicked Leaf.
 One important thing that this tool does is to access to parameters declared on the parent FlowDiagram and the parent Constructor (if any), and copy their parameters into the newly created FlowDiagram.
 That way, the parameters declared higher in the diagram hierarchy  are inherited by the newly created FlowDiagram.
@@ -173,22 +176,29 @@ Its simply adds the linked Leaf to the list of refinements ("refine" attribute) 
 
 ## Open Diagrams tools
 ### Open Activity View
+![Image of the Open Activity View operation](/docImages/OpenActivityView.png)
+
 This tool allows the user to right click on a SubFlowDiagram (or the root FlowDiagram), and to open its representation as an Activity View Diagram. 
 If such a representation already exists, it is opened, else it is created.
 This tool is a simple call to Sirius built-in Navigation tool.
 
 ### Open in a separate ERS Diagram
+![Image of the Open in a separate ERS Diagram](/docImages/OpenInASeparateERSDiagram.png)
+
 This tool allows the user to right click on a SubFlowDiagram (or the root FlowDiagram), and to open it in a separate ERS Diagram.
 That way, a user can focus on any sub-part of an ERS Diagram. 
 If such a representation already exists, it is opened, else it is created.
 This tool is a simple call to Sirius built-in Navigation tool.
 
 # Specification of the Activity View Diagram
+![The Specification of the AVD](/docImages/ActivityDiagramSpec.PNG)
 The ERS Activity View Diagram provides only one layer, where all elements are displayed.
 
 
 ## Filters
 ### Hide all Leaf Decompositions
+
+![Image of the Hide all Leaf Decompositions](/docImages/HideAllLeafDecompositions.png)
 This filter allows an user to hide all DecomposeSubNode.
 This filter has a stronger seniority than the "Show Decomposition up to a certain level" tool.
 i.e. : if this filter is activated, no decompositions will be shown, no matter what.
@@ -322,16 +332,22 @@ However, its specification declares a few commands to help the user navigate bet
 It also declares a few commands to show and hide Leaf decompositions in the view.
 
 ### Open in a separate Activity View Diagram
+![Image of the Open in a separate Activity Diagram](/docImages/OpenInSeparateActivityDiagram.png)
+
 This command simply uses the Sirius built-in command "Navigate" to open the ERS Activity View related to any FlowDiagram element. 
 That way, a user can easily open a sub-FlowDiagram in a separate window.
 (By simply right-clicking on any graphical component linked to a FlowDiagram element).
 
 
 ### Open Related ERS Diagram
+![Image of the Open Related ERS Diagram](/docImages/OpenRelatedERSDiagram.png)
+
 This command also uses the Sirius built-in command "Navigate" to open the ERS Diagram related to any FlowDiagram element.
 It allows thus a user to open the ERS Diagram representation of any FlowDiagram element.
 
 ### Show Decompositions
+![Image of the Show Decompositions](/docImages/ShowDecomposition.png)
+
 This command allows the user to show the decompositions of a Leaf.
 What is does is to show the DecomposeSubNode of that Leaf.
 
@@ -361,9 +377,13 @@ This might seem unorthodox, but in my opinion, its not a big deal.
 I just wanted to signal this to you so that you are not confused, wondering "what the heck are those variables here for ?".
 
 ### Hide Decompositions
+![Image of the Hide Decompositions](/docImages/HideDecompositions.png)
+
 The counterpart of the "Show decompositions". It works exactly the same way, and just calls the Service setSubDiagramVisibility(Leaf, bool) by passing false instead of true.
 
 ### Open Decompositions in a Separate Activity Diagram
+![Image of the Open Decompositions in a Separate Activity Diagram](/docImages/OpenDecompositionsinSeparateActivityDiagram.png)
+
 This command is quite similar to the "Open in a separate Activity View Diagram" command.
 The only difference is that it is available on a Leaf instead of a FlowDiagram element.
 It just calls Sirius's "Navigate" built-in command for each of the decompositions of the selected Leaf.
@@ -371,6 +391,8 @@ So basically, it just opens each of the decompositions of a Leaf in a separate d
 
 
 ### Show Decomposition up to a certain level
+![Image of the Show Decomposition up to a certain level](/docImages/ShowDecompositionUpToCertainLevel.png)
+
 This command allows a user to select the level of decomposition that it wants to be displayed on the diagram.
 The level 0 is considered to be the "abstract level" or the "root level". 
 i.e. : Only the direct children of the root FlowDiagram are shown.
