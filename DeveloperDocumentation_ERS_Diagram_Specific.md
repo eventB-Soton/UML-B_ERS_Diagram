@@ -16,6 +16,8 @@ So make sure that you are familiar with FlowDiagram, Constructor, Child, Leaf, a
 
 If you need to remind yourself, that meta model in located in the *ac.soton.eventb.atomicitydecomposition* project.
 
+I also assume that you have a good enough knowledge of Java.
+
 ## Project Contents
 
 ### Diagram Specification
@@ -300,7 +302,7 @@ Right now they are displayed as blue boxes which contain their linked Leaves (so
 For example, the representation of a Some Node is as follows : 
 ![An image displaying the Activity Diagram View](/docImages/OthersConstructors.png)
 
-On the specification, these Nodes represenation is declared as : 
+On the specification, these Nodes representation is declared as : 
 
  - **AllNode** for All
  - **SomeNode** for Some
@@ -314,5 +316,94 @@ All these nodes are containers which are composed of two parts :
  
 
 ##  Commands
+At the moment, the Activity View Diagram does not provide any creation tool, as it is designed to be a view of an ERS model (which can be modified via the ERS diagram editor), and not a stand-alone tool.
 
-DOCUMENTATION IN PROGRESS
+However, its specification declares a few commands to help the user navigate between the Activity view and  the ERS Diagram.
+It also declares a few commands to show and hide Leaf decompositions in the view.
+
+### Open in a separate Activity View Diagram
+This command simply uses the Sirius built-in command "Navigate" to open the ERS Activity View related to any FlowDiagram element. 
+That way, a user can easily open a sub-FlowDiagram in a separate window.
+(By simply right-clicking on any graphical component linked to a FlowDiagram element).
+
+
+### Open Related ERS Diagram
+This command also uses the Sirius built-in command "Navigate" to open the ERS Diagram related to any FlowDiagram element.
+It allows thus a user to open the ERS Diagram representation of any FlowDiagram element.
+
+### Show Decompositions
+This command allows the user to show the decompositions of a Leaf.
+What is does is to show the DecomposeSubNode of that Leaf.
+
+To understand how it works, you should have a look at the following : 
+
+ - Look at the definition of **ActivityNode > DecomposeSubNode** in the Sirius diagram specification.
+ In the "Advanced" tab, note that this node is declaring a **precondition expression**.
+ That expression determines when the element must be shown/drawn/displayed or not.
+ *getDisplayLeafDecompositionsProperty()* is a Service which accesses to the display property associated to a given Leaf.
+ - This "display property" is maintained via an HashMap, declared in *ActivityDiagramViewServices.java*.  
+ Basically, this HashMap associates a boolean to the ID of each Leaf it knows.
+ That way, it contains a "display property" for each Leaf.
+ [See the javadoc of that hashmap for more details.](/ac.soton.eventb.atomicitydecomposition.design/src/ac/soton/eventb/atomicity/design/ActivityDiagramViewServices.java)
+ - This "display property" can then be modified by calling the *setSubDiagramVisibility(Leaf, bool)* Service which just modifies the HashMap entry for that Leaf.
+
+This command does exactly that : It simply calls the  *setSubDiagramVisibility(Leaf, bool)* Service to change the "display property" of the Leaf, which causes its ActivityNode > DecomposeSubNode precondition to become true, which finally causes the said Node to be shown/drawn.
+
+After that, the command calls the *relayoutDiagram()* Service to re-layout the diagram.
+*(Note that this "re-layout pass" does not layout the diagram correctly : the root container is not resized. 
+So, currently, the user needs to "re-layout" manually once for the said container to be correctly resized (via the arrange-all feature).
+I did not manage to do it programmatically, but it would probably be an improvement if it was implemented.
+So that might be a thing you might want to have a look at. This "first re-layout pass" is only there so that the user has to re-layout the diagram only once and not twice).*
+
+Oh, and in case you're wondering, no, the "callReturn" and "callReturn2" variables values are unused.
+I just used Sirius's "let" instruction to make a call to a Service, since it was the easiest way to do so.
+This might seem unorthodox, but in my opinion, its not a big deal. 
+I just wanted to signal this to you so that you are not confused, wondering "what the heck are those variables here for ?".
+
+### Hide Decompositions
+The counterpart of the "Show decompositions". It works exactly the same way, and just calls the Service setSubDiagramVisibility(Leaf, bool) by passing false instead of true.
+
+### Open Decompositions in a Separate Activity Diagram
+This command is quite similar to the "Open in a separate Activity View Diagram" command.
+The only difference is that it is available on a Leaf instead of a FlowDiagram element.
+It just calls Sirius's "Navigate" built-in command for each of the decompositions of the selected Leaf.
+So basically, it just opens each of the decompositions of a Leaf in a separate diagram.
+
+
+### Show Decomposition up to a certain level
+This command allows a user to select the level of decomposition that it wants to be displayed on the diagram.
+The level 0 is considered to be the "abstract level" or the "root level". 
+i.e. : Only the direct children of the root FlowDiagram are shown.
+
+This command opens a Dialog which asks the user which decomposition level he wants to display.
+To determine which level is the maximum, the *getMaxLevelOfDecomposition()* Service is called, which determines the depth of the tree (in terms of highest number of Leaves traversed on all branches).
+
+The user is then asked which level he wants to display (the level going from 0 to maxLevelOfDecomposition).
+
+Then, when the user validates his choice (by pressing the "OK" button), the *showDecompositionUpToLevel(fieldValue)* Service is called.
+This service then recursively modifies the sets the "visibility property" (see the "Show Decompositions"  command explanation) for Leave in its hierarchy, in order to display decompositions up to the user-chosen level.
+
+# Properties Tabs declared in the specification
+Using Sirius, you can declare custom properties-tab to help your tool user to manipulate a model properties.
+In order to help the user to access quickly to its model properties (and also to help with debugging), I declared some new properties tab, which I will describe in this section.
+
+## Constructor Parameter View
+This tab allows to display the parameters of a Constructor element.
+It is thus displayed when a Constructor element who have a "newParameter" attribute (All, Par, One ...) is clicked on.
+This parameter tab displays the name, type and InputExpression of the TypedParameter declared in a Constructor.
+All these properties are made to be non modifiable, in order to keep the consistency of inherited parameters for  children FlowDiagrams of this Constructor in the ERS model.
+
+## Constructor Links View
+This tab allows to display the links of a Constructor.
+Basically, it allows the user to have a look (and modify/reorder) the content of the "links"  attribute of a Constructor (orLinks, allLink, ...).
+
+## FlowDiagram Parameter View
+This tab allows the user to have a look at all the parameters declared for a FlowDiagram.
+The tab only shows the parameters who are directly declared in the selected FlowDiagram.
+
+## FlowDiagram Refines View
+This tab shows the refinements of a FlowDiagram.
+It thus shows all Leaves and Constructors that are declares in the "refines" attribute of the selected FlowDiagram.
+Like in other tabs, the user can reorder and add/delete "refinements" to the FlowDiagram.
+
+
