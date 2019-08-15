@@ -183,3 +183,136 @@ This tool is a simple call to Sirius built-in Navigation tool.
 
 # Specification of the Activity View Diagram
 The ERS Activity View Diagram provides only one layer, where all elements are displayed.
+
+
+## Filters
+### Hide all Leaf Decompositions
+This filter allows an user to hide all DecomposeSubNode.
+This filter has a stronger seniority than the "Show Decomposition up to a certain level" tool.
+i.e. : if this filter is activated, no decompositions will be shown, no matter what.
+(The  "Show Decomposition up to a certain level" tool will have no effect while this filter is activated).
+
+##  ERS Diagram => Activity view equivalence
+As the Activity View Diagram bases itself on the same model (an atomicitydecomposition model) as the ERS Diagram one, its behavior is less straight forward.
+
+For example, in the ERS diagram, any element that exist in the displayed model is represented by one and only one graphical element. There is a one in one mapping between model elements and their graphical representation.
+In the Activity View, however, that is not the case : one model element has multiple graphical elements linked to it. 
+
+In this part, I will detail how the "translation" is made. 
+i.e. : How a model element is displayed in the Activity Diagram View.
+
+### Representation of a FlowDiagram element
+Any ERS diagram model has a FlowDiagram element as its root.
+In an ERS Diagram, a FlowDiagram is displayed as a gray circle. 
+In the Activity View Diagram, such an element is displayed via two Nodes : An **InitialNode** and a **FinalNode**, which represent the start and the end of the flow displayed by the Activity Diagram.
+This relation can be shown in the image bellow : 
+![An image displaying the Activity Diagram View](/docImages/Sequence.png)
+
+### Representation of a Leaf element
+In the Activity View, Leaves are represented in a way that is quite similar to their ERS diagram representation.
+Any Leaf is represented by an **ActivityNode**. 
+Such a representation can be seen in the following image : 
+![An image displaying the Activity Diagram View](/docImages/Sequence2.png)
+
+If a Leaf has a sub-FlowDiagram - that is, if its "refines" attributes contains a FlowDiagram - this FlowDiagram is displayed in a light-green container, which shows this sub-FlowDiagram as an Activity Diagram.
+This graphical container is called a **DecomposeSubNode** in the diagram specification.
+The image below shows an example of this sub-flow representation :
+![An image displaying the Activity Diagram View](/docImages/Sequence3.png)
+
+Note that by default, sub-flows are hidden, but they can be shown via one of the two following commands : 
+
+ - Right Click on the Leaf which has decompositions, and click on "Show Decompositions"
+ - Right click on the diagram > "Show decomposition up to a certain level" > select a decomposition level over 0 > OK
+
+### Sequence between elements
+Sequence between elements is represented by the left-to-right order of elements in an ERS diagram.
+In the Activity View, sequence is represented simply via arrows between said elements.
+In the specification, three types of Edges are declared to represent this sequence : 
+
+ - **InitialEdge**, which goes from a StartingNode to various other kinds of Nodes.
+ - **SequenceEdge**, which links various kinds of elements (excluding StartingNodes and FinalNodes)
+ - **FinalEdge**, which links various kinds of Nodes to a FinalNode.
+
+The following image shows these different edges in a diagram : 
+![An image displaying the Activity Diagram View](/docImages/Sequence4.png)
+
+**Why using specific Edges for Initial and Final Nodes you may ask ?**
+Simply because these Edges are resolved in an completely different context : 
+
+ - InitialEdges target finder expressions are resolved in a FlowDiagram context (since a StartingNode is their Source).
+ - SequenceEdges expressions are resolved in a Child context
+ - FinalEdge is resolved in a Child context too, but must be shown only if the current element is the last of their parent's content.
+ 
+Because of these different situations, I thought that it would be easier to maintain to have three Edges with pretty simple target finder expressions, instead of one Edge type with a quite complex expression, which would have to consider all possible combinations.
+
+
+### Representation of Xor Nodes
+Xor Nodes are represented as Decision/Merge Nodes in the Activity View.
+In the diagram Sirius specification, these Nodes are called **DecisionNode** and **MergeNode**. 
+Those nodes declare the graphical representation of Decision and Merge Nodes.
+
+The Services *getElementsWithMergeNodeRepresentation()* and *getElementsWithDecisionNodeRepresentation()* are used to determine which model elements need to have a DecisionNode or MergeNode as their representation (Xor elements are not the only model element which has Merge and Decision Nodes as their Activity View representation).
+
+In the case of a Xor Node, both Decision and merge Nodes are used. 
+This means that for each Xor node in the model, one DecisionNode and one MergeNode are added to the Activity View Diagram.
+
+All Leaves that are declared as xorLinks of the Xor Node are linked to the DecisionNode and the MergeNode by a **DecisionBranchingEdge** and a **DecisionMergeEdge** respectively.
+
+This representation is shown in the image bellow : 
+![An image displaying the Activity Diagram View](/docImages/XorNodes.png)
+
+### Representation of And Nodes
+And Nodes are represented as Fork/join regions in the Activity View.
+Like for Xor Nodes, these graphical elements are declared in the diagram specification file as **ForkNode** and **JoinNode**. 
+
+The Service *getElementsWithForkNodeRepresentation()* is used to get which model elements needs to have a ForkNode as their representation. 
+No specific service is used for JoinNodes since And elements are the only one which use this graphical element for now.
+
+All Leaves that are declared as andLinks of the And Node are linked to the ForkNode and the JoinNode by a **ForkEdge** and a **JoinEdge** respectively.
+
+This representation is shown in the image bellow : 
+![An image displaying the Activity Diagram View](/docImages/AndNodes.png)
+
+### Representation of Or Nodes 
+Or Nodes are represented as "Fork/Merge regions" in the Activity View.
+So these representation simply use ForkNodes, MergeNodes, ForkEdges, and DecisionMergeEdges.
+
+See the respective Services (getElementsWithForkNodeRepresentation(), getElementsWithMergeNodeRepresentation()) for more details.
+
+This representation is shown in the image bellow : 
+![An image displaying the Activity Diagram View](/docImages/OrNodes.png)
+
+### Representation of Loop Nodes
+Loop Representation in the Activity View is composed of a **LoopStartNode**, a **LoopDecisionNode** and different Edges : 
+
+ - a **LoopStartToBranchEdge** between the LoopStartNode and the **LoopDecisionNode**.
+ - a **LoopStartBranchEdge** between the DecisionNode and the first element (Leaf) of the loop
+ - some SequenceEdges between the loop Leaves (if there are multiples).
+ - and finally a **LoopBodyEndEdge** which goes from the last Leaf of the loop to the DecisionNode.
+
+This representation is shown in the image bellow : 
+![An image displaying the Activity Diagram View](/docImages/LoopNodes.png)
+
+### Representation of other Constructors (Some, One, Par, All)
+We haven't decided for a definitive Activity View representation for other Constructors (Some, One, Par, All Nodes).
+Right now they are displayed as blue boxes which contain their linked Leaves (someLink, oneLink, ...).
+
+For example, the representation of a Some Node is as follows : 
+![An image displaying the Activity Diagram View](/docImages/OthersConstructors.png)
+
+On the specification, these Nodes represenation is declared as : 
+
+ - **AllNode** for All
+ - **SomeNode** for Some
+ - **ParNode** for Par
+ - **OneNode** for One
+
+All these nodes are containers which are composed of two parts : 
+
+ - A BorderedNode, an **Ellipse**, which shows an ERS-like representation of the node (**AllNodeSubEllipse** for All Nodes).
+ - A container, **ActivitySubNode**, which shows the representation of linked activities.
+ 
+
+##  Commands
+
+DOCUMENTATION IN PROGRESS
