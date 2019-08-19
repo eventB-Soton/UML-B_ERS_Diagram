@@ -516,6 +516,89 @@ public class Services {
 			transmitParameter(decomposition, parameterToTransmit);
 		}
 	}
+	
+	/**
+	 * Removes a parameter from the whole hierarchy under flowDiag.
+	 * @param flowDiag root FlowDiagram
+	 * @param parameterToRemove parameter to delete
+	 */
+	public void removeParameter(TypedParameterExpression parameterToRemove, FlowDiagram  flowDiag) {
+		//Remove the parameter from flowDiag parameters
+		boolean sucess = findAndRemoveParameter(flowDiag, parameterToRemove);
+		if(sucess) {
+			removeParameterWithoutSuccessCheck(flowDiag, parameterToRemove);
+		}
+		
+	}
+
+	private void removeParameterWithoutSuccessCheck(FlowDiagram flowDiag, TypedParameterExpression parameterToRemove) {
+		//then transmit the deletion order to all sub FlowDiagrams of flowDiag
+		EList<Child> children = flowDiag.getRefine();
+    	for(Child child : children) {
+    		if(child instanceof Leaf) {
+    			//if the child is a Leaf, transmit the deletion order to its decompositions
+    			deleteParameterOnLeaf((Leaf) child, parameterToRemove);
+    		} else if(child instanceof Constructor) {
+    			//if the child is a Constructor, transmit the deletion order to its linked leaves
+    			List<Leaf> linkedLeaves = getLinkedLeavesFromConstructor((Constructor) child);
+    			for(Leaf leaf : linkedLeaves) {
+    				deleteParameterOnLeaf(leaf, parameterToRemove);
+    			}
+    		} else {
+    			//unknown Child instance, log it
+    			//TODO : see how to log properly
+     			System.err.println("WARNING : unknown instance in removeParameter()");
+    		}
+    	}
+	}
+
+
+	/**
+	 * Simple function that transmits the deletion order of a parameter to all sub-flowDiagrams of a Leaf
+	 * @param leaf
+	 * @param parameterToRemove parameter to remove 
+	 */
+	private void deleteParameterOnLeaf(Leaf leaf, TypedParameterExpression parameterToRemove) {
+		//Access to the Leaf's decompositions
+		EList<FlowDiagram> decompositions = leaf.getDecompose();
+		for(FlowDiagram decomposition : decompositions) {
+			//remove the parameter from the decomposition
+			boolean success = findAndRemoveParameter(decomposition, parameterToRemove);
+			if(success) {
+				System.out.println("parameter removed from FlowDiagram : "+decomposition.getName()+", ID : "+decomposition.getExtensionId());
+			} else {
+				System.err.println("WARNING : Could not delete parameter "+parameterToRemove.getName()
+				                   +" from FlowDiagram "+decomposition.getName()+", ID : "+decomposition.getExtensionId());
+			}
+			//and transmit the parameter to the decomposition sub-tree
+			removeParameterWithoutSuccessCheck(decomposition, parameterToRemove);
+		}
+	}
+
+	/**
+	 * Look for the first parameter of flowDiag that has the same name, expression, and type as parameterToRemove,
+	 * and removes it from flowDiag's list of parameter
+	 * @param flowDiag FlowDiagram in which the parameter must be removed
+	 * @param parameterToRemove parameter to Remove
+	 * @return true if the parameter could be removed, else false
+	 */
+	private boolean findAndRemoveParameter(FlowDiagram flowDiag, TypedParameterExpression parameterToRemove) {
+		EList<TypedParameterExpression> params = flowDiag.getParameters();
+		for(TypedParameterExpression param : params) {
+			//Check if parameters properties match
+			boolean nameOK = param.getName().equals(parameterToRemove.getName());
+			boolean inputExprOK = param.getInputExpression().equals(parameterToRemove.getInputExpression());;
+			boolean typeOK = param.getType().equals(parameterToRemove.getType());;
+			
+			//if so, we found the parameter to remove. Remove it
+			if(nameOK && inputExprOK && typeOK) {
+				boolean success = params.remove(param);
+				return success;//parameter found return success value
+			}
+		}
+		//parameter could not be found
+		return false;
+	}
     
     
 }

@@ -1089,6 +1089,13 @@
             <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self"/>
           </initialOperation>
         </controls>
+        <actions tooltipExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) and self.eContainer().eContainer().oclIsKindOf(machine::Machine)) then 'Delete this parameter' else 'Operation Disabled' endif" imageExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) and self.eContainer().eContainer().oclIsKindOf(machine::Machine)) then '/ac.soton.eventb.atomicitydecomposition.design/icons/delete.PNG' else '/ac.soton.eventb.atomicitydecomposition.design/icons/delete_disabled.PNG' endif">
+          <initialOperation>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool_1:Let" variableName="callReturn" valueExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) and self.eContainer().eContainer().oclIsKindOf(machine::Machine)) then self.removeParameter(self.eContainer()) else null endif"/>
+            </firstModelOperations>
+          </initialOperation>
+        </actions>
       </groups>
       <groups name="AddParameterGroup" documentation="Allows the user to add a parameter to a FlowDiagram.&#xD;&#xA;This command is only made avalaible for the top-level flow diagram.&#xD;&#xA;Note that any parameter created via this command will be inherited by all of its children FlowDiagram." labelExpression="Add a Parameter" domainClass="atomicitydecomposition::FlowDiagram" semanticCandidateExpression="var:self" preconditionExpression="aql: (self.eContainer().oclIsKindOf(machine::Machine))">
         <controls xsi:type="properties:ButtonDescription" name="Add a parameter ..." labelExpression="Add a Parameter to this FlowDiagram" buttonLabelExpression="Add a parameter ...">
