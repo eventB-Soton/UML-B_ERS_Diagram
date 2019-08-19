@@ -20,8 +20,8 @@ The plugins that describe the ERS-Daigram Editor are the following :
 ## Documentation
 
 In this repository, you can find the user and developer documentation in the following files :
- - DeveloperDocumentation.md : Contains some tips about how to setup your Development Environment, and how to use Sirius.
+ - [DeveloperDocumentation.md](DeveloperDocumentation.md) : Contains some tips about how to setup your Development Environment, and how to use Sirius.
  Read it to get some information that should help you to contribute on this project.
- - DeveloperDocumentation_ERS_Diagram_Specific.md : Extensive documentation that describes the Sirius-based ERS Diagram Editor Specification, and how it works overall.
- - UserDocumentation.md : User-oriented documentation that explains the main features of the ERS Editor. Useful if you just want to use the tool without having to know everything about it.
+ - [DeveloperDocumentation_ERS_Diagram_Specific.md](DeveloperDocumentation_ERS_Diagram_Specific.md) : Extensive documentation that describes the Sirius-based ERS Diagram Editor Specification, and how it works overall.
+ - [UserDocumentation.md](UserDocumentation.md) : User-oriented documentation that explains the main features of the ERS Editor. Useful if you just want to use the tool without having to know everything about it.
 
