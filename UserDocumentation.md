@@ -177,7 +177,7 @@ Let suppose for example that you have an ERS Diagram like this one :
 ![Example of large diagram](/docImages/exampleLargeDiagram.jpg)
 And let's suppose that you are interested in refining the add_curr_path Event.
 
-You can do so directly in the "main" Diagram, but you can also open the specific refinement that you want to develop, in a specific Diagram.
+You can do so directly in the "main" Diagram, but you can also open the specific refinement that you want to develop, in a separate Diagram.
 
 Let's, in our example open the decomposition of add_path_curr in a separate diagram.
 
@@ -207,12 +207,16 @@ To open this view for any FlowDiagram :
  - Click on "Open Activity View"
 
 ![Image that shows how to open the Activity View](/docImages/OpenActivityView.png)
+
+
 Once the Activity Diagram View is open, you can then layout the diagram using the "Layout > Arrange All" command.
 
 When first opened, The Activity Diagram View shows only the abstract refinement level : 
 decompositions of Leaves are hidden by default.
 
 ![Image that shows the Activity View](/docImages/OpenActivityView2.png)
+
+
 This can be configured via various commands which will be detailed in the next section.
 
 # Activity View Main Functions
@@ -234,6 +238,7 @@ To use it :
 
 ![Image of the Open Related ERS Diagram](/docImages/OpenRelatedERSDiagram.png)
 
+
 The related ERS Diagram will open. 
 (If one does not already exists for the selected FlowDiagram, it will be created).
 
@@ -249,6 +254,7 @@ To use it :
 
 ![Image of the Show Decompositions](/docImages/ShowDecomposition.png)
 
+
 The decomposition are drawn.
 Re-layout the diagram.
 To do so : 
@@ -257,9 +263,11 @@ To do so :
 
 ![Image of the Show Decompositions](/docImages/ShowDecomposition2.png)
 
+
 The decompositions are now shown correctly.
 
 ![Image of the Show Decompositions](/docImages/ShowDecomposition3.png)
+
 
 ### Hide Decompositions
 
@@ -273,6 +281,7 @@ To use it :
 
 ![Image of the Hide Decompositions](/docImages/HideDecompositions.png)
 
+
 The decompositions are now hidden.
 Re-layout the diagram.
 To do so : 
@@ -281,10 +290,12 @@ To do so :
 
 ![Image of the Hide Decompositions](/docImages/HideDecompositions2.png)
 
+
 The diagram is now shown with the selected Leaf's decompositions hidden.
 
 
 ![Image of the Hide Decompositions](/docImages/HideDecompositions3.png)
+
 
 ### Open in a separate Activity View Diagram
 
@@ -360,17 +371,26 @@ Select the desired decomposition level.
 
 Then Click on "Ok".
 
-The decomposition level is drawn. The diagram now needs to be re-layout.
-To do so : 
-
- - Layout > Arrange All
+The decomposition level is drawn. 
 
 
 ![Image of the Show Decomposition up to a certain level](/docImages/ShowDecompositionUpToCertainLevel4.png)
 
+
+The diagram now needs to be re-layout.
+To do so : 
+
+ - Layout > Arrange All
+
+ 
+![Image of the Show Decomposition up to a certain level](/docImages/ShowDecompositionUpToCertainLevel5.png)
+
+
+
 The diagram is then correctly shown with the wanted decomposition level.
 
 
-![Image of the Show Decomposition up to a certain level](/docImages/ShowDecompositionUpToCertainLevel5.png)
+![Image of the Show Decomposition up to a certain level](/docImages/ShowDecompositionUpToCertainLevel6.png)
+
 
 Note that for large diagrams, you might need to re-layout the diagram more than once in order to organize it correctly.
