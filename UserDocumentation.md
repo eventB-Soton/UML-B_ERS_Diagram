@@ -24,15 +24,18 @@ Open Event-B Perspective :
 
  - Window > Perspective > Open Perspective > Other ... > Event-B > Open
 
+
 ![Image which shows the Perspective Dialog](/docImages/OpenEventBPerspective.PNG)
 
 Then, create a FlowDiagram in your Machine : 
 
  - Right Click on your Machine > Add FlowDiagram > Give it a Name > Ok
 
+
 ![Image which shows the Add FlowDiagram](/docImages/addFlowDiagram.png)
 
 The new FlowDiagram should now show in your machine.
+
 
 ![Image which shows the Add FlowDiagram](/docImages/FlowDiagAdded.PNG)
 
@@ -43,11 +46,13 @@ Open Sirius Perspective :
 
  - Window > Perspective > Open Perspective > Other ... > Sirius > Open
 
+
 ![Image which shows the Perspective Dialog](/docImages/openSiriusPerspective.PNG)
 
 Then convert your project as a Modelling Project : 
 
  - Right Click on your Project > Configure > Convert to Modelling Project
+
 
 ![Image which shows the Add FlowDiagram](/docImages/ConvertToModelingProject.png)
 
@@ -60,15 +65,19 @@ Then, you need to create a representation for your FlowDiagram :
  You should now see your FlowDiagram.
  - Now create a Representation for it : Right Click on it > New Representation > Other ...
  
+ 
 ![Image which shows how to Create a representation](/docImages/CreateRepresentation.png)
 
 A Dialog should now open.
 As we want to create an ERS Diagram Representation of our FlowDiagram, select "ERS Diagram" then click on "Finish".
 
+
 ![Image which shows said Dialog](/docImages/CreateRepresentation2.png)
+
 
 The ERS Diagram should now open.
 From here you will be able to edit the diagram via the Creation Tool located on the right of the Editor.
+
 
 ![Image which shows the Editor Panel](/docImages/editorPanel.PNG)
 
@@ -80,21 +89,30 @@ All those operations can be done via the menu on the left.
 ## Add a Leaf
 To add a Leaf, simply click on the "Leaf" tool, then click on the diagram.
 
+
 ![Image which shows the Leaf creation tool](/docImages/LeafCreation.PNG)
+
 You can then rename the Leaf by selecting the Leaf (by clicking on it), then clicking once on its name.
 
+
 ![Image which shows how to rename a Leaf](/docImages/RenameLeaf.png)
+
 ## Add a Constructor (All, And, Loop, ...)
 To add a Constructor, click on the desired tool, then click on the diagram.
 
 The Constructor is the added on the diagram.
+
 ![Image which shows how to create a Constructor](/docImages/ConstructorCreation.PNG)
+
 If the constructor has a parameter, a dialog will open to allow you to enter the parameter's information.
+
 ![Image which shows said Dialog](/docImages/ConstructionCreationParameter.PNG)
+
 ## Create connections
 The "Create links" tool allows you to create links between elements of the Diagram.
 
 ![Image which shows the linking tools](/docImages/CreateLinks.PNG)
+
 ### Constructor -> Leaf link
 As its name implies, this tool allows to link a Constructor (All, And, Loop, ...) with a Leaf.
 
@@ -109,11 +127,11 @@ The connection will then be created.
 ## Refine an Event / Leaf
 To add refinements to a Leaf, right click on it, then click on "Add Refinement".
 
-![Image which shows the refine tool](/docImages/AddRefinement.png)
+![Image which shows the refine tool](/docImages/ud_AddRefinement.png)
 
 A new FlowDiagram is then created as the decomposition of the Leaf (decompose attribute of the Leaf in the model).
 
-![Image which shows the FlowDiagram added](/docImages/AddRefinement2.png)
+![Image which shows the FlowDiagram added](/docImages/ud_AddRefinement2.png)
 
 ## Re-layout the diagram
 
@@ -265,6 +283,7 @@ To do so :
 
 The diagram is now shown with the selected Leaf's decompositions hidden.
 
+
 ![Image of the Hide Decompositions](/docImages/HideDecompositions3.png)
 
 ### Open in a separate Activity View Diagram
@@ -278,11 +297,15 @@ To use it :
  - Right click on a decomposition of a Leaf (the light-green zone
  - Click on "Open in a separate Activity View Diagram"
 
+
 ![Image of the Open in a separate Activity Diagram](/docImages/OpenInSeparateActivityDiagram.png)
+
 
 The Activity Diagram View is then opened.
 
+
 ![Image of the Open in a separate Activity Diagram](/docImages/OpenInSeparateActivityDiagram2.png)
+
 
 
 ### Open Decompositions in a Separate Activity Diagram
@@ -297,11 +320,15 @@ To use it :
  - Right click on a Leaf which has decompositions (the command won't show if the Leaf has none)
  - Click on "Open Decompositions in a Separate Activity Diagram"
 
+
 ![Image of the Open Decompositions in a Separate Activity Diagram](/docImages/OpenDecompositionsinSeparateActivityDiagram.png)
+
 
 The selected Leaf's decomposition(s) will then open in a separated Diagram.
 
+
 ![Image of the Open Decompositions in a Separate Activity Diagram](/docImages/OpenDecompositionsinSeparateActivityDiagram2.png)
+
 
 
 ### Show Decomposition up to a certain level
@@ -313,6 +340,7 @@ To use it :
 
  - Right Click on the background of an Activity Diagram View
  - Click on "Show Decomposition up to a certain level"
+ 
 
 ![Image of the Show Decomposition up to a certain level](/docImages/ShowDecompositionUpToCertainLevel.png)
 
