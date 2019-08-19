@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+
 import ac.soton.eventb.atomicitydecomposition.All;
 import ac.soton.eventb.atomicitydecomposition.And;
 import ac.soton.eventb.atomicitydecomposition.Child;
@@ -458,6 +460,62 @@ public class Services {
     public List<TypedParameterExpression> getNewParametersList(){
     	return new ArrayList<TypedParameterExpression>();
     }
+    
+    /**
+     * Transmits the given parameter to all the children FlowDiagrams of flowDiag
+     * @param flowDiag FlowDiagram for which we want to transmit a parameter
+     * @param parameterToTransmit parameter to transmit
+     */
+    public void doInheritanceOfParameter(FlowDiagram flowDiag, TypedParameterExpression parameterToTransmit) {
+		System.out.println("parameter added to FlowDiagram : "+flowDiag.getName()+", ID : "+flowDiag.getExtensionId());
+    	//If the flowDiagram has child flowDiagram, we transmit the new parameter to them
+    	transmitParameter(flowDiag, parameterToTransmit);
+    }
+
+    /**
+     * Transmits a newly created parameter to the whole hierarchy of a FlowDiagram.
+     * The parameter is registered into all FlowDiagrams that are children of flowDiag
+     * @param flowDiag root FlowDiagram
+     * @param parameterToTransmit parameter to transmit to all the hierarchy of the tree
+     */
+	private void transmitParameter(FlowDiagram flowDiag, TypedParameterExpression parameterToTransmit) {
+		EList<Child> children = flowDiag.getRefine();
+    	for(Child child : children) {
+    		if(child instanceof Leaf) {
+    			//if the child is a Leaf, transmit the parameter to its decompositions
+    			transmitParameterOnLeaf((Leaf) child, parameterToTransmit);
+    		} else if(child instanceof Constructor) {
+    			//if the child is a Constructor, transmit the parameter to its linked leaves
+    			List<Leaf> linkedLeaves = getLinkedLeavesFromConstructor((Constructor) child);
+    			for(Leaf leaf : linkedLeaves) {
+    				transmitParameterOnLeaf(leaf, parameterToTransmit);
+    			}
+    		} else {
+    			//unknown Child instance, log it
+    			//TODO : see how to log properly
+     			System.err.println("WARNING : unknown instance in transmitParameter()");
+    		}
+    	}
+	}
+
+	/**
+	 * Simple function that transmits a newly created parameter 
+	 * to all FlowDiagrams that are children (direct or not) to a Leaf.
+	 * @param leaf 
+	 * @param parameterToTransmit parameter to transmit to leaf's decompositions
+	 */
+	private void transmitParameterOnLeaf(Leaf leaf, TypedParameterExpression parameterToTransmit) {
+		//Access to the Leaf's decompositions
+		EList<FlowDiagram> decompositions = leaf.getDecompose();
+		for(FlowDiagram decomposition : decompositions) {
+			//transmit the parameter to the decomposition
+			TypedParameterExpression copy = EcoreUtil.copy(parameterToTransmit);
+			decomposition.getParameters().add(copy);
+			System.out.println("parameter added to FlowDiagram : "+decomposition.getName()+", ID : "+decomposition.getExtensionId());
+			//and transmit the parameter to the decomposition sub-tree
+			transmitParameter(decomposition, parameterToTransmit);
+		}
+	}
     
     
 }
