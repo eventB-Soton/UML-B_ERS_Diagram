@@ -384,6 +384,9 @@
                     </subModelOperations>
                   </subModelOperations>
                 </subModelOperations>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:instance">
+                  <subModelOperations xsi:type="tool_1:Let" variableName="dummyForUUIDSettingWorkaround" valueExpression="aql:EcoreUtil.getID(instance)"/>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -474,6 +477,9 @@
                     </subModelOperations>
                   </subModelOperations>
                 </subModelOperations>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:instance">
+                  <subModelOperations xsi:type="tool_1:Let" variableName="dummyForUUIDSettingWorkaround" valueExpression="aql:EcoreUtil.getID(instance)"/>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -552,6 +558,9 @@
                     </subModelOperations>
                   </subModelOperations>
                 </subModelOperations>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:instance">
+                  <subModelOperations xsi:type="tool_1:Let" variableName="dummyForUUIDSettingWorkaround" valueExpression="aql:EcoreUtil.getID(instance)"/>
+                </subModelOperations>
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
@@ -617,6 +626,9 @@
                       </subModelOperations>
                     </subModelOperations>
                   </subModelOperations>
+                </subModelOperations>
+                <subModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:instance">
+                  <subModelOperations xsi:type="tool_1:Let" variableName="dummyForUUIDSettingWorkaround" valueExpression="aql:EcoreUtil.getID(instance)"/>
                 </subModelOperations>
               </firstModelOperations>
             </initialOperation>
