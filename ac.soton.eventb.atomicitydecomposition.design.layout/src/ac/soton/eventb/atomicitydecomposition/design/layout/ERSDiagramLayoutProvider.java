@@ -16,9 +16,13 @@ import org.eclipse.gmf.runtime.diagram.ui.services.layout.ILayoutNode;
 import org.eclipse.gmf.runtime.diagram.ui.services.layout.ILayoutNodeOperation;
 import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.Node;
+import org.eclipse.sirius.diagram.DDiagram;
+import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.DNode;
+import org.eclipse.sirius.diagram.description.DiagramElementMapping;
 import org.eventb.emf.core.machine.Machine;
 
+import ac.soton.eventb.atomicitydecomposition.Child;
 import ac.soton.eventb.atomicitydecomposition.FlowDiagram;
 import ac.soton.eventb.atomicitydecomposition.Leaf;
 import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
@@ -49,19 +53,32 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 			Iterator nodes = ((ILayoutNodeOperation)operation).getLayoutNodes().listIterator();
 			
 			if (nodes.hasNext()) { 
-				//we access any node of the diagram to check that its linked semantic element is contained in a FlowDiagram
+				//we access the first node of the diagram to check that its linked semantic element is contained in a FlowDiagram or represents a FlowDiagram
 				Node node = ((ILayoutNode)nodes.next()).getNode();
 				if(node.getElement() instanceof DNode) {
 					EList<EObject> linkedSemanticElements = ((DNode) node.getElement()).getSemanticElements();
 					if(linkedSemanticElements != null && linkedSemanticElements.size() > 0) {
 						EObject semanticElement = linkedSemanticElements.get(0);
-						//we check that the container of the semantic element is a FlowDiagram
-						return semanticElement.eContainer() instanceof FlowDiagram;
+						//we check that the semantic element is a FlowDiagram
+						boolean semanticElementIsERSRoot = semanticElement instanceof FlowDiagram;
+						//or is contained in a FlowDiagram
+						boolean semanticElementIsChildofERSRoot = semanticElement instanceof Child && semanticElement.eContainer() instanceof FlowDiagram;
+						
+						if(semanticElementIsERSRoot || semanticElementIsChildofERSRoot) {
+							//we check that the current diagram is not an Activity Diagram View (which must be "layouted" using Sirius default algorithm)
+							DiagramElementMapping nodeMapping = ((DNode)node.getElement()).getDiagramElementMapping();
+							//XXX : This if condition is not that great : it is simple, but it might become false if the Activity Diagram Specification is changed
+							//XXX : if you notice that the layout of the Activity Diagram View is messed up, this check being false is 99% the cause
+							if(nodeMapping.getName().equals("InitialNode")) {
+								//An Activity Diagram View must not be "layouted" using this algorithm, so we return false
+								return false;
+							}
+						}//else
+						return semanticElementIsERSRoot || semanticElementIsChildofERSRoot;
 					}
 				}
 			} 
 		} //else
-		
 		return false;
 	}
 	
