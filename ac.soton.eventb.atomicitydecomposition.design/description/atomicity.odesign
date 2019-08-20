@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:filter="http://www.eclipse.org/sirius/diagram/description/filter/1.1.0" xmlns:properties="http://www.eclipse.org/sirius/properties/1.0.0" xmlns:properties-ext-widgets-reference="http://www.eclipse.org/sirius/properties/1.0.0/ext/widgets/reference" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="atomicity" version="12.0.0.2017041100">
   <ownedViewpoints name="ERSDiagram" modelFileExtension="bum">
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ERS Diagram" domainClass="atomicitydecomposition::FlowDiagram" enablePopupBars="true">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="ERS Diagram" domainClass="atomicitydecomposition::FlowDiagram">
       <metamodel href="http://soton.ac.uk/models/eventb/atomicitydecomposition#/"/>
       <layout xsi:type="description_1:CompositeLayout"/>
       <defaultLayer name="Default">
