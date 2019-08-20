@@ -1,5 +1,6 @@
 
 
+
 # Developer documentation - ERS Diagram Specification
 
 This is the developer documentation for the Sirius-based ERS Diagram Editor, and the ERS Activity Diagram View.
@@ -94,8 +95,11 @@ This service is then used by all Nodes as their semantic candidate expression.
 
 **Performance Note :**
  Because of this, this service is called once per type of Node.
+ 
 If you ever happen to have huge models, it might be useful to have a look at this service if you look at methods to optimize, since the model hierarchy is browsed multiple times by it (once each time it is called).
+
 On way to optimize it would be to keep the diagram hierarchy in cache (store in in a variable at first call and return it on next calls). This cache would then have to be invalidated each time the model is changed/updated.
+
 I did not implement such a cache in order to keep the service simple and easy to understand, but you can try to implement it if performance becomes an issue.
 
 
@@ -148,31 +152,50 @@ This tool allows to directly edit the name of a Leaf.
 ![Image of the Add Refinement operation](/docImages/AddRefinement.png)
 
 This operation allows an user to right click on a Leaf and choose "Add Refinement" to create a new FlowDiagram as decomposition of the clicked Leaf.
+
+
 One important thing that this tool does is to access to parameters declared on the parent FlowDiagram and the parent Constructor (if any), and copy their parameters into the newly created FlowDiagram.
+
+
 That way, the parameters declared higher in the diagram hierarchy  are inherited by the newly created FlowDiagram.
 
 ## Constructor Creation tools
 ### Node Creation for  And, Loop, Or, Xor
 These creation tools allow to create Xor, And, Loop, and Or Nodes.
+
+
 They simply create an instance of said Constructors.
+
+
 As for Leafs, this creation tool also calls `EcoreUtil.getID(instance)`in order to make sure that the newly created instance's ID is correctly initialized.
 
 ### SomeNode, ParNode, OneNode, AllNode
 These creation tools allow to create Some, Par, One, All Nodes.
+
+
 They create an instance of said objects, and then show a Dialog to the user so that he can enter the parameter's properties.
+
+
+As for Leafs, this creation tool also calls `EcoreUtil.getID(instance)`in order to make sure that the newly created instance's ID is correctly initialized.
 
 ## Create Links tools
 ### Constructor -> Leaf link
 This tool allows the user to create a link between Constructor Nodes and Leaf Nodes.
+
+
 Its role is to update the "link" attribute of the Constructor to represent the newly created connection.
+
 
 This link uses `service:checkIsConstructorConnectionStartAllowed()` as its precondition. 
 That precondition must be true for the connection to be started.
+
 
 This expression simply checks if the constructor on which the connection is started allows more links to be added, and returns true if it does.
 
 ### Refines Link
 This tool allows a user to create links between a SubFlowDiagram Node and a Leaf.
+
+
 Its simply adds the linked Leaf to the list of refinements ("refine" attribute) of the linked FlowDiagram.
 
 ## Open Diagrams tools
@@ -180,15 +203,23 @@ Its simply adds the linked Leaf to the list of refinements ("refine" attribute) 
 ![Image of the Open Activity View operation](/docImages/OpenActivityView.png)
 
 This tool allows the user to right click on a SubFlowDiagram (or the root FlowDiagram), and to open its representation as an Activity View Diagram. 
+
+
 If such a representation already exists, it is opened, else it is created.
+
+
 This tool is a simple call to Sirius built-in Navigation tool.
 
 ### Open in a separate ERS Diagram
 ![Image of the Open in a separate ERS Diagram](/docImages/OpenInASeparateERSDiagram.png)
 
-This tool allows the user to right click on a SubFlowDiagram (or the root FlowDiagram), and to open it in a separate ERS Diagram.
+This tool allows the user to right click on a SubFlowDiagram (or the root FlowDiagram), and to open it in a separate ERS Diagram. 
 That way, a user can focus on any sub-part of an ERS Diagram. 
+
+
 If such a representation already exists, it is opened, else it is created.
+
+
 This tool is a simple call to Sirius built-in Navigation tool.
 
 # Specification of the Activity View Diagram
@@ -203,6 +234,8 @@ The ERS Activity View Diagram provides only one layer, where all elements are di
 ![Image of the Hide all Leaf Decompositions](/docImages/HideAllLeafDecompositions.png)
 
 This filter allows an user to hide all DecomposeSubNode.
+
+
 This filter has a stronger seniority than the "Show Decomposition up to a certain level" tool.
 i.e. : if this filter is activated, no decompositions will be shown, no matter what.
 (The  "Show Decomposition up to a certain level" tool will have no effect while this filter is activated).
@@ -211,7 +244,10 @@ i.e. : if this filter is activated, no decompositions will be shown, no matter w
 As the Activity View Diagram bases itself on the same model (an atomicitydecomposition model) as the ERS Diagram one, its behavior is less straight forward.
 
 For example, in the ERS diagram, any element that exist in the displayed model is represented by one and only one graphical element. There is a one in one mapping between model elements and their graphical representation.
+
+
 In the Activity View, however, that is not the case : one model element has multiple graphical elements linked to it. 
+
 
 In this part, I will detail how the "translation" is made. 
 i.e. : How a model element is displayed in the Activity Diagram View.
@@ -219,19 +255,37 @@ i.e. : How a model element is displayed in the Activity Diagram View.
 ### Representation of a FlowDiagram element
 Any ERS diagram model has a FlowDiagram element as its root.
 In an ERS Diagram, a FlowDiagram is displayed as a gray circle. 
+
+
 In the Activity View Diagram, such an element is displayed via two Nodes : An **InitialNode** and a **FinalNode**, which represent the start and the end of the flow displayed by the Activity Diagram.
+
+
 This relation can be shown in the image bellow : 
+
+
 ![An image displaying the Activity Diagram View](/docImages/Sequence.png)
 
 ### Representation of a Leaf element
 In the Activity View, Leaves are represented in a way that is quite similar to their ERS diagram representation.
+
+
 Any Leaf is represented by an **ActivityNode**. 
+
+
 Such a representation can be seen in the following image : 
+
+
 ![An image displaying the Activity Diagram View](/docImages/Sequence2.png)
 
 If a Leaf has a sub-FlowDiagram - that is, if its "refines" attributes contains a FlowDiagram - this FlowDiagram is displayed in a light-green container, which shows this sub-FlowDiagram as an Activity Diagram.
+
+
 This graphical container is called a **DecomposeSubNode** in the diagram specification.
+
+
 The image below shows an example of this sub-flow representation :
+
+
 ![An image displaying the Activity Diagram View](/docImages/Sequence3.png)
 
 Note that by default, sub-flows are hidden, but they can be shown via one of the two following commands : 
@@ -242,6 +296,8 @@ Note that by default, sub-flows are hidden, but they can be shown via one of the
 ### Sequence between elements
 Sequence between elements is represented by the left-to-right order of elements in an ERS diagram.
 In the Activity View, sequence is represented simply via arrows between said elements.
+
+
 In the specification, three types of Edges are declared to represent this sequence : 
 
  - **InitialEdge**, which goes from a StartingNode to various other kinds of Nodes.
@@ -263,6 +319,8 @@ Because of these different situations, I thought that it would be easier to main
 
 ### Representation of Xor Nodes
 Xor Nodes are represented as Decision/Merge Nodes in the Activity View.
+
+
 In the diagram Sirius specification, these Nodes are called **DecisionNode** and **MergeNode**. 
 Those nodes declare the graphical representation of Decision and Merge Nodes.
 
@@ -270,6 +328,7 @@ The Services *getElementsWithMergeNodeRepresentation()* and *getElementsWithDeci
 
 In the case of a Xor Node, both Decision and merge Nodes are used. 
 This means that for each Xor node in the model, one DecisionNode and one MergeNode are added to the Activity View Diagram.
+
 
 All Leaves that are declared as xorLinks of the Xor Node are linked to the DecisionNode and the MergeNode by a **DecisionBranchingEdge** and a **DecisionMergeEdge** respectively.
 
@@ -280,17 +339,23 @@ This representation is shown in the image bellow :
 And Nodes are represented as Fork/join regions in the Activity View.
 Like for Xor Nodes, these graphical elements are declared in the diagram specification file as **ForkNode** and **JoinNode**. 
 
+
 The Service *getElementsWithForkNodeRepresentation()* is used to get which model elements needs to have a ForkNode as their representation. 
 No specific service is used for JoinNodes since And elements are the only one which use this graphical element for now.
 
+
 All Leaves that are declared as andLinks of the And Node are linked to the ForkNode and the JoinNode by a **ForkEdge** and a **JoinEdge** respectively.
 
+
 This representation is shown in the image bellow : 
+
+
 ![An image displaying the Activity Diagram View](/docImages/AndNodes.png)
 
 ### Representation of Or Nodes 
 Or Nodes are represented as "Fork/Merge regions" in the Activity View.
 So these representation simply use ForkNodes, MergeNodes, ForkEdges, and DecisionMergeEdges.
+
 
 See the respective Services (getElementsWithForkNodeRepresentation(), getElementsWithMergeNodeRepresentation()) for more details.
 
@@ -305,14 +370,20 @@ Loop Representation in the Activity View is composed of a **LoopStartNode**, a *
  - some SequenceEdges between the loop Leaves (if there are multiples).
  - and finally a **LoopBodyEndEdge** which goes from the last Leaf of the loop to the DecisionNode.
 
+
 This representation is shown in the image bellow : 
+
+
 ![An image displaying the Activity Diagram View](/docImages/LoopNodes.png)
 
 ### Representation of other Constructors (Some, One, Par, All)
 We haven't decided for a definitive Activity View representation for other Constructors (Some, One, Par, All Nodes).
 Right now they are displayed as blue boxes which contain their linked Leaves (someLink, oneLink, ...).
 
+
 For example, the representation of a Some Node is as follows : 
+
+
 ![An image displaying the Activity Diagram View](/docImages/OthersConstructors.png)
 
 On the specification, these Nodes representation is declared as : 
@@ -368,11 +439,13 @@ To understand how it works, you should have a look at the following :
 
 This command does exactly that : It simply calls the  *setSubDiagramVisibility(Leaf, bool)* Service to change the "display property" of the Leaf, which causes its ActivityNode > DecomposeSubNode precondition to become true, which finally causes the said Node to be shown/drawn.
 
+
 After that, the command calls the *relayoutDiagram()* Service to re-layout the diagram.
 *(Note that this "re-layout pass" does not layout the diagram correctly : the root container is not resized. 
 So, currently, the user needs to "re-layout" manually once for the said container to be correctly resized (via the arrange-all feature).
 I did not manage to do it programmatically, but it would probably be an improvement if it was implemented.
 So that might be a thing you might want to have a look at. This "first re-layout pass" is only there so that the user has to re-layout the diagram only once and not twice).*
+
 
 Oh, and in case you're wondering, no, the "callReturn" and "callReturn2" variables values are unused.
 I just used Sirius's "let" instruction to make a call to a Service, since it was the easiest way to do so.
@@ -389,6 +462,8 @@ The counterpart of the "Show decompositions". It works exactly the same way, and
 
 This command is quite similar to the "Open in a separate Activity View Diagram" command.
 The only difference is that it is available on a Leaf instead of a FlowDiagram element.
+
+
 It just calls Sirius's "Navigate" built-in command for each of the decompositions of the selected Leaf.
 So basically, it just opens each of the decompositions of a Leaf in a separate diagram.
 
@@ -400,10 +475,13 @@ This command allows a user to select the level of decomposition that it wants to
 The level 0 is considered to be the "abstract level" or the "root level". 
 i.e. : Only the direct children of the root FlowDiagram are shown.
 
+
 This command opens a Dialog which asks the user which decomposition level he wants to display.
 To determine which level is the maximum, the *getMaxLevelOfDecomposition()* Service is called, which determines the depth of the tree (in terms of highest number of Leaves traversed on all branches).
 
+
 The user is then asked which level he wants to display (the level going from 0 to maxLevelOfDecomposition).
+
 
 Then, when the user validates his choice (by pressing the "OK" button), the *showDecompositionUpToLevel(fieldValue)* Service is called.
 This service then recursively modifies the sets the "visibility property" (see the "Show Decompositions"  command explanation) for Leave in its hierarchy, in order to display decompositions up to the user-chosen level.
@@ -412,23 +490,107 @@ This service then recursively modifies the sets the "visibility property" (see t
 Using Sirius, you can declare custom properties-tab to help your tool user to manipulate a model properties.
 In order to help the user to access quickly to its model properties (and also to help with debugging), I declared some new properties tab, which I will describe in this section.
 
+## Child Property View
+
+![Image of the Child Property view](/docImages/ChildProperties.png)
+This tab allows the user to change the "ref" attribute of any Child (i.e. : a Leaf or a Constructor).
+
+
+It is only displayed when a Child is selected.
+
+
+It is simply composed of a checkbox that updates said attribute for the selected Child.
+
+
 ## Constructor Parameter View
+![Image of the Constructor Parameter view](/docImages/ConstructorParameterView.png)
+
 This tab allows to display the parameters of a Constructor element.
+
+
 It is thus displayed when a Constructor element who have a "newParameter" attribute (All, Par, One ...) is clicked on.
+
+
 This parameter tab displays the name, type and InputExpression of the TypedParameter declared in a Constructor.
+
+
 All these properties are made to be non modifiable, in order to keep the consistency of inherited parameters for  children FlowDiagrams of this Constructor in the ERS model.
 
 ## Constructor Links View
+![Image of the Constructor Links view](/docImages/ConstructorLinksView.png)
+
 This tab allows to display the links of a Constructor.
 Basically, it allows the user to have a look (and modify/reorder) the content of the "links"  attribute of a Constructor (orLinks, allLink, ...).
 
 ## FlowDiagram Parameter View
+![Image of the FlowDiagram Parameter View](/docImages/FlowDiagramParameterView.png)
+
 This tab allows the user to have a look at all the parameters declared for a FlowDiagram.
-The tab only shows the parameters who are directly declared in the selected FlowDiagram.
+
+### Update of the parameter Properties
+For the root FlowDiagram, the parameters properties are modifiable.
+If one of these properties is modified, the update is then transmitted to all FlowDiagrams that are children of the root FlowDiagram.
+
+This update is done by calling the services : 
+ - `propagateParameterNameChange(self.eContainer(), newValue)` to propagate a renaming of a parameter
+ - `propagateParameterTypeChange(self.eContainer(), newValue)` for the Type
+ - `propagateParameterInputExpresssionChange(self.eContainer(), newValue)` for the InputExpression
+
+These services update the parameter value in the model, and propagate this update to all children FlowDiagrams of the root one.
+
+This tab also provides 3 toolbar actions : 
+One to remove a parameter, and two to move up and down the parameter in the FlowDiagram's parameter list.
+
+### Reorder Parameters
+The first two Toolbar Actions describe how to reorder a parameter.
+When the user clicks on one of these toolbars buttons, the following services are called : 
+
+ - `parameterMoveDown(self.eContainer())` for the "move down" action
+ - `parameterMoveUp(self.eContainer())` for the "move up" action
+
+
+Said services reorder ONLY the selected FlowDiagram list, and do not propagate this reorder in any way.
+
+
+(The Reason for this non-propagation is that I considered it could become a source of confusion for the user).
+
+### Delete a parameter
+The other toolbar action allows the user to remove a parameter from the whole model.
+
+
+This toolbar action is only active for the root FlowDiagram.
+
+
+When clicked, a confirmation Diaglog shows, and if the user confirms his action, the service `removeParameter(self.eContainer())` is called.
+
+
+This service removes the parameter from the root FlowDiagram parameters list, and also from all children FlowDiagrams that know this parameter.
+
+That way, the parameter is removed from the entire diagram.
+
+### Creation of a new parameter
+A button allows the user to add a new parameter to the root FlowDiagram.
+
+
+When this button is pressed, a Dialog is shown, that allows the user to enter the parameter's properties.
+
+
+When the user validates, the `doInheritanceOfParameter(createdParameter)` Service is called. This Service adds the newly-created parameter to the parameters list of all of the children FlowDiagrams of the root FlowDiagram.
+
+
+Basically, this service makes sure that parameters stay consistent in the ERS Diagram, by making children FlowDiagrams inherit their parent's parameters.
+
+
+
 
 ## FlowDiagram Refines View
+
+![Image of the FlowDiagram Refines View](/docImages/FlowDiagramRefinementsView.png)
+
 This tab shows the refinements of a FlowDiagram.
 It thus shows all Leaves and Constructors that are declares in the "refines" attribute of the selected FlowDiagram.
+
+
 Like in other tabs, the user can reorder and add/delete "refinements" to the FlowDiagram.
 
 
