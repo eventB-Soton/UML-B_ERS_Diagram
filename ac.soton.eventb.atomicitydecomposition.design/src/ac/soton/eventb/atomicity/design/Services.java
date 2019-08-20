@@ -316,6 +316,16 @@ public class Services {
        	TypedParameterExpression param =  node.getNewParameter();
        	return  "PAR(" + getNewParameterStringRepresentation(param) + ")";
      }
+     
+	/**
+	 * Returns the label displayed in the ERS Diagram for the root FlowDiagram.
+	 * @param flowDiag The FlowDiagram that we want the label of
+	 * @return label of the given FlowDiagram
+	 */
+     public String getFlowDiagramLabelWithParameters(FlowDiagram flowDiag) {
+    	 EList<TypedParameterExpression> param =  flowDiag.getParameters();
+    	 return  flowDiag.getName() + getParametersStringFormat(param);
+     }
 
      
      /**

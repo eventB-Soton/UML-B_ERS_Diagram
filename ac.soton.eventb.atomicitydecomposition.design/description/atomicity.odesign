@@ -69,7 +69,7 @@
           </style>
         </nodeMappings>
         <nodeMappings name="SubFlowNode" semanticCandidatesExpression="service:getFlowDiagramAndChildrenNodes()" domainClass="atomicitydecomposition::FlowDiagram">
-          <style xsi:type="style:DotDescription" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NSEW">
+          <style xsi:type="style:DotDescription" showIcon="false" labelExpression="[''/]" labelPosition="node" resizeKind="NSEW">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <forbiddenSides>WEST</forbiddenSides>
@@ -78,10 +78,10 @@
             <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
           </style>
           <conditionnalStyles predicateExpression="aql:self.eContainer().oclIsKindOf(machine::Machine)">
-            <style xsi:type="style:DotDescription" sizeComputationExpression="7" labelPosition="node" resizeKind="NSEW">
+            <style xsi:type="style:EllipseNodeDescription" labelExpression="service:getFlowDiagramLabelWithParameters()" labelPosition="node" resizeKind="NSEW" horizontalDiameterComputationExpression="20" verticalDiameterComputationExpression="6">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
-              <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+              <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             </style>
           </conditionnalStyles>
         </nodeMappings>
