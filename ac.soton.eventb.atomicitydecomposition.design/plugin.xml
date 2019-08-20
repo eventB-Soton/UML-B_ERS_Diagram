@@ -7,11 +7,4 @@
 	       name="atomicity">
     </component>
   </extension>
-  <extension
-        point="org.eclipse.sirius.diagram.ui.layoutProvider">
-     <layoutProvider
-           priority="highest"
-           providerClass="ac.soton.eventb.atomicity.design.layout.CustomLayoutProvider">
-     </layoutProvider>
-  </extension>
 </plugin>
