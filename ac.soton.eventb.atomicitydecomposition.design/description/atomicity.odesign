@@ -1101,6 +1101,20 @@
             <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self"/>
           </initialOperation>
         </controls>
+        <actions tooltipExpression="Reorder parameter - Go Up" imageExpression="/ac.soton.eventb.atomicitydecomposition.design/icons/up_arrow.png">
+          <initialOperation>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool_1:Let" variableName="callReturn" valueExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) then self.parameterMoveUp(self.eContainer()) else null endif"/>
+            </firstModelOperations>
+          </initialOperation>
+        </actions>
+        <actions tooltipExpression="Reorder parameter - Go Down" imageExpression="/ac.soton.eventb.atomicitydecomposition.design/icons/down_arrow.png">
+          <initialOperation>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool_1:Let" variableName="callReturn" valueExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) then self.parameterMoveDown(self.eContainer()) else null endif"/>
+            </firstModelOperations>
+          </initialOperation>
+        </actions>
         <actions tooltipExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) and self.eContainer().eContainer().oclIsKindOf(machine::Machine)) then 'Delete this parameter' else 'Operation Disabled' endif" imageExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) and self.eContainer().eContainer().oclIsKindOf(machine::Machine)) then '/ac.soton.eventb.atomicitydecomposition.design/icons/delete.PNG' else '/ac.soton.eventb.atomicitydecomposition.design/icons/delete_disabled.PNG' endif">
           <initialOperation>
             <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">

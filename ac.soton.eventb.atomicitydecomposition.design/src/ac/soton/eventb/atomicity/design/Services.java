@@ -522,7 +522,7 @@ public class Services {
 	 * @param flowDiag root FlowDiagram
 	 * @param parameterToRemove parameter to delete
 	 */
-	public void removeParameter(TypedParameterExpression parameterToRemove, FlowDiagram  flowDiag) {
+	public void removeParameter(TypedParameterExpression parameterToRemove, FlowDiagram flowDiag) {
 		//Remove the parameter from flowDiag parameters
 		boolean sucess = findAndRemoveParameter(flowDiag, parameterToRemove);
 		if(sucess) {
@@ -600,5 +600,49 @@ public class Services {
 		return false;
 	}
     
+	/**
+	 * Moves the parameter parameterToMove up one position in the list of parameters of flowDiag.
+	 * If parameterToMove does not exists in flowDiag.getParameters() or is in its first position, nothing is done.
+	 * @param parameterToMove parameter to move up one position
+	 * @param flowDiag flowDiagram in which the parameter reordering is done
+	 */
+	public void parameterMoveUp(TypedParameterExpression parameterToMove, FlowDiagram flowDiag) {
+		EList<TypedParameterExpression> params = flowDiag.getParameters();
+		int index = params.indexOf(parameterToMove);
+		//if the parameter is not already the first element, we remove it from the list of parameters
+		//and insert it on the index right before its former.
+		if(index > 0) {
+			//note that if the parameter does not exist in params, 
+			//nothing is done since index will be -1
+			System.out.println("moved up");
+			params.remove(parameterToMove);
+			params.add(index-1, parameterToMove);
+		} else {
+			System.out.println("nothing done");
+		}
+	}
+	
+	/**
+	 * Moves the parameter parameterToMove down one position in the list of parameters of flowDiag.
+	 * If parameterToMove does not exists in flowDiag.getParameters() or is in its last position, nothing is done.
+	 * @param parameterToMove parameter to move down one position
+	 * @param flowDiag flowDiagram in which the parameter reordering is done
+	 */
+	public void parameterMoveDown(TypedParameterExpression parameterToMove, FlowDiagram flowDiag) {
+		EList<TypedParameterExpression> params = flowDiag.getParameters();
+		int index = params.indexOf(parameterToMove);
+		int lastIndex = (params.size() -1);
+		//if the parameter is not already the last element, we remove it from the list of parameters
+		//and insert it on the index right before its former.
+		if(index > -1 && index < lastIndex ) {
+			//note that if the parameter does not exist in params, 
+			//nothing is done since index will be -1
+			System.out.println("moved down");
+			params.remove(parameterToMove);
+			params.add(index+1, parameterToMove);
+		} else {
+			System.out.println("nothing done");
+		}
+	}
     
 }
