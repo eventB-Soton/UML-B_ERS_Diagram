@@ -1085,20 +1085,26 @@
     </categories>
     <categories name="FlowDiagram Parameter ViewCategory">
       <pages name="FlowDiagram Parameter View" labelExpression="Parameter View" domainClass="atomicitydecomposition::FlowDiagram" semanticCandidateExpression="var:self" groups="//@extensions.0/@categories.2/@groups.0 //@extensions.0/@categories.2/@groups.1"/>
-      <groups name="PropertiesTabParameterGroupFlow" labelExpression="Parameter Properties" domainClass="atomicitydecomposition::TypedParameterExpression" semanticCandidateExpression="aql: if self.oclIsKindOf(atomicitydecomposition::FlowDiagram) then self.oclAsType(atomicitydecomposition::FlowDiagram).parameters else null endif">
-        <controls xsi:type="properties:TextDescription" name="variableNameField" labelExpression="Name :" isEnabledExpression="aql:false" valueExpression="feature:name">
+      <groups name="PropertiesTabParameterGroupFlow" labelExpression="aql: 'Parameter Properties of '+self.name" domainClass="atomicitydecomposition::TypedParameterExpression" semanticCandidateExpression="aql: if self.oclIsKindOf(atomicitydecomposition::FlowDiagram) then self.oclAsType(atomicitydecomposition::FlowDiagram).parameters else null endif">
+        <controls xsi:type="properties:TextDescription" name="variableNameField" labelExpression="Name :" isEnabledExpression="aql: (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) and self.eContainer().eContainer().oclIsKindOf(machine::Machine))" valueExpression="feature:name">
           <initialOperation>
-            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self"/>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool_1:Let" variableName="callReturn" valueExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) and self.eContainer().eContainer().oclIsKindOf(machine::Machine)) then self.propagateParameterNameChange(self.eContainer(), newValue) else null endif"/>
+            </firstModelOperations>
           </initialOperation>
         </controls>
-        <controls xsi:type="properties:TextDescription" name="variableTypeField" labelExpression="Type :" isEnabledExpression="aql:false" valueExpression="feature:type">
+        <controls xsi:type="properties:TextDescription" name="variableTypeField" labelExpression="Type :" isEnabledExpression="aql: (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) and self.eContainer().eContainer().oclIsKindOf(machine::Machine))" valueExpression="feature:type">
           <initialOperation>
-            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self"/>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool_1:Let" variableName="callReturn" valueExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) and self.eContainer().eContainer().oclIsKindOf(machine::Machine)) then self.propagateParameterTypeChange(self.eContainer(), newValue) else null endif"/>
+            </firstModelOperations>
           </initialOperation>
         </controls>
-        <controls xsi:type="properties:TextDescription" name="variableInputExpressionField" labelExpression="Input Expression : " isEnabledExpression="aql:false" valueExpression="feature:InputExpression">
+        <controls xsi:type="properties:TextDescription" name="variableInputExpressionField" labelExpression="Input Expression : " isEnabledExpression="aql: (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) and self.eContainer().eContainer().oclIsKindOf(machine::Machine))" valueExpression="feature:InputExpression">
           <initialOperation>
-            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self"/>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool_1:Let" variableName="callReturn" valueExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::FlowDiagram) and self.eContainer().eContainer().oclIsKindOf(machine::Machine)) then self.propagateParameterInputExpresssionChange(self.eContainer(), newValue) else null endif"/>
+            </firstModelOperations>
           </initialOperation>
         </controls>
         <actions tooltipExpression="Reorder parameter - Go Up" imageExpression="/ac.soton.eventb.atomicitydecomposition.design/icons/up_arrow.png">

@@ -28,11 +28,12 @@ import ac.soton.eventb.atomicitydecomposition.Xor;
 
 public class Services {
 	
-    /**
-    * See http://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.sirius.doc%2Fdoc%2Findex.html&cp=24
-    * for documentation on how to write service methods.
-    */
-	
+	/**
+	* See http://help.eclipse.org/neon/index.jsp?topic=%2Forg.eclipse.sirius.doc%2Fdoc%2Findex.html&cp=24
+	* for documentation on how to write service methods.
+	*/
+
+
 	/**
 	 * This method returns all the hierarchy of a FlowDiagram.
 	 * More specifically, this method returns all Child elements that refine the provided FlowDiagram,
@@ -642,6 +643,134 @@ public class Services {
 			params.add(index+1, parameterToMove);
 		} else {
 			System.out.println("nothing done");
+		}
+	}
+	
+	/**
+	 * Parameter Update Type enum. <br>
+	 * Describes the operation to be performed in findAndUpdateParameter() <br>
+	 * <ul>
+	 * <li> RENAME => rename the parameter </li>
+	 * <li> CHANGE_TYPE => change the parameter type </li>
+	 * <li> CHANGE_INPUT_EXPRESSION => change the parameter InputExpression </li>
+	 * </ul>
+	 */
+	private enum Parameter_Update_Type {
+		RENAME,
+		CHANGE_TYPE,
+		CHANGE_INPUT_EXPRESSION
+	}
+	
+	/**
+	 * Look for the first parameter of flowDiag that has the same name, expression, and type as parameterToRemove,
+	 * and updates it, by changing the field's value specified by updateType to newValue
+	 * @param flowDiag FlowDiagram in which the parameter must be updated
+	 * @param parameterChanged parameter to update
+	 * @param newValue new value of the updated field
+	 * @param updateType describes which field must be updated, see {@link Parameter_Update_Type}
+	 * @return true if the parameter could be updated, else false
+	 */
+	private boolean findAndUpdateParameter(FlowDiagram flowDiag, TypedParameterExpression parameterChanged, String newValue, Parameter_Update_Type updateType) {
+		EList<TypedParameterExpression> params = flowDiag.getParameters();
+		for(TypedParameterExpression param : params) {
+			//Check if parameters properties match
+			boolean nameOK = param.getName().equals(parameterChanged.getName());
+			boolean inputExprOK = param.getInputExpression().equals(parameterChanged.getInputExpression());;
+			boolean typeOK = param.getType().equals(parameterChanged.getType());;
+			
+			//if so, we found the parameter to remove. Rename it
+			if(nameOK && inputExprOK && typeOK) {
+				switch(updateType) {
+					case RENAME : 
+						param.setName(newValue);
+						break;
+					case CHANGE_INPUT_EXPRESSION:
+						param.setInputExpression(newValue);
+						break;
+					case CHANGE_TYPE:
+						param.setType(newValue);
+						break;
+				}
+				return true;
+			}
+		}
+		//parameter could not be found
+		return false;
+	}
+	
+	/*
+	 * Update parameter Name Service
+	 * @see {@link propagateParameterUpdate}
+	 */
+	public void propagateParameterNameChange(TypedParameterExpression parameterToChange, FlowDiagram flowDiag, String newValue) {
+		propagateParameterUpdate(parameterToChange, flowDiag, newValue, Parameter_Update_Type.RENAME);
+	}
+	
+	/*
+	 * Update parameter Type Service
+	 * @see {@link propagateParameterUpdate}
+	 */
+	public void propagateParameterTypeChange(TypedParameterExpression parameterToChange, FlowDiagram flowDiag, String newValue) {
+		propagateParameterUpdate(parameterToChange, flowDiag, newValue, Parameter_Update_Type.CHANGE_TYPE);
+	}
+	
+	/*
+	 * Update parameter InputExpresssion Service
+	 * @see {@link propagateParameterUpdate}
+	 */
+	public void propagateParameterInputExpresssionChange(TypedParameterExpression parameterToChange, FlowDiagram flowDiag, String newValue) {
+		propagateParameterUpdate(parameterToChange, flowDiag, newValue, Parameter_Update_Type.CHANGE_INPUT_EXPRESSION);
+	}
+	
+	/**
+	 * Updates the parameter parameterToChange, by changing one of its fields (specified by updateType) value
+	 * into newValue.
+	 * Does the sale to all its children FlowDiagrams 
+	 * (ie : updates the children FlowDiagram's parameter that have the same name, expression and type).
+	 * @param parameterToChange parameter to update
+	 * @param flowDiag root flowDiagram
+	 * @param newValue new value of the field 
+	 * @param updateType specifies the field to be updated, see {@link Parameter_Update_Type}
+	 */
+	private void propagateParameterUpdate(TypedParameterExpression parameterToChange, FlowDiagram flowDiag, String newValue, Parameter_Update_Type updateType) {
+		if( ! parameterToChange.getName().equals(newValue)) {
+			//transmit the parameter update to the flowDiagram Hierarchy
+			EList<Child> children = flowDiag.getRefine();
+	    	for(Child child : children) {
+	    		if(child instanceof Leaf) {
+	    			//if the child is a Leaf, transmit the parameter update to its decompositions
+	    			transmitParameterUpdateToLeaf((Leaf) child, parameterToChange, newValue, updateType);
+	    		} else if(child instanceof Constructor) {
+	    			//if the child is a Constructor, transmit the parameter update to its linked leaves
+	    			List<Leaf> linkedLeaves = getLinkedLeavesFromConstructor((Constructor) child);
+	    			for(Leaf leaf : linkedLeaves) {
+	    				transmitParameterUpdateToLeaf(leaf, parameterToChange, newValue, updateType);
+	    			}
+	    		} else {
+	    			//unknown Child instance, log it
+	    			//TODO : see how to log properly
+	     			System.err.println("WARNING : unknown instance in propagateParameterUpdate()");
+	    		}
+	    	}
+	    	//Finally, update the root parameter
+	    	findAndUpdateParameter(flowDiag, parameterToChange, newValue, updateType);
+		}
+	}
+	
+	private void transmitParameterUpdateToLeaf(Leaf leaf, TypedParameterExpression parameterToChange, String newValue, Parameter_Update_Type updateType) {
+		//Access to the Leaf's decompositions
+		EList<FlowDiagram> decompositions = leaf.getDecompose();
+		for(FlowDiagram decomposition : decompositions) {
+			//do the update of the parameter in the decomposition
+			boolean success = findAndUpdateParameter(decomposition, parameterToChange, newValue, updateType);
+			if(success) {
+				System.out.println("parameter updated ("+updateType+") in FlowDiagram : "+decomposition.getName()+", ID : "+decomposition.getExtensionId());
+			} else {
+				System.err.println("WARNING : Could not update ("+updateType+") parameter "+parameterToChange.getName()
+				                   +" from FlowDiagram "+decomposition.getName()+", ID : "+decomposition.getExtensionId());
+			}
+			//and transmit the parameter update to the decomposition sub-tree
+			propagateParameterUpdate(parameterToChange, decomposition, newValue, updateType);
 		}
 	}
     
