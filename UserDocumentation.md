@@ -1,4 +1,5 @@
 
+
 # ERS Diagram Editor - User documentation
 This is the User documentation of the Sirius-based ERS Diagram Editor, and the ERS Activity Diagram View.
 
@@ -169,6 +170,133 @@ To do so :
 The Diagram can then be re-layouted correctly.
  
 ![Image which shows the relayouted diagram](/docImages/UnpinElement2.png)
+## Properties View
+
+The Editor provides multiple properties views, that allows you to modify properties of any selected diagram element.
+
+To open the properties tab, do the following : 
+
+ - Window > Show View > Properties
+
+Once the Properties view is open, you can use it to see and modify properties of any selected element.
+
+## FlowDiagram Properties
+When you select a FlowDiagram with the properties view open you can see its properties.
+
+The Editor provides two properties tabs for FlowDiagram elements.
+
+ - The Parameter View
+ - The Refinements View
+ 
+ ### Parameter View
+ This view allows you to see the parameters of the currently selected FlowDiagram.
+
+
+ For the root FlowDiagram, this tab also allows you to create new parameters, and to delete and modify existing ones.
+
+
+You can also use the "up" and "down" arrows buttons to reorder parameters (works on any FlowDiagram).
+
+![Image which shows the parameter View](/docImages/FlowDiagramParameterView.png)
+
+ #### Create a new parameter
+ New parameters can be created only for the root FlowDiagram (the one that is a direct child of the Machine you created it in).
+
+
+To create a new parameter : 
+
+ - Select the root FlowDiagram
+ -  Click on the button "Add a parameter"
+ A Dialog will open to allow you to type the parameter properties.
+ - When you validate, the parameter will be created.
+ 
+ Note that the newly created parameter in automatically added to any FlowDiagram in the Diagram.
+ i.e. : Any created parameter will be known by the whole diagram when you create it.
+
+![Image which shows how to create a parameter](/docImages/AddParameter.PNG)
+
+ #### Delete a parameter
+ To delete a parameter, simply click on the red cross next to it in the Parameters Properties.
+
+
+A confirmation Dialog will be shown.
+
+
+The parameter will then be deleted from the root FlowDiagram and from all the FlowDiagram elements in the diagram.
+
+![Image which shows how to deletea parameter](/docImages/deleteParameter.PNG)
+
+ #### Reorder Parameters
+You can modify the order to which parameters are shown by using the arrows in the parameter Properties view.
+
+
+Note that this reordering is only done on the selected FlowDiagram.
+This means that you will have to do this reordering manually for every FlowDiagram element in which you want the reordering to be done.
+
+
+This reordering simply modifies the order of the parameters in the selected FlowDiagram parameter's list.
+
+
+![Image which shows how to reorder a parameter](/docImages/ReorderParameter.PNG)
+
+
+### Refinements view
+The Refinements View allows you to see and reorder refinements of a FlowDiagram.
+
+
+This tool is especially useful if you want to modify the order of Leaves and Constructors in the diagram.
+
+
+To modify the order, open the Refinements properties tab, then select the element to be reordered, and use the "up" and "down" yellow arrows buttons to reorder it.
+
+You can then re-layout the diagram (Layout > Arrange all), it will be redrawn using the new order.
+
+
+![Image which shows how to reorder refinements](/docImages/reorderRefinements.PNG)
+
+## Modify the "ref" value of a Child
+A FlowDiagram must have at least one child (refinement) whose "ref" properties is true for the model to be valid.
+
+To modify this property, the easiest way is to use the dedicated Properties tab.
+
+To use it : 
+
+ - Select a Child (Leaf or Constructor)
+ - Open the properties view 
+ - In it, open the "Child properties" tab
+ - Use the checkbox to set the "ref" value of the selected Child
+
+![Image which shows how to modify the "ref" value of a Child](/docImages/ModifyRef.PNG)
+
+## Reorder children of a Constructor
+You can modify the order of children of a Constructor by using the "Links view" Properties tab.
+
+To open it : 
+ - Select a Constructor (Xor, And, ...)
+ - Open the properties view 
+ - In it, open the "Links View" tab
+ - Use the yellow arrow to reorder the children of the constructor
+ - Re-layout (Layout > Arrange all) the diagram, the diagram will be redrawn using the new order.
+
+![Image which shows how to reorder constructor links](/docImages/ReorderConstructorLinks.PNG)
+
+## Modify a Parametrized Constrcutor parameter (All, Par, Some, ...)
+
+You can modify a parametrized Constructor parameter's properties by using the dedicated Properties view.
+
+
+To do so : 
+ - Select a parametrized Constructor (All, Par, Some, ...)
+ - Open the properties view 
+ - In it, open the "Parameter View" tab
+ - Use the text fields to modify the parameter's properties.
+
+
+The parameter will be updated automatically in the whole diagram hierarchy (including children FlowDiagram of the updated Constructor).
+
+
+![Image which shows how to update a constructor parameter](/docImages/ConstructorParameterUpdate.PNG)
+
 ## Open a sub ERS DIagram
 The editor provides a command to open any FlowDiagram is a separate diagram.
 

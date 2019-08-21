@@ -1,6 +1,7 @@
 
 
 
+
 # Developer documentation - ERS Diagram Specification
 
 This is the developer documentation for the Sirius-based ERS Diagram Editor, and the ERS Activity Diagram View.
@@ -503,7 +504,7 @@ It is simply composed of a checkbox that updates said attribute for the selected
 
 
 ## Constructor Parameter View
-![Image of the Constructor Parameter view](/docImages/ConstructorParameterView.png)
+![Image of the Constructor Parameter view](/docImages/ConstructorParameterUpdate.PNG)
 
 This tab allows to display the parameters of a Constructor element.
 
@@ -514,7 +515,18 @@ It is thus displayed when a Constructor element who have a "newParameter" attrib
 This parameter tab displays the name, type and InputExpression of the TypedParameter declared in a Constructor.
 
 
-All these properties are made to be non modifiable, in order to keep the consistency of inherited parameters for  children FlowDiagrams of this Constructor in the ERS model.
+### Update of a constructor parameter properties
+Using this property view, the parameter of a Constructor can be updated.
+The user can rename the parameter, changee its type and input expression.
+If one of these fields is modified, the update is then transmitted to all FlowDiagrams that are children of the selected Constructor.
+
+This update is done by calling the services : 
+ - `propagateConstructorParameterNameChange(self.eContainer(), newValue)` to propagate a renaming of a parameter
+ - `propagateConstructorParameterTypeChange(self.eContainer(), newValue)` for the Type
+ - `propagateConstructorParameterInputExpresssionChange(self.eContainer(), newValue)` for the InputExpression
+
+These services update the parameter value in the model, and propagate this update to all children FlowDiagrams of the selected Constructor.
+
 
 ## Constructor Links View
 ![Image of the Constructor Links view](/docImages/ConstructorLinksView.png)
