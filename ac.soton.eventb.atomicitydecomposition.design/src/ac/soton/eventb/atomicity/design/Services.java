@@ -709,6 +709,30 @@ public class Services {
 	}
 	
 	/*
+	 * Same method as the above but to update a Constructor's parameter
+	 */
+	private void updateConstructorParameter(Constructor constr, TypedParameterExpression parameterToChange, String newValue,
+			Parameter_Update_Type updateType) {
+		//get the Constructor parameter
+		TypedParameterExpression param = getParameterFromConstructor(constr);
+		
+		if(param != null) {
+			//do the requested update
+			switch(updateType) {
+				case RENAME : 
+					param.setName(newValue);
+					break;
+				case CHANGE_INPUT_EXPRESSION:
+					param.setInputExpression(newValue);
+					break;
+				case CHANGE_TYPE:
+					param.setType(newValue);
+					break;
+			}
+		}
+	}
+	
+	/*
 	 * Update parameter Name Service
 	 * @see {@link propagateParameterUpdate}
 	 */
@@ -767,6 +791,23 @@ public class Services {
 		}
 	}
 	
+	/*
+	 * parameter update service for parameterized Constructors (All, Par, One, ...)
+	 */
+	private void propagateParameterUpdate(TypedParameterExpression parameterToChange, Constructor constr,
+			String newValue, Parameter_Update_Type updateType) {
+		if( ! parameterToChange.getName().equals(newValue)) {
+			//transmit the parameter update to the constructor linked leaves, and thus to its child FlowDiagrams
+			List<Leaf> linkedLeaves = getLinkedLeavesFromConstructor(constr);
+			for(Leaf leaf : linkedLeaves) {
+				transmitParameterUpdateToLeaf(leaf, parameterToChange, newValue, updateType);
+			}
+	    	//Finally, update the Constructor parameter
+			updateConstructorParameter(constr, parameterToChange, newValue, updateType);
+		}
+	}
+
+
 	private void transmitParameterUpdateToLeaf(Leaf leaf, TypedParameterExpression parameterToChange, String newValue, Parameter_Update_Type updateType) {
 		//Access to the Leaf's decompositions
 		EList<FlowDiagram> decompositions = leaf.getDecompose();
@@ -782,6 +823,32 @@ public class Services {
 			//and transmit the parameter update to the decomposition sub-tree
 			propagateParameterUpdate(parameterToChange, decomposition, newValue, updateType);
 		}
+	}
+	
+	
+	/*
+	 * Update parameter Name Service for Constructors
+	 * @see {@link propagateParameterUpdate}
+	 */
+	public void propagateConstructorParameterNameChange(TypedParameterExpression parameterToChange, Constructor constr, String newValue) {
+		propagateParameterUpdate(parameterToChange, constr, newValue, Parameter_Update_Type.RENAME);
+	}
+	
+	/*
+	 * Update parameter Type Service for Constructors
+	 * @see {@link propagateParameterUpdate}
+	 */
+	public void propagateConstructorParameterTypeChange(TypedParameterExpression parameterToChange, Constructor constr, String newValue) {
+		propagateParameterUpdate(parameterToChange, constr, newValue, Parameter_Update_Type.CHANGE_TYPE);
+	}
+
+
+	/*
+	 * Update parameter InputExpresssion Service for Constructors
+	 * @see {@link propagateParameterUpdate}
+	 */
+	public void propagateConstructorParameterInputExpresssionChange(TypedParameterExpression parameterToChange, Constructor constr, String newValue) {
+		propagateParameterUpdate(parameterToChange, constr, newValue, Parameter_Update_Type.CHANGE_INPUT_EXPRESSION);
 	}
     
 }

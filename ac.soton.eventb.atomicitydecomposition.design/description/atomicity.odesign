@@ -1072,19 +1072,25 @@
     <categories name="Constructor Parameter ViewCategory">
       <pages name="Constructor Parameter View" labelExpression="Parameter View" domainClass="atomicitydecomposition::Constructor" semanticCandidateExpression="var:self" preconditionExpression="service:checkIfSelectedElementHasParameter()" groups="//@extensions.0/@categories.1/@groups.0"/>
       <groups name="PropertiesTabParameterGroupConstructor" labelExpression="Parameter Properties" domainClass="atomicitydecomposition::TypedParameterExpression" semanticCandidateExpression="service:getParameterFromConstructor()">
-        <controls xsi:type="properties:TextDescription" name="variableNameField" labelExpression="Name :" isEnabledExpression="aql:false" valueExpression="feature:name">
+        <controls xsi:type="properties:TextDescription" name="variableNameField" labelExpression="Name :" isEnabledExpression="aql:true" valueExpression="feature:name">
           <initialOperation>
-            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self"/>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool_1:Let" variableName="callReturn" valueExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::Constructor) then self.propagateConstructorParameterNameChange(self.eContainer(), newValue) else null endif"/>
+            </firstModelOperations>
           </initialOperation>
         </controls>
-        <controls xsi:type="properties:TextDescription" name="variableTypeField" labelExpression="Type :" isEnabledExpression="aql:false" valueExpression="feature:type">
+        <controls xsi:type="properties:TextDescription" name="variableTypeField" labelExpression="Type :" isEnabledExpression="aql:true" valueExpression="feature:type">
           <initialOperation>
-            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self"/>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool_1:Let" variableName="callReturn" valueExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::Constructor) then self.propagateConstructorParameterTypeChange(self.eContainer(), newValue) else null endif"/>
+            </firstModelOperations>
           </initialOperation>
         </controls>
-        <controls xsi:type="properties:TextDescription" name="variableInputExpressionField" labelExpression="Input Expression : " isEnabledExpression="aql:false" valueExpression="feature:InputExpression">
+        <controls xsi:type="properties:TextDescription" name="variableInputExpressionField" labelExpression="Input Expression : " isEnabledExpression="aql:true" valueExpression="feature:InputExpression">
           <initialOperation>
-            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self"/>
+            <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:self">
+              <subModelOperations xsi:type="tool_1:Let" variableName="callReturn" valueExpression="aql: if (self.eContainer().oclIsKindOf(atomicitydecomposition::Constructor) then self.propagateConstructorParameterInputExpresssionChange(self.eContainer(), newValue) else null endif"/>
+            </firstModelOperations>
           </initialOperation>
         </controls>
       </groups>
