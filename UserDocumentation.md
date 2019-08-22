@@ -1,13 +1,110 @@
 
 
+
 # ERS Diagram Editor - User documentation
 This is the User documentation of the Sirius-based ERS Diagram Editor, and the ERS Activity Diagram View.
 
 It describes the main features that this tool provides, and aims to help you to use it.
 
-# Requirements
-Rodin, Sirius, Atomicity Project installed.
-TODO : complete this
+# Installation details
+
+## Download Rodin
+
+First of all download and extract Rodin 3.4.0 : 
+https://sourceforge.net/projects/rodin-b-sharp/files/Core_Rodin_Platform/3.4/
+
+
+## Install Sirius
+The ERS Diagram Editor is based on Sirius.
+So, you need to install Sirius for the editor to work.
+
+### Get Sirius update Site link
+The first step to install Sirius is to get its update site link.
+
+Since Rodin is currently based on Eclipse Oxygen (as of Rodin 3.4.0), you will need to install the latest Sirius version for Eclipse Oxygen.
+
+
+Currently it is that one : 
+http://download.eclipse.org/sirius/updates/releases/6.1.3/oxygen
+
+(All Sirius update sites can be seen here : https://wiki.eclipse.org/Sirius/Update_Sites)
+
+### Add Sirius update site as a source
+Open Rodin, then :
+
+ - Help > Install New Software ...
+ - Click on the button "Add ..."
+ - on the "Add Repository" Dialog, type "Sirius update SIte" as the name and Sirius update site source (e.g. : http://download.eclipse.org/sirius/updates/releases/6.1.3/oxygen) as the Location.
+ - Click on Ok
+
+
+![Image of the update site dialog](/docImages/updateSite.png)
+
+### Install Sirius
+Now, install Sirius.
+
+ - Open the "Sirius" category
+ - Select all elements BUT uncheck the ones marked as "(Experimental)" (see image bellow)
+ - Click on "Next"
+
+
+![Image that show the elements to install](/docImages/elementsToInstall.PNG)
+
+
+Rodin will now look for dependencies and install Sirius.
+This can take several minutes.
+
+Once the operation in finished, click on "Next", accept the license agreement, then click on "Finish".
+
+Sirius will be installed.
+
+You will need to restart Rodin once the process is finished (a Dialog will open to notify you).
+
+
+## Install the "AtomicityDecomposition" plugin
+
+Note on that part : 
+I created a "test" update site, containing the various plugins, but you should probably check it before release. 
+View it more like a "pre-release" build.
+Also, please update this documentation accordingly.
+
+To install the atomicity decomposition plugin, download or clone the latest ERS Project from here : 
+https://github.com/NSavatier/UML-B_ERS_Diagram
+
+
+Now in Rodin : 
+ - Help > Install New Software ...
+ - Click on the button "Add ..."
+ - on the "Add Repository" Dialog, type "AtomicityDecomposition Local Copy" as the name and select the "ac.soton.eventb.atomicitydecomposition.testUpdateSite" folder as the Location.
+ - Click on Ok
+
+
+![Image of the AtomicityDecomposition "update site" dialog](/docImages/updateSite.png)
+
+Now install the AtomicityDecomposition feature, by checking it and pressing next.
+
+
+
+Accept the licence (which is, for now, empty).
+
+
+
+A confirmation dialog telling you that this software is unsigned may appear.
+Click on "install anyway".
+
+
+![Image of the AtomicityDecomposition "update site" dialog](/docImages/warningUnsigned.PNG)
+
+
+When asked, restart Rodin.
+
+
+The installation of the AtomicityDecomposition should now be complete.
+You can now start to use it.
+
+
+The next sections of this guide explain how to create an ERS Diagram, as well as the main features of the plugin.
+
 
 # Getting started
 
