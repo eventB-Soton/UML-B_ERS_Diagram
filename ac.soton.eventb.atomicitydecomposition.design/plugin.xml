@@ -2,7 +2,7 @@
 <?eclipse version="3.0"?>
 <plugin>
   <extension point="org.eclipse.sirius.componentization">
-    <component class="ac.soton.eventb.atomicity.design.Activator"
+    <component class="ac.soton.eventb.atomicitydecomposition.design.Activator"
                id="ac.soton.eventb.atomicity.design"
 	       name="atomicity">
     </component>

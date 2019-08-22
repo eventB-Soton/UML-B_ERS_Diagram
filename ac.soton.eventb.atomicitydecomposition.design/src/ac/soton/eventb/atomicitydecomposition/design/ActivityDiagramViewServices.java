@@ -1,4 +1,4 @@
-package ac.soton.eventb.atomicity.design;
+package ac.soton.eventb.atomicitydecomposition.design;
 
 import java.util.ArrayList;
 import java.util.HashMap;

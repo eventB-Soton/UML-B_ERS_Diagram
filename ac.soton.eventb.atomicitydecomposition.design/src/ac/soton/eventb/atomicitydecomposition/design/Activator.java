@@ -1,4 +1,4 @@
-package ac.soton.eventb.atomicity.design;
+package ac.soton.eventb.atomicitydecomposition.design;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,7 +13,7 @@ import org.osgi.framework.BundleContext;
  */
 public class Activator extends AbstractUIPlugin {
     // The plug-in ID
-    public static final String PLUGIN_ID = "ac.soton.eventb.atomicity.design";
+    public static final String PLUGIN_ID = "ac.soton.eventb.atomicitydecomposition.design";
 
     // The shared instance
     private static Activator plugin;
