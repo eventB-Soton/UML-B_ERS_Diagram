@@ -71,11 +71,12 @@ Also, please update this documentation accordingly.
 To install the atomicity decomposition plugin, download or clone the latest ERS Project from here : 
 https://github.com/NSavatier/UML-B_ERS_Diagram
 
+If you've chosen to download it, you'll need to extract the archive.
 
 Now in Rodin : 
  - Help > Install New Software ...
  - Click on the button "Add ..."
- - on the "Add Repository" Dialog, type "AtomicityDecomposition Local Copy" as the name and select the "ac.soton.eventb.atomicitydecomposition.testUpdateSite" folder as the Location.
+ - on the "Add Repository" Dialog, type "AtomicityDecomposition Local Copy" as the name and select the "ac.soton.eventb.atomicitydecomposition.testUpdateSite" folder as the Location (Click on the "Local..." button then browse to the folder location).
  - Click on Ok
 
 
