@@ -107,13 +107,6 @@
          unpack="false"/>
 
    <plugin
-         id="ac.soton.eventb.atomicitydecomposition.generator"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
          id="ac.soton.eventb.atomicitydecomposition.navigator"
          download-size="0"
          install-size="0"
