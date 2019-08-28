@@ -80,7 +80,7 @@ Now in Rodin :
  - Click on Ok
 
 
-![Image of the AtomicityDecomposition "update site" dialog](/docImages/updateSite2.png)
+![Image of the AtomicityDecomposition "update site" dialog](/docImages/updateSite2.PNG)
 
 Now install the AtomicityDecomposition feature, by checking it and pressing next.
 
