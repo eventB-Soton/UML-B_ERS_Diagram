@@ -16,8 +16,6 @@ import org.eclipse.gmf.runtime.diagram.ui.services.layout.ILayoutNode;
 import org.eclipse.gmf.runtime.diagram.ui.services.layout.ILayoutNodeOperation;
 import org.eclipse.gmf.runtime.notation.Bounds;
 import org.eclipse.gmf.runtime.notation.Node;
-import org.eclipse.sirius.diagram.DDiagram;
-import org.eclipse.sirius.diagram.DEdge;
 import org.eclipse.sirius.diagram.DNode;
 import org.eclipse.sirius.diagram.description.DiagramElementMapping;
 import org.eventb.emf.core.machine.Machine;
@@ -37,14 +35,35 @@ import ac.soton.eventb.atomicitydecomposition.TypedParameterExpression;
 public class ERSDiagramLayoutProvider extends TopDownProvider{
 
 	/**
-	 * Vertical spacing (in levels) left free to display the root of the tree
+	 * Vertical spacing (in levels) left free to display the root of the tree.
+	 * To get that spacing in pixels, simply multiply LEVEL_Y_SPACING by that number.
 	 */
 	protected static final Float INITIAL_ROOT_SPACING = (float) 2;
 
 	/**
-	 * Space left free to the left of the diagram, in pixels
+	 * Vertical position (in pixels) at which the root of the tree will be positioned
+	 * Note that this spacing is applied without considering the value of INITIAL_ROOT_SPACING
+	 * i.e : the "real" spacing between the root and the first level will be :
+	 * (INITIAL_ROOT_SPACING) * LEVEL_Y_SPACING - ROOT_INITIAL_Y_POSITION
 	 */
-	protected static final float HORIZONTAL_SPACNG = 30;
+	protected static final int ROOT_INITIAL_Y_POSITION = 10;
+	
+	/**
+	 * Space left free to the left of the diagram, in pixels
+	 * Note that the root node is placed at the "center" of the diagram.
+	 * This value is an offset to place the root node somewhere else, if you feel like it.
+	 */
+	protected static final float HORIZONTAL_SPACNG = 0;
+	
+	/**
+	 * Horizontal spacing between two elements located on the same level, in pixels
+	 */
+	private static final int LEVEL_X_SPACING = 10;
+	
+	/**
+	 * Vertical spacing between two levels of the tree, in pixels
+	 */
+	private static final int LEVEL_Y_SPACING = 70;
 	 
 	@Override
 	public boolean provides(IOperation operation) {
@@ -93,8 +112,6 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 			private HashMap<EObject, ILayoutNode> object2node;
 			//private HashMap<EObject, Float> object2offset;
 			private EObject topLevelElement;
-			private int spaceX = 20;
-			private int spaceY = 80;
 			
 			public void run() {
 				ILayoutNode topLNode = null;
@@ -126,7 +143,7 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 				if(topLNode != null) {
 					//Finally after the whole tree has been positioned, we reposition the root of the tree, so that it is centered
 					Bounds bounds = (Bounds)topLNode.getNode().getLayoutConstraint();
-					bounds.setY(0);
+					bounds.setY(ROOT_INITIAL_Y_POSITION);
 					bounds.setX((int) Math.round(finalOffset/2));
 					topLNode.getNode().setLayoutConstraint(bounds);
 				}
@@ -190,15 +207,15 @@ public class ERSDiagramLayoutProvider extends TopDownProvider{
 					bounds.setX(  (int) (Math.round(initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(branchRoot).getWidth()/2)) > initialXOffset ? (int) Math.round(initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(branchRoot).getWidth()/2)) : initialXOffset) ) ;
 				}
 
-				bounds.setY( (int) Math.round(level * spaceY));
+				bounds.setY( (int) Math.round(level * LEVEL_Y_SPACING));
 				ln.getNode().setLayoutConstraint(bounds);
 
 				if(branchRoot.eContents().size() == 0  || Math.round(initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(branchRoot).getWidth()/2)) < initialXOffset ) {
-					return initialXOffset + object2node.get(branchRoot).getWidth() + spaceX;
+					return initialXOffset + object2node.get(branchRoot).getWidth() + LEVEL_X_SPACING;
 				}
 				
 				Float abstractEnd = initialXOffset + (Xoffset - initialXOffset)/2 - (object2node.get(branchRoot).getWidth()/2) 
-						+ object2node.get(branchRoot).getWidth() + spaceX;
+						+ object2node.get(branchRoot).getWidth() + LEVEL_X_SPACING;
 				Float subtreeEnd = Xoffset;
 				
 				return abstractEnd > subtreeEnd ? abstractEnd : subtreeEnd;
