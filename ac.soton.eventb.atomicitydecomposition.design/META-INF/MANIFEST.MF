@@ -24,3 +24,5 @@ Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Vendor: %providerName
 Automatic-Module-Name: ac.soton.eventb.atomicity.design
+Bundle-ClassPath: icons/,
+ .
