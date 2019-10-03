@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/ac.soton.eventb.atomicitydecomposition.feature_2.0.0.jar" id="ac.soton.eventb.atomicitydecomposition.feature" version="2.0.0">
+      <category name="ERS Diagrams / Atomicity Decomposition"/>
+   </feature>
+   <category-def name="ERS Diagrams / Atomicity Decomposition" label="ERS Diagrams / Atomicity Decomposition"/>
+</site>
